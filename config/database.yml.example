@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: trane_development
+  pool: 5
+  username: root
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: trane_test
+  pool: 5
+  username: root
+  password:
