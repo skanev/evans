@@ -2,14 +2,17 @@ development:
   adapter: postgresql
   encoding: unicode
   database: trane_development
-  pool: 5
   username: root
   password:
+  min_messages: warning
 
-test:
+test: &test
   adapter: postgresql
   encoding: unicode
   database: trane_test
-  pool: 5
   username: root
   password:
+  min_messages: warning
+
+cucumber:
+  <<: *test
