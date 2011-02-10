@@ -1,0 +1,12 @@
+bg:
+  activemodel:
+    attributes:
+      registration:
+        full_name: Трите имена
+        faculty_number: Факултетен номер
+        email: Електронна поща
+  activerecord:
+    attributes:
+      user:
+        email: Електронна поща
+        password: Парола

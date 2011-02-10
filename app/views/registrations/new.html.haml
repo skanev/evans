@@ -1,0 +1,8 @@
+%h1 Регистрация
+
+= simple_form_for @registration, :as => :registration, :url => registration_path do |form|
+  = form.input :full_name
+  = form.input :faculty_number
+  = form.input :email
+
+  = form.submit 'Регистрирай ме'

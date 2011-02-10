@@ -1,0 +1,12 @@
+!!! 5
+%html
+  %head
+    %title Trane
+    %meta(charset="utf-8")
+
+    = stylesheet_link_tag :all
+    = javascript_include_tag :defaults
+    = csrf_meta_tag
+  %body
+    = current_user.try(:email)
+    = yield
