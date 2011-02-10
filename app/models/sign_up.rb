@@ -7,26 +7,28 @@ class SignUp < ActiveRecord::Base
   end
 
   def assign_to(email)
-    update_attributes! :email => email, :token => generate_random_token
+    update_attributes! :email => email, :token => random_string(40)
   end
 
   def register_a_user
+    generated_password = random_string(16)
+
     user = User.create! do |user|
       user.email = email
       user.full_name = full_name
       user.faculty_number = faculty_number
-      user.password = '123456'
-      user.password_confirmation = '123456'
+      user.password = generated_password
+      user.password_confirmation = generated_password
     end
 
-    RegistrationMailer.activation(user, '123456').deliver
+    RegistrationMailer.activation(user, generated_password).deliver
 
     user
   end
 
   private
 
-  def generate_random_token
-    (1..40).map { rand(36).to_s(36) }.join
+  def random_string(length)
+    (1..length).map { rand(36).to_s(36) }.join
   end
 end
