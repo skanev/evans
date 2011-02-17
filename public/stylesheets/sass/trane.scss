@@ -1,0 +1,114 @@
+$font-small: 13px;
+$font-normal: 15px;
+$font-large: 17px;
+$font-huge: 24px;
+
+$font-text: Arial, Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
+$font-navigation: Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
+$font-headings: Georgia, 'Bitstream Vera Serif', 'New York', Palatino, serif;
+
+$color-link: #00a;
+
+body { font-family: $font-text; font-size: $font-normal; }
+a { color: #00a; text-decoration: none; }
+
+body > header { 
+  background: url("/images/header.png") repeat-x;
+  border-bottom: 1px solid #999;
+  height: 82px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  a.logo { background: url("/images/logo.png") no-repeat; display: block; left: 40px; top: 10px; position: absolute; width: 221px; height: 71px; }
+  a.logo span { display: none; }
+
+  nav { position: absolute; right: 50px; bottom: 10px; }
+  nav li { border-left: 2px solid black; display: inline; padding: 0 10px; }
+  nav li:first-child { border-left: none; }
+  nav li a { color: #436a85; font-size: $font-normal; font-weight: bold; }
+}
+
+body > nav {
+  position: absolute;
+  top: 100px;
+  left: 50px;
+
+  ul li {
+    background: whiteSmoke url("/images/navigation-item.png") no-repeat 100% 0%;
+    border: 1px solid #dadada;
+    font-family: $font-navigation;
+    font-size: $font-small;
+    margin: 4px 0;
+    padding: 3px 5px 1px;
+    text-transform: uppercase;
+    width: 150px;
+    height: 16px;
+  }
+  ul li a { color: #4b5a6a; display: block; }
+  ul li a:hover { text-decoration: underline; }
+}
+
+#container { position: absolute; top: 105px; left: 240px; right: 60px; }
+#container > footer {
+  border-top: 1px dotted #ccc;
+  font-size: $font-small;
+  margin: 40px 0;
+  padding-top: 10px;
+
+  a { color: #666; }
+}
+
+h1 { color: #234764; font-family: $font-headings; font-size: $font-huge; margin-bottom: 20px; }
+
+input[type=text], input[type=password], input[type=email] {
+  border: 1px solid #ccc;
+  font-size: $font-large;
+  padding: 5px;
+  margin: 2px 0;
+}
+
+input[type=button], input[type=submit] {
+  background-color: #f8f7f7;
+  border: {
+    top: 1px solid #c4cccc;
+    right: 1px solid #6f7777;
+    bottom: 1px solid #6f7777;
+    left: 1px solid #c4cccc;
+  }
+  color: #234;
+  font-family: $font-text;
+  font-size: $font-normal;
+  font-weight: bold;
+  padding: 4px 8px;
+}
+
+.simple_form {
+  > div { margin: 10px 0; }
+  label { display: block; }
+  .boolean label { display: inline; }
+}
+
+#main {
+  line-height: 19px;
+
+  strong { font-weight: bold; }
+  p { margin: 1em 0; }
+}
+
+.flash { border: 1px solid; margin-bottom: 20px; padding: 15px 30px; }
+.flash.notice { background-color: #dfd; border-color: #5f5; }
+.flash.error { background-color: #fdd; border-color: #f55; }
+
+form.user {
+  label abbr { display: none; }
+  input[type=email] { width: 250px; }
+  input[type=password] { width: 250px; }
+}
+
+form.registration {
+  input#registration_full_name { width: 280px; }
+  input#registration_faculty_number { width: 80px; }
+  input#registration_email { width: 280px; }
+}

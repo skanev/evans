@@ -13,3 +13,4 @@ bg:
       user:
         email: Електронна поща
         password: Парола
+        remember_me: Запомни ме на този компютър

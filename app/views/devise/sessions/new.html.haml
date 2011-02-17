@@ -1,18 +1,10 @@
-%h2 Влез?
+%h1 Вход
 
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  %p
-    = f.label :email
-    %br
-    = f.text_field :email
+%p За да влезете в системата, трябва първо да сте се #{link_to('регистрирали', new_registration_path)}
 
-  %p
-    = f.label :password
-    %br
-    = f.password_field :password
+= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |form|
+  = form.input :email
+  = form.input :password
+  = form.input :remember_me, :as => :boolean
 
-  %p
-    = f.check_box :remember_me
-    = f.label :remember_me
-
-  %p= f.submit "Влез"
+  = form.submit "Влез"
