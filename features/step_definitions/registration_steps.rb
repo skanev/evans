@@ -22,15 +22,16 @@ end
   visit activation_link
 end
 
-Когато 'се опитам да вляза с паролата в полученото писмо' do
-  email = ActionMailer::Base.deliveries.last.body.to_s
+Когато 'въведа парола' do
+  fill_in 'Парола', :with => 'larodi'
+  fill_in 'Въведете паролата повторно', :with => 'larodi'
+  click_button 'Регистрирай ме'
+end
 
-  login    = email[/Е-поща: (\S+)/, 1]
-  password = email[/Парола: (\S+)/, 1]
-
+Когато 'опитам да вляза с въведената парола' do
   visit new_user_session_path
-  fill_in 'Електронна поща', :with => login
-  fill_in 'Парола', :with => password
+  fill_in 'Електронна поща', :with => 'peter@example.org'
+  fill_in 'Парола', :with => 'larodi'
   click_button 'Влез'
 end
 

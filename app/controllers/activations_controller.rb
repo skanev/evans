@@ -1,14 +1,18 @@
 class ActivationsController < ApplicationController
-  def activate
-    sign_up = SignUp.with_token params[:token]
+  def show
+    @activation = Activation.for params[:id]
 
-    if sign_up.present?
-      sign_up.register_a_user
-      flash[:notice] = 'Потребителят ви е създаден успешно'
-    else
-      flash[:error] = 'Несъществуващ активационнен ключ. Може би вече сте се регистрирали успешно?'
+    if @activation.nil?
+      redirect_to root_path, :error => 'Несъществуващ активационен ключ. Може би вече сте се регистрирали?'
     end
+  end
 
-    redirect_to root_path
+  def update
+    @activation = Activation.for params[:id]
+    if @activation.submit params[:activation]
+      redirect_to root_path, :notice => 'Честито! Регистрацията ви е успешна. Забавлявайте се.'
+    else
+      render :show
+    end
   end
 end

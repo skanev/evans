@@ -1,7 +1,6 @@
 Trane::Application.routes.draw do
   resource :registration
-
-  get '/activate/:token', :to => 'activations#activate', :constraints => {:token => /.+/}, :as => :activation
+  resources :activations, :constraints => {:id => /.+/}
 
   devise_for :users
 

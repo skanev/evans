@@ -5,6 +5,9 @@ bg:
         full_name: Трите имена
         faculty_number: Факултетен номер
         email: Електронна поща
+      activation:
+        password: Парола
+        password_confirmation: Въведете паролата повторно
   activerecord:
     attributes:
       user:

@@ -8,9 +8,8 @@ class RegistrationMailer < ActionMailer::Base
          :subject => 'Потвърждение на регистрация'
   end
 
-  def activation(user, password)
+  def activation(user)
     @email = user.email
-    @password = password
 
     mail :to => user.email,
          :subject => 'Успешна регистрация'

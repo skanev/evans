@@ -1,0 +1,7 @@
+%h1 Активация
+
+= simple_form_for @activation, :as => :activation do |form|
+  = form.input :password
+  = form.input :password_confirmation
+
+  = form.submit 'Регистрирай ме'
