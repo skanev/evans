@@ -17,8 +17,7 @@ end
 end
 
 Когато 'проследя активационната връзка в полученото писмо' do
-  email = ActionMailer::Base.deliveries.last.body.to_s
-  activation_link = email[%r{http://trane.example.org(/\S+)}, 1]
+  activation_link = last_sent_email[%r{http://trane.example.org(/\S+)}, 1]
   visit activation_link
 end
 

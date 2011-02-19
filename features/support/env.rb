@@ -10,16 +10,17 @@ Spork.prefork do
   require 'cucumber/rails/active_record'
   require 'cucumber/web/tableish'
 
-
   require 'capybara/rails'
   require 'capybara/cucumber'
   require 'capybara/session'
   require 'cucumber/rails/capybara_javascript_emulation' # Lets you click links with onclick javascript handlers without using @culerity or @javascript
+
   Capybara.default_selector = :css
   ActiveSupport::Dependencies.clear
 end
 
 Spork.each_run do
+  require 'features/support/another_world.rb'
   ActionController::Base.allow_rescue = false
 
   Cucumber::Rails::World.use_transactional_fixtures = true
