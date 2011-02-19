@@ -10,7 +10,7 @@ $font-headings: Georgia, 'Bitstream Vera Serif', 'New York', Palatino, serif;
 $color-link: #00a;
 
 body { font-family: $font-text; font-size: $font-normal; }
-a { color: #00a; text-decoration: none; }
+a { text-decoration: none; }
 
 body > header { 
   background: url("/images/header.png") repeat-x;
@@ -28,6 +28,7 @@ body > header {
   nav li { border-left: 2px solid black; display: inline; padding: 0 10px; }
   nav li:first-child { border-left: none; }
   nav li a { color: #436a85; font-size: $font-normal; font-weight: bold; }
+  nav li a:hover { text-decoration: underline; }
 }
 
 body > nav {
@@ -89,28 +90,36 @@ input[type=button], input[type=submit] {
   label { display: block; }
   .boolean label { display: inline; }
 
-  $red: #f00;
-  .error_notification { color: $red; }
+  .error_notification { background-color: red; color: white; padding: 10px 20px; }
 
   .field_with_errors {
     input.string,
-    input.password { border-color: $red; }
+    input.password { border-color: red; }
 
-    .error { margin-left: 10px; color: $red; }
+    .error { margin-left: 10px; color: red; }
   }
 }
 
 #main {
   line-height: 19px;
 
+
+  a { color: #00a; text-decoration: none; }
+  a:hover { text-decoration: underline; }
   strong { font-weight: bold; }
   p { margin: 1em 0; }
 }
 
-.flash { border: 1px solid; margin-bottom: 20px; padding: 15px 30px; }
-.flash.notice { background-color: #dfd; border-color: #5f5; }
-.flash.error { background-color: #fdd; border-color: #f55; }
-.flash.alert { background-color: #fdd; border-color: #f55; }
+@mixin flash($background, $border, $icon) {
+  background: { color: $background; image: url("/images/icons/#{$icon}.png"); position: 15px 15px; repeat: no-repeat; }
+  border: 1px solid $border;
+  margin-bottom: 20px;
+  padding: 15px 40px;
+}
+
+.flash.error,
+.flash.alert { @include flash(#fdd, #f55, 'error'); }
+.flash.notice { @include flash(#dfd, #5f5, 'tick'); }
 
 form.user, form.activation {
   label abbr { display: none; }
