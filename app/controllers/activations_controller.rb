@@ -10,6 +10,7 @@ class ActivationsController < ApplicationController
   def update
     @activation = Activation.for params[:id]
     if @activation.submit params[:activation]
+      sign_in @activation.user_created
       redirect_to root_path, :notice => 'Честито! Регистрацията ви е успешна. Забавлявайте се.'
     else
       render :show

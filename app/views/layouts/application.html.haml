@@ -13,9 +13,12 @@
         %span Програмиране с Python
       %nav
         %ul
-          %li= link_to 'Вход', new_user_session_path
-          %li= link_to 'Регистрация', new_registration_path
-      = current_user.try(:email)
+          - if user_signed_in?
+            %li Здрасти, #{current_user.full_name}
+            %li= link_to 'Изход', destroy_user_session_path
+          - else
+            %li= link_to 'Вход', new_user_session_path
+            %li= link_to 'Регистрация', new_registration_path
     %nav
       %ul
         %li= link_to 'Начало', root_path

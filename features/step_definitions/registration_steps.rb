@@ -27,14 +27,7 @@ end
   click_button 'Регистрирай ме'
 end
 
-Когато 'опитам да вляза с въведената парола' do
-  visit new_user_session_path
-  fill_in 'Електронна поща', :with => 'peter@example.org'
-  fill_in 'Парола', :with => 'larodi'
-  click_button 'Влез'
-end
-
 То 'трябва да съм успешно влязъл в системата' do
   visit root_path
-  page.should have_content('peter@example.org')
+  page.should have_content('Здрасти, Петър Иванов Петров')
 end

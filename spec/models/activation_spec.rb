@@ -41,6 +41,11 @@ describe Activation do
       SignUp.exists?(:id => sign_up.id).should be_false
     end
 
+    it "can indicate which user it created" do
+      activation.submit valid_attributes
+      activation.user_created.should be_persisted
+    end
+
     it "returns false when the activation is invalid" do
       activation.submit.should be_false
     end

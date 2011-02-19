@@ -24,10 +24,10 @@ body > header {
   a.logo { background: url("/images/logo.png") no-repeat; display: block; left: 40px; top: 10px; position: absolute; width: 221px; height: 71px; }
   a.logo span { display: none; }
 
-  nav { position: absolute; right: 50px; bottom: 10px; }
-  nav li { border-left: 2px solid black; display: inline; padding: 0 10px; }
+  nav { font-weight: bold; position: absolute; right: 50px; bottom: 10px; }
+  nav li { border-left: 2px solid black; display: inline; padding: 0 6px 0 10px; }
   nav li:first-child { border-left: none; }
-  nav li a { color: #436a85; font-size: $font-normal; font-weight: bold; }
+  nav li a { color: #436a85; font-size: $font-normal;}
   nav li a:hover { text-decoration: underline; }
 }
 

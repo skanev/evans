@@ -30,6 +30,10 @@ class Activation
     end
   end
 
+  def user_created
+    @user
+  end
+
   def persisted?
     true
   end
@@ -41,7 +45,7 @@ class Activation
   private
 
   def create_user
-    user = User.create! do |user|
+    @user = User.create! do |user|
       user.email = @sign_up.email
       user.full_name = @sign_up.full_name
       user.faculty_number = @sign_up.faculty_number
@@ -51,7 +55,7 @@ class Activation
 
     @sign_up.destroy
 
-    RegistrationMailer.activation(user).deliver
+    RegistrationMailer.activation(@user).deliver
   end
 
   def attributes=(attributes)
