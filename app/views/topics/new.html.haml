@@ -1,0 +1,9 @@
+%h1 Нова тема
+
+= simple_form_for @topic do |form|
+  = form.error_notification
+
+  = form.input :title
+  = form.input :body
+
+  = form.submit 'Публикувай'

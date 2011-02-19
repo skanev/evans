@@ -4,6 +4,8 @@ Trane::Application.routes.draw do
 
   resources :sign_ups
 
+  resources :topics
+
   devise_for :users
 
   get '/backdoor-login', :to => 'backdoor_login#login' if Rails.env.test?

@@ -36,3 +36,6 @@ bg:
       sign_up:
         full_name: Три имена
         faculty_number: Факултетен номер
+      topic:
+        title: Заглавие
+        body: Съдържание

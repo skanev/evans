@@ -5,6 +5,10 @@ module NavigationHelpers
         new_registration_path
       when /страницата със записани студенти/
         sign_ups_path
+      when /заглавната страница на форумите/
+        topics_path
+      when /темата "(.*)"/
+        topic_path Topic.find_by_title!($1)
       else
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"
