@@ -6,29 +6,19 @@ Spork.prefork do
   require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
   
   require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
-  require 'cucumber/rails/world'
-  require 'cucumber/rails/active_record'
+  require 'cucumber/rails'
   require 'cucumber/web/tableish'
 
   require 'capybara/rails'
   require 'capybara/cucumber'
   require 'capybara/session'
-  require 'cucumber/rails/capybara_javascript_emulation' # Lets you click links with onclick javascript handlers without using @culerity or @javascript
 
   Capybara.default_selector = :css
+  Cucumber::Rails::World.use_transactional_fixtures = true
+
   ActiveSupport::Dependencies.clear
 end
 
 Spork.each_run do
   require 'features/support/another_world.rb'
-  ActionController::Base.allow_rescue = false
-
-  Cucumber::Rails::World.use_transactional_fixtures = true
-  if defined?(ActiveRecord::Base)
-    begin
-      require 'database_cleaner'
-      DatabaseCleaner.strategy = :truncation
-    rescue LoadError => ignore_if_database_cleaner_not_present
-    end
-  end
 end
