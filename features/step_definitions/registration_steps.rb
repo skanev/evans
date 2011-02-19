@@ -2,18 +2,10 @@
   SignUp.create! :full_name => 'Петър Иванов Петров', :faculty_number => '11111'
 end
 
-Когато /^отида на (.*)$/ do |page_name|
-  visit path_to(page_name)
-end
-
 Когато 'попълня данните на регистрирания студент' do
   fill_in 'Трите имена', :with => 'Петър Иванов Петров'
   fill_in 'Факултетен номер', :with => '11111'
   fill_in 'Електронна поща', :with => 'peter@example.org'
-end
-
-Когато 'натисна "$текст"' do |text|
-  click_button text
 end
 
 Когато 'проследя активационната връзка в полученото писмо' do
