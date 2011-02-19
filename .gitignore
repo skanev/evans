@@ -4,3 +4,4 @@ log/*.log
 tmp/**/*
 config/database.yml
 db/development_structure.sql
+public/stylesheets/trane.css
