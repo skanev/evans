@@ -13,6 +13,9 @@ end
 Spork.each_run do
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+  FactoryGirl.factories.clear
+  Dir[Rails.root.join("spec/factories.rb")].each {|f| load f}
+
   RSpec.configure do |config|
     config.mock_with :rspec
     config.use_transactional_fixtures = true
