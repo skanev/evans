@@ -15,6 +15,9 @@ bg:
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'Your account was not activated yet.'
+    sessions:
+      signed_in: Влязохте успешно. Дерзайте.
+      signed_out: Излязохте успешно от система. Ще ни липсвате :'(
   activemodel:
     attributes:
       registration:
