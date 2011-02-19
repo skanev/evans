@@ -40,10 +40,7 @@ describe Registration do
       it "sends a confirmation email" do
         sign_up = SignUp.make(:full_name => 'Peter', :faculty_number => '11111')
 
-        # TODO Lift this into a matcher
-        mail = double
-        RegistrationMailer.should_receive(:confirmation).with(sign_up).and_return(mail)
-        mail.should_receive(:deliver)
+        expect_email_delivery RegistrationMailer, :confirmation, sign_up
 
         registration('Peter', '11111', 'peter@example.org').create
       end

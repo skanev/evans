@@ -30,9 +30,7 @@ describe Activation do
     end
 
     it "sends an activation email" do
-      mail = double
-      RegistrationMailer.should_receive(:activation).with(an_instance_of(User)).and_return(mail)
-      mail.should_receive(:deliver)
+      expect_email_delivery RegistrationMailer, :activation, an_instance_of(User)
 
       activation.submit valid_attributes
     end
