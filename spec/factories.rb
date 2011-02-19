@@ -12,4 +12,10 @@ FactoryGirl.define do
     token
     email
   end
+
+  factory :user do
+    email
+    faculty_number
+    full_name 'John Doe'
+  end
 end

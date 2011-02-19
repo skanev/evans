@@ -14,6 +14,15 @@ describe Registration do
     registration('Peter', '22222').should_not be_valid
   end
 
+  it "requires an unused email" do
+    User.make :email => 'used_by_user@example.org'
+    SignUp.make :email => 'used_by_sign_up@example.org'
+
+    Registration.new(:email => 'unused@example.org').should have(:no).errors_on(:email)
+    Registration.new(:email => 'used_by_user@example.org').should have(1).error_on(:email)
+    Registration.new(:email => 'used_by_sign_up@example.org').should have(1).error_on(:email)
+  end
+
   describe "creating" do
     before do
       RegistrationMailer.stub :confirmation => double.as_null_object
