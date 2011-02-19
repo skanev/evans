@@ -5,6 +5,8 @@ class Registration
 
   attr_accessor :full_name, :faculty_number, :email
 
+  validates_presence_of :full_name, :faculty_number, :email
+
   validate :matching_sign_up_exists
   validate :email_not_taken
 

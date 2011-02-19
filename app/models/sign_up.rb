@@ -1,4 +1,8 @@
 class SignUp < ActiveRecord::Base
+  validates_presence_of :full_name
+  validates_presence_of :faculty_number
+  validates_uniqueness_of :faculty_number
+
   class << self
     def with_token(token)
       return nil if token.blank?
