@@ -11,3 +11,20 @@ end
 Когато 'натисна "$текст"' do |text|
   click_button text
 end
+
+Когато 'проследя "$text"' do |text|
+  click_link text
+end
+
+То 'трябва да виждам "$text"' do |text|
+  page.should have_content(text)
+end
+
+То /^трябва да съм на (.*)$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  current_path.should == path_to(page_name)
+end
+
+И 'кво?' do
+  save_and_open_page
+end
