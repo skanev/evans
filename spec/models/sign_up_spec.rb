@@ -16,30 +16,6 @@ describe SignUp do
     end
   end
 
-  describe "registring a user" do
-    before do
-      RegistrationMailer.stub :activation => double.as_null_object
-    end
-
-    it "creates a new user with the given name and faculty number" do
-      sign_up = Factory(:assigned_sign_up)
-      user = sign_up.register_a_user
-
-      user.should be_persisted
-      user.full_name.should == sign_up.full_name
-      user.faculty_number.should == sign_up.faculty_number
-      user.email.should == sign_up.email
-    end
-
-    it "sends an email with a generated password" do
-      mail = double
-      RegistrationMailer.should_receive(:activation).with(an_instance_of(User), an_instance_of(String)).and_return(mail)
-      mail.should_receive(:deliver)
-
-      Factory(:assigned_sign_up).register_a_user
-    end
-  end
-
   describe "assigning to an email address" do
     let(:sign_up) { SignUp.make }
 
