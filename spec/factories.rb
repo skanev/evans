@@ -18,4 +18,8 @@ FactoryGirl.define do
     faculty_number
     full_name 'John Doe'
   end
+
+  factory :admin, :parent => :user do
+    admin true
+  end
 end
