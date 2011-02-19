@@ -1,6 +1,8 @@
 %h1 Активация
 
 = simple_form_for @activation, :as => :activation do |form|
+  = form.error_notification
+
   = form.input :password
   = form.input :password_confirmation
 

@@ -33,7 +33,8 @@ class Registration
 
   def matching_sign_up_exists
     if sign_up.nil?
-      errors.add(:base, 'Нямаме информация за такъв потребител')
+      errors.add(:full_name, 'няма ги в списъците')
+      errors.add(:faculty_number, 'няма го в списъците')
     end
   end
 end

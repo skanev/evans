@@ -62,7 +62,7 @@ body > nav {
 
 h1 { color: #234764; font-family: $font-headings; font-size: $font-huge; margin-bottom: 20px; }
 
-input[type=text], input[type=password], input[type=email] {
+input.string, input.password {
   border: 1px solid #ccc;
   font-size: $font-large;
   padding: 5px;
@@ -88,6 +88,16 @@ input[type=button], input[type=submit] {
   > div { margin: 10px 0; }
   label { display: block; }
   .boolean label { display: inline; }
+
+  $red: #f00;
+  .error_notification { color: $red; }
+
+  .field_with_errors {
+    input.string,
+    input.password { border-color: $red; }
+
+    .error { margin-left: 10px; color: $red; }
+  }
 }
 
 #main {
@@ -100,9 +110,13 @@ input[type=button], input[type=submit] {
 .flash { border: 1px solid; margin-bottom: 20px; padding: 15px 30px; }
 .flash.notice { background-color: #dfd; border-color: #5f5; }
 .flash.error { background-color: #fdd; border-color: #f55; }
+.flash.alert { background-color: #fdd; border-color: #f55; }
+
+form.user, form.activation {
+  label abbr { display: none; }
+}
 
 form.user {
-  label abbr { display: none; }
   input[type=email] { width: 250px; }
   input[type=password] { width: 250px; }
 }

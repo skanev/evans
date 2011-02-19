@@ -24,10 +24,8 @@
         %li= link_to 'Среда', root_path
         %li= link_to 'Край', root_path
     #container
-      - if flash[:notice]
-        .flash.notice= flash[:notice]
-      - if flash[:error]
-        .flash.error= flash[:error]
+      - flash.keys.each do |key|
+        %div{:class => [:flash, key]}= flash[key]
       #main
         = yield
       %footer

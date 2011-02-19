@@ -7,7 +7,7 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new params[:registration]
 
     if @registration.create
-      redirect_to root_path, :notice => 'Регистрацията ви е успешна. Проверете си пощата за допълнителни инструкции.'
+      redirect_to root_path, :notice => 'Супер. Проверете си пощата за допълнителни инструкции.'
     else
       render :action => :new
     end
