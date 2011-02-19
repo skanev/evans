@@ -3,6 +3,8 @@ module NavigationHelpers
     case page_name
       when /страницата за регистрация/
         new_registration_path
+      when /страницата със записани студенти/
+        sign_ups_path
       else
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"

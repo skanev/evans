@@ -1,0 +1,28 @@
+%h1 Записване на студенти
+
+= simple_form_for @sign_up || SignUp.new do |form|
+  %fieldset
+    %legend Запиши нов студент
+
+    = form.error_notification
+
+    = form.input :full_name
+    = form.input :faculty_number
+
+    = form.submit 'Запиши'
+
+%table
+  %caption Записани студенти
+  %thead
+    %tr
+      %th Име
+      %th Факултетен номер
+      %th Поща
+
+  %tbody
+    - @sign_ups.each do |sign_up|
+      %tr
+        %td= sign_up.full_name
+        %td= sign_up.faculty_number
+        %td
+          = link_to sign_up.email, activation_path(sign_up.token) if sign_up.email?

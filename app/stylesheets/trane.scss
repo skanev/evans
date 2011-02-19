@@ -1,7 +1,7 @@
 $font-small: 13px;
 $font-normal: 15px;
-$font-large: 17px;
-$font-huge: 24px;
+$font-large: 18px;
+$font-huge: 28px;
 
 $font-text: Arial, Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
 $font-navigation: Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
@@ -86,9 +86,16 @@ input[type=button], input[type=submit] {
 }
 
 .simple_form {
-  > div { margin: 10px 0; }
+  > div, fieldset > div { margin: 10px 0; }
+
+  legend { color: #3371a3; font-size: $font-large; font-weight: bold; padding: 10px 0; }
+
   label { display: block; }
   .boolean label { display: inline; }
+
+  input.string,
+  input.string,
+  input.password { width: 280px; }
 
   .error_notification { background-color: red; color: white; padding: 10px 20px; }
 
@@ -98,11 +105,12 @@ input[type=button], input[type=submit] {
 
     .error { margin-left: 10px; color: red; }
   }
+
+  input[name*=faculty_number] { width: 80px; }
 }
 
 #main {
   line-height: 19px;
-
 
   a { color: #00a; text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -121,17 +129,17 @@ input[type=button], input[type=submit] {
 .flash.alert { @include flash(#fdd, #f55, 'error'); }
 .flash.notice { @include flash(#dfd, #5f5, 'tick'); }
 
-form.user, form.activation {
+form.user, form.registration, form.activation {
   label abbr { display: none; }
 }
 
-form.user {
-  input[type=email] { width: 250px; }
-  input[type=password] { width: 250px; }
-}
+table {
+  border: { collapse: separate; spacing: 5px; }
+  margin: 20px 0;
+  width: 100%;
 
-form.registration {
-  input#registration_full_name { width: 280px; }
-  input#registration_faculty_number { width: 80px; }
-  input#registration_email { width: 280px; }
+  caption { color: #3371a3; font-size: $font-large; font-weight: bold; padding: 10px 0; text-align: left; }
+  thead th { background-color: #3371A3; color: white; font-weight: bold; text-align: left; }
+  th, td { padding: 10px 20px; margin: 5px; }
+  tr:nth-child(even) { background-color: #f0f0f0; }
 }
