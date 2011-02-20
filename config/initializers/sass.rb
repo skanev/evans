@@ -1,3 +1,1 @@
-Sass::Plugin.options[:template_location] = {
-  Rails.root.join("/app/stylesheets") => Rails.root.join("/public/stylesheets")
-}
+Sass::Plugin.options[:template_location] = { 'app/stylesheets' => 'public/stylesheets' }
