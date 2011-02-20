@@ -22,4 +22,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'timecop'
 end
