@@ -14,4 +14,14 @@ describe Topic do
 
     topic.reload.user.should == original
   end
+
+  it "supports paging" do
+    second = Topic.make :created_at => 2.day.ago
+    first  = Topic.make :created_at => 1.days.ago
+
+    Topic.stub :per_page => 1
+
+    Topic.page(1).should == [first]
+    Topic.page(2).should == [second]
+  end
 end

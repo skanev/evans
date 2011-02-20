@@ -134,6 +134,7 @@ GEM
     tzinfo (0.3.24)
     warden (1.0.3)
       rack (>= 1.0.0)
+    will_paginate (3.0.pre2)
     xpath (0.1.3)
       nokogiri (~> 1.3)
 
@@ -155,3 +156,4 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   spork
+  will_paginate (~> 3.0.beta)

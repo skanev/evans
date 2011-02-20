@@ -4,10 +4,15 @@ describe TopicsController do
   log_in_as :student
 
   describe "GET index" do
-    it "assigns all topics to @topics" do
-      Topic.stub :all => 'topics'
-      get :index
+    it "assigns a page of topics to @topics" do
+      Topic.should_receive(:page).with('3').and_return 'topics'
+      get :index, :page => '3'
       assigns(:topics).should == 'topics'
+    end
+
+    it "shows the first page by default" do
+      Topic.should_receive(:page).with(1)
+      get :index
     end
   end
 

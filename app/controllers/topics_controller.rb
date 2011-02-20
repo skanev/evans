@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
   before_filter :require_user, :only => [:new, :create]
 
   def index
-    @topics = Topic.all
+    @topics = Topic.page params[:page] || 1
   end
 
   def new

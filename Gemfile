@@ -6,6 +6,7 @@ gem 'pg'
 gem 'devise'
 gem 'simple_form'
 gem 'haml'
+gem 'will_paginate', '~> 3.0.beta'
 
 gem 'spork'
 
