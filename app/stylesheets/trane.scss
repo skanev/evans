@@ -92,6 +92,7 @@ input[type=button], input[type=submit] {
 
   label { display: block; }
   .boolean label { display: inline; }
+  label abbr { display: none; }
 
   input.string,
   input.string,
@@ -101,7 +102,8 @@ input[type=button], input[type=submit] {
 
   .field_with_errors {
     input.string,
-    input.password { border-color: red; }
+    input.password,
+    textarea { border-color: red; }
 
     .error { margin-left: 10px; color: red; }
   }
@@ -128,10 +130,6 @@ input[type=button], input[type=submit] {
 .flash.error,
 .flash.alert { @include flash(#fdd, #f55, 'error'); }
 .flash.notice { @include flash(#dfd, #5f5, 'tick'); }
-
-form.user, form.registration, form.activation {
-  label abbr { display: none; }
-}
 
 table {
   border: { collapse: separate; spacing: 5px; }
