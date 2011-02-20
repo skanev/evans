@@ -28,4 +28,10 @@ FactoryGirl.define do
     body 'Body'
     user
   end
+
+  factory :reply do
+    body 'Body'
+    topic
+    user
+  end
 end

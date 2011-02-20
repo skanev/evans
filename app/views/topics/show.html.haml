@@ -1,8 +1,9 @@
 %h1= @topic.title
 
 %ol.topic
-  %li= render 'post', :post => @topic
-  - @topic.replies.each do |reply|
-    %li= render 'post', :post => reply
+  - @posts.each do |post|
+    %li= render 'post', :post => post
+
+= will_paginate @posts
 
 = render @reply, :topic => @topic

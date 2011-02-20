@@ -22,6 +22,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find params[:id]
+    @posts = @topic.posts_on_page params[:page] || 1
     @reply = Reply.new
   end
 end

@@ -24,4 +24,22 @@ describe Topic do
     Topic.page(1).should == [first]
     Topic.page(2).should == [second]
   end
+
+  describe "posts paging" do
+    before do
+      @topic  = Topic.make :created_at => 3.days.ago
+      @first  = Reply.make :topic => @topic, :created_at => 2.days.ago
+      @second = Reply.make :topic => @topic, :created_at => 1.day.ago
+
+      Topic.stub :posts_per_page => 1
+    end
+
+    it "includes the topic in the first page" do
+      @topic.posts_on_page(1).should == [@topic, @first]
+    end
+
+    it "does not include the topic on subsequent pages" do
+      @topic.posts_on_page('2').should == [@second]
+    end
+  end
 end

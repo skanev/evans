@@ -68,15 +68,24 @@ describe TopicsController do
   end
 
   describe "GET show" do
+    let(:topic) { double }
+
     before do
-      Topic.stub :find
+      Topic.stub :find => topic
+      topic.stub :posts_on_page
       Reply.stub :new
     end
 
     it "assigns the topic to @topic" do
-      Topic.should_receive(:find).with(42).and_return('topic')
+      Topic.should_receive(:find).with(42).and_return(topic)
       get :show, :id => 42
-      assigns(:topic).should == 'topic'
+      assigns(:topic).should == topic
+    end
+
+    it "assigns a page of posts to @posts" do
+      topic.should_receive(:posts_on_page).with('4').and_return('page 4')
+      get :show, :id => 42, :page => '4'
+      assigns(:posts).should == 'page 4'
     end
 
     it "assigns an empty reply to @reply" do
