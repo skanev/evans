@@ -13,6 +13,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', '~> 0.4.0.beta.1'
   gem 'factory_girl_rails', '~> 1.1.beta1'
+  gem 'faker'
 end
 
 group :test do
