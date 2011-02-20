@@ -1,17 +1,7 @@
 require 'spec_helper'
 
 describe TopicsController do
-  let(:current_user) { double }
-
-  before do
-    controller.stub :current_user => current_user
-    current_user.stub :admin? => true
-  end
-
-  def deny_access
-    flash[:error].should be_present
-    redirect_to root_path
-  end
+  log_in_as :student
 
   describe "GET index" do
     it "assigns all topics to @topics" do

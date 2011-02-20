@@ -21,5 +21,6 @@ Spork.each_run do
     config.use_transactional_fixtures = true
 
     config.include Support::ModelHelpers, :type => :model
+    config.include Support::ControllerHelpers, :type => :controller
   end
 end

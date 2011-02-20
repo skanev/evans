@@ -1,17 +1,7 @@
 require 'spec_helper'
 
 describe SignUpsController do
-  let(:current_user) { double('current user') }
-
-  before do
-    controller.stub :current_user => current_user
-    current_user.stub :admin? => true
-  end
-
-  def deny_access
-    flash[:error].should be_present
-    redirect_to root_path
-  end
+  log_in_as :admin
 
   describe "GET index" do
     it "lists all sign ups" do
