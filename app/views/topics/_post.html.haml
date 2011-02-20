@@ -1,0 +1,9 @@
+%article
+  %aside
+    = link_to image_tag('flayer.jpeg'), '#'
+    = link_to post.user.full_name, '#'
+  .body
+    = simple_format post.body
+  .published-at
+    Публикувано преди
+    %time{:pubdate => post.created_at.to_s}= time_ago_in_words post.created_at

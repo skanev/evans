@@ -1,9 +1,9 @@
 %h1= @topic.title
 
-%p= @topic.body
-
-- @topic.replies.each do |reply|
-  %p= reply.body
+%ol.topic
+  %li= render 'post', :post => @topic
+  - @topic.replies.each do |reply|
+    %li= render 'post', :post => reply
 
 = simple_form_for [@topic, @reply] do |form|
   = form.error_notification
