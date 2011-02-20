@@ -4,7 +4,9 @@ Trane::Application.routes.draw do
 
   resources :sign_ups
 
-  resources :topics
+  resources :topics do
+    resources :replies
+  end
 
   devise_for :users
 

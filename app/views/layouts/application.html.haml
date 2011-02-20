@@ -22,10 +22,7 @@
     %nav
       %ul
         %li= link_to 'Начало', root_path
-        %li= link_to 'Среда', root_path
-        %li= link_to 'Среда', root_path
-        %li= link_to 'Среда', root_path
-        %li= link_to 'Край', root_path
+        %li= link_to 'Форуми', topics_path
     #container
       - flash.keys.each do |key|
         %div{:class => [:flash, key]}= flash[key]

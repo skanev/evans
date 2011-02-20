@@ -39,3 +39,5 @@ bg:
       topic:
         title: Заглавие
         body: Съдържание
+      reply:
+        body: Отговор

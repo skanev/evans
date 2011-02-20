@@ -63,10 +63,21 @@ describe TopicsController do
   end
 
   describe "GET show" do
+    before do
+      Topic.stub :find
+      Reply.stub :new
+    end
+
     it "assigns the topic to @topic" do
       Topic.should_receive(:find).with(42).and_return('topic')
       get :show, :id => 42
       assigns(:topic).should == 'topic'
+    end
+
+    it "assigns an empty reply to @reply" do
+      Reply.stub :new => 'reply'
+      get :show, :id => 42
+      assigns(:reply).should == 'reply'
     end
   end
 end
