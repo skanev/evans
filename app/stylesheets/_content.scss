@@ -1,0 +1,8 @@
+@mixin content {
+  line-height: 19px;
+
+  a { color: #00a; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  p { margin: 1em 0; }
+  strong { font-weight: bold; }
+}

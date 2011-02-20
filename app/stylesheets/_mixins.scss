@@ -1,0 +1,6 @@
+@mixin button {
+  background-color: $button-color;
+  border: { style: solid; width: 1px; top-color: $light-border; right-color: $dark-border; bottom-color: $dark-border; left-color: $light-border; }
+  font: { family: $font-text; size: $font-normal; weight: bold; }
+  padding: 4px 8px;
+}

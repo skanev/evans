@@ -1,0 +1,36 @@
+.simple_form {
+  > div, fieldset > div { margin: $margin 0; }
+
+  legend { color: $subtitle-color; font-size: $font-large; font-weight: bold; padding: 10px 0; }
+
+  label { display: block; }
+  label abbr { display: none; }
+
+  .boolean label { display: inline; }
+
+  input.string,
+  input.password { border: 1px solid $light-border; font-size: $font-large; padding: 5px; margin: 2px 0; }
+
+  input.string,
+  input.string,
+  input.password { width: 280px; }
+
+  .error_notification { background-color: $alert; color: $background; padding: 10px 20px; }
+
+  .field_with_errors {
+    input.string,
+    input.password,
+    textarea { border-color: $alert; }
+
+    .error { margin-left: 10px; color: $alert; }
+  }
+
+  input[name*=faculty_number] { width: 80px; }
+
+  input[type=button],
+  input[type=submit] {
+    @include button;
+    color: $dark-text;
+  }
+}
+

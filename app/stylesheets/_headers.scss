@@ -1,0 +1,59 @@
+body > header { 
+  background: url("/images/header.png") repeat-x;
+  border-bottom: 1px solid #999;
+  height: 82px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  a.logo { background: url("/images/logo.png") no-repeat; display: block; left: 40px; top: 10px; position: absolute; width: 221px; height: 71px; }
+  a.logo span { display: none; }
+
+  nav { color: $dark-text; font-weight: bold; position: absolute; right: 50px; bottom: 10px; }
+  nav li { border-left: 2px solid $dark-text; display: inline; padding: 0 6px 0 10px; }
+  nav li:first-child { border-left: none; }
+  nav li a { color: #436a85; font-size: $font-normal;}
+  nav li a:hover { text-decoration: underline; }
+}
+
+body > nav {
+  position: absolute;
+  top: 100px;
+  left: 50px;
+
+  ul li {
+    background: whiteSmoke url("/images/navigation-item.png") no-repeat 100% 0%;
+    border: 1px solid #dadada;
+    font-family: $font-navigation;
+    font-size: $font-small;
+    margin: 4px 0;
+    padding: 3px 5px 1px;
+    text-transform: uppercase;
+    width: 150px;
+    height: 16px;
+  }
+  ul li a { color: #4b5a6a; display: block; }
+  ul li a:hover { text-decoration: underline; }
+}
+
+#container { position: absolute; top: 105px; left: 240px; right: 60px; }
+#container > footer {
+  border-top: 1px dotted #ccc;
+  font-size: $font-small;
+  margin: 40px 0;
+  padding-top: 10px;
+
+  a { color: #666; }
+}
+
+@mixin flash($background, $border, $icon) {
+  background: { color: $background; image: url("/images/icons/#{$icon}.png"); position: 15px 15px; repeat: no-repeat; }
+  border: 1px solid $border;
+  margin-bottom: 20px;
+  padding: 15px 40px;
+}
+
+.flash.error,
+.flash.alert { @include flash(#fdd, #f55, 'error'); }
+.flash.notice { @include flash(#dfd, #5f5, 'tick'); }

@@ -1,135 +1,16 @@
-$font-small: 13px;
-$font-normal: 15px;
-$font-large: 18px;
-$font-huge: 28px;
+@import "variables";
+@import "mixins";
+@import "content";
 
-$font-text: Arial, Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
-$font-navigation: Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
-$font-headings: Georgia, 'Bitstream Vera Serif', 'New York', Palatino, serif;
-
-$color-link: #00a;
+@import "headers";
+@import "forms";
+@import "boards";
 
 body { font-family: $font-text; font-size: $font-normal; }
 a { text-decoration: none; }
+h1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; margin-bottom: 20px; }
 
-body > header { 
-  background: url("/images/header.png") repeat-x;
-  border-bottom: 1px solid #999;
-  height: 82px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  a.logo { background: url("/images/logo.png") no-repeat; display: block; left: 40px; top: 10px; position: absolute; width: 221px; height: 71px; }
-  a.logo span { display: none; }
-
-  nav { font-weight: bold; position: absolute; right: 50px; bottom: 10px; }
-  nav li { border-left: 2px solid black; display: inline; padding: 0 6px 0 10px; }
-  nav li:first-child { border-left: none; }
-  nav li a { color: #436a85; font-size: $font-normal;}
-  nav li a:hover { text-decoration: underline; }
-}
-
-body > nav {
-  position: absolute;
-  top: 100px;
-  left: 50px;
-
-  ul li {
-    background: whiteSmoke url("/images/navigation-item.png") no-repeat 100% 0%;
-    border: 1px solid #dadada;
-    font-family: $font-navigation;
-    font-size: $font-small;
-    margin: 4px 0;
-    padding: 3px 5px 1px;
-    text-transform: uppercase;
-    width: 150px;
-    height: 16px;
-  }
-  ul li a { color: #4b5a6a; display: block; }
-  ul li a:hover { text-decoration: underline; }
-}
-
-#container { position: absolute; top: 105px; left: 240px; right: 60px; }
-#container > footer {
-  border-top: 1px dotted #ccc;
-  font-size: $font-small;
-  margin: 40px 0;
-  padding-top: 10px;
-
-  a { color: #666; }
-}
-
-h1 { color: #234764; font-family: $font-headings; font-size: $font-huge; margin-bottom: 20px; }
-
-input.string, input.password {
-  border: 1px solid #ccc;
-  font-size: $font-large;
-  padding: 5px;
-  margin: 2px 0;
-}
-
-input[type=button], input[type=submit] {
-  background-color: #f8f7f7;
-  border: {
-    top: 1px solid #c4cccc;
-    right: 1px solid #6f7777;
-    bottom: 1px solid #6f7777;
-    left: 1px solid #c4cccc;
-  }
-  color: #234;
-  font-family: $font-text;
-  font-size: $font-normal;
-  font-weight: bold;
-  padding: 4px 8px;
-}
-
-.simple_form {
-  > div, fieldset > div { margin: 10px 0; }
-
-  legend { color: #3371a3; font-size: $font-large; font-weight: bold; padding: 10px 0; }
-
-  label { display: block; }
-  .boolean label { display: inline; }
-  label abbr { display: none; }
-
-  input.string,
-  input.string,
-  input.password { width: 280px; }
-
-  .error_notification { background-color: red; color: white; padding: 10px 20px; }
-
-  .field_with_errors {
-    input.string,
-    input.password,
-    textarea { border-color: red; }
-
-    .error { margin-left: 10px; color: red; }
-  }
-
-  input[name*=faculty_number] { width: 80px; }
-}
-
-#main {
-  line-height: 19px;
-
-  a { color: #00a; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  strong { font-weight: bold; }
-  p { margin: 1em 0; }
-}
-
-@mixin flash($background, $border, $icon) {
-  background: { color: $background; image: url("/images/icons/#{$icon}.png"); position: 15px 15px; repeat: no-repeat; }
-  border: 1px solid $border;
-  margin-bottom: 20px;
-  padding: 15px 40px;
-}
-
-.flash.error,
-.flash.alert { @include flash(#fdd, #f55, 'error'); }
-.flash.notice { @include flash(#dfd, #5f5, 'tick'); }
+#main { @include content; }
 
 table {
   border: { collapse: separate; spacing: 5px; }
@@ -140,17 +21,4 @@ table {
   thead th { background-color: #3371A3; color: white; font-weight: bold; text-align: left; }
   th, td { padding: 10px 20px; margin: 5px; }
   tr:nth-child(even) { background-color: #f0f0f0; }
-}
-
-ol.topic {
-  li { padding: 20px; overflow: hidden; }
-  li:nth-child(even) { background-color: #f0f0f0; }
-
-  aside { float: right; }
-  aside img { display: block; }
-
-  .body { margin-right: 200px; }
-
-  .published-at { border-top: 1px dotted gray; color: #666; font-size: $font-small; margin-right: 200px; padding-top: 5px; }
-  #main & .body p:first-child { margin-top: 0; }
 }
