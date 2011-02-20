@@ -13,6 +13,7 @@
       %tr
         %td= link_to topic.title, topic
         %td &mdash;
-        %td &mdash;
+        %td
+          %time{:date_time => topic.last_post_at}= topic.last_post_at
 
 = will_paginate @topics

@@ -15,14 +15,41 @@ describe Topic do
     topic.reload.user.should == original
   end
 
-  it "supports paging" do
-    second = Topic.make :created_at => 2.day.ago
-    first  = Topic.make :created_at => 1.days.ago
+  it "supports paging, ordering in reverse chronological order of the last post" do
+    first  = Topic.make :last_post_at => 1.day.ago
+    second = Topic.make :last_post_at => 2.days.ago
 
     Topic.stub :per_page => 1
 
     Topic.page(1).should == [first]
     Topic.page(2).should == [second]
+  end
+
+  describe "last post" do
+    it "is the topic itself initially" do
+      Timecop.freeze do
+        topic = Topic.make
+
+        topic.last_poster.should == topic.user
+        topic.last_post_at.should == Time.now
+      end
+    end
+
+    it "is updated whenever a new reply is created" do
+      topic = nil
+
+      Timecop.freeze(1.day.ago) do
+        topic = Topic.make :last_post_at => 1.day.ago
+      end
+
+      Timecop.freeze do
+        reply = Reply.make :topic => topic
+
+        topic.reload
+        topic.last_post_at.should == Time.now
+        topic.last_poster.should == reply.user
+      end
+    end
   end
 
   describe "posts paging" do
