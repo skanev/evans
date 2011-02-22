@@ -17,6 +17,7 @@ FactoryGirl.define do
     email
     faculty_number
     full_name { Faker::Name.name }
+    photo { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/fakes', %w[1.jpg 2.jpg 3.jpg 4.jpg].rand)) }
   end
 
   factory :fake_admin, :parent => :fake_user do
