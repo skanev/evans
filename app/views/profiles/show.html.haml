@@ -1,5 +1,5 @@
 %h1 Моят профил
 
-= image_tag @user.photo.url.to_s
+%p= user_thumbnail @user
 
-= link_to 'Редактирай', edit_profile_path
+%p= link_to 'Редактирай', edit_profile_path
