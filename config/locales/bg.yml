@@ -33,6 +33,7 @@ bg:
         email: Електронна поща
         password: Парола
         remember_me: Запомни ме на този компютър
+        photo: Снимка
       sign_up:
         full_name: Три имена
         faculty_number: Факултетен номер

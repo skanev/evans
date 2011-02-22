@@ -1,0 +1,5 @@
+%h1 Редакция на профил
+
+= simple_form_for @user, :url => profile_path, :html => {:method => :put, :multipart => true} do |form|
+  = form.input :photo, :as => :file
+  = form.submit 'Запази'

@@ -2,11 +2,13 @@ Trane::Application.routes.draw do
   resource :registration
   resources :activations, :constraints => {:id => /.+/}
 
-  resources :sign_ups
+  resource :profile
 
   resources :topics do
     resources :replies
   end
+
+  resources :sign_ups
 
   devise_for :users
 

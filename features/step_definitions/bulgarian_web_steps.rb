@@ -1,4 +1,4 @@
-Когато /^отида на (.*)$/ do |page_name|
+Когато /^отида (?:на|в) (.*)$/ do |page_name|
   visit path_to(page_name)
 end
 
