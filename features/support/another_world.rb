@@ -7,6 +7,10 @@ module AnotherWorld
   def backdoor_login(user)
     visit "/backdoor-login?email=#{CGI.escape(user.email)}"
   end
+
+  def file_fixture(file_name)
+    Rails.root.join('spec/fixtures/files', file_name)
+  end
 end
 
 World(AnotherWorld)
