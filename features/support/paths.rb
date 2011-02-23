@@ -9,6 +9,8 @@ module NavigationHelpers
         topics_path
       when /темата "(.*)"/
         topic_path Topic.find_by_title!($1)
+      when /редакцията на тема "(.*?)"/
+        edit_topic_path Topic.find_by_title!($1)
       when /профила си/
         profile_path
       else

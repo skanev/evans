@@ -96,10 +96,23 @@ describe TopicsController do
   end
 
   describe "GET edit" do
+    let(:topic) { double }
+
+    before do
+      Topic.stub :find => topic
+      controller.stub :can_edit? => true
+    end
+
     it "assigns the topic to @topic" do
       Topic.should_receive(:find).with(42).and_return('topic')
       get :edit, :id => 42
       assigns(:topic).should == 'topic'
+    end
+
+    it "denies access if the user cannot edit the topic" do
+      controller.should_receive(:can_edit?).with(topic).and_return(false)
+      get :edit, :id => 42
+      response.should deny_access
     end
   end
 
@@ -109,6 +122,7 @@ describe TopicsController do
     before do
       Topic.stub :find => topic
       topic.stub :update_attributes
+      controller.stub :can_edit? => true
     end
 
     it "assigns the topic to @topic" do

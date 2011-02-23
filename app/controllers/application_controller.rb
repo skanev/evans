@@ -14,4 +14,12 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, :flash => {:error => 'Нямате достъп до тази страница.'}
     end
   end
+
+  def deny_access
+    redirect_to root_path, :flash => {:error => 'Нямате достъп до тази страница.'}
+  end
+
+  def can_edit?(something)
+    something.can_be_edited_by? current_user
+  end
 end

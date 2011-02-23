@@ -36,6 +36,16 @@ describe Topic do
     topic.replies_on_page(2).should == [second]
   end
 
+  it "can be edited by its owner or by an admin" do
+    topic = Topic.make
+
+    topic.can_be_edited_by?(topic.user).should be_true
+    topic.can_be_edited_by?(Factory(:admin)).should be_true
+
+    topic.can_be_edited_by?(Factory(:user)).should be_false
+    topic.can_be_edited_by?(nil).should be_false
+  end
+
   describe "last post" do
     it "is the topic itself initially" do
       Timecop.freeze do
