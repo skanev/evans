@@ -9,19 +9,13 @@ class Topic < ActiveRecord::Base
 
   attr_accessible :title, :body
 
-  def posts_on_page(page)
-    posts = replies.paginate :page => page, :per_page => self.class.posts_per_page
-    posts.unshift self if page.to_i == 1
-    posts
+  def replies_on_page(page)
+    replies.paginate :page => page, :per_page => Reply.per_page
   end
 
   class << self
     def page(page)
       paginate(:page => page, :order => 'last_post_at DESC')
-    end
-
-    def posts_per_page
-      30
     end
   end
 

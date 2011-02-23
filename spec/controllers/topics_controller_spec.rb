@@ -72,7 +72,7 @@ describe TopicsController do
 
     before do
       Topic.stub :find => topic
-      topic.stub :posts_on_page
+      topic.stub :replies_on_page
       Reply.stub :new
     end
 
@@ -82,10 +82,10 @@ describe TopicsController do
       assigns(:topic).should == topic
     end
 
-    it "assigns a page of posts to @posts" do
-      topic.should_receive(:posts_on_page).with('4').and_return('page 4')
+    it "assigns a page of replies to @replies" do
+      topic.should_receive(:replies_on_page).with('4').and_return('page 4')
       get :show, :id => 42, :page => '4'
-      assigns(:posts).should == 'page 4'
+      assigns(:replies).should == 'page 4'
     end
 
     it "assigns an empty reply to @reply" do

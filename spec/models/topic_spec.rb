@@ -25,6 +25,17 @@ describe Topic do
     Topic.page(2).should == [second]
   end
 
+  it "can paginate its replies" do
+    topic  = Topic.make :created_at => 3.days.ago
+    first  = Reply.make :topic => topic, :created_at => 2.days.ago
+    second = Reply.make :topic => topic, :created_at => 1.day.ago
+
+    Reply.stub :per_page => 1
+
+    topic.replies_on_page(1).should == [first]
+    topic.replies_on_page(2).should == [second]
+  end
+
   describe "last post" do
     it "is the topic itself initially" do
       Timecop.freeze do
@@ -49,24 +60,6 @@ describe Topic do
         topic.last_post_at.should == Time.now
         topic.last_poster.should == reply.user
       end
-    end
-  end
-
-  describe "posts paging" do
-    before do
-      @topic  = Topic.make :created_at => 3.days.ago
-      @first  = Reply.make :topic => @topic, :created_at => 2.days.ago
-      @second = Reply.make :topic => @topic, :created_at => 1.day.ago
-
-      Topic.stub :posts_per_page => 1
-    end
-
-    it "includes the topic in the first page" do
-      @topic.posts_on_page(1).should == [@topic, @first]
-    end
-
-    it "does not include the topic on subsequent pages" do
-      @topic.posts_on_page('2').should == [@second]
     end
   end
 end

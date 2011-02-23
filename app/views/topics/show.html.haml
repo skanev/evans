@@ -1,9 +1,11 @@
 %h1= @topic.title
 
 %ol.topic
-  - @posts.each do |post|
-    %li= render 'post', :post => post
+  - if @replies.current_page == 1
+    %li= render 'post', :post => @topic
+  - @replies.each do |reply|
+    %li= render 'post', :post => reply
 
-= will_paginate @posts
+= will_paginate @replies
 
 = render @reply, :topic => @topic
