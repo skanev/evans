@@ -104,9 +104,9 @@ describe TopicsController do
     end
 
     it "assigns the topic to @topic" do
-      Topic.should_receive(:find).with(42).and_return('topic')
+      Topic.should_receive(:find).with(42)
       get :edit, :id => 42
-      assigns(:topic).should == 'topic'
+      assigns(:topic).should == topic
     end
 
     it "denies access if the user cannot edit the topic" do

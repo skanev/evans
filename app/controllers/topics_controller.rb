@@ -1,6 +1,5 @@
 class TopicsController < ApplicationController
   before_filter :require_user, :except => [:index, :show]
-  before_filter :assign_topic, :only => [:show, :edit, :update]
   before_filter :authorize, :only => [:edit, :update]
 
   def index
@@ -23,14 +22,19 @@ class TopicsController < ApplicationController
   end
 
   def show
+    @topic = find_topic
+
     @replies = @topic.replies_on_page params[:page]
     @reply = Reply.new
   end
 
   def edit
+    @topic = find_topic
   end
 
   def update
+    @topic = find_topic
+
     if @topic.update_attributes params[:topic]
       redirect_to @topic
     else
@@ -40,11 +44,11 @@ class TopicsController < ApplicationController
 
   private
 
-  def assign_topic
-    @topic = Topic.find params[:id]
+  def authorize
+    deny_access unless can_edit? find_topic
   end
 
-  def authorize
-    deny_access unless can_edit? @topic
+  def find_topic
+    Topic.find params[:id]
   end
 end
