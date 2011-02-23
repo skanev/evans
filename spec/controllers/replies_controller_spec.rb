@@ -4,7 +4,7 @@ describe RepliesController do
   log_in_as :student
 
   describe "POST create" do
-    let(:topic) { mock_model(Topic) }
+    let(:topic) { Factory.stub(:topic) }
     let(:reply) { double }
 
     before do
@@ -54,6 +54,48 @@ describe RepliesController do
         post :create, :topic_id => 42
         response.should render_template(:new)
       end
+    end
+  end
+
+  describe "GET edit" do
+    it "assigns the reply to @reply" do
+      Reply.should_receive(:find).with(20).and_return 'reply'
+      get :edit, :topic_id => 10, :id => 20
+      assigns(:reply).should == 'reply'
+    end
+  end
+
+  describe "PUT update" do
+    let(:reply) { double }
+    let(:topic) { Factory.stub(:topic) }
+
+    before do
+      Reply.stub :find => reply
+      reply.stub :update_attributes
+      reply.stub :topic => topic
+    end
+
+    it "assigns the reply to @reply" do
+      Reply.should_receive(:find).with(20).and_return reply
+      put :update, :topic_id => 10, :id => 20
+      assigns(:reply).should == reply
+    end
+
+    it "updates the reply" do
+      reply.should_receive(:update_attributes).with('attributes')
+      put :update, :topic_id => 10, :id => 20, :reply => 'attributes'
+    end
+
+    it "redirects to the topic if successful" do
+      reply.stub :update_attributes => true
+      put :update, :topic_id => 10, :id => 20
+      response.should redirect_to(topic)
+    end
+
+    it "redisplays the form if unsuccessful" do
+      reply.stub :update_attributes => false
+      put :update, :topic_id => 10, :id => 20
+      response.should render_template(:edit)
     end
   end
 end

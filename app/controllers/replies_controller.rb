@@ -14,5 +14,16 @@ class RepliesController < ApplicationController
   end
 
   def edit
+    @reply = Reply.find params[:id]
+  end
+
+  def update
+    @reply = Reply.find params[:id]
+
+    if @reply.update_attributes params[:reply]
+      redirect_to @reply.topic
+    else
+      render :edit
+    end
   end
 end

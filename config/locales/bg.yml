@@ -7,6 +7,11 @@ bg:
     error_notification:
       default_message: 'Намерихме няколко грешки. Погледнете и пробвайте пак:'
       registration: Регистрацията ви беше неуспешна. Сигурни ли сте, че въведохте правилните данни?
+  helpers:
+    submit:
+      reply:
+        create: Отговори
+        update: Обнови
   devise:
     failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'
