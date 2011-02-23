@@ -1,0 +1,6 @@
+%h1 Редактиране на "#{@topic.title}"
+
+= simple_form_for @topic do |form|
+  = render form
+
+  = form.submit 'Обнови'

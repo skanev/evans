@@ -94,4 +94,44 @@ describe TopicsController do
       assigns(:reply).should == 'reply'
     end
   end
+
+  describe "GET edit" do
+    it "assigns the topic to @topic" do
+      Topic.should_receive(:find).with(42).and_return('topic')
+      get :edit, :id => 42
+      assigns(:topic).should == 'topic'
+    end
+  end
+
+  describe "PUT update" do
+    let(:topic) { mock_model(Topic) }
+
+    before do
+      Topic.stub :find => topic
+      topic.stub :update_attributes
+    end
+
+    it "assigns the topic to @topic" do
+      Topic.should_receive(:find).with(42).and_return(topic)
+      put :update, :id => 42
+      assigns(:topic).should == topic
+    end
+
+    it "updates the topic" do
+      topic.should_receive(:update_attributes).with('attributes')
+      put :update, :id => 42, :topic => 'attributes'
+    end
+
+    it "displays the topic on success" do
+      topic.stub :update_attributes => true
+      put :update, :id => 42
+      response.should redirect_to(topic)
+    end
+
+    it "redisplays the edit form on failure" do
+      topic.stub :update_attributes => false
+      put :update, :id => 42
+      response.should render_template(:edit)
+    end
+  end
 end

@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_filter :require_user, :only => [:new, :create]
+  before_filter :require_user, :except => [:index, :show]
 
   def index
     @topics = Topic.page params[:page] || 1
@@ -24,5 +24,19 @@ class TopicsController < ApplicationController
     @topic = Topic.find params[:id]
     @replies = @topic.replies_on_page params[:page]
     @reply = Reply.new
+  end
+
+  def edit
+    @topic = Topic.find params[:id]
+  end
+
+  def update
+    @topic = Topic.find params[:id]
+
+    if @topic.update_attributes params[:topic]
+      redirect_to @topic
+    else
+      render :edit
+    end
   end
 end
