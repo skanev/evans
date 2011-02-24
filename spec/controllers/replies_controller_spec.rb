@@ -58,10 +58,23 @@ describe RepliesController do
   end
 
   describe "GET edit" do
+    let(:reply) { double }
+
+    before do
+      Reply.stub :find => reply
+      controller.stub :can_edit? => true
+    end
+
     it "assigns the reply to @reply" do
-      Reply.should_receive(:find).with(20).and_return 'reply'
+      Reply.should_receive(:find).with(20)
       get :edit, :topic_id => 10, :id => 20
-      assigns(:reply).should == 'reply'
+      assigns(:reply).should == reply
+    end
+
+    it "denies access if the user cannot edit the reply" do
+      controller.stub :can_edit? => false
+      get :edit, :topic_id => 10, :id => 20
+      response.should deny_access
     end
   end
 
@@ -73,10 +86,17 @@ describe RepliesController do
       Reply.stub :find => reply
       reply.stub :update_attributes
       reply.stub :topic => topic
+      controller.stub :can_edit? => true
+    end
+
+    it "denies access if the user cannot edit the reply" do
+      controller.stub :can_edit? => false
+      put :update, :topic_id => 10, :id => 20
+      response.should deny_access
     end
 
     it "assigns the reply to @reply" do
-      Reply.should_receive(:find).with(20).and_return reply
+      Reply.should_receive(:find).with(20)
       put :update, :topic_id => 10, :id => 20
       assigns(:reply).should == reply
     end

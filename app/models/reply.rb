@@ -8,6 +8,10 @@ class Reply < ActiveRecord::Base
 
   attr_accessible :body
 
+  def can_be_edited_by?(user)
+    user.present? and (user == self.user or user.admin?)
+  end
+
   private
 
   def update_topic_last_poster

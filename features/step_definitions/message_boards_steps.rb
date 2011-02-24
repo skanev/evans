@@ -10,8 +10,9 @@ end
   Factory(:topic, :user => @current_user, :title => title)
 end
 
-Дадено 'че темата "$topic" има отговор "$reply"' do |title, reply|
-  Factory(:reply, :topic => Topic.find_by_title!(title), :body => reply)
+Дадено 'че съм отговорил на "$title" с "$reply"' do |title, reply|
+  topic = Topic.find_by_title!(title)
+  Factory(:reply, :user => @current_user, :topic => topic, :body => reply)
 end
 
 Когато 'попълня "$field" с "$value"' do |field, value|

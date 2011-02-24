@@ -1,5 +1,6 @@
 class RepliesController < ApplicationController
   before_filter :require_user
+  before_filter :authorize, :only => [:edit, :update]
 
   def create
     @topic = Topic.find params[:topic_id]
@@ -25,5 +26,11 @@ class RepliesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  private
+
+  def authorize
+    deny_access unless can_edit? Reply.find(params[:id])
   end
 end
