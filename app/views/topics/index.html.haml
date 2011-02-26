@@ -12,7 +12,7 @@
     - @topics.each do |topic|
       %tr
         %td= link_to topic.title, topic
-        %td &mdash;
+        %td= topic.replies_count
         %td
           %time{:datetime => topic.last_post_at.iso8601, :pubdate => true}= l topic.last_post_at
 
