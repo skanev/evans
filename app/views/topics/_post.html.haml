@@ -6,5 +6,5 @@
     = simple_format post.body
   .published-at
     Публикувано преди
-    %time{:pubdate => post.created_at.to_s}= time_ago_in_words post.created_at
+    %time{:datetime => post.created_at.iso8601}= time_ago_in_words post.created_at
     = link_to 'Редактирай', edit_post_path(post) if can_edit? post

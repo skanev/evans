@@ -1,4 +1,7 @@
 bg:
+  time:
+    formats:
+      default: "%d.%m.%Y %H:%M"
   errors:
     messages:
       blank: задължително поле
