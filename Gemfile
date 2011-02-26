@@ -11,6 +11,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 gem 'spork'
+gem 'capistrano'
 
 group :development, :test do
   gem 'rspec-rails'
