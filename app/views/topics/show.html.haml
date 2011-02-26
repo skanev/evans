@@ -8,4 +8,8 @@
 
 = will_paginate @replies
 
-= render @reply, :topic => @topic
+- if logged_in?
+  = render @reply, :topic => @topic
+- else
+  %p.requires-authentication
+    Трябва да сте влезли в системата, за да може да отговаряте на теми.

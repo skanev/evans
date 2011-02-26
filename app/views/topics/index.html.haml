@@ -1,6 +1,6 @@
 %h1 Форуми
 
-%p= link_to 'Нова тема', new_topic_path
+%p= link_to 'Нова тема', new_topic_path if logged_in?
 
 %table
   %thead

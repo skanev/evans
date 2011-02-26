@@ -22,3 +22,5 @@ table {
   th, td { padding: 10px 20px; margin: 5px; }
   tr:nth-child(even) { background-color: #f0f0f0; }
 }
+
+.requires-authentication { color: $disabled; font-style: italic; }

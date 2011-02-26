@@ -1,10 +1,16 @@
 class ApplicationController < ActionController::Base
+  helper_method :can_edit?, :logged_in?
+
   protect_from_forgery
 
   private
 
+  def logged_in?
+    !!current_user
+  end
+
   def require_user
-    unless current_user
+    unless logged_in?
       redirect_to root_path, :flash => {:error => 'Трябва да влезнете в системата за да направите това.'}
     end
   end
