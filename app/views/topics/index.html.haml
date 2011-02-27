@@ -9,13 +9,18 @@
       %th Отговори
       %th Последен отговор
   %tbody
-    - @topics.each do |topic|
+    - if @topics.present?
+      - @topics.each do |topic|
+        %tr
+          %td= link_to topic.title, topic
+          %td= topic.replies_count
+          %td.last-reply
+            %time{:datetime => topic.last_post_at.iso8601, :pubdate => true}= l topic.last_post_at
+            от
+            = link_to topic.last_poster.full_name, '#'
+    - else
       %tr
-        %td= link_to topic.title, topic
-        %td= topic.replies_count
-        %td.last-reply
-          %time{:datetime => topic.last_post_at.iso8601, :pubdate => true}= l topic.last_post_at
-          от
-          = link_to topic.last_poster.full_name, '#'
+        %td(colspan="3" class="no-records")
+          Все още няма публикувани теми.
 
 = will_paginate @topics
