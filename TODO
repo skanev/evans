@@ -1,2 +1,0 @@
-* Use an actually *secret* token
-* Use a secret 'pepper' for devise
