@@ -1,5 +1,5 @@
 class RepliesController < ApplicationController
-  before_filter :require_user
+  before_filter :require_user, :only => [:create]
   before_filter :authorize, :only => [:edit, :update]
 
   def create
@@ -8,10 +8,16 @@ class RepliesController < ApplicationController
     @reply.user = current_user
 
     if @reply.save
-      redirect_to topic_path(@topic)
+      redirect_to [@topic, @reply]
     else
       render :new
     end
+  end
+
+  def show
+    reply = Reply.find params[:id]
+
+    redirect_to topic_path(reply.topic_id, :page => reply.page_in_topic, :anchor => "reply_#{reply.id}")
   end
 
   def edit
@@ -22,7 +28,7 @@ class RepliesController < ApplicationController
     @reply = Reply.find params[:id]
 
     if @reply.update_attributes params[:reply]
-      redirect_to @reply.topic
+      redirect_to [@reply.topic, @reply]
     else
       render :edit
     end

@@ -12,6 +12,11 @@ class Reply < ActiveRecord::Base
     user.present? and (user == self.user or user.admin?)
   end
 
+  def page_in_topic
+    replies_before_this = topic.replies.where('id < ?', id).count
+    replies_before_this / Reply.per_page + 1
+  end
+
   private
 
   def update_topic_last_poster

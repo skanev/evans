@@ -5,7 +5,7 @@ describe RepliesController do
 
   describe "POST create" do
     let(:topic) { Factory.stub(:topic) }
-    let(:reply) { double }
+    let(:reply) { Factory.stub(:reply) }
 
     before do
       Topic.stub :find => topic
@@ -41,10 +41,10 @@ describe RepliesController do
     end
 
     context "when successful" do
-      it "redirects to the topic" do
+      it "redirects to the reply" do
         reply.stub :save => true
         post :create, :topic_id => 42
-        response.should redirect_to(topic)
+        response.should redirect_to(topic_reply_path(topic, reply))
       end
     end
 
@@ -54,6 +54,21 @@ describe RepliesController do
         post :create, :topic_id => 42
         response.should render_template(:new)
       end
+    end
+  end
+
+  describe "GET edit" do
+    let(:reply) { double }
+
+    it "redirects to the page of the topic where the reply is" do
+      Reply.stub :find => reply
+      reply.stub :topic_id => 10
+      reply.stub :page_in_topic => 3
+      reply.stub :id => 20
+
+      get :show, :topic_id => 10, :id => 20
+
+      response.should redirect_to(topic_path(10, :page => 3, :anchor => 'reply_20'))
     end
   end
 
@@ -79,7 +94,7 @@ describe RepliesController do
   end
 
   describe "PUT update" do
-    let(:reply) { double }
+    let(:reply) { Factory.stub(:reply) }
     let(:topic) { Factory.stub(:topic) }
 
     before do
@@ -109,7 +124,7 @@ describe RepliesController do
     it "redirects to the topic if successful" do
       reply.stub :update_attributes => true
       put :update, :topic_id => 10, :id => 20
-      response.should redirect_to(topic)
+      response.should redirect_to(topic_reply_path(topic, reply))
     end
 
     it "redisplays the form if unsuccessful" do

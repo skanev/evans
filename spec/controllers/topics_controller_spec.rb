@@ -157,7 +157,6 @@ describe TopicsController do
     end
 
     it "redirects to the topic itself if it has no replies" do
-      topic.stub :pages_of_replies => 1
       topic.stub :last_reply_id => nil
 
       get :last_reply, :id => 42
@@ -166,12 +165,11 @@ describe TopicsController do
     end
 
     it "redirects to the last page of the topic" do
-      topic.stub :pages_of_replies => 3
-      topic.stub :last_reply_id => 42
+      topic.stub :last_reply_id => 20
 
-      get :last_reply, :id => 42
+      get :last_reply, :id => 10
 
-      response.should redirect_to(topic_path(topic, :page => 3, :anchor => 'reply_42'))
+      response.should redirect_to(topic_reply_path(topic, 20))
     end
   end
 end
