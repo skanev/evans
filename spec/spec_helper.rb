@@ -16,6 +16,8 @@ Spork.each_run do
   FactoryGirl.factories.clear
   Dir[Rails.root.join("spec/factories.rb")].each {|f| load f}
 
+  Trane::Application.reload_routes!
+
   RSpec.configure do |config|
     config.mock_with :rspec
     config.use_transactional_fixtures = true
