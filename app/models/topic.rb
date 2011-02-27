@@ -17,6 +17,18 @@ class Topic < ActiveRecord::Base
     user.present? and (user == self.user or user.admin?)
   end
 
+  def pages_of_replies
+    if replies_count == 0
+      1
+    else
+      (replies_count - 1) / Reply.per_page + 1
+    end
+  end
+
+  def last_reply_id
+    replies.last.id
+  end
+
   class << self
     def page(page)
       paginate(:page => page, :order => 'last_post_at DESC')

@@ -5,6 +5,7 @@ Trane::Application.routes.draw do
   resource :profile
 
   resources :topics do
+    get :last_reply, :on => :member
     resources :replies
   end
 

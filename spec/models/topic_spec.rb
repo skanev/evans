@@ -46,6 +46,20 @@ describe Topic do
     topic.can_be_edited_by?(nil).should be_false
   end
 
+  it "can tell how many pages of replies it has" do
+    topic_with_replies = lambda do |count|
+      topic = Topic.make
+      count.times { Reply.make :topic => topic }
+      topic.reload
+    end
+
+    Reply.stub :per_page => 2
+
+    topic_with_replies[0].pages_of_replies.should == 1
+    topic_with_replies[2].pages_of_replies.should == 1
+    topic_with_replies[3].pages_of_replies.should == 2
+  end
+
   describe "last post" do
     it "is the topic itself initially" do
       Timecop.freeze do

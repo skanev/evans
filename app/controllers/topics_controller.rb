@@ -42,6 +42,17 @@ class TopicsController < ApplicationController
     end
   end
 
+  def last_reply
+    topic = find_topic
+    reply_id = topic.last_reply_id
+
+    if reply_id
+      redirect_to topic_path(topic, :page => topic.pages_of_replies, :anchor => "reply_#{reply_id}")
+    else
+      redirect_to topic_path(topic)
+    end
+  end
+
   private
 
   def authorize

@@ -148,4 +148,30 @@ describe TopicsController do
       response.should render_template(:edit)
     end
   end
+
+  describe "GET last_reply" do
+    let(:topic) { mock_model(Topic) }
+
+    before do
+      Topic.stub :find => topic
+    end
+
+    it "redirects to the topic itself if it has no replies" do
+      topic.stub :pages_of_replies => 1
+      topic.stub :last_reply_id => nil
+
+      get :last_reply, :id => 42
+
+      response.should redirect_to(topic_path(topic))
+    end
+
+    it "redirects to the last page of the topic" do
+      topic.stub :pages_of_replies => 3
+      topic.stub :last_reply_id => 42
+
+      get :last_reply, :id => 42
+
+      response.should redirect_to(topic_path(topic, :page => 3, :anchor => 'reply_42'))
+    end
+  end
 end

@@ -4,7 +4,7 @@
   - if @replies.current_page == 1
     %li= render 'post', :post => @topic
   - @replies.each do |reply|
-    %li= render 'post', :post => reply
+    %li[reply]= render 'post', :post => reply
 
 = will_paginate @replies
 
