@@ -17,6 +17,8 @@ Spork.prefork do
   Cucumber::Rails::World.use_transactional_fixtures = true
 
   ActiveSupport::Dependencies.clear
+
+  Test::Unit.run = true
 end
 
 Spork.each_run do
