@@ -18,6 +18,8 @@ Spork.each_run do
 
   Trane::Application.reload_routes!
 
+  load 'Sporkfile.rb' if File.exists?('Sporkfile.rb')
+
   RSpec.configure do |config|
     config.mock_with :rspec
     config.use_transactional_fixtures = true
