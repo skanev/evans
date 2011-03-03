@@ -12,6 +12,6 @@
         %td= voucher.code
         %td
           - if voucher.user
-            = link_to voucher.user.full_name, voucher.user
+            = link_to voucher.user.name, voucher.user
           - else
             %em Свободен

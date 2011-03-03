@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
 
   mount_uploader :photo, PhotoUploader
 
+  def name
+    full_name.gsub(/^(\w+) .* (\w+)$/, '\1 \2')
+  end
+
   def points
     points = 0
     points += 1 if photo.present?

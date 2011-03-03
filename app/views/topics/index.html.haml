@@ -18,7 +18,7 @@
             = link_to last_reply_topic_path(topic) do
               %time{:datetime => topic.last_post_at.iso8601, :pubdate => true}= l topic.last_post_at
             от
-            = link_to topic.last_poster.full_name, '#'
+            = link_to topic.last_poster.name, topic.last_poster
     - else
       %tr
         %td(colspan="3" class="no-records")

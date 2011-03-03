@@ -1,7 +1,7 @@
 %article
   %aside
-    = link_to user_thumbnail(post.user), '#'
-    = link_to post.user.full_name, '#'
+    = link_to user_thumbnail(post.user), post.user
+    = link_to post.user.name, post.user
   .body
     = simple_format post.body
   .published-at
