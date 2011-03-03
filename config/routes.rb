@@ -6,6 +6,7 @@ Trane::Application.routes.draw do
 
   resource :profile
   resource :dashboard
+  resources :voucher_claims
 
   resources :topics do
     get :last_reply, :on => :member
