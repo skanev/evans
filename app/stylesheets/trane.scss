@@ -27,3 +27,17 @@ table {
 }
 
 .requires-authentication { color: $disabled; font-style: italic; }
+
+#main .pagination {
+  overflow: hidden;
+
+  span,
+  em,
+  a { display: block; float: left; margin: 2px; padding: 5px 10px; }
+
+  .disabled,
+  a { border: 1px solid #ddd; }
+
+  em { color: #FF8000; font-weight: bold; }
+  a:hover { background-color: #0063DC; color: white; text-decoration: none; }
+}
