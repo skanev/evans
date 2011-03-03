@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :can_edit?, :logged_in?
+  helper_method :can_edit?, :logged_in?, :admin?
 
   protect_from_forgery
 
@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_user
+  end
+
+  def admin?
+    current_user.try(:admin?)
   end
 
   def can_edit?(something)

@@ -26,6 +26,9 @@
           %li= link_to 'Табло', dashboard_path
         %li= link_to 'Потребители', users_path
         %li= link_to 'Форуми', topics_path
+        - if admin?
+          %li= link_to 'Ваучъри', vouchers_path
+          %li= link_to 'Записани', sign_ups_path
     #container
       - flash.keys.each do |key|
         %div{:class => [:flash, key]}= flash[key]
