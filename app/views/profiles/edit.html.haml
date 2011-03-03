@@ -1,5 +1,14 @@
 %h1 Редакция на профил
 
 = simple_form_for @user, :url => profile_path, :html => {:method => :put, :multipart => true} do |form|
-  = form.input :photo, :as => :file
-  = form.submit 'Запази'
+  %fieldset
+    %legend Снимка
+    = user_thumbnail @user
+    - if @user.photo.present?
+      = form.input :remove_photo, :as => :boolean, :label => 'Изтрий снимката'
+      %p Или качи друга:
+      %p= form.file_field :photo
+    - else
+      %p Качи снимка:
+      %p= form.file_field :photo
+  = form.button :submit, 'Запази'
