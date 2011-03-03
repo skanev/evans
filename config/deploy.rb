@@ -27,3 +27,4 @@ after 'deploy:update_code', 'deploy:symlink_shared'
 
 require 'config/boot'
 require 'hoptoad_notifier/capistrano'
+require 'bundler/capistrano'
