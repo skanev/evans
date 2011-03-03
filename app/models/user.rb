@@ -7,6 +7,13 @@ class User < ActiveRecord::Base
 
   mount_uploader :photo, PhotoUploader
 
+  def points
+    points = 0
+    points += 1 if photo.present?
+    points += Voucher.where(:user_id => id).count
+    points
+  end
+
   class << self
     def page(page_number)
       order('photo IS NULL ASC, created_at ASC').paginate :page => page_number

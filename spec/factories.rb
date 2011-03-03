@@ -20,6 +20,10 @@ FactoryGirl.define do
     full_name 'John Doe'
   end
 
+  factory :user_with_photo, :parent => :user do
+    photo { Rack::Test::UploadedFile.new Rails.root.join('spec/fixtures/files/mind_flayer.jpg') }
+  end
+
   factory :admin, :parent => :user do
     admin true
   end

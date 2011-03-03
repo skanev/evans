@@ -1,0 +1,6 @@
+#dashboard {
+  .points { border: 1px solid $light-border; float: right; width: 100px; };
+  .points h2 { display: none; }
+  .points p { text-align: center; }
+  .points p strong { color: #008833; display: block; font-size: 50px; line-height: 50px; }
+}
