@@ -1,0 +1,15 @@
+ul.users {
+  overflow: hidden;
+  width: 700px;
+
+  li { float: left; padding: 10px; width: 150px; height: 200px; }
+  li a { display: block; }
+  li img { display: block; }
+}
+
+#user-page {
+  .faculty-number { color: $subtitle-color; font-family: $font-headings; font-size: $font-large; }
+
+  dl dt { display: block; float: left; font-weight: bold; width: 100px; }
+  dl dd { clear: right; margin: 5px 0; }
+}

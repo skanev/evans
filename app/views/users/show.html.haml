@@ -1,0 +1,22 @@
+#user-page
+  %h1= @user.full_name
+  %p.faculty-number (№#{@user.faculty_number})
+
+  = user_thumbnail @user
+
+  %dl
+    - if @user.github.present?
+      %dt GitHub
+      %dd= link_to @user.github, "http://github.com/#{@user.github}" 
+
+    - if @user.twitter.present?
+      %dt Twitter
+      %dd= link_to @user.twitter, "http://twitter.com/#{@user.twitter}" 
+
+    - if @user.skype.present?
+      %dt Skype
+      %dd= @user.skype
+
+    - if @user.site.present?
+      %dt Сайт
+      %dd= link_to @user.site, @user.site

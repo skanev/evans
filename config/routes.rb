@@ -9,10 +9,11 @@ Trane::Application.routes.draw do
     resources :replies
   end
 
+  devise_for :users
+  resources :users
   resources :sign_ups
 
-  devise_for :users
-
   get '/backdoor-login', :to => 'backdoor_login#login' if Rails.env.test?
+
   root :to => "home#index"
 end

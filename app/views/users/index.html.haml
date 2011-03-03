@@ -1,0 +1,10 @@
+%h1 Потребители
+
+%ul.users
+  - @users.each do |user|
+    %li
+      = link_to user do
+        = user_thumbnail user
+        = user.full_name
+
+= will_paginate @users
