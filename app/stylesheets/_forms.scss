@@ -33,6 +33,7 @@
   }
 
   input[name*=faculty_number] { width: 80px; }
+  textarea[name*=body] { width: 600px; height: 200px; }
 
   input[type=button],
   input[type=submit] {
