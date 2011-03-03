@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  self.per_page = 20
+
   devise :database_authenticatable, :rememberable, :trackable
 
   attr_protected :full_name, :faculty_number, :email, :admin
