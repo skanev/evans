@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def after_sign_in_path_for(something)
+    dashboard_path
+  end
+
   def logged_in?
     !!current_user
   end
