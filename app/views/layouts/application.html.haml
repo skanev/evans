@@ -15,7 +15,6 @@
         %ul
           - if user_signed_in?
             %li Здрасти, #{current_user.full_name}
-            %li= link_to 'Профил', profile_path
             %li= link_to 'Изход', destroy_user_session_path
           - else
             %li= link_to 'Вход', new_user_session_path

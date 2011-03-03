@@ -3,23 +3,16 @@ require 'spec_helper'
 describe ProfilesController do
   log_in_as :student
 
-  describe "GET show" do
+  describe "GET edit" do
     it "assigns my user to @user" do
-      get :show
+      get :edit
       assigns(:user).should == current_user
     end
 
     it "denies access if unauthenticated" do
       controller.stub :current_user => nil
-      get :show
+      get :edit
       response.should deny_access
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns my user to @user" do
-      get :show
-      assigns(:user).should == current_user
     end
   end
 
@@ -38,10 +31,10 @@ describe ProfilesController do
       put :update, :user => 'attributes'
     end
 
-    it "redirects to the profile on success" do
+    it "redirects to the dashboard on success" do
       current_user.stub :update_attributes => true
       put :update
-      response.should redirect_to(profile_path)
+      response.should redirect_to(dashboard_path)
     end
 
     it "redisplays the form on failure" do

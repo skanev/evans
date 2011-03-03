@@ -1,10 +1,6 @@
 class ProfilesController < ApplicationController
   before_filter :require_user
 
-  def show
-    @user = current_user
-  end
-
   def edit
     @user = current_user
   end
@@ -12,7 +8,7 @@ class ProfilesController < ApplicationController
   def update
     @user = current_user
     if @user.update_attributes params[:user]
-      redirect_to profile_path
+      redirect_to dashboard_path, :notice => 'Профилът ви е обновен'
     else
       render :edit
     end
