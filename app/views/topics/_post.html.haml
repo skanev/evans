@@ -3,7 +3,7 @@
     = link_to user_thumbnail(post.user), post.user
     = link_to post.user.name, post.user
   .body
-    = simple_format post.body
+    = simple_format auto_link(post.body)
   .published-at
     Публикувано преди
     %time{:datetime => post.created_at.iso8601}= time_ago_in_words post.created_at
