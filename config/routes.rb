@@ -2,6 +2,8 @@ Trane::Application.routes.draw do
   resource :registration
   resources :activations, :constraints => {:id => /.+/}
 
+  resources :vouchers
+
   resource :profile
 
   resources :topics do

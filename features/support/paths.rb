@@ -13,6 +13,8 @@ module NavigationHelpers
         edit_topic_path Topic.find_by_title!($1)
       when /профила си/
         profile_path
+      when /списъка с ваучъри/
+        vouchers_path
       else
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"

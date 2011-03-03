@@ -1,0 +1,11 @@
+%h1 Ваучъри
+= link_to 'Добави нови ваучъри', new_voucher_path
+
+%table
+  %thead
+    %tr
+      %th Код
+  %tbody
+    - @vouchers.each do |voucher|
+      %tr
+        %td= voucher.code

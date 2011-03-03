@@ -1,0 +1,8 @@
+%h1 Добави нови ваучъри
+
+= form_tag vouchers_path, :method => :post, :class => 'simple_form' do
+  %div
+    = label_tag :codes, 'Кодове'
+    = text_area_tag :codes, '', :size => '30x15'
+
+  %p= submit_tag 'Създай'
