@@ -1,5 +1,5 @@
 class RegistrationMailer < ActionMailer::Base
-  default :from => "trane@py-bg.net"
+  default :from => 'fmi@py-bg.net', :reply_to => 'fmi@py-bg.net'
 
   def confirmation(sign_up)
     @activation_url = activation_url(sign_up.token, :only_path => false)
