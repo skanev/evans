@@ -5,7 +5,13 @@
   %thead
     %tr
       %th Код
+      %th Потребител
   %tbody
     - @vouchers.each do |voucher|
       %tr
         %td= voucher.code
+        %td
+          - if voucher.user
+            = link_to voucher.user.full_name, voucher.user
+          - else
+            %em Свободен
