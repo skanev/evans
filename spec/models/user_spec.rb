@@ -22,8 +22,8 @@ describe User do
     end
 
     it "puts users with photos before users without photos" do
-      second = User.make :created_at => 2.days.ago
-      first  = User.make :created_at => 1.day.ago, :photo => uploaded_photo
+      second = Factory(:user)
+      first  = Factory(:user_with_photo)
 
       User.page(1).should == [first, second]
     end

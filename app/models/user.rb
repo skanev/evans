@@ -20,7 +20,15 @@ class User < ActiveRecord::Base
 
   class << self
     def page(page_number)
-      order('photo IS NULL ASC, created_at ASC').paginate :page => page_number
+      sort_order = <<-END
+        (CASE
+          WHEN photo = '' THEN 1
+          WHEN photo IS NULL THEN 1
+          ELSE 0
+        END) ASC,
+        created_at ASC
+      END
+      order(sort_order).paginate :page => page_number
     end
   end
 end
