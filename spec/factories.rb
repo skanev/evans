@@ -2,6 +2,7 @@ FactoryGirl.define do
   sequence(:email) { |n| "person-#{n}@example.org" }
   sequence(:faculty_number) { |n| "%05d" % n }
   sequence(:token) { |n| "%040d" % n }
+  sequence(:voucher_code) { |n| "%08d" % n }
 
   factory :sign_up do
     full_name 'John Doe'
@@ -33,5 +34,9 @@ FactoryGirl.define do
     body 'Body'
     topic
     user
+  end
+
+  factory :voucher do
+    code { Factory.next(:voucher_code) }
   end
 end
