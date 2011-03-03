@@ -8,6 +8,10 @@ end
   end
 end
 
+Когато 'попълня "$field" с:' do |field, text|
+  fill_in :field, :with => text
+end
+
 Когато 'натисна "$текст"' do |text|
   click_button text
 end
