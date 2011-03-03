@@ -3,6 +3,13 @@
 
   a { color: #00a; text-decoration: none; }
   a:hover { text-decoration: underline; }
+
+  h1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; margin-bottom: 20px; }
+  h2 { color: $subtitle-color; font-family: $font-headings; font-size: $font-larger; margin-bottom: 10px; }
+
   p { margin: 1em 0; }
   strong { font-weight: bold; }
+  em { font-style: italic; }
+
+  abbr { border-bottom: 1px dotted $dark-border; }
 }

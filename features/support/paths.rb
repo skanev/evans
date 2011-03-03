@@ -15,6 +15,8 @@ module NavigationHelpers
         profile_path
       when /списъка с ваучъри/
         vouchers_path
+      when /таблото си/
+        dashboard_path
       else
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"

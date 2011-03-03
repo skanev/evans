@@ -9,8 +9,6 @@
 
 body { font-family: $font-text; font-size: $font-normal; }
 a { text-decoration: none; }
-h1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; margin-bottom: 20px; }
-abbr { border-bottom: 1px dotted $dark-border; }
 
 #main { @include content; }
 
@@ -38,6 +36,6 @@ table {
   .disabled,
   a { border: 1px solid #ddd; }
 
-  em { color: #FF8000; font-weight: bold; }
+  em { color: #FF8000; font-weight: bold; font-style: normal; }
   a:hover { background-color: #0063DC; color: white; text-decoration: none; }
 }
