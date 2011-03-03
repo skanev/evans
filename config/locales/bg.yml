@@ -10,6 +10,14 @@ bg:
     error_notification:
       default_message: 'Намерихме няколко грешки. Погледнете и пробвайте пак:'
       registration: Регистрацията ви беше неуспешна. Сигурни ли сте, че въведохте правилните данни?
+    hints:
+      user:
+        github: Ако нямате, крайно време е да си направите
+        twitter: Ако сте от този тип хора
+        skype: Ако смятате, че ни е нужен
+        phone: Не е публичен; ползваме го само в краен случай
+        site: Ако имате такъв
+        about: Ако искате
   helpers:
     submit:
       reply:
@@ -42,6 +50,10 @@ bg:
         password: Парола
         remember_me: Запомни ме на този компютър
         photo: Снимка
+        github: 'Потребителско име в <a href="http://github.com/">GitHub</a>'
+        phone: Мобилен телефон
+        site: Сайт
+        about: Разкажете ни за себе си
       sign_up:
         full_name: Три имена
         faculty_number: Факултетен номер
@@ -50,7 +62,6 @@ bg:
         body: Съдържание
       reply:
         body: Отговор
-
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"

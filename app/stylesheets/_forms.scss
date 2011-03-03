@@ -10,10 +10,16 @@
 
   input.string,
   input.password { border: 1px solid $light-border; font-size: $font-large; padding: 5px; margin: 2px 0; }
+  textarea { border: 1px solid $light-border; font-size: $font-normal; padding: 5px; margin: 2px 0; }
 
   input.string,
   input.string,
   input.password { width: 280px; }
+
+  .error,
+  .hint { line-height: 35px; margin-left: 10px; vertical-align: top; }
+
+  .hint { color: $hint; font-style: italic; }
 
   .error_notification { background-color: $alert; color: $background; padding: 10px 20px; }
 
@@ -22,7 +28,8 @@
     input.password,
     textarea { border-color: $alert; }
 
-    .error { margin-left: 10px; color: $alert; }
+    .error { color: $alert; }
+    .hint { display: none; }
   }
 
   input[name*=faculty_number] { width: 80px; }

@@ -11,4 +11,12 @@
     - else
       %p Качи снимка:
       %p= form.file_field :photo
+  %fieldset
+    %legend Малко лична информация за вас
+    = form.input :github
+    = form.input :twitter
+    = form.input :skype
+    = form.input :phone
+    = form.input :site
+    = form.input :about, :input_html => {:size => '50x5'}
   = form.button :submit, 'Запази'
