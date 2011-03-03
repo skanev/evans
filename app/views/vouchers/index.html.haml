@@ -6,12 +6,17 @@
     %tr
       %th Код
       %th Потребител
+      %th Взет на
   %tbody
     - @vouchers.each do |voucher|
       %tr
         %td= voucher.code
-        %td
-          - if voucher.user
-            = link_to voucher.user.name, voucher.user
-          - else
-            %em Свободен
+        - if voucher.user
+          %td= link_to voucher.user.name, voucher.user
+          %td
+            %time{:datetime => voucher.claimed_at.iso8601}
+              преди
+              = time_ago_in_words voucher.claimed_at
+        - else
+          %td
+          %td

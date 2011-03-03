@@ -23,6 +23,12 @@ describe Voucher do
         voucher.reload.user.should == user
       end
 
+      it "updates the voucher's claimed_at time" do
+        Timecop.freeze
+        Voucher.claim user, voucher.code
+        voucher.reload.claimed_at.should == Time.now
+      end
+
       it "returns true" do
         Voucher.claim(user, voucher.code).should be_true
       end

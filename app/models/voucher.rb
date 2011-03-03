@@ -15,7 +15,7 @@ class Voucher < ActiveRecord::Base
     def claim(user, code)
       voucher = find_by_code(code)
       return false if voucher.nil? or voucher.claimed?
-      voucher.update_attributes! :user_id => user.id
+      voucher.update_attributes! :user_id => user.id, :claimed_at => Time.now
     end
   end
 end
