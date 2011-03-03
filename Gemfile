@@ -13,6 +13,8 @@ gem 'mini_magick'
 gem 'spork'
 gem 'capistrano'
 
+gem 'hoptoad_notifier'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', '~> 0.4.0.beta.1'

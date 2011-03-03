@@ -80,6 +80,9 @@ GEM
       json (~> 1.4.6)
     haml (3.0.25)
     highline (1.6.1)
+    hoptoad_notifier (2.4.5)
+      activesupport
+      builder
     i18n (0.5.0)
     json (1.4.6)
     json_pure (1.5.1)
@@ -171,6 +174,7 @@ DEPENDENCIES
   factory_girl_rails (~> 1.1.beta1)
   faker
   haml
+  hoptoad_notifier
   launchy
   mini_magick
   pg
