@@ -24,9 +24,10 @@ describe Voucher do
       end
 
       it "updates the voucher's claimed_at time" do
-        Timecop.freeze
-        Voucher.claim user, voucher.code
-        voucher.reload.claimed_at.should == Time.now
+        Timecop.freeze do
+          Voucher.claim user, voucher.code
+          voucher.reload.claimed_at.should == Time.now
+        end
       end
 
       it "returns true" do
