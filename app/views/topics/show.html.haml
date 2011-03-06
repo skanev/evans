@@ -1,5 +1,7 @@
 %h1= @topic.title
 
+= will_paginate @replies
+
 %ol.topic
   - if @replies.current_page == 1
     %li= render 'post', :post => @topic
