@@ -7,6 +7,7 @@ task :fake => :environment do
   5.times { Factory(:fake_admin) }
   40.times { Factory(:fake_topic) }
   2000.times { Factory(:fake_reply) }
+  20.times { Factory(:fake_announcement) }
   Factory(:fake_admin, :email => 'admin@example.org', :password => 'test', :password_confirmation => 'test')
 
   puts "Log in with:"

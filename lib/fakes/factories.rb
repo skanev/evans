@@ -35,4 +35,9 @@ FactoryGirl.define do
     user { User.all.rand }
     body { Faker::Lorem.paragraphs.join("\n\n") }
   end
+
+  factory :fake_announcement, :class => :announcement do
+    title { Faker::Lorem.sentence }
+    body { Faker::Lorem.paragraphs.join("\n\n") }
+  end
 end
