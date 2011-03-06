@@ -20,3 +20,10 @@
     - if @user.site.present?
       %dt Сайт
       %dd= link_to @user.site, @user.site
+
+    - if admin?
+      %dt Поща
+      %dd= @user.email
+
+      %dt За вас
+      %dd= @user.about
