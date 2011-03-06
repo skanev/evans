@@ -1,6 +1,6 @@
 @mixin content {
-  ul { margin-left: 30px; }
-  ul li { margin: 2px 0; }
+  ul, ol { margin-left: 30px; }
+  li { margin: 2px 0; }
   ul > li { list-style: circle; }
   ul > li > ul > li { list-style: square; }
   ol > li { list-style: decimal; }
