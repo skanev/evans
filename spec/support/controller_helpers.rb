@@ -16,16 +16,16 @@ module Support
       end
     end
 
-    module InstanceMethods
-      def deny_access
-        flash[:error].should be_present
-        redirect_to root_path
+    RSpec::Matchers.define :deny_access do
+      match do |response|
+        response.request.flash[:error].present? and response.redirect_url == 'http://test.host/'
       end
+
+      failure_message_for_should { |response| "expected action to deny access" }
     end
 
     def self.included(example_group)
       example_group.extend ClassMethods
-      example_group.send :include, InstanceMethods
     end
   end
 end
