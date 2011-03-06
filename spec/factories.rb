@@ -43,4 +43,9 @@ FactoryGirl.define do
   factory :voucher do
     code { Factory.next(:voucher_code) }
   end
+
+  factory :announcement do
+    title 'Title'
+    body 'Body'
+  end
 end
