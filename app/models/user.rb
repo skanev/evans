@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  self.per_page = 20
-
   devise :database_authenticatable, :rememberable, :trackable
 
   attr_protected :full_name, :faculty_number, :email, :admin
@@ -28,7 +26,7 @@ class User < ActiveRecord::Base
         END) ASC,
         created_at ASC
       END
-      order(sort_order).paginate :page => page_number
+      order(sort_order).paginate :page => page_number, :per_page => 32
     end
   end
 end
