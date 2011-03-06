@@ -17,6 +17,8 @@ module NavigationHelpers
         vouchers_path
       when /таблото си/
         dashboard_path
+      when /новините/
+        announcements_path
       else
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"

@@ -62,6 +62,9 @@ bg:
         body: Съдържание
       reply:
         body: Отговор
+      announcement:
+        title: Заглавие
+        body: Тяло
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"

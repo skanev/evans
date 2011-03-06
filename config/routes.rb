@@ -4,6 +4,7 @@ Trane::Application.routes.draw do
 
   resources :vouchers
 
+  resources :announcements
   resource :profile
   resource :dashboard
   resources :voucher_claims
