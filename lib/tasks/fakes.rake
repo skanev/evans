@@ -1,6 +1,5 @@
 desc "Generates fake data"
 task :fake => :environment do
-  Faker::Config.locale = 'en'
   require 'lib/fakes/factories.rb'
 
   [Announcement, Reply, Topic, User].each do |model|
