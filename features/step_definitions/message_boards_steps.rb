@@ -15,6 +15,10 @@ end
   Factory(:reply, :user => @current_user, :topic => topic, :body => reply)
 end
 
+Дадено 'че съществува тема "$title" със съдържание:' do |title, body|
+  Factory(:topic, :title => title, :body => body)
+end
+
 Когато 'попълня "$field" с "$value"' do |field, value|
   fill_in field, :with => value
 end
@@ -29,4 +33,8 @@ end
   within "li:contains('#{reply}')" do
     click_link 'Редактирай'
   end
+end
+
+То 'трябва да няма "$code" в кода на документа' do |code|
+  body.should_not include(code)
 end
