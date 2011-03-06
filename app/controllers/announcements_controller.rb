@@ -2,6 +2,7 @@ class AnnouncementsController < ApplicationController
   before_filter :require_admin, :only => [:new, :create]
 
   def index
+    @announcements = Announcement.page params[:page]
   end
 
   def new

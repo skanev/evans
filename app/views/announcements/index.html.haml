@@ -1,1 +1,16 @@
-= link_to 'Нова', new_announcement_path
+%h1 Новини
+
+- if admin?
+  = link_to 'Нова', new_announcement_path
+
+#announcements
+  - @announcements.each do |announcement|
+    %article
+      %h2= announcement.title
+      .published-at
+        Публикувано на
+        %time{:datetime => announcement.created_at.iso8601, :pubdate => :pubdate}
+          = l announcement.created_at
+      = markup announcement.body
+
+= will_paginate @announcements

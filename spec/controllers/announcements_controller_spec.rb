@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe AnnouncementsController do
+  describe "GET index" do
+    it "assigns a page of news to @announcements" do
+      Announcement.should_receive(:page).with('3').and_return('announcements')
+      get :index, :page => '3'
+      assigns(:announcements).should == 'announcements'
+    end
+  end
+
   describe "GET new" do
     log_in_as :admin
 
