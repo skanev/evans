@@ -1,11 +1,11 @@
 ol.topic {
-  li { padding: 20px; overflow: hidden; }
-  li:nth-child(even) { background-color: #f0f0f0; }
+  > li { padding: 20px; overflow: hidden; }
+  > li:nth-child(even) { background-color: #f0f0f0; }
 
   aside { float: right; }
   aside img { display: block; }
 
-  .body { margin-right: 200px; }
+  .body { @include content; margin-right: 200px; }
 
   .published-at { border-top: 1px dotted gray; color: #666; font-size: $font-small; margin-right: 200px; padding-top: 5px; }
   #main & .body p:first-child { margin-top: 0; }

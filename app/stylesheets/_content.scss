@@ -1,15 +1,7 @@
 @mixin content {
-  line-height: 19px;
-
-  a { color: #00a; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  h1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; margin-bottom: 20px; }
-  h2 { color: $subtitle-color; font-family: $font-headings; font-size: $font-larger; margin-bottom: 10px; }
-
-  p { margin: 1em 0; }
-  strong { font-weight: bold; }
-  em { font-style: italic; }
-
-  abbr { border-bottom: 1px dotted $dark-border; }
+  ul { margin-left: 30px; }
+  ul li { margin: 2px 0; }
+  ul > li { list-style: circle; }
+  ul > li > ul > li { list-style: square; }
+  ol > li { list-style: decimal; }
 }
