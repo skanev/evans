@@ -13,6 +13,9 @@ gem 'mini_magick'
 gem 'spork'
 gem 'capistrano'
 
+gem 'rdiscount'
+gem 'sanitize'
+
 gem 'hoptoad_notifier'
 
 group :development, :test do
