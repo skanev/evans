@@ -4,13 +4,16 @@
   = link_to 'Нова', new_announcement_path
 
 #announcements
-  - @announcements.each do |announcement|
-    %article
-      %h2= announcement.title
-      .published-at
-        Публикувано на
-        %time{:datetime => announcement.created_at.iso8601, :pubdate => :pubdate}
-          = l announcement.created_at
-      = markup announcement.body
+  - unless @announcements.empty?
+    - @announcements.each do |announcement|
+      %article
+        %h2= announcement.title
+        .published-at
+          Публикувано на
+          %time{:datetime => announcement.created_at.iso8601, :pubdate => :pubdate}
+            = l announcement.created_at
+        = markup announcement.body
+  - else
+    %p.no-records Все още няма новини
 
 = will_paginate @announcements

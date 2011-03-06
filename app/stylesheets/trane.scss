@@ -37,9 +37,10 @@ table {
   thead th { background-color: #3371A3; color: white; font-weight: bold; text-align: left; }
   th, td { padding: 8px 16px; vertical-align: middle; }
   tr:nth-child(even) { background-color: #f0f0f0; }
-  td.no-records { color: $disabled; font-style: italic; text-align: center; }
+  td.no-records { text-align: center; }
 }
 
+.no-records,
 .requires-authentication { color: $disabled; font-style: italic; }
 
 #main .pagination {
