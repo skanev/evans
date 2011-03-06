@@ -1,4 +1,6 @@
 class AnnouncementsController < ApplicationController
+  before_filter :require_admin, :only => [:new, :create]
+
   def index
   end
 
