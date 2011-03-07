@@ -86,4 +86,22 @@ describe Topic do
       end
     end
   end
+
+  describe "syncronization with Post" do
+    it "happens on create" do
+      topic = Topic.make
+      post  = Post.find(topic.id)
+
+      post.attributes.slice(*Post::TOPIC_ATTRIBUTES).should == topic.attributes.slice(*Post::TOPIC_ATTRIBUTES)
+    end
+
+    it "happens on update" do
+      topic = Topic.make
+      post  = Post.find(topic.id)
+
+      topic.update_attributes! :title => 'New title'
+
+      post.reload.title.should == 'New title'
+    end
+  end
 end

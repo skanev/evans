@@ -8,6 +8,8 @@ class Reply < ActiveRecord::Base
 
   attr_accessible :body
 
+  after_save :reflect_in_posts
+
   def can_be_edited_by?(user)
     user.present? and (user == self.user or user.admin?)
   end
@@ -23,5 +25,13 @@ class Reply < ActiveRecord::Base
     topic.last_poster_id = user_id
     topic.last_post_at = created_at
     topic.save!
+  end
+
+  def reflect_in_posts
+    post_id = 100_000 + id
+    post = Post.find_by_id(post_id) || Post.new.tap { |p| p.id = post_id }
+    post.attributes = attributes.slice(*Post::REPLY_ATTRIBUTES)
+    post.type = 'Post'
+    post.save!
   end
 end

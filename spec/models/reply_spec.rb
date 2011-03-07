@@ -33,4 +33,23 @@ describe Reply do
     second.page_in_topic.should == 1
     third.page_in_topic.should == 2
   end
+
+  describe "syncronization with Post" do
+    it "happens on create" do
+      reply = Reply.make
+
+      post = Post.where(:topic_id => reply.topic_id).first
+      post.should be_present
+      post.attributes.slice(*Post::REPLY_ATTRIBUTES).should == reply.attributes.slice(*Post::REPLY_ATTRIBUTES)
+    end
+
+    it "happens on update" do
+      reply = Reply.make
+
+      reply.update_attributes! :body => 'New body'
+
+      post = Post.find_by_topic_id(reply.topic_id)
+      post.body.should == 'New body'
+    end
+  end
 end

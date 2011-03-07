@@ -9,6 +9,8 @@ class Topic < ActiveRecord::Base
 
   attr_accessible :title, :body
 
+  after_save :reflect_in_posts
+
   def replies_on_page(page)
     replies.paginate :page => page, :per_page => Reply.per_page
   end
@@ -40,5 +42,13 @@ class Topic < ActiveRecord::Base
   def update_last_post
     self.last_poster_id ||= user_id
     self.last_post_at ||= Time.now
+  end
+
+  def reflect_in_posts
+    post = Post.find_by_id(id) || Post.new
+    post.id = id
+    post.attributes = attributes.slice(*Post::TOPIC_ATTRIBUTES)
+    post.type = 'Post'
+    post.save!
   end
 end
