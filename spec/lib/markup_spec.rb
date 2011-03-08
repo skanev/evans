@@ -29,4 +29,8 @@ describe Markup do
   it "generates an html safe string" do
     format('').should be_html_safe
   end
+
+  it "allows setting class on <pre>" do
+    format('<pre class="baba"></pre>').should include('<pre class="baba"></pre>')
+  end
 end
