@@ -4,4 +4,6 @@
   ul > li { list-style: circle; }
   ul > li > ul > li { list-style: square; }
   ol > li { list-style: decimal; }
+
+  pre { font-family: $font-monospace; padding: 20px 10px; }
 }
