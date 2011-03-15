@@ -56,3 +56,5 @@ table {
   em { color: #FF8000; font-weight: bold; font-style: normal; }
   a:hover { background-color: #0063DC; color: white; text-decoration: none; }
 }
+
+#home-page { @include content; }

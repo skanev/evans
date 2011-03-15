@@ -1,5 +1,5 @@
 @mixin content {
-  ul, ol { margin-left: 30px; }
+  ul, ol { margin: 10px 0 10px 30px; }
   li { margin: 2px 0; }
   ul > li { list-style: circle; }
   ul > li > ul > li { list-style: square; }

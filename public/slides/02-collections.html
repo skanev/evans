@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Програмиране с Python: Колекции в Python</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="16.04.2008" />
+<meta name="author" content="Стефан Кънев, Николай Бачийски, Точо Точев и Димитър Димитров" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/python/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/python/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/python/prettify.css" type="text/css" media="screen" id="prettyifyStyle" />
+<link rel="stylesheet" href="ui/python/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/python/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="ui/python/slides.js" type="text/javascript"></script>
+<script src="ui/python/prettify.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<h1>&bdquo;Колекции в Python&ldquo;, част от курса <a href="http://fmi.py-bg.net/">Програмиране с Python</a></h1>
+<h1>Текстът на тази презентация се разпространява под <a href="http://creativecommons.org/licenses/by/3.0/deed.bg">Creative Commons Attribution</a></h1>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<h1>Колекции в Python</h1>
+<h3>&bdquo; Програмиране с Python&ldquo;, <acronym title="Факултет по Математика и Информатика при Софийски Университет">ФМИ</acronym></h3>
+<h4></h4>
+<h4>10.03.2011г.</h4>
+</div>
+
+
+<div class="slide">
+  <h1>Вградените колекции в Python</h1>
+  <ul>
+    <li>списъци (<code>list</code>)</li>
+    <li>n-орки (<code>tuple</code>)</li>
+    <li>речници (<code>dict</code>)</li>
+    <li>множества (<code>set</code>)</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Но преди това&hellip;</h1>
+  <p>Какво ви показахме предния път?</p>
+</div>
+
+<div class="slide">
+  <h1>for</h1>
+  <pre class="prettyprint">
+for age in range(1, 10000):
+    if age > 169:
+        print("You reached super-human limits!")
+        break
+    if age % 17 == 1:
+        print("So lucky!")
+        continue
+    print("So ordinary my leg hurts.")
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Факториел</h1>
+  <pre class="prettyprint">
+def factorial(n):
+    if n <= 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Списъци</h1>
+  <pre class="prettyprint">
+things = ['spam', 42, 3.14]
+things[1] = 'baba'
+have_eggs = 'eggs' in things
+more_things = things + ['ham', 'cheese']
+del more_things[2]
+</pre>
+</div>
+
+<div class="slide">
+  <h1>slice</h1>
+  <pre class="prettyprint">
+>>> numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> numbers[3:9]
+[3, 4, 5, 6, 7, 8]
+>>> numbers[0:10:2]
+[0, 2, 4, 6, 8]
+>>> numbers[3:9] = [-1, -1, -1]
+[0, 1, 2, -1, -1, -1, 9]
+>>> numbers[::2] = ['w', 'x', 'y', 'z']
+['w', 1, 'x', -1, 'y', -1, 'z']
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Въпроси към вас (1)</h1>
+  <p>Какво ще изведе този код?</p>
+  <pre class="prettyprint">
+foods = ['spam', 'eggs', 'ham']
+things = foods
+things[1] = 'chips'
+print(foods[1])
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Въпроси към вас (2)</h1>
+  <p>А този?</p>
+  <pre class="prettyprint">
+a = ['spam', 'eggs', 'ham']
+b = a
+c = a[:]
+print(a is b, a is c)
+print(a == b, a == c)
+b[1] = 'milk'
+print(a is b, a is c)
+print(a == b, a == c)
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Въпроси към вас (3)</h1>
+  <p>Или пък този?</p>
+  <pre class="prettyprint">
+cheese = ['cheddar', 'red leicester', 'emmental']
+cheese[1] = cheese
+food = cheese[1][:]
+cheese[2] = 'limburger'
+print(food[2])
+print(food[1][2])
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>n-торки(tuples)</h1>
+  <ul>
+    <li>n-торките са неизменяеми <code>(immutable)</code> списъци</li>
+    <li>Записват се по същия начин, но с малки скоби, вместо средни:</li>
+  </ul>
+  <pre class="prettyprint">
+        primes = (2, 3, 5, 7, 11, 13)
+</pre>
+  <ul>
+    <li>prime = <code>(2,)</code>, иначе ще се сметне за израза <code>2</code></li>
+    <li>Можете да ги индексирате и <code>slice</code>-вате, но не и променяте:</li>
+    <li>Могат да се влагат:</li>
+  </ul>
+  <pre class="prettyprint">
+        ("Foo", "Bar", ("Spam",), ("More", "Spam"))
+</pre>
+</div>
+
+<div class="slide">
+  <h1>И те, като списъците, поддържат:</h1>
+  <ul>
+    <li><code>+</code></li>
+    <li><code>*</code></li>
+    <li><code>1 in (1, 2)</code></li>
+    <li><code>for x in (1, 2):</code></li>
+    <li><code>.index</code></li>
+    <li><code>.count</code></li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Любопитни работи (1)</h1>
+  <p>Ако имате n-торка, съдържаща само имена от лявата страна на присвояване, може да постигнете интересни ефекти:</p>
+  <pre class="prettyprint">
+>>> (a, b) = 1, 2
+>>> print(a)
+1
+</pre> 
+</div>
+
+<div class="slide">
+  <h1>Любопитни работи (2)</h1>
+  <p>Всъщност скобите не са задължителни:</p>
+  <pre class="prettyprint">
+>>> a, b = 1, 2
+>>> a, b = b, a
+>>> print(a)
+2
+>>> print(b)
+1
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Любопитни работи (3)</h1>
+  <p>Или:</p>
+  <pre class="prettyprint">
+>>> numbers = (1, 2, 3)
+>>> a, b, c = numbers
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Любопитни работи (4)</h1>
+  <p>В този ред на мисли, същото го могат и списъците</p>
+  <pre class="prettyprint">
+>>> numbers = [1, 2, 3]
+>>> [a, b, c] = numbers
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Сравняване на списъци/n-торки</h1>
+  <p>Сравняват се лексикографски:</p>
+  <pre class="prettyprint">
+>>> (1, 2) < (1, 3)
+True
+>>> (1, 2) < (1, 2)
+False
+>>> (1, 2) < (1, 2, 3)
+True
+>>> [1, 2] < [1, 3]
+True
+>>> (1, 2) < [1, 3] # tuple vs. list
+# поражда грешка: 
+#    TypeError: unorderable types: tuple() < list()
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Множества (1)</h1>
+  <ul>
+    <li class="incremental">Всеки елемент може да се съдържа не повече от веднъж</li>
+    <li class="incremental">Създават се така: <code>set([1, 2, 3])</code></li>
+    <li class="incremental">Или така: <code>{1, 2, 3}</code></li>
+    <li class="incremental">Празно множество е <code>set()</code>, а не <code>{}</code></li>
+    <li class="incremental">Елементите са ненаредени</li>
+    <li class="incremental">Могат да съдържат само обекти, които могат да се хешират</li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Множества (2)</h1>
+  <pre class="prettyprint">
+>>> numbers = {1, 2, 3, 8, 2}
+>>> numbers
+{8, 1, 2, 3}
+>>> 2 in numbers
+True
+>>> 4 in numbers
+False
+>>> numbers.add(4)
+>>> 4 in numbers
+True
+>>> numbers.remove(1)
+>>> numbers
+{8, 2, 3, 4}
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Множества (3)</h1>
+  <pre class="prettyprint">
+>>> {1, 2, 3} | {2, 3, 4}
+{1, 2, 3, 4}
+>>> {1, 2, 3} & {2, 3, 4}
+{2, 3}
+>>> {1, 2, 3} - {2, 3, 4}
+{1}
+>>> {1, 2, 3} ^ {2, 3, 4}
+{1, 4}
+>>> {1, 2, 3} < {2, 3, 4}
+False
+>>> {2, 3} < {2, 3, 4} # < - подмножество
+True
+>>> {2, 3} == {2.0, 3}
+True
+>>> {1, 2}.isdisjoint({3, 4})
+True
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Преобразуване между <code>list</code>, <code>set</code> и <code>tuple</code></h1>
+  <pre class="prettyprint">
+>>> set([1, 2, 3, 8, 2])
+{8, 1, 2, 3}
+>>> list({1, 2, 3})
+[1, 2, 3]
+>>> tuple([1, 2, 3])
+(1, 2, 3)
+>>> list((1, 2, 3))
+[1, 2, 3]
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Речници</h1>
+  <ul>
+    <li>хеш (hash)</li>
+    <li>карта (map)</li>
+    <li>асоциативен масив (associative array)</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Речници (2)</h1>
+  <pre class="prettyprint">
+languages = {
+    'Spain': 'Spanish',
+    'Great Britain': 'English',
+    'Italy': 'Italian',
+    'Mexico': 'Spanish',
+    'France': 'French',
+    'USA': 'English',
+}
+print(languages['Mexico']) # Spanish
+</pre>
+</div>
+
+<div class="slide longlong">
+  <h1>Речници (3)</h1>
+  <pre class="prettyprint">
+capitals = {
+    'Germany': 'Berlin',
+    'France': 'Paris',
+    'Brazil': 'Rio de Janeiro',
+    'Malaysia': 'Kuala Lumpur',
+}
+print(capitals['Brazil'])
+# Rio de Janeiro
+capitals['Brazil'] = 'Brazil'
+print(capitals['Brazil'])
+# Brazil
+capitals['Sweden'] = 'Stockholm'
+print(capitals['Sweden'])
+# Stockholm
+del capitals['Malaysia']
+capitals['Malaysia']
+# KeyError: 'Malaysia'
+</pre>
+</div>
+
+<div class="slide longlong">
+  <h1>Речници &mdash; методи</h1>
+  <pre class="prettyprint">
+>>> capitals = {
+    'Germany': 'Berlin',
+    'France': 'Paris',
+    'Brazil': 'Rio de Janeiro',
+    'Sweden': 'Stockholm',
+}
+>>> capitals.get('Assyria')
+None
+>>> capitals.get('Assyria', "I don't know")
+"I don't know"
+>>> 'Sweden' in capitals
+True
+>>> list(capitals.keys())
+['Brazil', 'Sweden', 'Germany', 'France']
+>>> list(capitals.values())
+['Rio de Janeiro', 'Stockholm', 'Berlin', 'Paris']
+>>> len(capitals)
+4
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Речници &mdash; методи (2)</h1>
+  <pre class="prettyprint">
+>>> numbers = {
+    "One": "I",
+    "Two": "II",
+}
+
+>>> list(numbers.items())
+[('One', 'I'), ('Two', 'II')]
+>>> numbers.update({"Three": "III", "Four": "IV"})
+>>> numbers
+{'Four': 'IV', 'Three': 'III', 'Two': 'II', 'One': 'I'}
+>>> numbers.pop('Four')
+'IV'
+>>> numbers
+{'Three': 'III', 'Two': 'II', 'One': 'I'}
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Речници &mdash; методи (3)</h1>
+  <pre class="prettyprint">
+>>> {1: 1, 2: 2} == {2: 2, 1: 1}
+True
+>>> numbers = {"One": "I", "Two": "II"}
+>>> numbers_copy = numbers.copy()
+>>> numbers_copy
+{'Two': 'II', 'One': 'I'}
+>>> numbers
+{'Two': 'II', 'One': 'I'}
+>>> numbers.clear()
+>>> numbers_copy
+{'Two': 'II', 'One': 'I'}
+>>> numbers
+{}
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Три други начина за създване на речник</h1>
+  <p>Чрез наименовани параметри към конструктора (не питайте):</p>
+  <pre class="prettyprint">
+>>> dict(france="Paris", italy="Rome")
+{'italy': 'Rome', 'france': 'Paris'}
+</pre>
+  <p>Чрез списък от двойки</p>
+  <pre class="prettyprint">
+>>> dict([('One', 'I'), ('Two', 'II')])
+{'Two': 'II', 'One': 'I'}
+</pre>
+  <p>Чрез списък от ключове и стойност по подразбиране</p>
+  <pre class="prettyprint">
+>>> dict.fromkeys([1, 2, 3], 'Unknown')
+{1: 'Unknown', 2: 'Unknown', 3: 'Unknown'}
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Речници и хеш функции</h1>
+  <ul>
+    <li class="incremental">Функция от вид: <code>обект → число</code></li>
+    <li class="incremental">Не е нужно да е инективна</li>
+    <li class="incremental">Ако два обекта са еднакви по стойност, те имат еднакъв хеш</li>
+    <li class="incremental">Възможно е различни обекти да имат еднакъв хеш</li>
+    <li class="incremental">За да работят речниците и множествата, ключовете трябва да могат да се сравняват с <code>==</code></li>
+    <li class="incremental">Добре е това да става по смислен начин</li>
+    <li class="incremental">Желателно е ключовете да са <code>immutable</code></li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Още въпроси?</h1>
+  <ul>
+    <li>Страница на курса: <a href="http://fmi.py-bg.net">http://fmi.py-bg.net</a></li>
+    <li>Форум на курса: <a href="http://fmi.py-bg.net/topics">http://fmi.py-bg.net/topics</a></li>
+  </ul>
+</div>
+
+</div>
+<script type="text/javascript" language="JavaScript">prettyPrint()</script>
+</body>
+</html>
