@@ -1,4 +1,6 @@
 class MySolutionsController < ApplicationController
+  before_filter :require_user
+
   def show
     @task = Task.find params[:task_id]
   end

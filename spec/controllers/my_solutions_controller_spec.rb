@@ -4,6 +4,12 @@ describe MySolutionsController do
   log_in_as :student
 
   describe "GET show" do
+    it "denies access if user not logged in" do
+      controller.stub :current_user => nil
+      get :show, :task_id => 42
+      response.should deny_access
+    end
+
     it "assigns the task to @task" do
       Task.should_receive(:find).with(42).and_return('task')
       get :show, :task_id => 42
@@ -17,6 +23,12 @@ describe MySolutionsController do
     before do
       Task.stub :find => task
       Solution.stub :submit
+    end
+
+    it "denies access if user not logged in" do
+      controller.stub :current_user => nil
+      put :update, :task_id => 42
+      response.should deny_access
     end
 
     it "assigns the task to @task" do
