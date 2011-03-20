@@ -28,6 +28,7 @@ en:
         update: Запази
       task:
         create: Създай
+        update: Запази
   devise:
     failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'

@@ -68,4 +68,64 @@ describe TasksController do
       assigns(:task).should == 'task'
     end
   end
+
+  describe "GET edit" do
+    log_in_as :admin
+
+    it "denies access to non-admins" do
+      current_user.stub :admin? => false
+      get :edit, :id => 42
+      response.should deny_access
+    end
+
+    it "assigns the task to @task" do
+      Task.should_receive(:find).with(42).and_return('task')
+      get :edit, :id => 42
+      assigns(:task).should == 'task'
+    end
+  end
+
+  describe "PUT update" do
+    let(:task) { Factory.stub(:task) }
+
+    log_in_as :admin
+
+    before do
+      Task.stub :find => task
+      task.stub :update_attributes
+    end
+
+    it "denies access to non-admins" do
+      current_user.stub :admin? => false
+      put :update, :id => 42
+      response.should deny_access
+    end
+
+    it "looks up the task by id" do
+      Task.should_receive(:find).with(42)
+      put :update, :id => 42
+    end
+
+    it "assigns the task to @task" do
+      put :update, :id => 42
+      assigns(:task).should == task
+    end
+
+    it "attempts to update the task with params[:task]" do
+      task.should_receive(:update_attributes).with('attributes')
+      put :update, :id => 42, :task => 'attributes'
+    end
+
+    it "redirects to the task on success" do
+      task.stub :update_attributes => true
+      put :update, :id => 42
+      response.should redirect_to(task)
+    end
+
+    it "redisplays the forn on error" do
+      task.stub :update_attributes => false
+      put :update, :id => 42
+      response.should render_template(:edit)
+    end
+  end
 end

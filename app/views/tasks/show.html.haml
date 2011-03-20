@@ -1,1 +1,3 @@
 %h1= @task.name
+= admin_only do
+  = link_to 'Редактирай', edit_task_path(@task)
