@@ -53,4 +53,10 @@ FactoryGirl.define do
     name 'Name'
     description 'Description'
   end
+
+  factory :solution do
+    user
+    task
+    code 'code'
+  end
 end
