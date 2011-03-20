@@ -1,0 +1,9 @@
+#my-solution
+  %h1 #{@task.name} &mdash; Моето решение
+
+  = form_tag task_my_solution_path(@task), :method => :put, :class => 'simple_form' do
+    %div
+      = label_tag :code, 'Код'
+      = text_area_tag :code
+    %div
+      = submit_tag 'Изпрати'

@@ -5,10 +5,13 @@ Trane::Application.routes.draw do
   resources :vouchers
 
   resources :announcements
-  resources :tasks
   resource :profile
   resource :dashboard
   resources :voucher_claims
+
+  resources :tasks do
+    resource :my_solution
+  end
 
   resources :topics do
     get :last_reply, :on => :member

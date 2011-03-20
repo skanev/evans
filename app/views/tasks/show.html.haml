@@ -1,3 +1,5 @@
 %h1= @task.name
 = admin_only do
-  = link_to 'Редактирай', edit_task_path(@task)
+  %p= link_to 'Редактирай', edit_task_path(@task)
+= authenticated_only do
+  %p= link_to 'Моето решение', task_my_solution_path(@task)
