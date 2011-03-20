@@ -26,6 +26,8 @@ en:
       announcement:
         create: Публикувай
         update: Запази
+      task:
+        create: Създай
   devise:
     failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'
@@ -68,6 +70,9 @@ en:
       announcement:
         title: Заглавие
         body: Тяло
+      task:
+        name: Име
+        description: Условие
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"
