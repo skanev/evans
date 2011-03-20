@@ -28,6 +28,7 @@ Spork.each_run do
   Dir[Rails.root.join("spec/factories.rb")].each {|f| load f}
 
   Trane::Application.reload_routes!
+  I18n.reload!
 
   load 'Sporkfile.rb' if File.exists?('Sporkfile.rb')
 
