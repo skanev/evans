@@ -12,4 +12,9 @@ module ApplicationHelper
     yield if current_user.try(:admin?)
     nil
   end
+
+  def authenticated_only(&block)
+    yield if logged_in?
+    nil
+  end
 end
