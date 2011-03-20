@@ -5,8 +5,8 @@ module Markup
   SANITIZE_CONFIG[:attributes]['pre'] = ['class']
 
   def format(text)
-    result = Sanitize.clean(text, SANITIZE_CONFIG)
-    result = RDiscount.new(result).to_html
+    result = RDiscount.new(text).to_html
+    result = Sanitize.clean(result, SANITIZE_CONFIG)
     result.html_safe
   end
 end
