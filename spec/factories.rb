@@ -48,4 +48,9 @@ FactoryGirl.define do
     title 'Title'
     body 'Body'
   end
+
+  factory :task do
+    name 'Name'
+    description 'Description'
+  end
 end
