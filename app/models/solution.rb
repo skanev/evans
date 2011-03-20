@@ -7,12 +7,16 @@ class Solution < ActiveRecord::Base
 
   class << self
     def submit(user, task, code)
-      solution = Solution.find_by_user_id_and_task_id(user.id, task.id) || Solution.new(:user_id => user.id, :task_id => task.id)
+      solution = self.for(user, task) || Solution.new(:user_id => user.id, :task_id => task.id)
       solution.update_attributes :code => code
     end
 
     def code_for(user, task)
-      Solution.find_by_user_id_and_task_id(user.id, task.id).try(:code)
+      self.for(user, task).try(:code)
+    end
+
+    def for(user, task)
+      Solution.find_by_user_id_and_task_id(user.id, task.id)
     end
   end
 end
