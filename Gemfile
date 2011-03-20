@@ -18,6 +18,9 @@ gem 'sanitize'
 
 gem 'hoptoad_notifier'
 
+gem 'sprockets'
+gem 'sprocketizer'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', '~> 0.4.0.beta.1'

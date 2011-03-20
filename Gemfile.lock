@@ -151,6 +151,9 @@ GEM
     shoulda-matchers (1.0.0.beta1)
     simple_form (1.3.1)
     spork (0.8.4)
+    sprocketizer (1.0.3)
+      sprockets (= 1.0.2)
+    sprockets (1.0.2)
     subexec (0.0.4)
     term-ansicolor (1.0.5)
     thor (0.14.6)
@@ -188,5 +191,7 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   spork
+  sprocketizer
+  sprockets
   timecop
   will_paginate (~> 3.0.beta)
