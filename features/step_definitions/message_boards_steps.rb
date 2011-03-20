@@ -19,10 +19,6 @@ end
   Factory(:topic, :title => title, :body => body)
 end
 
-Когато 'попълня "$field" с "$value"' do |field, value|
-  fill_in field, :with => value
-end
-
 Когато 'започна да редактирам темата' do
   within 'ol.topic li:first' do
     click_link 'Редактирай'

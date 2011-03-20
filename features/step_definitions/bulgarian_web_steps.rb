@@ -8,6 +8,10 @@ end
   end
 end
 
+Когато /^попълня "([^"]*)" с(?:ъс)? "([^"]*)"$/ do |name, value|
+  fill_in name, :with => value
+end
+
 Когато 'попълня "$field" с:' do |field, text|
   fill_in :field, :with => text
 end
