@@ -36,4 +36,18 @@ describe Solution do
       Solution.submit(user, task, nil).should be_false
     end
   end
+
+  describe "looking up the code of an existing solution" do
+    let(:user) { User.make }
+    let(:task) { Task.make }
+
+    it "retuns the code as a string" do
+      Solution.make :user => user, :task => task, :code => 'code'
+      Solution.code_for(user, task).should == 'code'
+    end
+
+    it "returns nil if the no solution submitted by this user" do
+      Solution.code_for(user, task).should be_nil
+    end
+  end
 end
