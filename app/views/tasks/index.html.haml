@@ -1,3 +1,10 @@
-%h1 Задачи
-= admin_only do
-  = link_to 'Нова', new_task_path
+#tasks
+  %h1 Задачи
+  = admin_only do
+    = link_to 'Нова', new_task_path
+
+  %ul
+    - @tasks.each do |task|
+      %li
+        = link_to task.name, task
+        (краен срок: #{l(task.closes_at)})

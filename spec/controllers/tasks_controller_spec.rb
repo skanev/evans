@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe TasksController do
+  describe "GET index" do
+    it "assigns all tasks to @tasks" do
+      Task.stub :all => 'tasks'
+      get :index
+      assigns(:tasks).should == 'tasks'
+    end
+  end
+
   describe "GET new" do
     log_in_as :admin
 

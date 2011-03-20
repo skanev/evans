@@ -35,6 +35,16 @@ describe Solution do
     it "returns false on failure" do
       Solution.submit(user, task, nil).should be_false
     end
+
+    it "does not update the solution after the task is closed" do
+      task = Factory(:closed_task)
+      solution = Factory(:solution, :task => task, :user => user, :code => 'old code')
+
+      Solution.submit user, task, 'new code'
+
+      solution.reload
+      solution.code.should == 'old code'
+    end
   end
 
   describe "looking up the code of an existing solution" do

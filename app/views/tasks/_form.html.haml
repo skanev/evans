@@ -1,5 +1,6 @@
 = simple_form_for task do |form|
   = form.input :name
+  = form.input :closes_at, :as => :string
   = form.input :description
 
   = form.submit

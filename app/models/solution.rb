@@ -7,6 +7,7 @@ class Solution < ActiveRecord::Base
 
   class << self
     def submit(user, task, code)
+      return false if task.closed?
       solution = self.for(user, task) || Solution.new(:user_id => user.id, :task_id => task.id)
       solution.update_attributes :code => code
     end

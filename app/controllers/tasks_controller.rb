@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_filter :require_admin, :except => [:index, :show]
 
   def index
+    @tasks = Task.all
   end
 
   def new

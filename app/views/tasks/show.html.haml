@@ -3,7 +3,16 @@
 
   = admin_only do
     %p= link_to 'Редактирай', edit_task_path(@task)
+
   = authenticated_only do
     %p= link_to 'Моето решение', task_my_solution_path(@task)
+
+  %dl
+    %dt Краен срок
+    %dd
+      = l @task.closes_at
+
+  - if @task.closed?
+    %p.closed Срокът за предаване на решения е отминал
 
   = markup @task.description

@@ -1,9 +1,15 @@
 #my-solution
   %h1 #{@task.name} &mdash; Моето решение
 
+  = link_to "Обратно към условието", @task
+
+  - if @task.closed?
+    %p Крайният срок на тази задача е отминал. Вече не може да предавате решение.
+
   = form_tag task_my_solution_path(@task), :method => :put, :class => 'simple_form' do
     %div
       = label_tag :code, 'Код'
-      = text_area_tag :code, @code
-    %div
-      = submit_tag 'Изпрати'
+      = text_area_tag :code, @code, :disabled => @task.closed?
+    - unless @task.closed?
+      %div
+        = submit_tag 'Изпрати'

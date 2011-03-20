@@ -13,7 +13,7 @@ class MySolutionsController < ApplicationController
     if Solution.submit current_user, @task, @code
       redirect_to @task, :notice => 'Задачата е предадена успешно!'
     else
-      flash.now[:error] = 'Трябва да въведете някакъв код. Очевидно.'
+      flash.now[:error] = 'Вашето решение не бе прието.'
       render :show
     end
   end

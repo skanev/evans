@@ -18,6 +18,8 @@ en:
         phone: Не е публичен; ползваме го само в краен случай
         site: Ако имате такъв
         about: Ако искате
+      task:
+        closes_at: 'Формат: 2011-03-31 13:20:45'
   helpers:
     submit:
       reply:
@@ -74,6 +76,7 @@ en:
       task:
         name: Име
         description: Условие
+        closes_at: Краен срок
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"

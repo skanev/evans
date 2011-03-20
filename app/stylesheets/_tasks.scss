@@ -1,3 +1,11 @@
-.task { @include content; }
+.task {
+  @include content;
+  p.closed { font-weight: bold; }
+
+  dl dt { display: block; float: left; font-weight: bold; width: 100px; }
+  dl dd { clear: right; margin: 5px 0; }
+}
+
+#tasks { @include content; }
 
 #my-solution textarea#code { font-family: $font-monospace; width: 600px; height: 600px; }
