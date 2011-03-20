@@ -1,10 +1,11 @@
 @mixin content {
+  h2 { margin-top: 10px; }
   ul, ol { margin: 10px 0 10px 30px; }
   li { margin: 2px 0; }
   ul > li { list-style: circle; }
   ul > li > ul > li { list-style: square; }
   ol > li { list-style: decimal; }
 
-  pre { font-family: $font-monospace; padding: 20px 10px; }
+  pre { font-family: $font-monospace; padding: 10px; }
   code { font-family: $font-monospace; }
 }
