@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def markup(text)
-    auto_link Markup.format(text)
+    find_and_preserve auto_link(Markup.format(text))
   end
 
   def admin_only(&block)
