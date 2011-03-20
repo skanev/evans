@@ -12,6 +12,8 @@
           Публикувано на
           %time{:datetime => announcement.created_at.iso8601, :pubdate => :pubdate}
             = l announcement.created_at
+        - admin_only do
+          = link_to 'Редактирай', edit_announcement_path(announcement)
         = markup announcement.body
   - else
     %p.no-records Все още няма новини

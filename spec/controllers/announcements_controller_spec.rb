@@ -68,4 +68,65 @@ describe AnnouncementsController do
       response.should render_template(:new)
     end
   end
+
+  describe "GET edit" do
+    log_in_as :admin
+
+    it "denies access to non-admins" do
+      current_user.stub :admin? => false
+      get :edit, :id => 42
+      response.should deny_access
+    end
+
+    it "assigns the announcement to @announcement" do
+      Announcement.should_receive(:find).with(42).and_return('announcement')
+      get :edit, :id => 42
+      assigns(:announcement).should == 'announcement'
+    end
+  end
+
+  describe "PUT update" do
+    log_in_as :admin
+
+    let(:announcement) { double }
+
+    before do
+      Announcement.stub :find => announcement
+      announcement.stub :update_attributes
+    end
+
+    it "denies access to non-admins" do
+      current_user.stub :admin? => false
+      put :update, :id => 42
+      response.should deny_access
+    end
+
+    it "looks up the announcement by id" do
+      Announcement.should_receive(:find).with(42)
+      put :update, :id => 42
+    end
+
+    it "assigns the announcement to @announcement" do
+      put :update, :id => 42
+      assigns(:announcement).should == announcement
+    end
+
+    it "attempts to update the announcement" do
+      announcement.should_receive(:update_attributes).with('attributes')
+      put :update, :id => 42, :announcement => 'attributes'
+    end
+
+    it "redirects to the announcements on success" do
+      announcement.stub :update_attributes => true
+      put :update, :id => 42
+      response.should redirect_to(announcements_path)
+    end
+
+    it "redisplays the form on failure" do
+      announcement.stub :update_attributes => false
+      put :update, :id => 42
+      response.should render_template(:edit)
+      
+    end
+  end
 end

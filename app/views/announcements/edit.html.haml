@@ -1,0 +1,6 @@
+%h1 Редактиране на новина
+= simple_form_for @announcement do |form|
+  = form.input :title
+  = form.input :body
+
+  = form.button :submit, 'Запази'
