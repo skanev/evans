@@ -23,6 +23,9 @@ en:
       reply:
         create: Отговори
         update: Обнови
+      announcement:
+        create: Публикувай
+        update: Запази
   devise:
     failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'
