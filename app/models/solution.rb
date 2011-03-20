@@ -1,5 +1,6 @@
 class Solution < ActiveRecord::Base
   validates_presence_of :code, :user_id, :task_id
+  validates_uniqueness_of :user_id, :scope => :task_id
 
   belongs_to :user
   belongs_to :task
