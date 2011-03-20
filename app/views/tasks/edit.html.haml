@@ -1,6 +1,2 @@
 %h1 Редакция на задача
-= simple_form_for @task do |form|
-  = form.input :name
-  = form.input :description
-
-  = form.submit
+= render 'form', :task => @task
