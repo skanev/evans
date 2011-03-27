@@ -40,4 +40,31 @@ FactoryGirl.define do
     title { Faker::Lorem.sentence }
     body { Faker::Lorem.paragraphs.join("\n\n") }
   end
+
+  factory :fake_open_task, :class => :task do
+    name { Faker::Lorem.sentence }
+    description { Faker::Lorem.paragraphs.join("\n\n") }
+    closes_at 1.year.from_now
+  end
+
+  factory :fake_closed_task, :class => :task do
+    name { Faker::Lorem.sentence }
+    description { Faker::Lorem.paragraphs.join("\n\n") }
+    closes_at 1.year.ago
+  end
+
+  factory :fake_checked_solution, :class => :solution do
+    association :user, :factory => :fake_user
+    add_attribute(:task) { Task.where('closes_at < ?', Time.now).rand }
+    code 'print("larodi")'
+    passed_tests { rand(10) }
+    failed_tests { rand(10) }
+    log 'Log'
+  end
+
+  factory :fake_non_checked_solution, :class => :solution do
+    association :user, :factory => :fake_user
+    add_attribute(:task) { Task.where('closes_at > ?', Time.now).rand }
+    code 'print("larodi")'
+  end
 end
