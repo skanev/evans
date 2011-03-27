@@ -25,6 +25,11 @@ module NavigationHelpers
         task_path Task.find_by_name!($1)
       when /решенията на "(.*)"/
         task_solutions_path Task.find_by_name!($1)
+      when /решението на "(.*)" за "(.*)"/
+        user = User.find_by_full_name! $1
+        task = Task.find_by_name! $2
+        solution = Solution.find_by_user_id_and_task_id! user.id, task.id
+        task_solution_path solution, :task_id => task.id
       else
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"

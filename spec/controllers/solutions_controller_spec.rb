@@ -38,4 +38,35 @@ describe SolutionsController do
       assigns(:task).should == task
     end
   end
+
+  describe "GET show" do
+    log_in_as :student
+
+    let(:task) { double(:closed? => true) }
+
+    before do
+      Task.stub :find => task
+    end
+
+    it "denies access to students if the task is still open" do
+      task.stub :closed? => false
+      get :index, :task_id => 42
+      response.should deny_access
+    end
+
+    it "allows admins to see solutions for open tasks" do
+      current_user.stub :admin? => true
+      task.stub :closed? => false
+
+      get :index, :task_id => 42
+
+      response.should be_success
+    end
+
+    it "assigns the solution to @solution" do
+      Solution.should_receive(:find).with(10).and_return('solution')
+      get :show, :task_id => 42, :id => 10
+      assigns(:solution).should == 'solution'
+    end
+  end
 end

@@ -6,6 +6,10 @@ class SolutionsController < ApplicationController
     @solutions = Solution.for_task params[:task_id]
   end
 
+  def show
+    @solution = Solution.find params[:id]
+  end
+
   private
 
   def require_closed_task_or_admin
