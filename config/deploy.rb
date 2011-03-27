@@ -25,6 +25,24 @@ namespace :deploy do
   end
 end
 
+namespace :sync do
+  task :db, :roles => :app do
+    system <<-END
+      ssh pyfmi@fmi.py-bg.net "pg_dump --format=c pyfmi | gzip -c" |
+        gunzip -c |
+        pg_restore --dbname=trane_development --clean --no-owner
+    END
+  end
+
+  task :uploads, :roles => :app do
+    system <<-END
+      rsync --exclude tmp -av --delete \
+        pyfmi@fmi.py-bg.net:#{shared_path}/uploads/ \
+        public/uploads/
+    END
+  end
+end
+
 after 'deploy:update_code', 'deploy:symlink_shared'
 
 require 'config/boot'
