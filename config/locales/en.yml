@@ -76,6 +76,7 @@ en:
       task:
         name: Име
         description: Условие
+        test_case: Тест
         closes_at: Краен срок
   datetime:
     distance_in_words:
