@@ -23,5 +23,9 @@ class Solution < ActiveRecord::Base
     def for(user, task)
       Solution.find_by_user_id_and_task_id(user.id, task.id)
     end
+
+    def for_task(task_id)
+      where(:task_id => task_id)
+    end
   end
 end

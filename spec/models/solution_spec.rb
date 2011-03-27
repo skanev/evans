@@ -9,6 +9,13 @@ describe Solution do
   it { should belong_to(:user) }
   it { should belong_to(:task) }
 
+  it "can find all the solutions for task" do
+    task = Task.make
+    solution = Solution.make(:task => task)
+
+    Solution.for_task(task.id).should == [solution]
+  end
+
   it "can find the number of rows in the code" do
     Solution.new(:code => 'print("baba")').rows.should == 1
     Solution.new(:code => "1\n2").rows.should == 2
