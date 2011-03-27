@@ -73,4 +73,21 @@ describe Solution do
       Solution.code_for(user, task).should be_nil
     end
   end
+
+  describe "(calculating points)" do
+    [
+      [15, 0, 5],
+      [14, 1, 5],
+      [13, 2, 4],
+      [10, 5, 3],
+    ].each do |passed, failed, points|
+      it "has #{points} points for #{passed} passed and #{failed} failed tests" do
+        Solution.new(:passed_tests => passed, :failed_tests => failed).points.should == points
+      end
+    end
+
+    it "has 0 points if not checked" do
+      Solution.new.points.should == 0
+    end
+  end
 end

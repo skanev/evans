@@ -1,4 +1,6 @@
 class Solution < ActiveRecord::Base
+  MAX_POINTS = 5
+
   validates_presence_of :code, :user_id, :task_id
   validates_uniqueness_of :user_id, :scope => :task_id
 
@@ -7,6 +9,23 @@ class Solution < ActiveRecord::Base
 
   def rows
     code.split("\n").count
+  end
+
+  def points
+    return 0 unless checked?
+
+    percentage_passed = passed_tests.quo total_tests
+    (percentage_passed * MAX_POINTS).round
+  end
+
+  private
+
+  def checked?
+    total_tests.nonzero?
+  end
+
+  def total_tests
+    passed_tests + failed_tests
   end
 
   class << self

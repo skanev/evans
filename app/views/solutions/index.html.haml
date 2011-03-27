@@ -2,9 +2,11 @@
   %thead
     %tr
       %th Име
+      %th Точки
       %th Изпълнение
   %tbody
     - @solutions.each do |solution|
       %tr
         %td= solution.user.name
+        %td Точки: #{solution.points}
         %td Успешни тестове: #{solution.passed_tests}, Неуспешни тестове: #{solution.failed_tests}, Редове: #{solution.rows}
