@@ -9,3 +9,4 @@ public/uploads
 Sprokfile.rb
 BECK
 .DS_Store
+__pycache__
