@@ -18,15 +18,12 @@ if __name__ == '__main__':
 END
   end
 
-  def create_test_case_file
-    file = Tempfile.new('trane_testcase')
-    file.write test_case_code
-    file.close
-    file.path
-  end
-
   it "handles solutions that raise a runtime error" do
-    runner = TestRunner.new(create_test_case_file, 'import intertools').run
+    solution = 'import intertools'
+    runner = TestRunner.new(test_case_code, solution)
+
+    runner.run
+
     runner.passed_count.should == 0
     runner.failures_count.should == 0
   end
@@ -34,7 +31,9 @@ END
   describe "on successful run" do
     before(:all) do
       solution = 'answer = 42; print("Another print")'
-      @runner = TestRunner.new(create_test_case_file, solution).run
+      @runner = TestRunner.new(test_case_code, solution)
+
+      @runner.run
     end
 
     it "calculates the number of passed tests" do
