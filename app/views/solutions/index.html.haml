@@ -1,12 +1,18 @@
-%table
+%h1 Решения на #{@task.name}
+%p= link_to 'Към задачата', @task, :class => :back
+%p
+  %strong= @solutions.count
+  решения
+
+%table.solutions
   %thead
     %tr
-      %th Име
-      %th Точки
-      %th Изпълнение
+      %th.name Име
+      %th.points Точки
+      %th.results Изпълнение
   %tbody
     - @solutions.each do |solution|
       %tr
-        %td= solution.user.name
-        %td Точки: #{solution.points}
-        %td Успешни тестове: #{solution.passed_tests}, Неуспешни тестове: #{solution.failed_tests}, Редове: #{solution.rows}
+        %td.name= link_to solution.user_name, [@task, solution]
+        %td.points Точки: <span data-points>#{solution.points}</span>
+        %td.results <span class="passed">Успешни тестове:</span> #{solution.passed_tests}<span class="failed">, Неуспешни тестове:</span> #{solution.failed_tests}<span class="lines">, Редове:</span> #{solution.rows}

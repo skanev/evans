@@ -27,6 +27,10 @@ class Solution < ActiveRecord::Base
     end
   end
 
+  def user_name
+    user.name
+  end
+
   def rows
     code.split("\n").count
   end
