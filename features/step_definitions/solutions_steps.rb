@@ -8,6 +8,7 @@
       :passed_tests => row['Успешни'],
       :failed_tests => row['Неуспешни'],
       :code => row['Код'],
+      :log => row['Лог'],
     }
 
     Factory(:solution, attributes)
