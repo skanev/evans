@@ -8,6 +8,14 @@ class TestRunner
     @solution = solution
   end
 
+  class << self
+    def run(test, solution)
+      runner = new(test, solution)
+      runner.run
+      [runner.passed_count, runner.failures_count, runner.log]
+    end
+  end
+
   def run
     ENV['PYTHONPATH'] = Rails.root.join("python")
 
