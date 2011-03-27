@@ -1,0 +1,10 @@
+%table
+  %thead
+    %tr
+      %th Име
+      %th Изпълнение
+  %tbody
+    - @solutions.each do |solution|
+      %tr
+        %td= solution.user.name
+        %td Успешни тестове: #{solution.passed_tests}, Неуспешни тестове: #{solution.failed_tests}, Редове: #{solution.rows}

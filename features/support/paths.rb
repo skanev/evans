@@ -23,6 +23,8 @@ module NavigationHelpers
         tasks_path
       when /задачата "(.*)"/
         task_path Task.find_by_name!($1)
+      when /решенията на "(.*)"/
+        task_solutions_path Task.find_by_name!($1)
       else
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"

@@ -11,6 +11,7 @@ Trane::Application.routes.draw do
 
   resources :tasks do
     resource :my_solution
+    resources :solutions
   end
 
   resources :topics do
