@@ -4,3 +4,11 @@
   font: { family: $font-text; size: $font-normal; weight: bold; }
   padding: 4px 8px;
 }
+
+@mixin replace-with-image($img, $width, $height) {
+  background: { image: url($img); repeat: no-repeat; }
+  overflow: hidden;
+  text: { align: left; indent: -9999px; }
+  width: $width;
+  height: $height;
+}
