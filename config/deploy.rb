@@ -41,6 +41,11 @@ namespace :sync do
         public/uploads/
     END
   end
+
+  task :secrets, :roles => :app do
+    system "scp pyfmi@fmi.py-bg.net:#{shared_path}/pepper.txt config/pepper.txt"
+    system "scp pyfmi@fmi.py-bg.net:#{shared_path}/secret_token.txt config/secret_token.txt"
+  end
 end
 
 after 'deploy:update_code', 'deploy:symlink_shared'
