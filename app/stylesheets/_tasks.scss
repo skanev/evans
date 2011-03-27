@@ -22,4 +22,14 @@ table.solutions {
 
 #tasks { @include content; }
 
+.solution {
+  @include content;
+
+  ul li { background: { position: 0 0; repeat: no-repeat; } list-style: none; padding-left: 25px; }
+  ul li.points { background-image: url('/images/icons/emoticon_grin.png'); }
+  ul li.bonus-points { background-image: url('/images/icons/star.png'); }
+  ul li.passed-tests { background-image: url('/images/icons/flag_green.png'); }
+  ul li.failed-tests { background-image: url('/images/icons/flag_red.png'); }
+}
+
 #my-solution textarea#code { font-family: $font-monospace; width: 600px; height: 600px; }

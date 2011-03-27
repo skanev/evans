@@ -9,4 +9,16 @@ $(function() {
       $('<span class="point"></span>').appendTo(td);
     }
   });
+
+  $('[data-test-log]').each(function() {
+    var testLog = $(this);
+
+    $('<a href="#"></a>')
+      .toggle(
+        function() { $(this).html('▸ Покажи лога'); testLog.hide(); },
+        function() { $(this).html('▾ Скрий лога'); testLog.show(); }
+      )
+      .click()
+      .insertBefore(testLog);
+  });
 });

@@ -1,4 +1,22 @@
-%p #{@solution.passed_tests} успешни тест(а)
-%p #{@solution.failed_tests} неуспешни тест(а)
-%pre= @solution.code
-%pre= @solution.log
+.solution
+  %h1 Решение на #{@solution.task_name} от #{@solution.user_name}
+
+  %p= link_to 'Обратно към всички решения', task_solutions_path(@task), :class => :back
+  %p= link_to "Към профила на #{@solution.user_name}", @solution.user, :class => :related
+
+  %h2 Резултати
+
+  %ul
+    %li.points #{@solution.points} точки
+    %li.bonus-points 0 бонус точки
+
+  %ul
+    %li.passed-tests #{@solution.passed_tests} успешни тест(а)
+    %li.failed-tests #{@solution.failed_tests} неуспешни тест(а)
+
+  %h2 Код
+  %pre= @solution.code
+
+  - if @solution.log.present?
+    %h2 Лог от изпълнението
+    %pre.test-log(data-test-log)= @solution.log

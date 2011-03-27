@@ -60,3 +60,4 @@ table {
 
 #home-page { @include content; }
 a.back:before { content: "↶ " }
+a.related:before { content: "↗ " }

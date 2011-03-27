@@ -31,6 +31,10 @@ class Solution < ActiveRecord::Base
     user.name
   end
 
+  def task_name
+    task.name
+  end
+
   def rows
     code.split("\n").count
   end
