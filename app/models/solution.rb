@@ -5,6 +5,10 @@ class Solution < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
 
+  def rows
+    code.split("\n").count
+  end
+
   class << self
     def submit(user, task, code)
       return false if task.closed?
