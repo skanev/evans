@@ -10,7 +10,7 @@ describe "Point mechanics" do
     user.points.should == 1
   end
 
-  it "student gents a point for each claimed voucher" do
+  it "student gets a point for each claimed voucher" do
     user = User.make
     2.times { Voucher.make :user => user }
 
