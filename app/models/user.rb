@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :rememberable, :trackable
+  has_many :solutions
 
   attr_protected :full_name, :faculty_number, :email, :admin
 
   mount_uploader :photo, PhotoUploader
+
+  devise :database_authenticatable, :rememberable, :trackable
 
   def name
     full_name.gsub(/^(\w+) .* (\w+)$/, '\1 \2')
@@ -13,6 +15,7 @@ class User < ActiveRecord::Base
     points = 0
     points += 1 if photo.present?
     points += Voucher.where(:user_id => id).count
+    points += solutions.map(&:points).sum
     points
   end
 

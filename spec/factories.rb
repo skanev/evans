@@ -64,4 +64,8 @@ FactoryGirl.define do
     task
     code 'code'
   end
+
+  factory :checked_solution, :parent => :solution do
+    association :task, :factory => :closed_task
+  end
 end

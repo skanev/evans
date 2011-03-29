@@ -16,4 +16,11 @@ describe "Point mechanics" do
 
     user.points.should == 2
   end
+
+  it "student gets points from each solution" do
+    solution = Factory(:checked_solution, :passed_tests => 1)
+    user = solution.user
+
+    user.points.should == Solution::MAX_POINTS
+  end
 end
