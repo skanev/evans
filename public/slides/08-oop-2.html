@@ -1,0 +1,676 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Програмиране с Python: Обектно-ориентирано програмиране, част 2</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="16.04.2008" />
+<meta name="author" content="Стефан Кънев, Николай Бачийски, Точо Точев и Димитър Димитров" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/python/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/python/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/python/prettify.css" type="text/css" media="screen" id="prettyifyStyle" />
+<link rel="stylesheet" href="ui/python/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/python/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="ui/python/slides.js" type="text/javascript"></script>
+<script src="ui/python/prettify.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<h1>&bdquo;Обектно-ориентирано програмиране, част 2&ldquo;, част от курса <a href="http://fmi.py-bg.net/">Програмиране с Python</a></h1>
+<h1>Текстът на тази презентация се разпространява под <a href="http://creativecommons.org/licenses/by/3.0/deed.bg">Creative Commons Attribution</a></h1>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<h1>Обектно-ориентирано програмиране, част 2</h1>
+<h3>&bdquo; Програмиране с Python&ldquo;, <acronym title="Факултет по Математика и Информатика при Софийски Университет">ФМИ</acronym></h3>
+<h4></h4>
+<h4>31.03.2010 г</h4>
+</div>
+
+
+<div class="slide">
+  <h1>Lecture('29.03.2011').previous().overview()</h1>
+  <p>Обектно-ориентираното програмиране&hellip;</p>
+  <ul>
+    <li>&hellip;погледнато философски</li>
+    <li>&hellip;в Python</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Погледнато философски</h1>
+  <ul>
+    <li class="incremental">Абстракция</li>
+    <li class="incremental">Енкапсулация</li>
+    <li class="incremental">Модулярност</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>В Python</h1>
+  <ul>
+    <li class="incremental">Всичко е обект</li>
+    <li class="incremental">Отворени обекти</li>
+    <li class="incremental">Отворени класове</li>
+    <li class="incremental">&hellip;абе, динамично</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Vector (1)</h1>
+  <pre class="prettyprint">
+class Vector:
+    pass
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Vector (2)</h1>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+
+spam = Vector(1.0, 2.0, 3.0)
+print(spam.x)
+</pre>
+  <ul>
+    <li class="incremental">Конструктура се казва __init__</li>
+    <li class="incremental">Първия аргумент на метода е инстанцията, върху която се извиква</li>
+    <li class="incremental">Атрибутите (&#8222;член-променливите&#8220;) не се декларират (класовете са отворени)</li>
+    <li class="incremental">Инстанцира се с оператор <code>()</code></li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Vector (3)</h1>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+
+    def length(self):
+        return (self.x * self.x + self.y * self.y + self.z * self.z) ** 0.5
+
+spam = Vector(1.0, 2.0, 3.0)
+print(spam.length())
+</pre>
+  <ul>
+    <li class="incremental">В методите атрибутите се достъпват през <code>self</code></li>
+    <li class="incremental">Методите се извикват с <code>обект.име_на_метод()</code></li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Vector (4)</h1>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+
+    def _coords(self):
+        return (self.x, self.y, self.z)
+
+    def length(self):
+        return sum(_ ** 2 for _ in self._coords()) ** 0.5
+</pre>
+  <ul>
+    <li class="incremental"><code>_coords</code> е protected метод</li>
+    <li class="incremental">Отново, методите се извикват върху <code>self</code></li>
+    <li class="incremental"><code>_</code> е валидно име за променлива</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Извикване през класа</h1>
+  <pre class="prettyprint">
+v1 = Vector(1.0, 2.0, 3.0)
+v2 = Vector(4.0, 5.0, 6.0)
+v3 = Vector(7.0, 8.0, 9.0)
+
+print(Vector.length(v1))
+print(Vector.length(v2))
+print(map(Vector.length, [v1, v2, v3]))
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Vector (5)</h1>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+    def length(self): ...
+    def normalize(self):
+        length = self.length()
+        self.x /= length
+        self.y /= length
+        self.z /= length
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Vector (6)</h1>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+    def length(self): ...
+    def normalized(self):
+        return Vector(self.x / self.length(),
+                      self.y / self.length(), self.z / self.length())
+</pre>
+</div>
+
+<div class="slide long">
+  <h1><code>normalize</code> vs <code>normalized</code></h1>
+  <pre class="prettyprint">
+class Vector:
+    def normalize(self):
+        length = self.length()
+        self.x /= length
+        self.y /= length
+        self.z /= length
+
+    def normalized(self):
+        return Vector(self.x / self.length(), self.y / self.length(), self.z / self.length())
+</pre>
+  <p>Ако имате само едно от двете, кое предпочитате?</p>
+  <p>(верен отговор по-късно)</p>
+</div>
+
+<div class="slide">
+  <h1>mutable срещу immutable</h1>
+  <ul>
+    <li>Обекти, чието състояние <strong>не може</strong> да се промени се наричат <strong>immutable</strong>.</li>
+    <li>Такива са <code>tuple</code>, <code>int</code> и <code>str</code></li>
+    <li>Обекти, чието състояние <strong>може</strong> да се промени се наричат <strong>mutable</strong>.</li>
+    <li>Такива са <code>dict</code>, <code>list</code> и <code>set</code>.</li>
+    <li>Код, използващ <strong>immutable</strong> обекти обикновено е по-лесно разбираем от код, използващ <strong>mutable</strong> обекти.</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Нещо подобно</h1>
+  <p>Искаме да пишем на всички активни потребители.</p>
+  <pre class="prettyprint">
+
+emails = []
+for user in User.all():
+    if user.active():
+        emails.append(user.email)
+# или
+emails = [user.email for user in User.all() if user.active()]
+
+</pre>
+  <p>Кое и защо?</p>
+</div>
+
+<div class="slide">
+  <h1>Fred Brooks</h1>
+  <ul>
+    <li class="incremental">Essential complexity и accidental complexity</li>
+    <li class="incremental">Първия пример се чете &#8222;създай списък, обходи потребителите; за всеки активен, добави списък&#8220;</li>
+    <li class="incremental">Втория се чете &#8222;дай ми ми пощите на всички потребители, които са активни&#8220;</li>
+    <li class="incremental">В първия има повече accidental complexity</li>
+    <li class="incremental">2 > 1 (очевидно) </li>
+    <li class="incremental">mutable векторите имат излишен accidental complexity</li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Vector (7)</h1>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y, self.z + other.z)
+
+spam = Vector(1.0, 2.0, 3.0)
+eggs = Vector(4.0, 5.0, 6.0)
+breakfast = spam + eggs
+
+</pre>
+  <ul>
+    <li><code>self + other</code> се предефинира с <code>__add__(self, other)</code></li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Vector (8)</h1>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+    def _coords(self): ...
+    def __add__(self, other):
+        return Vector(*map(sum, zip(self._coords(), other._coords())))
+
+spam = Vector(1.0, 2.0, 3.0)
+eggs = Vector(4.0, 5.0, 6.0)
+breakfast = spam + eggs
+</pre>
+  <p>По-хакерско, но спорно дали по-четимо</p>
+</div>
+
+<div class="slide long">
+  <h1>Vector (9)</h1>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+    def _coords(self): ...
+
+def addition(a, b):
+    return Vector(a.x + b.x, a.y + b.y, a.z + b.z)
+
+Vector.__add__ = addition
+
+print(Vector(1.0, 2.0, 3.0) + Vector(4.0, 5.0, 6.0))
+</pre>
+  <ul>
+    <li class="incremental">Функциите са първокласни обекти</li>
+    <li class="incremental">Методите са атрибути на класа</li>
+    <li class="incremental">Класовете са динамични</li>
+    <li class="incremental">Ето защо <code>self</code> е явен</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Vector (10)</h1>
+  <p>Ако искате да достъпвате компонентите на вектора с <code>v[0]</code>, <code>v[1]</code> и <code>v[2]</code>:</p>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+    def __getitem__(self, i):
+        return (self.x, self.y, self.z)[i]
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Vector (11)</h1>
+  <p>Можете да направите вектора да се държи като колекция:</p>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+    def __getitem__(self, i):
+        return (self.x, self.y, self.z)[i]
+
+    def __len__(self):
+        return 3
+
+    def length(self):
+        return sum(_ ** 2 for _ in self) ** 0.5
+
+    def __add__(self, other):
+        return Vector(*map(sum, zip(self, other)))
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Vector (12)</h1>
+  <p>Може и да имплементирате присвояване на индекс:</p>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+    def __getitem__(self, i): ...
+    def __setitem__(self, index, value):
+        if   index == 0: self.x = value
+        elif index == 1: self.y = value
+        elif index == 2: self.z = value
+        else: pass # Тук е добро място за изключение
+
+v = Vector(1, 2, 3)
+v[1] = 10
+print(v.y) # 10
+</pre>
+  <p>Разбира се, по-добре вектора да е immutable.</p>
+</div>
+
+<div class="slide long">
+  <h1>Атрибути</h1>
+  <ul>
+    <li><code>getattr(obj, 'name')</code> е като <code>obj.name</code></li>
+    <li><code>setattr(obj, 'name', value)</code> е като <code>obj.name = value</code></li>
+    <li><code>delattr(obj, 'name')</code> е като <code>del obj.name</code></li>
+  </ul>
+  <pre class="prettyprint">
+class Spam: pass
+
+spam = Spam()
+
+spam.eggs = "Eggs"
+print(getattr(spam, 'eggs')) # Eggs
+
+setattr(spam, 'bacon', 'Spam, eggs and bacon')
+print(spam.bacon) # Spam, eggs and bacon
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Атрибути (2)</h1>
+  <p>Може да дефинирате <code>__getitem__</code> и <code>__setitem__</code> по-компактно:</p>
+  <pre class="prettyprint">
+class Vector:
+    def __init__(self, x, y, z): ...
+
+    def __getitem__(self, i):
+        return getattr(self, ('x', 'y', 'z')[i])
+
+    def __setitem__(self, index, value):
+        return setattr(self, ('x', 'y', 'z')[i], value)
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Атрибути (3)</h1>
+  <p>Може да предефинирате &#8222;оператора точка&#8220;:</p>
+  <ul>
+    <li><code>__getattr__(self, name)</code> за <code>object.name</code></li>
+    <li><code>__setattr__(self, name, value)</code> за <code>object.name = 'Foo'</code></li>
+    <li><code>__delattr__(self, name)</code> за <code>del object.name</code></li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Атрибути (4)</h1>
+<code>__getattr__(self, name)</code> се извиква само ако обекта няма атрибут <code>name</code>.
+  <pre class="prettyprint">
+class Spam:
+    def __init__(self):
+        self.eggs = 'larodi'
+
+    def __getattr__(self, name):
+        return name.upper()
+
+    def answer(self):
+        return 42
+
+spam = Spam()
+print(spam.foo) # FOO
+print(spam.bar) # BAR
+print(spam.eggs) # larodi
+print(spam.answer()) # 42
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Атрибути (5)</h1>
+<code>__setattr__</code> се извиква, когато присвоявате стойност на атрибут на обект.
+  <p>За да не изпаднете в безкрайна рекурсия, ползвайте <code>object.__setattr__</code>.</p>
+  <pre class="prettyprint">
+class Spam:
+    def __setattr__(self, name, value):
+        print("Setting {0} to {1}".format(name, value))
+        return object.__setattr__(self, name.upper(), value + 10)
+
+spam = Spam()
+spam.foo = 42
+print(spam.FOO) # 52
+print(spam.foo) # грешка!
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Атрибути (6)</h1>
+  <ul>
+    <li><code>__getattr__</code> се извиква <strong>само</strong> когато в обекта няма такъв атрибут.</li>
+    <li>Ако искате да предефинирате достъпа до атрибут <strong>винаги</strong>, метода е <code>__getattribute__</code>. Но за това по-натам</li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Обектите и питоните</h1>
+<strong>Опростен модел</strong>: Всеки обект се състои от две неща:
+  <ul>
+    <li>речник, съдържащ атрибутите на обекта (достъпен в <code>__dict__</code>)</li>
+    <li>връзка към класа на обекта (достъпен в <code>__class__</code>)</li>
+  </ul>
+  <pre class="prettyprint">
+class Spam: pass
+
+spam = Spam()
+spam.foo = 1
+spam.bar = 2
+print(spam.__dict__) # {'foo': 1, 'bar': 2}
+print(spam.__class__) # &lt;class '__main__.Spam'&gt;
+print(spam.__class__ is Spam) # True
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Обектите и питоните (2)</h1>
+<strong>Още по-опростено</strong>: Функциите и променливите дефинирани в тялото на класа са атрибути на класа.
+  <pre class="prettyprint">
+class Spam:
+    def foo(self): 
+        return 1
+    
+    bar = 42
+
+print(Spam.foo) # &lt;function foo at 0x0c4f3b4b3&gt;
+print(Spam.bar) # 42
+</pre>
+</div>
+
+<div class="slide longlong">
+  <h1>Обектите и питоните (3)</h1>
+  <p>Когато извикате <code>object.attr</code>:</p>
+ 
+  <ul>
+    <li>Python връща <code>object.__dict__['attr']</code></li>
+    <li>Ако няма такъв, Python търси в <code>object.__class__</code>, ако това е функция, се връща специален обект (bound method), на който може да извикате <code>()</code>.</li>
+    <li>Ако това в <code>object.__class__</code> не е функция, то просто се връща</li>
+    <li>Ако го няма там се вика <code>object.__getattr__('attr')</code></li>
+  </ul>
+  <pre class="prettyprint">
+class Spam:
+    answer = 42
+    def __init__(self, x):
+        self.x = x
+    def add(self, y):
+        return self.x * y
+
+spam = Spam(6)
+print(spam.add) # &lt;bound method Spam.add of &lt;__main__.Spam object at 0x0d34db33f&gt;&gt;
+print(spam.add(9)) # 54
+print(spam.answer) # 42
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Обектите и питоните (4)</h1>
+  <ul>
+    <li>В Python има наследяване</li>
+    <li>Всичко наследява от <code>object</code></li>
+    <li>Това преди малко е поведението на <code>object.__getattribute__</code></li>
+    <li>Можете да го предефинирате (стига да имате причина)</li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Наследяване</h1>
+  <pre class="prettyprint">
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+    
+    def name(self):
+        return self.first_name + " " + self.last_name
+
+class Star(Person):
+    def greet_audience(self):
+        print("Hello Sofia, I am {0}!".format(self.name()))
+
+david = Star("David", "Gaham")
+david.greet_audience()
+# Hello Sofia, I am David Gaham!
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Наследяване (2)</h1>
+  <pre class="prettyprint">
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name, self.last_name = first_name, last_name
+    
+    def name(self):
+        return "{0} {1}".format(self.first_name, self.last_name)
+
+class Japanese(Person):
+    def name(self):
+        return "{0} {1}".format(self.last_name, self.first_name)
+
+print(Person("Edward", "Murdsone").name()) # Edward Murdstone
+print(Japanese("Yukihiro", "Matsumoto").name()) # Matsumoto Yukihiro
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Наследяване (3)</h1>
+  <pre class="prettyprint">
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name, self.last_name = first_name, last_name
+    
+    def name(self):
+        return "{0} {1}".format(self.first_name, self.last_name)
+
+class Doctor(Person):
+    def name(self):
+        return "{0}, M.D.".format(Person.name(self))
+
+print(Doctor("Gregory", "House").name()) # Gregory House, M.D.
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Множествено наследяване</h1>
+  <pre class="prettyprint">
+class Spam:
+    def spam(self): return "spam"
+
+class Eggs:
+    def eggs(self): return "eggs"
+
+class CheeseShop(Spam, Eggs):
+    def food(self):
+        return self.spam() + " and " + self.eggs()
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Множествено наследяване (2)</h1>
+  <p>Методи се търсят в широчина (breath-first):</p>
+  <pre class="prettyprint">
+class A:
+    def spam(self): return "A.spam"
+class B(A):
+    pass
+class C(A):
+    def spam(self): return "C.spam"
+class D(B, C):
+    pass
+
+print(D().spam()) # C.spam
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Множествено наследяване (3)</h1>
+  <p>Да, в широчина:</p>
+  <pre class="prettyprint">
+class A:
+    def spam(self): return "A.spam"
+class B(A):
+    def spam(self): return "B.spam"
+class C(A):
+    def spam(self): return "C.spam"
+class D(B, C):
+    pass
+
+print(D().spam()) # B.spam
+</pre>
+</div>
+
+<div class="slide">
+  <h1>24 карата</h1>
+  <p>Ако изпаднете в диамантено наследяване, имате проблем. Обикновено първопричината не е в кода.</p>
+  <p>(но има и изключения)</p>
+</div>
+
+<div class="slide long">
+  <h1>private и protected</h1>
+  <ul>
+    <li>В Python енкапсулацията е въпрос на добро възпитание</li>
+    <li>Имена от типа <code>_име</code> са protected</li>
+    <li>Имена от типа <code>__име</code> са private</li>
+    <li>Интерпретатор(а|ът) променя имената от тип <code>__име</code> до <code>_клас__име</code>. Нарича се name mangling и създава ефект, подобен на този в C++/Java.</li>
+  </ul>
+  <pre class="prettyprint">
+class Spam:
+    def __init__(self):
+        self.__var = 42
+
+print(dir(Spam())) # ['_Spam__var', '__class__', ...]
+</pre>
+</div>
+
+<div class="slide longlong">
+  <h1>private и protected (2)</h1>
+  <pre class="prettyprint">
+class Base:
+    def __init__(self, name, age):
+        self.__name = name
+        self._age = age
+    def report_base(self):
+        print("Base:", self.__name, self._age)
+
+class Derived(Base):
+    def __init__(self, name, age, derived_name):
+        Base.__init__(self, name, age)
+        self.__name = derived_name
+        self._age = 33
+    def report_derived(self):
+        print("Derived:", self.__name, self._age)
+
+derived = Derived("John", 0, "Doe")
+print(derived.report_base()) # Base: John 33
+print(derived.report_derived()) # Derived: Doe 33
+print(derived._Base__name, derived._Derived__name, sep=', ') # John, Doe
+</pre>
+</div>
+
+<div class="slide">
+  <h1><code>isinstance</code> и <code>issubclass</code></h1>
+  <pre class="prettyprint">
+print(isinstance(3, int)) # True
+print(isinstance(4.5, int)) # False
+
+print(issubclass(int, object)) # True
+print(issubclass(float, int)) # False
+</pre> 
+</div>
+
+</div>
+<script type="text/javascript" language="JavaScript">prettyPrint()</script>
+</body>
+</html>
