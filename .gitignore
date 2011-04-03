@@ -8,7 +8,7 @@ config/pepper.txt
 db/development_structure.sql
 public/stylesheets/trane.css
 public/uploads
-Sprokfile.rb
+Sporkfile.rb
 BECK
 .DS_Store
 __pycache__
