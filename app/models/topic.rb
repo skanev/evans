@@ -33,7 +33,7 @@ class Topic < ActiveRecord::Base
 
   class << self
     def page(page)
-      paginate(:page => page, :order => 'last_post_at DESC')
+      Post.topic_page(page)
     end
   end
 

@@ -16,8 +16,14 @@ describe Topic do
   end
 
   it "supports paging, ordering in reverse chronological order of the last post" do
-    first  = Topic.make :last_post_at => 1.day.ago
-    second = Topic.make :last_post_at => 2.days.ago
+    create_topic_with_last_reply_at = lambda do |timestamp|
+      topic = Topic.make(:created_at => 1.year.ago)
+      Reply.make(:topic => topic, :created_at => timestamp)
+      Post.find topic.id
+    end
+
+    second = create_topic_with_last_reply_at.call 2.days.ago
+    first  = create_topic_with_last_reply_at.call 1.day.ago
 
     Topic.stub :per_page => 1
 
