@@ -1,18 +1,15 @@
 class Post < ActiveRecord::Base
-  TOPIC_ATTRIBUTES = %w[id title body user_id created_at updated_at]
-  REPLY_ATTRIBUTES = %w[body user_id topic_id created_at updated_at]
-
   def last_poster
     User.find(last_poster_id)
   end
 
   def last_post_at
-    Time.parse last_post_at_before_type_cast
+    ActiveSupport::TimeZone['UTC'].parse(last_post_at_before_type_cast).in_time_zone
   end
 
   class << self
     def topic_page(page)
-      Post.with_last_post_data.where(:topic_id => nil).paginate(:page => page, :per_page => Topic.per_page)
+      Topic.with_last_post_data.paginate(:page => page, :per_page => Topic.per_page)
     end
 
     def with_last_post_data

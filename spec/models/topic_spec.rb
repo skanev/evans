@@ -17,9 +17,7 @@ describe Topic do
 
   it "supports paging, ordering in reverse chronological order of the last post" do
     create_topic_with_last_reply_at = lambda do |timestamp|
-      topic = Topic.make(:created_at => 1.year.ago)
-      Reply.make(:topic => topic, :created_at => timestamp)
-      Post.find topic.id
+      Reply.make(:created_at => timestamp).topic
     end
 
     second = create_topic_with_last_reply_at.call 2.days.ago
@@ -66,13 +64,15 @@ describe Topic do
     topic_with_replies[3].pages_of_replies.should == 2
   end
 
-  describe "last post" do
+  describe "last post fetched from .page" do
+    let(:topic_with_last_post) { Topic.with_last_post_data.first }
+
     it "is the topic itself initially" do
-      Timecop.freeze do
+      Timecop.freeze(Time.now) do
         topic = Topic.make
 
-        topic.last_poster.should == topic.user
-        topic.last_post_at.should == Time.now
+        topic_with_last_post.last_poster.should == topic.user
+        topic_with_last_post.last_post_at.should == Time.zone.now
       end
     end
 
@@ -80,36 +80,15 @@ describe Topic do
       topic = nil
 
       Timecop.freeze(1.day.ago) do
-        topic = Topic.make :last_post_at => 1.day.ago
+        topic = Topic.make
       end
 
-      Timecop.freeze do
+      Timecop.freeze(1.hour.ago) do
         reply = Reply.make :topic => topic
 
-        topic.reload
-        topic.last_post_at.should == Time.now
-        topic.last_poster.should == reply.user
+        topic_with_last_post.last_post_at.should == Time.zone.now
+        topic_with_last_post.last_poster.should == reply.user
       end
-    end
-  end
-
-  describe "syncronization with Post" do
-    it "happens on create" do
-      Timecop.freeze do
-        topic = Topic.make
-        post  = Post.find(topic.id)
-
-        post.attributes.slice(*Post::TOPIC_ATTRIBUTES).should == topic.attributes.slice(*Post::TOPIC_ATTRIBUTES)
-      end
-    end
-
-    it "happens on update" do
-      topic = Topic.make
-      post  = Post.find(topic.id)
-
-      topic.update_attributes! :title => 'New title'
-
-      post.reload.title.should == 'New title'
     end
   end
 end
