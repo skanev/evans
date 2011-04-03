@@ -89,10 +89,12 @@ describe Topic do
 
   describe "syncronization with Post" do
     it "happens on create" do
-      topic = Topic.make
-      post  = Post.find(topic.id)
+      Timecop.freeze do
+        topic = Topic.make
+        post  = Post.find(topic.id)
 
-      post.attributes.slice(*Post::TOPIC_ATTRIBUTES).should == topic.attributes.slice(*Post::TOPIC_ATTRIBUTES)
+        post.attributes.slice(*Post::TOPIC_ATTRIBUTES).should == topic.attributes.slice(*Post::TOPIC_ATTRIBUTES)
+      end
     end
 
     it "happens on update" do

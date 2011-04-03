@@ -36,11 +36,13 @@ describe Reply do
 
   describe "syncronization with Post" do
     it "happens on create" do
-      reply = Reply.make
+      Timecop.freeze do
+        reply = Reply.make
 
-      post = Post.where(:topic_id => reply.topic_id).first
-      post.should be_present
-      post.attributes.slice(*Post::REPLY_ATTRIBUTES).should == reply.attributes.slice(*Post::REPLY_ATTRIBUTES)
+        post = Post.where(:topic_id => reply.topic_id).first
+        post.should be_present
+        post.attributes.slice(*Post::REPLY_ATTRIBUTES).should == reply.attributes.slice(*Post::REPLY_ATTRIBUTES)
+      end
     end
 
     it "happens on update" do
