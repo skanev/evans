@@ -21,3 +21,18 @@ end
   solution.code.should == code
 end
 
+Дадено 'че темата "$topic" има "$replies" отговора, последния от които на "$author"' do |title, replies, author_name|
+  topic = Topic.find_by_title! title
+
+  (replies.to_i - 1).times { Factory(:reply, :topic => topic) }
+
+  last_reply_author = Factory(:user, :full_name => author_name)
+  Factory(:reply, :topic => topic, :user => last_reply_author)
+end
+
+То 'трябва да виждам следните теми:' do |table|
+  table.hashes.each do |row|
+    title, replies, last_reply_author = row.values_at 'Тема', 'Отговори', 'Последен отговор от'
+    page.should have_xpath("//tr[//*[. = '#{title}']][//*[. = '#{replies}']][//*[contains(., '#{last_reply_author}')]]")
+  end
+end
