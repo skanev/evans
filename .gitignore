@@ -12,3 +12,7 @@ Sprokfile.rb
 BECK
 .DS_Store
 __pycache__
+_project.vim
+tags
+gems.tags
+.rvmrc
