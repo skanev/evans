@@ -4,7 +4,7 @@ describe Topic do
   it { should have_many(:replies) }
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:body) }
-  it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:user_id) }
 
   it "does not allow mass reassignment of user_id" do
     original, modified = User.make, User.make

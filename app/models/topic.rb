@@ -1,8 +1,7 @@
 class Topic < Post
-  belongs_to :user
   has_many :replies, :order => 'created_at ASC'
 
-  validates_presence_of :title, :body, :user
+  validates_presence_of :title
 
   attr_accessible :title, :body
 

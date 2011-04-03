@@ -1,8 +1,7 @@
 class Reply < Post
   belongs_to :topic
-  belongs_to :user
 
-  validates_presence_of :body, :user_id, :topic_id
+  validates_presence_of :topic_id
 
   attr_accessible :body
 
