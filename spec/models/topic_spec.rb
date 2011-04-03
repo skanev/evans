@@ -25,8 +25,8 @@ describe Topic do
 
     Topic.stub :per_page => 1
 
-    Topic.page(1).should == [first]
-    Topic.page(2).should == [second]
+    Topic.boards_page(1).should == [first]
+    Topic.boards_page(2).should == [second]
   end
 
   it "can paginate its replies" do
@@ -64,8 +64,8 @@ describe Topic do
     topic_with_replies[3].pages_of_replies.should == 2
   end
 
-  describe "last post fetched from .page" do
-    let(:topic_with_last_post) { Topic.with_last_post_data.first }
+  describe "last post on boards page" do
+    let(:topic_with_last_post) { Topic.boards_page(1).first }
 
     it "is the topic itself initially" do
       Timecop.freeze(Time.now) do

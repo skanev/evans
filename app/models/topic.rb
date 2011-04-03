@@ -34,12 +34,8 @@ class Topic < Post
   end
 
   class << self
-    def page(page)
-      with_last_post_data.paginate(:page => page, :per_page => Topic.per_page)
-    end
-
-    def with_last_post_data
-      select(<<-END).order('last_post_at DESC')
+    def boards_page(page)
+      select(<<-END).order('last_post_at DESC').paginate(:page => page, :per_page => per_page)
         posts.id,
         posts.title,
         #{attribute_of_last_reply('created_at')} AS last_post_at,

@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
   before_filter :authorize, :only => [:edit, :update]
 
   def index
-    @topics = Topic.page params[:page] || 1
+    @topics = Topic.boards_page params[:page] || 1
   end
 
   def new

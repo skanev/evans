@@ -5,13 +5,13 @@ describe TopicsController do
 
   describe "GET index" do
     it "assigns a page of topics to @topics" do
-      Topic.should_receive(:page).with('3').and_return 'topics'
+      Topic.should_receive(:boards_page).with('3').and_return 'topics'
       get :index, :page => '3'
       assigns(:topics).should == 'topics'
     end
 
     it "shows the first page by default" do
-      Topic.should_receive(:page).with(1)
+      Topic.should_receive(:boards_page).with(1)
       get :index
     end
   end
