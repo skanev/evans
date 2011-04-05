@@ -1,12 +1,20 @@
 require 'spec_helper'
 
 describe StarsController do
+  log_in_as :admin
+
   describe "POST create" do
     let(:a_post) { mock_model(Post) }
 
     before do
       Post.stub :find => a_post
       a_post.stub :star
+    end
+
+    it "denies access to non-admins" do
+      current_user.stub :admin? => false
+      post :create, :post_id => 42
+      response.should deny_access
     end
 
     it "looks up the post by id" do

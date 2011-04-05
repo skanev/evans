@@ -1,4 +1,6 @@
 class StarsController < ApplicationController
+  before_filter :require_admin
+
   def create
     post = Post.find params[:post_id]
     post.star
