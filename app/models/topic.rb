@@ -9,10 +9,6 @@ class Topic < Post
     replies.paginate :page => page, :per_page => Reply.per_page
   end
 
-  def can_be_edited_by?(user)
-    user.present? and (user == self.user or user.admin?)
-  end
-
   def pages_of_replies
     if replies.count == 0
       1

@@ -17,4 +17,12 @@ shared_examples_for Post do
       post.reload
     end.to change(post, :starred?).from(false).to(true)
   end
+
+  it "can be edited by its owner or by an admin" do
+    post.can_be_edited_by?(post.user).should be_true
+    post.can_be_edited_by?(Factory(:admin)).should be_true
+
+    post.can_be_edited_by?(Factory(:user)).should be_false
+    post.can_be_edited_by?(nil).should be_false
+  end
 end
