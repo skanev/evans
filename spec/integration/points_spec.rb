@@ -23,4 +23,12 @@ describe "Point mechanics" do
 
     user.points.should == Solution::MAX_POINTS
   end
+
+  it "student gets points for each starred post" do
+    user = Factory(:user)
+    Factory(:topic, :user => user, :starred => true)
+    Factory(:reply, :user => user, :starred => true)
+
+    user.points.should == 2
+  end
 end
