@@ -32,5 +32,6 @@ describe Reply do
 
   it_behaves_like Post do
     let(:post) { Factory(:reply) }
+    let(:starred_post) { Factory(:reply, :starred => true) }
   end
 end

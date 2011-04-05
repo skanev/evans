@@ -18,6 +18,13 @@ shared_examples_for Post do
     end.to change(post, :starred?).from(false).to(true)
   end
 
+  it "can be unstarred" do
+    expect do
+      starred_post.unstar
+      starred_post.reload
+    end.to change(starred_post, :starred?).from(true).to(false)
+  end
+
   it "can be edited by its owner or by an admin" do
     post.can_be_edited_by?(post.user).should be_true
     post.can_be_edited_by?(Factory(:admin)).should be_true

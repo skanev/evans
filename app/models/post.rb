@@ -11,4 +11,9 @@ class Post < ActiveRecord::Base
     self.starred = true
     save!
   end
+
+  def unstar
+    self.starred = false
+    save!
+  end
 end

@@ -94,5 +94,6 @@ describe Topic do
 
   it_behaves_like Post do
     let(:post) { Factory(:topic) }
+    let(:starred_post) { Factory(:topic, :starred => true) }
   end
 end
