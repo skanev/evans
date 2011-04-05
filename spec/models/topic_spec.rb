@@ -64,6 +64,15 @@ describe Topic do
     topic_with_replies[3].pages_of_replies.should == 2
   end
 
+  it "can be given a star" do
+    topic = Factory(:topic)
+
+    expect do
+      topic.star
+      topic.reload
+    end.to change(topic, :starred?).from(false).to(true)
+  end
+
   describe "last post on boards page" do
     let(:topic_with_last_post) { Topic.boards_page(1).first }
 
