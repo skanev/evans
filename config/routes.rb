@@ -19,6 +19,10 @@ Trane::Application.routes.draw do
     resources :replies
   end
 
+  resources :posts do
+    resource :star
+  end
+
   devise_for :users
   resources :users
   resources :sign_ups

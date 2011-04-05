@@ -19,6 +19,11 @@ end
   Factory(:topic, :title => title, :body => body)
 end
 
+Дадено 'че студент "$name" е публикувал тема "$topic"' do |name, topic|
+  user = Factory(:user, :full_name => name)
+  Factory(:topic, :title => topic, :user => user)
+end
+
 Когато 'започна да редактирам темата' do
   within 'ol.topic li:first' do
     click_link 'Редактирай'
