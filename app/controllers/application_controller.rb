@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_time_zone
 
   helper_method :can_edit?, :logged_in?, :admin?
-  helper_method :post_path
 
   protect_from_forgery
 
@@ -38,9 +37,5 @@ class ApplicationController < ActionController::Base
 
   def set_time_zone
     Time.zone = 'Sofia'
-  end
-
-  def post_path(topic)
-    topic_path(topic)
   end
 end
