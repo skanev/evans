@@ -1,3 +1,17 @@
+Дадено 'че студент "$user" има звездичка за тема "$topic"' do |user_name, topic_title|
+  user = Factory(:user, :full_name => user_name)
+  Factory(:topic, :user => user, :starred => true, :title => topic_title)
+end
+
+Когато 'махна звездичката на темата "$topic"' do |topic_title|
+  topic = Topic.find_by_title! topic_title
+  visit topic_path(topic)
+
+  within 'ol.topic li:first-child' do
+    click_link 'Махни звездичката'
+  end
+end
+
 Когато 'дам звездичка на темата "$topic"' do |topic_title|
   topic = Topic.find_by_title! topic_title
   visit topic_path(topic)

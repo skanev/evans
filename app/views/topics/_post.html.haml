@@ -3,6 +3,7 @@
     = link_to user_thumbnail(post.user), post.user
     = link_to post.user.name, post.user
     = link_to 'Дай звездичка', post_star_path(post), :method => :post
+    = link_to 'Махни звездичката', post_star_path(post), :method => :delete
   .body
     = markup(post.body)
   .published-at

@@ -6,4 +6,10 @@ class StarsController < ApplicationController
     post.star
     redirect_to post_path(post.id)
   end
+
+  def destroy
+    post = Post.find params[:post_id]
+    post.unstar
+    redirect_to post_path(post.id)
+  end
 end
