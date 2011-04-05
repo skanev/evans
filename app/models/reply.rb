@@ -13,4 +13,9 @@ class Reply < Post
     replies_before_this = topic.replies.where('id < ?', id).count
     replies_before_this / Reply.per_page + 1
   end
+
+  def star
+    self.starred = true
+    save!
+  end
 end

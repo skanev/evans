@@ -19,9 +19,16 @@ end
   Factory(:topic, :title => title, :body => body)
 end
 
-Дадено 'че студент "$name" е публикувал тема "$topic"' do |name, topic|
-  user = Factory(:user, :full_name => name)
+Дадено 'че студент "$name" е публикувал тема "$topic"' do |user_name, topic|
+  user = Factory(:user, :full_name => user_name)
   Factory(:topic, :title => topic, :user => user)
+end
+
+Дадено 'че студент "$user" е отговорил на тема "$topic"' do |user_name, topic_title|
+  user  = Factory(:user, :full_name => user_name)
+  topic = Factory(:topic, :title => topic_title)
+
+  Factory(:reply, :user => user, :topic => topic)
 end
 
 Когато 'започна да редактирам темата' do

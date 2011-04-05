@@ -33,4 +33,13 @@ describe Reply do
     second.page_in_topic.should == 1
     third.page_in_topic.should == 2
   end
+
+  it "can be given a star" do
+    reply = Factory(:reply)
+
+    expect do
+      reply.star
+      reply.reload
+    end.to change(reply, :starred?).from(false).to(true)
+  end
 end

@@ -7,6 +7,15 @@
   end
 end
 
+Когато 'дам звездичка на отговора на "$user" на темата "$topic"' do |user, topic_title|
+  topic = Topic.find_by_title! topic_title
+  visit topic_path(topic)
+
+  within "ol.topic li:has(:contains('#{user}'))" do
+    click_link 'Дай звездичка'
+  end
+end
+
 То /^"(.*?)" трябва да има "(\d+)" точк(?:а|и)$/ do |name, points|
   user = User.find_by_full_name! name
   user.points.should == points.to_i

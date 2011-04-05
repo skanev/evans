@@ -21,7 +21,7 @@ describe StarsController do
 
     it "redirects to the post" do
       post :create, :post_id => 42
-      response.should redirect_to(a_post)
+      response.should redirect_to(post_path(a_post))
     end
   end
 end
