@@ -39,3 +39,19 @@ end
   topic = Topic.find_by_title! topic_title
   topic.should be_starred
 end
+
+Дадено 'че студент "$user" има звездичка за отговор на тема "$topic"' do |user_name, topic_title|
+  user  = User.find_by_full_name(user_name) || Factory(:user, :full_name => user_name)
+  topic = Factory(:topic, :title => topic_title)
+  Factory(:reply, :topic => topic, :user => user, :starred => true)
+end
+
+То 'профилът на "$user" трябва да показва, че има бонус точки от темите:' do |user_name, table|
+  user = User.find_by_full_name! user_name
+  visit user_path(user)
+
+  table.raw.each do |row|
+    topic_title = row.first
+    page.should have_selector("a:contains('#{topic_title}')")
+  end
+end
