@@ -3,6 +3,7 @@
 //= require "vendor/modernizr"
 //= require "vendor/prettify"
 
+//= require "message_boards"
 //= require "tasks"
 
 $.ajaxSetup({

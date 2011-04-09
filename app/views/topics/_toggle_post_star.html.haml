@@ -1,0 +1,3 @@
+%div
+  = link_to 'Махни звездичката', post_star_path(post), :method => :delete, :remote => true, 'data-toggle-star' => 'unstar'
+  = link_to 'Дай звездичка', post_star_path(post), :method => :post, :remote => true, 'data-toggle-star' => 'star'

@@ -8,10 +8,6 @@ module MessageBoardsHelper
   end
 
   def toggle_post_star_link(post)
-    if post.starred?
-      link_to 'Махни звездичката', post_star_path(post), :method => :delete
-    else
-      link_to 'Дай звездичка', post_star_path(post), :method => :post
-    end
+    render 'topics/toggle_post_star', :post => post
   end
 end

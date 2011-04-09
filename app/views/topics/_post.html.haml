@@ -1,4 +1,4 @@
-%article
+%article{'data-starred' => post.starred?.to_s}
   %aside
     = link_to user_thumbnail(post.user), post.user
     = link_to post.user.name, post.user

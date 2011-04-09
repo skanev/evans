@@ -4,12 +4,20 @@ class StarsController < ApplicationController
   def create
     post = Post.find params[:post_id]
     post.star
-    redirect_to post_path(post.id)
+
+    respond_to do |wants|
+      wants.html { redirect_to post_path(post.id) }
+      wants.js { render :json => {:starred => true} }
+    end
   end
 
   def destroy
     post = Post.find params[:post_id]
     post.unstar
-    redirect_to post_path(post.id)
+
+    respond_to do |wants|
+      wants.html { redirect_to post_path(post.id) }
+      wants.js { render :json => {:starred => false} }
+    end
   end
 end
