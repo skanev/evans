@@ -1,4 +1,5 @@
 //= require "vendor/jquery"
+//= require "vendor/jquery.ujs"
 //= require "vendor/modernizr"
 //= require "vendor/prettify"
 
