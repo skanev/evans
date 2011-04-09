@@ -5,6 +5,10 @@
 
 //= require "tasks"
 
+$.ajaxSetup({
+  dataType: 'json'
+});
+
 $(function() {
   $('pre:not([class])').addClass('prettyprint lang-python');
   prettyPrint();
