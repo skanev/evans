@@ -1,6 +1,6 @@
 desc "Generates fake data"
 task :fake => :environment do
-  require 'lib/fakes/factories.rb'
+  require 'lib/fakes/factories'
 
   [Solution, Task, Announcement, Reply, Topic, User].each do |model|
     model.destroy_all
