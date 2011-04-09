@@ -43,11 +43,11 @@ describe Topic do
   it "can be edited by its owner or by an admin" do
     topic = Topic.make
 
-    topic.can_be_edited_by?(topic.user).should be_true
-    topic.can_be_edited_by?(Factory(:admin)).should be_true
+    topic.should be_editable_by(topic.user)
+    topic.should be_editable_by(Factory(:admin))
 
-    topic.can_be_edited_by?(Factory(:user)).should be_false
-    topic.can_be_edited_by?(nil).should be_false
+    topic.should_not be_editable_by(Factory(:user))
+    topic.should_not be_editable_by(nil)
   end
 
   it "can tell how many pages of replies it has" do

@@ -26,11 +26,11 @@ shared_examples_for Post do
   end
 
   it "can be edited by its owner or by an admin" do
-    post.can_be_edited_by?(post.user).should be_true
-    post.can_be_edited_by?(Factory(:admin)).should be_true
+    post.should be_editable_by(post.user)
+    post.should be_editable_by(Factory(:admin))
 
-    post.can_be_edited_by?(Factory(:user)).should be_false
-    post.can_be_edited_by?(nil).should be_false
+    post.should_not be_editable_by(Factory(:user))
+    post.should_not be_editable_by(nil)
   end
 
   it "can return a title for the containing topic" do

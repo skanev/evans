@@ -10,11 +10,11 @@ describe Reply do
   it "can be edited by its owner or by an admin" do
     reply = Reply.make
 
-    reply.can_be_edited_by?(reply.user).should be_true
-    reply.can_be_edited_by?(Factory(:admin)).should be_true
+    reply.should be_editable_by(reply.user)
+    reply.should be_editable_by(Factory(:admin))
 
-    reply.can_be_edited_by?(nil).should be_false
-    reply.can_be_edited_by?(Factory(:user)).should be_false
+    reply.should_not be_editable_by(nil)
+    reply.should_not be_editable_by(Factory(:user))
   end
 
   it "can tell on which page of the topic it is" do

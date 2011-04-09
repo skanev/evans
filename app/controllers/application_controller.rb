@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def can_edit?(something)
-    something.can_be_edited_by? current_user
+    something.editable_by? current_user
   end
 
   def deny_access(message = 'Нямате достъп до тази страница.')
