@@ -32,4 +32,8 @@ shared_examples_for Post do
     post.can_be_edited_by?(Factory(:user)).should be_false
     post.can_be_edited_by?(nil).should be_false
   end
+
+  it "can return a title for the containing topic" do
+    post.should respond_to(:topic_title)
+  end
 end

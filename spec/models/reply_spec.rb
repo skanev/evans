@@ -30,6 +30,13 @@ describe Reply do
     third.page_in_topic.should == 2
   end
 
+  it "gives the title of its topic when asked for the containing topic's title" do
+    topic = Topic.make :title => 'Topic title'
+    reply = Reply.make :topic => topic
+
+    reply.topic_title.should == 'Topic title'
+  end
+
   it_behaves_like Post do
     let(:post) { Factory(:reply) }
     let(:starred_post) { Factory(:reply, :starred => true) }

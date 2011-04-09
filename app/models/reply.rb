@@ -5,6 +5,10 @@ class Reply < Post
 
   attr_accessible :body
 
+  def topic_title
+    topic.title
+  end
+
   def page_in_topic
     replies_before_this = topic.replies.where('id < ?', id).count
     replies_before_this / Reply.per_page + 1

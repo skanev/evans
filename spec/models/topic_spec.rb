@@ -64,6 +64,10 @@ describe Topic do
     topic_with_replies[3].pages_of_replies.should == 2
   end
 
+  it "gives its own title when asked for the containing topic's title" do
+    Topic.new(:title => 'Title').topic_title.should == 'Title'
+  end
+
   describe "last post on boards page" do
     let(:topic_with_last_post) { Topic.boards_page(1).first }
 

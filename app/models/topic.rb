@@ -5,6 +5,10 @@ class Topic < Post
 
   attr_accessible :title, :body
 
+  def topic_title
+    title
+  end
+
   def replies_on_page(page)
     replies.paginate :page => page, :per_page => Reply.per_page
   end
