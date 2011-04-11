@@ -6,8 +6,10 @@ $(function() {
       post.find('[data-toggle-star]').hide();
 
       if (post.data('starred')) {
+        post.closest('li').addClass('starred');
         post.find('[data-toggle-star=unstar]').show();
       } else {
+        post.closest('li').removeClass('starred');
         post.find('[data-toggle-star=star]').show();
       }
     }).

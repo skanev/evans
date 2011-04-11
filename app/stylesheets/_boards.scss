@@ -1,6 +1,7 @@
 ol.topic {
-  > li { padding: 20px; overflow: hidden; }
+  > li { margin: 5px 0; overflow: hidden; padding: 20px; }
   > li:nth-child(even) { background-color: #f0f0f0; }
+  > li.starred { background-color: #fffdd0; }
 
   aside { float: right; }
   aside img { display: block; }
@@ -9,6 +10,11 @@ ol.topic {
 
   .published-at { border-top: 1px dotted gray; color: #666; font-size: $font-small; margin-right: 200px; padding-top: 5px; }
   #main & .body p:first-child { margin-top: 0; }
+
+  a[data-toggle-star=star],
+  a[data-toggle-star=unstar] { background: { position: top left; repeat: no-repeat; }; padding-left: 20px; }
+  a[data-toggle-star=star] { background-image: url('/images/icons/star.png'); }
+  a[data-toggle-star=unstar] { background-image: url('/images/icons/unstar.png'); }
 }
 
 table.topics {
