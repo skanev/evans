@@ -32,5 +32,5 @@
     .starred-posts
       %h2 Звездички във форума
 
-      - @points_breakdown.each_starred_post_with_title do |post, title|
+      = @points_breakdown.each_starred_post_with_title do |post, title|
         %li= link_to title, post_path(post)

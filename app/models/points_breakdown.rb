@@ -7,6 +7,8 @@ class PointsBreakdown
     starred_posts.each do |post|
       yield post, post.topic_title 
     end
+
+    nil
   end
 
   def having_starred_posts?
