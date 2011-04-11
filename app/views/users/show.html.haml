@@ -28,7 +28,9 @@
       %dt За вас
       %dd= @user.about
 
-  %h2 Звездички във форума
+  - if @points_breakdown.having_starred_posts?
+    .starred-posts
+      %h2 Звездички във форума
 
-  = @points_breakdown.each_starred_post_with_title do |post, title|
-    %li= link_to title, post_path(post)
+      - @points_breakdown.each_starred_post_with_title do |post, title|
+        %li= link_to title, post_path(post)
