@@ -3,6 +3,16 @@ require 'spec_helper'
 describe PointsBreakdown do
   let(:user) { User.make }
 
+  it "can tell whether a user has starred posts" do
+    user = User.make
+    breakdown = PointsBreakdown.new user
+
+    breakdown.should_not be_having_starred_posts
+
+    topic = Topic.make :user => user, :starred => true
+    breakdown.should be_having_starred_posts
+  end
+
   it "can iterate all starred posts a user has" do
     topic = Topic.make :user => user, :starred => true
     reply = Reply.make :user => user, :starred => true

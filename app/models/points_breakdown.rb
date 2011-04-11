@@ -9,6 +9,10 @@ class PointsBreakdown
     end
   end
 
+  def having_starred_posts?
+    starred_posts.exists?
+  end
+
   private
 
   def starred_posts
