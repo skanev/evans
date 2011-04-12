@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Програмиране с Python: Изключения</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="30.03.2009" />
+<meta name="author" content="Стефан Кънев, Николай Бачийски, Точо Точев и Димитър Димитров" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/python/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/python/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/python/prettify.css" type="text/css" media="screen" id="prettyifyStyle" />
+<link rel="stylesheet" href="ui/python/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/python/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="ui/python/slides.js" type="text/javascript"></script>
+<script src="ui/python/prettify.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<h1>&bdquo;Изключения&ldquo;, част от курса <a href="http://fmi.py-bg.net/">Програмиране с Python</a></h1>
+<h1>Текстът на тази презентация се разпространява под <a href="http://creativecommons.org/licenses/by/3.0/deed.bg">Creative Commons Attribution</a></h1>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<h1>Изключения</h1>
+<h3>&bdquo; Програмиране с Python&ldquo;, <acronym title="Факултет по Математика и Информатика при Софийски Университет">ФМИ</acronym></h3>
+<h3>class LectorsException(Exception): pass<br />
+raise LectorsException()</h3>
+<h4>08.04.2010г.</h4>
+</div>
+
+<div class="slide longlong">
+<h1>Традицията повелява</h1>
+<p>Ето как най-често се справяме с грешките в нашите програми:</p>
+<pre class="prettyprint">"""Модул за зимнината на Митьо Питона"""
+import jars
+
+ERROR = -1
+SUCCESS = 0
+
+def prepare_for_winter():
+    jar = jars.Jar()
+    if jar.clean() == jars.ERROR:
+        print("Shit happens")
+        return ERROR
+    if jar.fill('python juice') == jars.ERROR:
+        print("Shit happens")
+        return ERROR
+    if jar.close() == jars.ERROR:
+        print("Shit happens")
+        return ERROR
+    return SUCCESS
+</pre>
+</div>
+
+<div class="slide long">
+<h1>Традициите не са това&hellip;</h1>
+<p>Сега да опитаме с изключения:</p>
+<pre class="prettyprint">"""Модул за зимнината на Митьо Питона"""
+import jars
+
+class MityoWinterError(Exception): pass
+
+def prepare_for_winter():
+    try:
+        jar = jars.Jar()
+        jar.clean()
+        jar.fill('python juice')
+        jar.close()
+    except jars.Error:
+        print("Shit happens")
+</pre>
+</div>
+
+<div class="slide long">
+<h1>Синтаксис и семантика</h1>
+<pre class="prettyprint">try:
+    <em>блок</em>
+except <em>изключения</em>:
+    <em>блок</em> <span>ако се случи някое от описаните изключения</span>
+
+&hellip;
+
+except <em>още изключения</em>:
+    <em>блок</em> <span>ако се случи някое от описаните изключения</span>
+except:
+    <em>блок</em> <span>ако изключението не е хванато по-горе</span>
+else:
+    <em>блок</em> <span>ако не е възникнала изключителна ситуация</span>
+finally:
+    <em>блок</em> <span>изпълнява се <strong>винаги</strong></span>
+</pre>
+</div>
+
+<div class="slide long">
+<h1>Аз не (при|с)хващам</h1>
+<p>По подразбиране, при неприхванато изключение, Python спира
+изпълнението на програмата и отпечатва на стандартния изход 
+описание на грешката и реда на извикване на функциите до момента на грешката.</p>
+<p><strong>bad.py</strong>:</p>
+<pre><code>l = [1, 2, 3]
+def bad(): print(l[3])
+bad()</code></pre>
+След изпълнение получаваме:
+<pre><code>[~]$ python3.0 bad.py
+<samp class="error">Traceback (most recent call last):
+  File "bad.py", line 3, in <module>
+    bad()
+  File "bad.py", line 2, in bad
+    def bad(): print(l[3])
+IndexError: list index out of range</samp></code></pre>
+<p>Изключенията се използват активно от вградените средства в езика.</p>
+</div>
+
+<div class="slide longlong">
+<h1>Започвам да (при|с)хващам</h1>
+<pre><code>def distribute_over(beers):
+    try:
+        return 333/beers
+    except ZeroDivisionError:
+        return 0</code></pre>
+<p>Изключенията са инстанции на подкласове на BaseException.</p>
+<pre><code>&gt;&gt;&gt; ZeroDivisionError
+&lt;class 'ZeroDivisionError'&gt;</code></pre>
+<p>Можем да прихванем и по-общ тип изключение (родителски клас):</p>
+<pre><code>def distribute_over2(beers):
+    try:
+        return 333/beers
+    except ArithmeticError:
+        return 0</code></pre>
+<p>Ето и доказателство:</p>
+<pre><code>&gt;&gt;&gt; issubclass(ZeroDivisionError, ArithmeticError)
+True</code></pre>
+<p>Тази практика е много логична, тъй като делението на нула е и аритметична грешка и когато прихващаме аритметичните грешки, би трябвало да хванем и делението на нула.</p>
+</div>
+
+<div class="slide longlong">
+<h1>По-гъвкаво прихващане</h1>
+<ul>
+    <li>Можем да вземем и повече информация за изключението:
+<pre><code>try: x = [] / 4
+except TypeError as data: print(data)</code></pre>
+Какво ще има в <code>data</code>, зависи от самото изключение, но е прието всички да връщат годна за отпечатване стойност, ако се дадат като аргументи на <code>str</code> или <code>repr</code>.
+</li>
+    <li>Ако за няколко изключения имаме една и съща реакция, можем да ги прихванем накуп: <pre class="prettyprint">try:
+    doomed()
+except (NameError, TypeError) as data:
+    print(data)
+except (MyError, YourError):
+    print("Opps! This shouldn't've hapenned...")
+except:
+    print("Unknown exception.")
+else:
+    print("It's my happy day!")</pre></li>
+    <li>С празен <code>except</code> прихващаме изключения, които не са били хванати до момента. Трябва да бъде поставен след всички други <code>except</code>-и.</li>
+</ul>
+</div>
+
+<div class="slide long">
+<h1>finally</h1>
+<pre class="prettyprint">file = open('data.txt')
+try:
+    mymodule.load_info(file)
+except IOError as data:
+    print("Couldn't read from file:", data)
+except (mymodule.BadDataError, mymodule.InternalError) as data:
+    print('Loading failed:', data)
+else:
+    print('Data loaded successfully from file.')
+finally:
+    file.close()</pre>
+<p>Ако присъства, <code>finally</code> стои винаги най-отдолу.</p>
+</div>
+
+<div class="slide longlong">
+<h1>Пораждане на изключения (1)</h1>
+<pre class="prettyprint">class XmasError(Exception):
+    def __init__(self):
+        self.issuer, self.message = 'Robosanta', 'watches you'
+
+class NaughtyError(XmasError):
+    def __init__(self):
+        super().__init__()
+        self.message = 'You were very naughty this year!'
+
+class AreYouDeadYetError(XmasError):
+    def __init__(self):
+        super().__init__()
+        self.message = 'Are you dead yet?'
+
+def confess_sins(): raise NaughtyError
+
+def celebrate_xmas(): raise AreYouDeadYetError</pre>
+</div>
+
+<div class="slide longlong">
+<h1>Пораждане на изключения (2)</h1>
+<pre class="prettyprint">try:
+    celebrate_xmas()
+except AreYouDeadYetError as e:
+    print(e.issuer, '--', e.message)
+except XmasError:
+    print('Climbing to the sky. Never wonder why. Tailgunner...')</pre>
+</div>
+
+<div class="slide">
+<h1>Пораждане на изключения (3)</h1>
+<p>2 начина за пораждане:</p>
+<ul>
+    <li><code>raise <em>клас</em> # създава се инстация като __init__ се вика само със self</code></li>
+    <li><code>raise <em>инстанция</em>
+</ul>
+</div>
+
+
+<div class="slide long">
+<h1>Пораждане на изключения (4)</h1>
+<p>Пример:</p>
+<pre><code>class MyError(Exception):
+    def __init__(self, who, why):
+        self.who, self.why = who, why
+    def __str__(self):
+        return '{0} did it because {1}'.format(self.who, self.why)
+</code></pre>
+<pre><code>
+&gt;&gt;&gt; try:
+    raise MyError('I', 'I want to rule the world!')
+except MyError as e:
+    print(e)
+
+I did it because I want to rule the world!
+&gt;&gt;&gt;</code></pre>
+</div>
+
+
+<div class="slide longlong">
+<h1>Далаверата от изключенията</h1>
+<ul>
+    <li>Прихващат се инстанции на всички наследници &mdash; така лесно можем да си структурираме типовете грешки.
+<pre class="prettyprint">class EmotionalError(BenderError): pass
+class FryDeadError(EmotionalError): pass
+class NotFamousError(EmotionalError): pass
+class MoneyError(BenderError): pass
+
+bender = Bender()
+try:
+    bender.live_a_day()
+except MoneyError:
+    bender.rob_a_friend()
+# прихващаме по-общия проблем, а не по-частните FryDead и NotFamous
+# от инстанцията на проблема психоаналитика може да извлече ценна информация
+except EmotionalError as problem:
+    bender.drink_and_run_away_from(problem)
+except BenderError:
+    bender.activate_self_destruct_sequence()
+else:
+    bender.watch_tv()
+finally:
+    bender.build_own_ship_with_blackjack_and_hookers()
+</pre></li>
+</ul>
+</div>
+
+<div class="slide long">
+<h1>Ескалиране на грешката</h1>
+<ul>
+<li>Когато Python се натъкне на изключение в даден блок и в него то не се обработи,
+изключението се праща към горния блок, после към по-горния и така докато или изключението не бъде прехванато
+или не стигнем най-отгоре и интерпретаторът не спре програма по познатия ни вече начин (в червеничко).</li>
+<li>Можем да се намесим в следната схема или като прихванем изключението (вече знаем как), или като пратим изключението нагоре по трасето. Последното става с голо извикване на <code>raise</code>: 
+<pre class="prettyprint">try:
+    bender.live_a_day()
+except BenderError:
+    bender.boned = True
+    # Бендър не може да се оправя с това, нека тези отгоре да се грижат
+    raise</pre></li>
+</ul>
+</div>
+
+
+<div class="slide"> 
+<h1>Подходи</h1>
+<ul>
+  <li>Look Before You Leap (LBYL)</li>
+  <li>Easier to Ask for Forgiveness than Permission (EAFP)</li>
+</ul>
+</code></pre>
+</div>
+
+
+<div class="slide"> 
+<h1>Design by Contract</h1>
+<p>За всеки метод определяме:</p>
+<ul>
+  <li>preconditions &mdash; условия, които трябва да са изпълнени преди извикване на метода</li>
+  <li>postconditions &mdash; условия, които са гарантирани след изпълнението на функцията</li>
+</ul>
+<pre><code>def factorial(n):
+    ...
+
+x = factorial(7)
+</code></pre>
+</div>
+
+<div class="slide longlong">
+<h1>assert</h1>
+<ul>
+<li><code>assert <em>&lt;проверка&gt;</em>, [<em>&lt;данни&gt;</em>]</code></li>
+<li>Целта на твърдението <code>assert</code> е да се подсигурите, че важно за вашата програма условие е изпълнено</li>
+<li><code>assert test, data</code> е еквивалентно на:<pre class="prettyprint">if __debug__:
+    if not test:
+        raise AssertionError(data)</pre>
+<code>data</code> никак не е задължително</li>
+<li>Както си личи от примера, <code>assert</code> рядко се ползва в крайния продукт, а най-вече по време
+на разработка за да си спестим главоболия и да сме сигурни в целостта на данните си</li>
+<li>По подразбиране глобалният атрибут <code>__debug__</code> има стойност <code>1</code> като може
+да бъде променена от вас или от опцията на командния ред <code>-O</code> (оптимизация), която го установява
+на <code>False</code></li>
+<li class="code"><pre class="prettyprint">def fib(n):
+    assert n >= 0
+    if n &lt;= 1: return n
+    else: return fib(n-2) + fib(n-1)</pre></li>
+</ul>
+</div>
+
+<div class="slide long">
+<h1>Вградени класове за изключения</h1>
+<ul>
+<li>Основният, който всички наследяват е <code>BaseException</code>, но най-съществените наследяват от <code>Exception</code></li>
+<li>Главни категории:
+    <dl>
+        <dt><code>StandardError</code></dt><dd>родител на всички вградени изключения; директен наследник на <code>Exception</code></dd>
+        <dt><code>ArithmeticError</code></dt><dd>родител на <code>OverflowError</code>, <code>ZeroDivisionError</code>, <code>FloatingPointError</code></dd>
+        <dt><code>LookupError </code></dt><dd>родител на <code>IndexError</code>, <code>KeyError</code></dd>
+        <dt><code>EnvironmentError</code></dt><dd>родител на изключенията, които се случват извън интерпретора: <code>IOError</code>, <code>OSError</code></dd>
+    </dl>
+</li>
+</ul>
+</div>
+
+<div class="slide long">
+<h1><code>class Exception</code></h1>
+<p>Какво може да направи <code>Exception</code> за нас?</p>
+<ul>
+    <li class="code">
+<pre><code>class MyError(Exception): pass</code></pre>
+<pre><code>&gt;&gt;&gt; raise MyError('Bite', 'my', 'shiny', 'metal', 'ass', '!')</code></pre>
+<pre><code><samp class="error">
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+__main__.MyError: ('Bite', 'my', 'shiny', 'metal', 'ass', '!')
+</samp>
+&gt;&gt;&gt; error = MyError('Make booze for HIM', 'Make it twice')
+&gt;&gt;&gt; error.args
+('Make booze for HIM', 'Make it twice')
+</code></pre></li>
+    <li>пази аргументите, които сме дали при създаване в <code>args</code></li>
+    <li>дефинира <code>__str__</code>, така че да връща нещо като: <code>map(str, self.args)</code></li>
+</ul>
+</div>
+
+<div class="slide long">
+<h1>Използване на изключение не само за грешки</h1>
+<ul>
+<li>за прихващане на събития през няколко блока дълбочина
+<pre class="prettyprint">try:
+    for box in boxes:
+        for jar in box.jars():
+            jar.has(throw=True, colour='velvet', eyes='cheese')
+except JarFound as good_jar:
+    print("We found the jar! Its name is {0}".format(good_jar.name))
+else:
+    print("I couldn't find it :(")</pre>
+</li>
+<li>за всякакви подобни странности на потока на програмата ни</li>
+<li>за обработка на частни случаи</li>
+</ul>
+</div>
+
+<div class="slide long">
+<h1>Аз хващам прекалено много</h1>
+<ul>
+<li><pre class="prettyprint">def func():
+    try:
+        &hellip; # някъде тук възниква IndexError
+    except:
+        &hellip; # тук хващаме всичко и отпечатваме съобщение за грешка
+
+try:
+    func()
+except IndexError: # нъцки, няма да го хванем тук
+    &hellip;</pre></li>
+<li>прихващайте не повече отколкото ви трябва</li>
+<li>използвайте гол <code>except</code> главно в най-високото ниво на програмата си</li>    
+</ul>
+</div>
+
+<div class="slide long">
+<h1>Ти пък прекалено малко</h1>
+<ul>
+<li><pre class="prettyprint">try:
+    bender.live_a_day()
+except (BenderWantsACracker, BenderWantsADrink,
+        BenderWantsAnIsland, BenderWantsA333YearOldWhiskey,
+        BenderNeedsOil, BenderNeedsAHooker) as thing:
+    you.buy(whom=bender, what=thing) </pre></li>
+<li>какво ще се случи ако Бендър може да поиска и мармотче? Ами само 111 годишно?</li>
+<li>винаги е по-добре изключенията да се структурират, за да се избегне дългото, кошмарно за поддръжка и податливо на много грешки изброяване:
+<pre><code>except (BenderWants, BenderNeeds) as thing:
+    &hellip;</code></pre></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Нека обобщим</h1>
+Няколко неща, за които може да ползваме изключения:
+<ul>
+    <li>обработка на грeшки:
+        <ul>
+            <li>структурирани, прихващаеми, позволяващи предаване на допълнителна информация</li>
+            <li>вградените функции и твърдения широко ги използват</li>
+            <li>пораждане и прихващане на собствени изключения</li>
+        </ul>
+    </li>
+    <li>безусловно извършване на заключителни действия &mdash; <code>finally</code></li>
+    <li>предаване на събития между отдалечени структурно части от кода</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Още въпроси?</h1>
+<ul>
+<li>Страница на курса: <a href="http://fmi.py-bg.net/">http://fmi.py-bg.net</a></li>
+<li>Форуми на курса: <a href="http://fmi.py-bg.net/forums/">http://fmi.py-bg.net/topics</a></li>
+<li>Курсът в twitter: <a href="http://twitter.com/pyfmi">http://twitter.com/pyfmi</a></li>
+<li>Курсът във Facebook: <a href="http://www.facebook.com/group.php?gid=104970619536589">http://www.facebook.com/group.php?gid=104970619536589</a></li>
+</ul>
+</div>
+
+</div>
+<script type="text/javascript" language="JavaScript">prettyPrint()</script>
+</body>
+</html>
