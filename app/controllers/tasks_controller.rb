@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_filter :require_admin, :except => [:index, :show]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all :order => 'created_at ASC'
   end
 
   def new
