@@ -1,0 +1,14 @@
+%h1= @quiz.name
+
+%table
+  %thead
+    %tr
+      %th Име
+      %th Верни отговори
+      %th Точки
+  %tbody
+    - @results.each do |result|
+      %tr
+        %td= link_to result.user_name, result.user
+        %td= result.correct_answers
+        %td= result.points

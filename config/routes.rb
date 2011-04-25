@@ -8,6 +8,7 @@ Trane::Application.routes.draw do
   resource :profile
   resource :dashboard
   resources :voucher_claims
+  resources :quizzes
 
   resources :tasks do
     resource :my_solution

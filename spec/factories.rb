@@ -3,6 +3,7 @@ FactoryGirl.define do
   sequence(:faculty_number) { |n| "%05d" % n }
   sequence(:token) { |n| "%040d" % n }
   sequence(:voucher_code) { |n| "%08d" % n }
+  sequence(:quiz_name) { |n| "Quiz #{n}" }
 
   factory :sign_up do
     full_name 'John Doe'
@@ -67,5 +68,16 @@ FactoryGirl.define do
 
   factory :checked_solution, :parent => :solution do
     association :task, :factory => :closed_task
+  end
+
+  factory :quiz do
+    name { Factory.next(:quiz_name) }
+  end
+
+  factory :quiz_result do
+    quiz
+    user
+    correct_answers 0
+    points 0
   end
 end

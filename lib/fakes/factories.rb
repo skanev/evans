@@ -67,4 +67,15 @@ FactoryGirl.define do
     add_attribute(:task) { Task.where('closes_at > ?', Time.now).rand }
     code 'print("larodi")'
   end
+
+  factory :fake_quiz, :class => :quiz do
+    name { "Quiz #{rand(100)}" }
+  end
+
+  factory :fake_quiz_result, :class => :quiz_result do
+    association :user, :factory => :fake_user
+    quiz { Quiz.all.rand }
+    correct_answers { rand(51) }
+    points { rand(31) }
+  end
 end
