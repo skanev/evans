@@ -31,4 +31,11 @@ describe "Point mechanics" do
 
     user.points.should == 2
   end
+
+  it "student gets points from quizzes" do
+    user = User.make
+    QuizResult.make :user => user, :points => 10
+
+    user.points.should == 10
+  end
 end

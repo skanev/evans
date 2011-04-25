@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
     points += Voucher.where(:user_id => id).count
     points += solutions.map(&:points).sum
     points += Post.where(:user_id => id, :starred => true).count
+    points += QuizResult.where(:user_id => id).map(&:points).sum
     points
   end
 
