@@ -1,4 +1,6 @@
 class CreateQuizResults < ActiveRecord::Migration
+  extend ForeignKeys
+
   def self.up
     create_table :quiz_results do |t|
       t.references  :quiz,              :null => false
