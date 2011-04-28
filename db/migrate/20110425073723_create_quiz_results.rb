@@ -10,8 +10,8 @@ class CreateQuizResults < ActiveRecord::Migration
       t.timestamps
     end
 
-    foreign_key :quiz_results, :quizzez
-    foreign_key :quiz_results, :users
+    foreign_key :quiz_results, :quiz_id
+    foreign_key :quiz_results, :user_id
   end
 
   def self.down
