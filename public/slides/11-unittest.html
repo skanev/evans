@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Програмиране с Python: Автоматизирано (unit) тестване</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="16.04.2008" />
+<meta name="author" content="Стефан Кънев, Николай Бачийски, Точо Точев и Димитър Димитров" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/python/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/python/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/python/prettify.css" type="text/css" media="screen" id="prettyifyStyle" />
+<link rel="stylesheet" href="ui/python/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/python/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="ui/python/slides.js" type="text/javascript"></script>
+<script src="ui/python/prettify.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<h1>&bdquo;Автоматизирано (unit) тестване&ldquo;, част от курса <a href="http://fmi.py-bg.net/">Програмиране с Python</a></h1>
+<h1>Текстът на тази презентация се разпространява под <a href="http://creativecommons.org/licenses/by/3.0/deed.bg">Creative Commons Attribution</a></h1>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<h1>Автоматизирано (unit) тестване</h1>
+<h3>&bdquo; Програмиране с Python&ldquo;, <acronym title="Факултет по Математика и Информатика при Софийски Университет">ФМИ</acronym></h3>
+<h4></h4>
+<h4>12.04.2011</h4>
+</div>
+
+
+<div class="slide">
+  <h1>Disclaimer</h1>
+  <p>Днес няма да си говорим за acceptance testing, quality assurance или нещо, което се прави от &#8222;по-низшия&#8220; отдел във фирмата. Всичко тук е дело на програмиста.</p>
+</div>
+
+<div class="slide">
+  <h1>Митът</h1>
+  <p>Проектът идва с готово, подробно задание. Прави се дизайн. С него работата се разбива на малки задачи. Те се извършват последователно. За всяка от тях пишете кода и приключвате. Изискванията не се променят, нито се добавя нова функционалност.</p>
+</div>
+
+<div class="slide">
+  <h1>Митът v1.1</h1>
+  <p>Щом съм написал един код, значи ми остава единствено да го разцъкам - няколко <code>print</code>-а, малко пробване в <code>main</code> метода/функцията и толкова. Така или иначе няма да се променя. А ако (не дай си боже) това се случи - аз съм го писал, знам го, няма как да допусна грешка. Най-много да го поразцъкам още малко.</p>
+</div>
+
+<div class="slide">
+  <h1>Тежката действителност</h1>
+  <ul>
+    <li class="incremental">Заданията <strong>винаги</strong> се променят.</li>
+    <li class="incremental">Често се налага един код да се преработва.</li>
+    <li class="incremental">Писането на код е сложна задача - допускат се грешки.</li>
+    <li class="incremental">Програмистите (освен Мило) са хора - допускат грешки (освен Мило).</li>
+    <li class="incremental">Промяната на модул в единия край на системата като нищо може да счупи модул в другия край на системата. </li>
+    <li class="incremental">Идва по-добра идея как да реализирате кода</li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Традиционния подход</h1>
+  <pre class="prettyprint">
+class Programmer(object):
+    # ...
+    def implement_a_change(self, project, change):
+        files = self.open_related_files(project, change)
+        while True:
+            self.attempt_change(change, files)
+            project.run()
+            result = self.click_around_and_test(project)
+            project.stop()
+            if result.successful(): break
+        self.commit_code(project, files)
+        self.hope_everything_went_ok()
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Идея</h1>
+  <p>— Добре де&hellip; хващам се, че постоянно правя едно и също нещо като робот. Понеже е досадно, лесно ще забравя нещо. Пък и само ми губи времето. Човешката цивилизация не реши ли тоя вид проблеми с някакви машини? Май се казваха компютри?</p>
+  <p>&nbsp;</p>
+  <p>— Защо просто не си напишеш програма, която да го прави вместо теб?</p>
+</div>
+
+<div class="slide">
+  <h1>На хартия (или проектор)</h1>
+  <ul>
+    <li class="incremental">За всичко съмнително ще пишем <strong>сценарий</strong>, който да &#8222;цъка&#8220;.</li>
+    <li class="incremental">Всеки сценарий ще изпълнява кода и ще прави няколко <strong>твърдения</strong> за резултатите.</li>
+    <li class="incremental">Сценариите ще бъдат обединени в <strong>групи</strong>.</li>
+    <li class="incremental">Пускате всички тестове с едно бутонче.</li>
+    <li class="incremental">Резултатът е &#8222;Всичко мина успешно&#8220; или &#8222;Твърдения X, Y и Z в сценарии A, B и C се оказаха неверни&#8220;.</li>
+  </ul>
+</div>
+
+<div class="slide longlong">
+  <h1>Кодът, който ще тестваме</h1>
+  <pre class="prettyprint">
+class Interval(object):
+    def __init__(self, left, right): self.left, self.right = left, right
+    def __repr__(self): return "Interval({0}, {1})".format(self.left, self.right)
+    def __eq__(self, other):
+        return isinstance(other, Interval) and \
+            (self.left, self.right) == (other.left, other.right)
+
+    def left_open(self): return self.left == None
+    def right_open(self): return self.right == None
+
+    def contains_number(self, number):
+        if self.left_open() and self.right_open(): return True
+        if self.left_open(): return number <= self.right
+        if self.right_open(): return self.left <= number
+        return self.left < number < self.right
+
+    def intersect(self, other):
+        extr = lambda a, b, func: func(a, b) if not None in (a, b) else a or b
+        return Interval(
+            extr(self.left, other.left, max),
+            extr(self.right, other.right, min))
+
+    __and__ = intersect
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Идеята&hellip;</h1>
+  <pre class="prettyprint">
+class IntervalTest:
+    def test_contains_number(self):
+        interval = Interval(None, 0)
+        твърдя_че("interval съдържа -3")
+        твърдя_че("interval съдържа 0")
+        твърдя_че("interval не съдържа 9")
+        твърдя_че("interval.left_open() е истина")
+        твърдя_че("interval.right_open() е лъжа")
+
+    def test_intersects(self):
+        твърдя_че("сечението на [0, 10] с [5, None] е [5, 10]")
+        твърдя_че("сечението на [None, 0] с [None, 42] е [None, 0]")
+        твърдя_че("сечението на [None, 20] с [-20, None] е [-20, 20]")
+        твърдя_че("сечението на [None, 0] с [-10, None] е [-10, 0]")
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>&hellip;реализацията&hellip;</h1>
+  <pre class="prettyprint">
+class IntervalTest(unittest.TestCase):
+    def test_contains_number(self):
+        interval = Interval(None, 0)
+        self.assertTrue(interval.contains_number(-3))
+        self.assertTrue(interval.contains_number(0))
+        self.failIf(interval.contains_number(9))
+        self.assertTrue(interval.left_open())
+        self.failIf(interval.right_open())
+
+    def test_intersects(self):
+        self.assertEquals(
+            Interval(5, 10), Interval(0, 10) & Interval(5, None))
+        self.assertEquals(
+            Interval(None, 0), Interval(None, 42) & Interval(None, 0))
+        self.assertEquals(
+            Interval(-20, 20), Interval(None, 20) & Interval(-20, None))
+        self.assertEquals(
+            Interval(-10, 0), Interval(None, 0) & Interval(-10, None))
+
+if __name__ == "__main__":
+    unittest.main()
+</pre>
+</div>
+
+<div class="slide">
+  <h1>&hellip;и резултата</h1>
+  <pre class="prettyprint">
+.F
+======================================================================
+FAIL: test_intersects (__main__.IntervalTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<stdin>", line 52, in test_intersects
+AssertionError: Interval(-10, 0) != Interval(-10, None)
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=1)
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>bulgarian: (english, python)</h1>
+  <pre class="prettyprint">
+vocabulary = {
+    "група": ("test case", unittest.TestCase),
+    "сценарий": ("test method", 
+        [_ for _ in dir(YourTestCase) if _.startswith("test")]), 
+    "твърдение": ("assertion",
+        [_ for _ in dir(unittest.TestCase) if re.match("assert|fail", _)])
+}
+</pre>
+<strong>Важно.</strong> Не бъркайте ключовата дума <code>assert</code> с методите за твърдения в тестовете. Първото служи да прекратите програмата ако изпадне в невалидно състояние. Второто е част от библиотеката за тестове.
+</div>
+
+<div class="slide long">
+  <h1>Твърдения в unittest.TestCase</h1>
+  <p>Всички методи имат опционален последен аргумент <code>msg</code> - текстово съобщение, което ще се покаже ако теста пропадне.</p>
+  <ul>
+    <li class="incremental"><code>self.assertTrue(expr)</code> - още <code>assert_</code> и <code>failUnless</code></li>
+    <li class="incremental"><code>self.assertFalse(expr)</code> - още <code>failIf</code></li>
+    <li class="incremental"><code>self.assertEqual(expected, actual)</code> - още <code>assertEquals</code> и <code>failUnlessEqual</code></li>
+    <li class="incremental"><code>self.assertAlmostEqual(expected, actual, places=7)</code> - още <code>assertAlmostEquals</code> и <code>failUnlessAlmostEqual</code></li>
+    <li class="incremental"><code>self.assertNotAlmostEqual(expected, actual, places=7)</code> - още <code>assertNotAlmostEquals</code> и <code>failIfAlmostEqual</code></li>
+    <li class="incremental"><code>self.assertRaises(self, excClass, callable, *args, **kwargs)</code> - още <code>failUnlessRaises</code></li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Декоратори</h1>
+  <pre class="prettyprint">
+class SomeText(TestCase):
+    @skip("This is not yet implemented")
+    def test_something(self):
+        ...
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Декоратори (2)</h1>
+  <ul>
+    <li class="incremental"><code>@skip(reason)</code></li>
+    <li class="incremental"><code>@skipIf(condition, reason)</code></li>
+    <li class="incremental"><code>@skipUnless(condition, reason)</code></li>
+    <li class="incremental"><code>@expectedFailure</code></li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Видове тестове</h1>
+  <ul>
+    <li class="incremental"><strong>Unit tests</strong> - проверяват дали дадено парче код/клас работи правилно в изолация</li>
+    <li class="incremental"><strong>Integration tests</strong> - проверяват дали няколко модула си общуват правилно</li>
+    <li class="incremental"><strong>Functional tests</strong> - проверяват дали крайната функционалност е както се очаква</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>За какво ни помагат тестовете</h1>
+  <ul>
+    <li class="incremental">Откриват грешки по-рано</li>
+    <li class="incremental">Позволяват ни уверено да правим промени в системата</li>
+    <li class="incremental">Дават сигурност на клиенти, шефове и програмисти</li>
+    <li class="incremental">Представляват пример как се работи с кода</li>
+    <li class="incremental">Помага разделянето на интерфейс от имплементация</li>
+    <li class="incremental">Служат като документация и спецификация</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>За какво не служат тестовете</h1>
+  <ul>
+    <li class="incremental"><strong>Не доказват</strong>, че приложението работи</li>
+    <li class="incremental">Не са Quality Assurance</li>
+    <li class="incremental">Не са benchmark</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Още речник</h1>
+  <ul>
+    <li class="incremental">black-box тестове</li>
+    <li class="incremental">glass-box тестове</li>
+    <li class="incremental">fixture (<code>setUp</code> и <code>tearDown</code>)</li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>Документация</h1>
+  <pre class="prettyprint">
+class Foo:
+    """
+    Sample Foo class
+    """
+
+    def foo(self):
+        """
+        Sample foo method
+        Returns: 2
+        """
+        return 2
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Документацията като тестове</h1>
+  <pre class="prettyprint">
+def add(a, b):
+    """
+    Adds the two arguments.
+
+    >>> add(1, 3)
+    4
+    >>> add(1, '')
+    Traceback (most recent call last):
+        ...
+    TypeError: unsupported operand type(s) for +: 'int' and 'str'
+    """
+    return a + b
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Дизайн</h1>
+<strong>Въпрос:</strong> какво е &#8222;дизайн&#8220; на едно приложение?
+</div>
+
+<div class="slide">
+  <h1>Test-Driven Development</h1>
+<p><em>Test-Driven Development is not about testing.</em></p>
+<p style=&#8222;text-align: right&#8220;>&mdash; Dan North</p>
+</div>
+
+<div class="slide">
+  <h1>Test-Driven Development (2)</h1>
+  <ol>
+    <li>Добави тест</li>
+    <li>Пусни всички тестове и виж, че новия се чупи</li>
+    <li>Напиши код</li>
+    <li>Пусни тестовете и виж че минават успешно</li>
+    <li>Подобри кода (refactor)</li>
+    <li>Повтаряй</li>
+  </ol>
+</div>
+
+<div class="slide">
+  <h1>Демо</h1>
+  <p>лишън!</p>
+</div>
+
+<div class="slide">
+  <h1>Test-Driven Development (2)</h1>
+  <ul>
+    <li class="incremental">Подход за писане на код</li>
+    <li class="incremental">Дизайна е базиран върху обратна връзка, не гадаене</li>
+    <li class="incremental">Спестява излишен код &mdash; пишете само каквото ви трябва</li>
+    <li class="incremental">Спестява излишна функционалност</li>
+    <li class="incremental">Продуктивност!</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Behaviour-Driven Development</h1>
+  <ul>
+    <li>Test-Driven Development by Example</li>
+    <li>The RSpec Book</li>
+    <li>xUnit Test Patterns</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Шепа съвети</h1>
+  <ul>
+    <li class="incremental"><strong>Пишете тестове за всичко, което може да се счупи.</strong></li>
+    <li class="incremental">Не тествайте елементарен код.</li>
+    <li class="incremental">Не използвайте произволни тестови данни.</li>
+    <li class="incremental">Успеха на тестовете не трябва да зависи от реда им.</li>
+    <li class="incremental">Тествайте гранични случаи!</li>
+    <li class="incremental">Не правете тестовете зависими един от друг.</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Още въпроси?</h1>
+  <ul>
+    <li>Страница на курса: <a href="http://fmi.py-bg.net/">http://fmi.py-bg.net/</a></li>
+    <li>Форуми на курса: <a href="http://fmi.py-bg.net/topics/">http://fmi.py-bg.net/topics/</a></li>
+    <li><a href="http://extremeprogramming.org/">http://extremeprogramming.org/</a></li>
+  </ul>
+</div>
+
+</div>
+<script type="text/javascript" language="JavaScript">prettyPrint()</script>
+</body>
+</html>

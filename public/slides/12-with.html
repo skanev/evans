@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Програмиране с Python: with и анотации</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="16.04.2008" />
+<meta name="author" content="Стефан Кънев, Николай Бачийски, Точо Точев и Димитър Димитров" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/python/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/python/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/python/prettify.css" type="text/css" media="screen" id="prettyifyStyle" />
+<link rel="stylesheet" href="ui/python/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/python/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="ui/python/slides.js" type="text/javascript"></script>
+<script src="ui/python/prettify.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<h1>&bdquo;with и анотации&ldquo;, част от курса <a href="http://fmi.py-bg.net/">Програмиране с Python</a></h1>
+<h1>Текстът на тази презентация се разпространява под <a href="http://creativecommons.org/licenses/by/3.0/deed.bg">Creative Commons Attribution</a></h1>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<h1>with и анотации</h1>
+<h3>&bdquo; Програмиране с Python&ldquo;, <acronym title="Факултет по Математика и Информатика при Софийски Университет">ФМИ</acronym></h3>
+<h4></h4>
+<h4>14.04.2011</h4>
+</div>
+
+
+<div class="slide longlong">
+  <h1>Пример с файлове</h1>
+  <ul>
+    <li>Искаме да обърнем реда на редовете на файл</li>
+  </ul>
+  <pre class="prettyprint">
+try:
+    source_file = open(src, 'r')
+    buffer = []
+    try:
+        buffer = source_file.readlines()
+    finally:
+        source_file.close()
+
+    target_file = open(target, 'w')
+    try:
+        for line in reversed(buffer): 
+            target_file.write(line)
+    finally:
+        target_file.close()
+except IOError:
+    print("Tough luck, junior")
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Още един опит</h1>
+  <pre class="prettyprint">
+buffer = []
+try:
+    with open(src) as source_file:
+        buffer = source_file.readlines()
+    with open(target) as target_file:
+        for line in reversed(buffer):
+            target_file.write(line)
+except IOError:
+    print("Much better, now, ain't it?")
+</pre>
+  <ul>
+    <li>Файловете ще бъдат затворени автоматично</li>
+  </ul>
+</div>
+
+<div class="slide longlong">
+  <h1>with</h1>
+  <pre class="prettyprint">
+with израз [as име]:
+    блок
+</pre>
+  <ul>
+    <li>Резултатът от израза се нарича Context Manager</li>
+    <li>Изпълнява се метода <code>__enter__()</code> на <abbr title='Context Manager'>CM</abbr> и резултатът се записва в името след <code>as</code></li>
+    <li>Изпълнява се блока</li>
+    <li>Ако е настъпило излючение се изпълнява <code>__exit__(type, value, traceback)</code> на <abbr title='Context Manager'>CM</abbr></li>
+    <li>Ако <strong>не е</strong> настъпило излючение се изпълнява <code>__exit__(None, None, None)</code> на <abbr title='Context Manager'>CM</abbr></li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>with нагледно</h1>
+  <pre class="prettyprint">
+
+with open('/etc/passwd') as source_file:
+    buffer = source_file.readlines()
+print('Done!')
+</pre>
+  <p>е същото като</p>
+  <pre class="prettyprint">
+
+source_file = open('/etc/passwd').__enter__()
+try:
+  buffer = source_file.readlines()
+  source_file.__exit__(None, None, None)
+except Exception:
+  source_file.__exit__(*sys.exc_info())
+print('Done!')
+</pre>
+</div>
+
+<div class="slide long">
+  <h1>Малък пример</h1>
+  <pre class="prettyprint">
+ 
+class Manager: 
+    def __enter__(self): 
+        print("I've been entered!")
+        return 42 
+    def __exit__(self, type, value, traceback): 
+        print("I've been exited!")
+ 
+with Manager() as something: 
+    print("Am I inside?")
+    print(something)
+</pre>
+  <pre><code>I've been entered!
+Am I inside?
+42
+I've been exited!</code></pre>
+</div>
+
+<div class="slide long">
+  <h1>with с няколко аргумента</h1>
+  <pre class="prettyprint">
+with foo() as f, bar() as b:
+    ...
+</pre>
+  <ul>
+    <li>е същото като</li>
+  </ul>
+  <pre class="prettyprint">
+with foo() as f:
+    with bar() as b:
+        ...
+</pre>
+</div>
+
+<div class="slide">
+  <h1>contextlib</h1>
+  <p>Вграденият модул <code>contextlib</code> ни предлага три много полезни Context Manager-а:</p>
+  <ul>
+    <li><code>closing</code></li>
+    <li><code>contextmanager</code></li>
+    <li><code>ContextDecorator</code></li>
+  </ul>
+</div>
+
+<div class="slide long">
+  <h1>closing</h1>
+<code>contextlib.closing</code> вика метода <code>close</code> на обекта, с който работим, след изпълнение на блока:
+  <pre class="prettyprint">
+class closing(object):
+    def __init__(self, thing): self.thing = thing
+    def __enter__(self): return thing
+    def __exit__(self, type, value, traceback): self.thing.close()
+</pre>
+  <p>&hellip;и ви позволява да пишете следното:</p>
+  <pre class="prettyprint">
+from contextlib import closing
+import codecs
+
+with closing(urllib.urlopen('http://www.python.org')) as page:
+    for line in page:
+        print(line)
+</pre>
+</div>
+
+<div class="slide longlong">
+  <h1>contextmanager</h1>
+<code>contextmanager</code> е декоратор, който превръща генератор функция в context manager:
+  <pre class="prettyprint">
+from contextlib import contextmanager
+
+@contextmanager
+def entering(whom):
+    print("I've been entered by {0}".format(whom))
+    yield "ticket"
+    print("I've been exited!")
+
+with entering("someone") as something:
+    print("Am I inside?")
+    print(something)
+</pre>
+  <pre><code>I've been entered by someone
+Am I inside?
+ticket
+I've been exited!</code></pre>
+  <ul>
+    <li>yield изпълнява блока и аргумента му става обекта, с който работи блока</li>
+  </ul>
+  <p class="incremental">Pearl Jam FTW!!!</p>
+</div>
+
+<div class="slide longlong">
+  <h1>ContextDecorator</h1>
+  <pre class="prettyprint">
+from contextlib import ContextDecorator
+
+class mycontext(ContextDecorator):
+    def __enter__(self):
+        print('Starting')
+        return self
+
+    def __exit__(self, *exc):
+        print('Finishing')
+        return False
+
+>>> @mycontext()
+... def function():
+...     print('The bit in the middle')
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Анотации</h1>
+  <pre class="prettyprint">
+def something(foo: 10, bar: 42):
+    pass
+
+print(something.__annotations__)
+</pre>
+  <ul>
+    <li class="incremental">Добавят се след аргументи на функцията</li>
+    <li class="incremental">Могат да бъдат всякаква стойност</li>
+    <li class="incremental">Изчисляват се &#8222;по време на компилация&#8220;</li>
+    <li class="incremental">Нямат специално значение за Python</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>Достъпване на анотации</h1>
+  <pre class="prettyprint">
+def something(foo: 10, bar: 42):
+    pass
+
+print(something.__annotations__)
+</pre>
+  <pre><code>{'foo': 10, 'bar': 42}</code></pre>
+</div>
+
+<div class="slide">
+  <h1>Анотиране на върната стойност</h1>
+  <pre class="prettyprint">
+def something(foo: 10, bar: 42) -> 420:
+    pass
+
+print(something.__annotations__)
+</pre>
+  <pre><code>{'bar': 42, 'foo': 10, 'return': 420}</code></pre>
+</div>
+
+<div class="slide long">
+  <h1>Анотиране на върната стойност</h1>
+  <pre class="prettyprint">
+import inspect
+
+def something(foo: 10, bar: 42) -> 420:
+    pass
+
+print(inspect.getfullargspec(something))
+
+# FullArgSpec(args=['foo', 'bar'], varargs=None,
+#    varkw=None, defaults=None, kwonlyargs=[],
+#    kwonlydefaults=None,
+#    annotations={'bar': 42, 'foo': 10, 'return': 420})
+</pre>
+</div>
+
+<div class="slide">
+  <h1>Демо</h1>
+  <p>лишън!</p>
+</div>
+
+<div class="slide">
+  <h1>Още въпроси?</h1>
+  <ul>
+    <li>Страница на курса: <a href="http://fmi.py-bg.net/">http://fmi.py-bg.net/</a></li>
+    <li>Форуми на курса: <a href="http://fmi.py-bg.net/forums/">http://fmi.py-bg.net/forums/</a></li>
+    <li>Web 2.0: <a href="http://twitter.com/pyfmi">http://twitter.com/pyfmi</a></li>
+  </ul>
+</div>
+
+</div>
+<script type="text/javascript" language="JavaScript">prettyPrint()</script>
+</body>
+</html>
