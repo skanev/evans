@@ -22,6 +22,7 @@ gem 'sprockets'
 gem 'sprocketizer'
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'cucumber-rails', '~> 0.4.0.beta.1'
   gem 'factory_girl_rails', '~> 1.1.beta1'
