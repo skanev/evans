@@ -1,15 +1,17 @@
 development:
   adapter: postgresql
+  host: localhost
   encoding: unicode
-  database: trane_development
+  database: evans_development
   username: root
   password:
   min_messages: warning
 
 test: &test
   adapter: postgresql
+  host: localhost
   encoding: unicode
-  database: trane_test
+  database: evans_test
   username: root
   password:
   min_messages: warning
