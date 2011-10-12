@@ -1,43 +1,43 @@
 body > header { 
   background: url("/images/header.png") repeat-x;
   border-bottom: 1px solid #999;
-  height: 82px;
+  height: 130px;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
 
-  a.logo { background: url("/images/logo.png") no-repeat; display: block; left: 40px; top: 10px; position: absolute; width: 221px; height: 71px; }
-  a.logo span { display: none; }
+  a.logo { float: left; margin: 10px 40px 0 40px; }
+  h1 { font-family: $font-site-title; font-size: $font-huge; font-weight: bold; margin-top: 35px; }
+  h2 { margin-top: 10px; }
 
   nav { color: $dark-text; font-weight: bold; position: absolute; right: 50px; bottom: 10px; }
   nav li { border-left: 2px solid $dark-text; display: inline; padding: 0 6px 0 10px; }
   nav li:first-child { border-left: none; }
-  nav li a { color: #436a85; font-size: $font-normal;}
+  nav li a { color: $title-color; font-size: $font-normal; }
   nav li a:hover { text-decoration: underline; }
 }
 
 body > nav {
   position: absolute;
-  top: 100px;
-  left: 50px;
+  top: 160px;
+  left: 30px;
 
-  ul li {
-    background: whiteSmoke url("/images/navigation-item.png") no-repeat 100% 0%;
-    border: 1px solid #dadada;
+  ul li { margin: 4px 0; }
+  ul li a {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    color: black;
+    display: block;
     font-family: $font-navigation;
-    font-size: $font-small;
-    margin: 4px 0;
-    padding: 3px 5px 1px;
-    text-transform: uppercase;
+    padding: 10px 15px 12px;
+    text-decoration: none;
     width: 150px;
-    height: 16px;
   }
-  ul li a { color: #4b5a6a; display: block; }
-  ul li a:hover { text-decoration: underline; }
+  ul li a:hover { background-color: #3371a3; color: white; }
 }
 
-#container { position: absolute; top: 105px; left: 240px; right: 60px; }
+#container { position: absolute; top: 170px; left: 240px; right: 60px; }
 #container > footer {
   border-top: 1px dotted #ccc;
   font-size: $font-small;
