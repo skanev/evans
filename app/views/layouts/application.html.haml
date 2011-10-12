@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title Програмиране с Python
+    %title Програмиране с Ruby
     %meta(charset="utf-8")
 
     = stylesheet_link_tag :all
@@ -9,8 +9,11 @@
     = csrf_meta_tag
   %body
     %header
-      = link_to root_path, :class => :logo do
-        %span Програмиране с Python
+      = link_to image_tag('logo.png'), root_path, :class => :logo
+      %h1 Програмиране с Ruby
+      %h2
+        Курс във Факултета по Математика и Информатика към
+        %abbr(title="Софийски Университет") СУ
       %nav
         %ul
           - if user_signed_in?
