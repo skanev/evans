@@ -37,3 +37,9 @@ group :test do
   gem 'timecop'
   gem 'webrat'
 end
+
+group :development, :test do
+  gem 'guard'
+  gem 'guard-livereload'
+  gem 'guard-sass'
+end
