@@ -17,3 +17,4 @@ _project.vim
 tags
 gems.tags
 .rvmrc
+.sass-cache
