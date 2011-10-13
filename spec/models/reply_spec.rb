@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-require 'shared/post_examples'
-
 describe Reply do
   it { should belong_to(:topic) }
   it { should validate_presence_of(:body) }
@@ -37,7 +35,7 @@ describe Reply do
     reply.topic_title.should == 'Topic title'
   end
 
-  it_behaves_like Post do
+  it_behaves_like 'Post' do
     let(:post) { Factory(:reply) }
     let(:starred_post) { Factory(:reply, :starred => true) }
   end

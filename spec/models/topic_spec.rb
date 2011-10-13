@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-require 'shared/post_examples'
-
 describe Topic do
   it { should have_many(:replies) }
   it { should validate_presence_of(:title) }
@@ -96,7 +94,7 @@ describe Topic do
     end
   end
 
-  it_behaves_like Post do
+  it_behaves_like 'Post' do
     let(:post) { Factory(:topic) }
     let(:starred_post) { Factory(:topic, :starred => true) }
   end
