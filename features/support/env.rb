@@ -4,7 +4,9 @@ require 'spork'
 Spork.prefork do
   ENV["RAILS_ENV"] ||= "test"
   require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
-  
+
+  require 'rspec'
+
   require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
   require 'cucumber/rails'
   require 'cucumber/web/tableish'
@@ -23,9 +25,6 @@ end
 
 Spork.each_run do
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
-
-  FactoryGirl.factories.clear
-  Dir[Rails.root.join("spec/factories.rb")].each {|f| load f}
 
   Trane::Application.reload_routes!
   I18n.reload!

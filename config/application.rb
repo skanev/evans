@@ -2,9 +2,9 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-# If you have a Gemfile, require the gems listed there, including any gems
-# you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+if defined?(Bundler)
+  Bundler.require *Rails.groups(:assets => %w(development test))
+end
 
 module Trane
   class Application < Rails::Application
@@ -40,6 +40,8 @@ module Trane
     config.filter_parameters += [:password]
 
     config.active_record.schema_format = :sql
+
+    config.assets.enabled = true
 
     ### Part of a Spork hack. See http://bit.ly/arY19y
     if Rails.env.test?

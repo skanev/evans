@@ -1,5 +1,5 @@
 body > header { 
-  background: url("/images/header.png") repeat-x;
+  background: image-url('header.png') repeat-x;
   border-bottom: 1px solid #999;
   height: 130px;
   position: absolute;
@@ -48,7 +48,7 @@ body > nav {
 }
 
 @mixin flash($background, $border, $icon) {
-  background: { color: $background; image: url("/images/icons/#{$icon}.png"); position: 15px 15px; repeat: no-repeat; }
+  background: { color: $background; image: image-url("icons/#{$icon}.png"); position: 15px 15px; repeat: no-repeat; }
   border: 1px solid $border;
   margin-bottom: 20px;
   padding: 15px 40px;

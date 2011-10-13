@@ -6,7 +6,7 @@
 }
 
 @mixin replace-with-image($img, $width, $height) {
-  background: { image: url($img); repeat: no-repeat; }
+  background: { image: image-url($img); repeat: no-repeat; }
   overflow: hidden;
   text: { align: left; indent: -9999px; }
   width: $width;

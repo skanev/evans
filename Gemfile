@@ -1,31 +1,37 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '3.1.1'
 gem 'pg'
 
 gem 'devise'
 gem 'simple_form'
 gem 'haml'
-gem 'will_paginate', '~> 3.0.beta'
+gem 'will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
 
 gem 'spork'
 gem 'capistrano'
 
+gem 'rails_autolink'
 gem 'rdiscount'
 gem 'sanitize'
 
 gem 'hoptoad_notifier'
 
-gem 'sprockets'
-gem 'sprocketizer'
+gem 'jquery-rails'
+
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
 
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
-  gem 'cucumber-rails', '~> 0.4.0.beta.1'
-  gem 'factory_girl_rails', '~> 1.1.beta1'
+  gem 'cucumber-rails'
+  gem 'factory_girl_rails'
   gem 'faker'
 end
 
