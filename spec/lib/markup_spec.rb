@@ -27,7 +27,7 @@ describe Markup do
   end
 
   it "generates an html safe string" do
-    format('').should be_html_safe
+    Markup.format('').should be_html_safe
   end
 
   it "allows setting class on <pre>" do
