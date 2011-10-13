@@ -18,18 +18,18 @@ describe UsersController do
     end
 
     it "looks up the user by id" do
-      User.should_receive(:find).with(42).and_return(user)
-      get :show, :id => 42
+      User.should_receive(:find).with('42').and_return(user)
+      get :show, :id => '42'
     end
 
     it "assigns the user to @user" do
-      get :show, :id => 42
+      get :show, :id => '42'
       assigns(:user).should == user
     end
 
     it "assigns a point breakdown of the user to @points_breakdown" do
       PointsBreakdown.should_receive(:new).with(user).and_return('points breakdown')
-      get :show, :id => 42
+      get :show, :id => '42'
       assigns(:points_breakdown).should == 'points breakdown'
     end
   end

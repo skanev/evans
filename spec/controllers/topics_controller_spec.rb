@@ -77,20 +77,20 @@ describe TopicsController do
     end
 
     it "assigns the topic to @topic" do
-      Topic.should_receive(:find).with(42).and_return(topic)
-      get :show, :id => 42
+      Topic.should_receive(:find).with('42').and_return(topic)
+      get :show, :id => '42'
       assigns(:topic).should == topic
     end
 
     it "assigns a page of replies to @replies" do
       topic.should_receive(:replies_on_page).with('4').and_return('page 4')
-      get :show, :id => 42, :page => '4'
+      get :show, :id => '42', :page => '4'
       assigns(:replies).should == 'page 4'
     end
 
     it "assigns an empty reply to @reply" do
       Reply.stub :new => 'reply'
-      get :show, :id => 42
+      get :show, :id => '42'
       assigns(:reply).should == 'reply'
     end
   end
@@ -104,14 +104,14 @@ describe TopicsController do
     end
 
     it "assigns the topic to @topic" do
-      Topic.should_receive(:find).with(42)
-      get :edit, :id => 42
+      Topic.should_receive(:find).with('42')
+      get :edit, :id => '42'
       assigns(:topic).should == topic
     end
 
     it "denies access if the user cannot edit the topic" do
       controller.should_receive(:can_edit?).with(topic).and_return(false)
-      get :edit, :id => 42
+      get :edit, :id => '42'
       response.should deny_access
     end
   end
@@ -126,25 +126,25 @@ describe TopicsController do
     end
 
     it "assigns the topic to @topic" do
-      Topic.should_receive(:find).with(42).and_return(topic)
-      put :update, :id => 42
+      Topic.should_receive(:find).with('42').and_return(topic)
+      put :update, :id => '42'
       assigns(:topic).should == topic
     end
 
     it "updates the topic" do
       topic.should_receive(:update_attributes).with('attributes')
-      put :update, :id => 42, :topic => 'attributes'
+      put :update, :id => '42', :topic => 'attributes'
     end
 
     it "displays the topic on success" do
       topic.stub :update_attributes => true
-      put :update, :id => 42
+      put :update, :id => '42'
       response.should redirect_to(topic)
     end
 
     it "redisplays the edit form on failure" do
       topic.stub :update_attributes => false
-      put :update, :id => 42
+      put :update, :id => '42'
       response.should render_template(:edit)
     end
   end
@@ -159,7 +159,7 @@ describe TopicsController do
     it "redirects to the topic itself if it has no replies" do
       topic.stub :last_reply_id => nil
 
-      get :last_reply, :id => 42
+      get :last_reply, :id => '42'
 
       response.should redirect_to(topic_path(topic))
     end
