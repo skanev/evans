@@ -5,8 +5,8 @@ describe Topic do
   it { should validate_presence_of(:title) }
 
   it "does not allow mass reassignment of user_id" do
-    original, modified = User.make, User.make
-    topic = Topic.make :user => original
+    original, modified = FactoryGirl.create(:user), FactoryGirl.create(:user)
+    topic = FactoryGirl.create :topic, :user => original
 
     topic.update_attributes! :user_id => modified.id
 
@@ -15,7 +15,7 @@ describe Topic do
 
   it "supports paging, ordering in reverse chronological order of the last post" do
     create_topic_with_last_reply_at = lambda do |timestamp|
-      Reply.make(:created_at => timestamp).topic
+      FactoryGirl.create(:reply, :created_at => timestamp).topic
     end
 
     second = create_topic_with_last_reply_at.call 2.days.ago
@@ -28,9 +28,9 @@ describe Topic do
   end
 
   it "can paginate its replies" do
-    topic  = Topic.make :created_at => 3.days.ago
-    first  = Reply.make :topic => topic, :created_at => 2.days.ago
-    second = Reply.make :topic => topic, :created_at => 1.day.ago
+    topic  = FactoryGirl.create :topic, :created_at => 3.days.ago
+    first  = FactoryGirl.create :reply, :topic => topic, :created_at => 2.days.ago
+    second = FactoryGirl.create :reply, :topic => topic, :created_at => 1.day.ago
 
     Reply.stub :per_page => 1
 
@@ -39,7 +39,7 @@ describe Topic do
   end
 
   it "can be edited by its owner or by an admin" do
-    topic = Topic.make
+    topic = FactoryGirl.create :topic
 
     topic.should be_editable_by(topic.user)
     topic.should be_editable_by(Factory(:admin))
@@ -50,8 +50,8 @@ describe Topic do
 
   it "can tell how many pages of replies it has" do
     topic_with_replies = lambda do |count|
-      topic = Topic.make
-      count.times { Reply.make :topic => topic }
+      topic = FactoryGirl.create :topic
+      count.times { FactoryGirl.create :reply, :topic => topic }
       topic.reload
     end
 
@@ -71,7 +71,7 @@ describe Topic do
 
     it "is the topic itself initially" do
       Timecop.freeze(Time.now) do
-        topic = Topic.make
+        topic = FactoryGirl.create :topic
 
         topic_with_last_post.last_poster.should == topic.user
         topic_with_last_post.last_post_at.should == Time.zone.now
@@ -82,11 +82,11 @@ describe Topic do
       topic = nil
 
       Timecop.freeze(1.day.ago) do
-        topic = Topic.make
+        topic = FactoryGirl.create :topic
       end
 
       Timecop.freeze(1.hour.ago) do
-        reply = Reply.make :topic => topic
+        reply = FactoryGirl.create :reply, :topic => topic
 
         topic_with_last_post.last_post_at.should == Time.zone.now
         topic_with_last_post.last_poster.should == reply.user

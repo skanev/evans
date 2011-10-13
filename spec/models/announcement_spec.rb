@@ -5,8 +5,8 @@ describe Announcement do
   it { should validate_presence_of(:body) }
 
   it "paginates announcements in reverse chronological order" do
-    second = Announcement.make :created_at => 2.days.ago
-    first  = Announcement.make :created_at => 1.day.ago
+    second = FactoryGirl.create :announcement, :created_at => 2.days.ago
+    first  = FactoryGirl.create :announcement, :created_at => 1.day.ago
 
     Announcement.stub :per_page => 1
 

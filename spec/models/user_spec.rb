@@ -15,9 +15,9 @@ describe User do
 
   describe "pagination" do
     it "sorts by creation time, older users first" do
-      second = User.make :created_at => 2.days.ago
-      third  = User.make :created_at => 1.day.ago
-      first  = User.make :created_at => 3.days.ago
+      second = FactoryGirl.create :user, :created_at => 2.days.ago
+      third  = FactoryGirl.create :user, :created_at => 1.day.ago
+      first  = FactoryGirl.create :user, :created_at => 3.days.ago
 
       User.page(1).should == [first, second, third]
     end

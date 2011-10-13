@@ -13,10 +13,10 @@ describe Voucher do
   end
 
   describe "claiming" do
-    let(:user) { User.make }
+    let(:user) { FactoryGirl.create :user }
 
     context "a free voucher" do
-      let(:voucher) { Voucher.make }
+      let(:voucher) { FactoryGirl.create :voucher }
 
       it "assigns the user to the voucher" do
         Voucher.claim(user, voucher.code)
@@ -36,9 +36,9 @@ describe Voucher do
     end
 
     context "a claimed voucher" do
-      let(:owner) { User.make }
-      let(:voucher) { Voucher.make :user => owner }
-      let(:impostor) { User.make }
+      let(:owner) { FactoryGirl.create :user }
+      let(:voucher) { FactoryGirl.create :voucher, :user => owner }
+      let(:impostor) { FactoryGirl.create :user }
 
       it "does not change the voucher's owner" do
         Voucher.claim impostor, voucher.code
@@ -52,7 +52,8 @@ describe Voucher do
 
     context "an unexisting voucher" do
       it "returns false" do
-        Voucher.claim(User.make, 'unexisting code').should be_false
+        user = FactoryGirl.create :user
+        Voucher.claim(user, 'unexisting code').should be_false
       end
     end
   end

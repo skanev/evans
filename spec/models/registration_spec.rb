@@ -6,7 +6,7 @@ describe Registration do
   end
 
   it "requires a signup with the same full name and faculty number" do
-    SignUp.make :full_name => 'Peter', :faculty_number => '11111'
+    FactoryGirl.create :sign_up, :full_name => 'Peter', :faculty_number => '11111'
 
     registration('Peter', '11111').should be_valid
 
@@ -15,8 +15,8 @@ describe Registration do
   end
 
   it "requires an unused email" do
-    User.make :email => 'used_by_user@example.org'
-    SignUp.make :email => 'used_by_sign_up@example.org'
+    FactoryGirl.create :user, :email => 'used_by_user@example.org'
+    FactoryGirl.create :sign_up, :email => 'used_by_sign_up@example.org'
 
     Registration.new(:email => 'unused@example.org').should have(:no).errors_on(:email)
     Registration.new(:email => 'used_by_user@example.org').should have(1).error_on(:email)
@@ -29,8 +29,8 @@ describe Registration do
     end
 
     context "when valid" do
-      it "updates the sing up" do
-        sign_up = SignUp.make(:full_name => 'Peter', :faculty_number => '11111')
+      it "updates the sign up" do
+        sign_up = FactoryGirl.create :sign_up, :full_name => 'Peter', :faculty_number => '11111'
 
         registration('Peter', '11111', 'peter@example.org').create
 
@@ -38,7 +38,7 @@ describe Registration do
       end
 
       it "sends a confirmation email" do
-        sign_up = SignUp.make(:full_name => 'Peter', :faculty_number => '11111')
+        sign_up = FactoryGirl.create :sign_up, :full_name => 'Peter', :faculty_number => '11111'
 
         expect_email_delivery RegistrationMailer, :confirmation, sign_up
 

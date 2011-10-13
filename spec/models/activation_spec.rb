@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Activation do
   it "can be constructed with a SignUp token" do
-    sign_up = SignUp.make :token => 'token'
+    sign_up = FactoryGirl.create :sign_up, :token => 'token'
 
     Activation.for('token').should be_present
     Activation.for('unexisting').should be_nil

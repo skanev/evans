@@ -6,7 +6,7 @@ describe Reply do
   it { should_not allow_mass_assignment_of(:topic_id) }
 
   it "can be edited by its owner or by an admin" do
-    reply = Reply.make
+    reply = FactoryGirl.create :reply
 
     reply.should be_editable_by(reply.user)
     reply.should be_editable_by(Factory(:admin))
@@ -16,10 +16,10 @@ describe Reply do
   end
 
   it "can tell on which page of the topic it is" do
-    topic  = Topic.make
-    first  = Reply.make :topic => topic
-    second = Reply.make :topic => topic
-    third  = Reply.make :topic => topic
+    topic  = FactoryGirl.create :topic
+    first  = FactoryGirl.create :reply, :topic => topic
+    second = FactoryGirl.create :reply, :topic => topic
+    third  = FactoryGirl.create :reply, :topic => topic
 
     Reply.stub :per_page => 2
 
@@ -29,14 +29,14 @@ describe Reply do
   end
 
   it "gives the title of its topic when asked for the containing topic's title" do
-    topic = Topic.make :title => 'Topic title'
-    reply = Reply.make :topic => topic
+    topic = FactoryGirl.create :topic, :title => 'Topic title'
+    reply = FactoryGirl.create :reply, :topic => topic
 
     reply.topic_title.should == 'Topic title'
   end
 
   it_behaves_like 'Post' do
-    let(:post) { Factory(:reply) }
-    let(:starred_post) { Factory(:reply, :starred => true) }
+    let(:post) { FactoryGirl.create :reply }
+    let(:starred_post) { FactoryGirl.create :reply, :starred => true }
   end
 end

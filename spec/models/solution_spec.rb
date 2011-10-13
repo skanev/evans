@@ -10,8 +10,8 @@ describe Solution do
   it { should belong_to(:task) }
 
   it "can find all the solutions for task" do
-    task = Task.make
-    solution = Solution.make(:task => task)
+    task = FactoryGirl.create :task
+    solution = FactoryGirl.create :solution, :task => task
 
     Solution.for_task(task.id).should == [solution]
   end
@@ -23,8 +23,8 @@ describe Solution do
   end
 
   describe "submitting" do
-    let(:user) { User.make }
-    let(:task) { Task.make }
+    let(:user) { FactoryGirl.create :user }
+    let(:task) { FactoryGirl.create :task }
 
     it "creates a new solution for the given user and task" do
       Solution.submit user, task, 'code'
@@ -33,7 +33,7 @@ describe Solution do
     end
 
     it "updates the current solution if it exists" do
-      solution = Solution.make :user => user, :task => task, :code => 'old code'
+      solution = FactoryGirl.create :solution, :user => user, :task => task, :code => 'old code'
 
       Solution.submit user, task, 'new code'
 
@@ -61,11 +61,11 @@ describe Solution do
   end
 
   describe "looking up the code of an existing solution" do
-    let(:user) { User.make }
-    let(:task) { Task.make }
+    let(:user) { FactoryGirl.create :user }
+    let(:task) { FactoryGirl.create :task }
 
     it "retuns the code as a string" do
-      Solution.make :user => user, :task => task, :code => 'code'
+      FactoryGirl.create :solution, :user => user, :task => task, :code => 'code'
       Solution.code_for(user, task).should == 'code'
     end
 
