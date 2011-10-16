@@ -47,7 +47,7 @@ Trane::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = {:host => 'fmi.py-bg.net'}
+  config.action_mailer.default_url_options = {:host => 'fmi.ruby.bg'}
   config.action_mailer.delivery_method = :smtp
 
   raise "There needs to be a config/mail_settings file" unless Rails.root.join('config/mail_settings').exist?
