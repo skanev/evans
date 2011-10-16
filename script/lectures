@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ ! -d tmp/ruby-lectures ]; then
+  git clone https://github.com/fmi/ruby-lectures.git tmp/ruby-lectures
+fi
+
+cd tmp/ruby-lectures
+
+git pull
+bundle install
+thor rebuild
+
+cd ../..
+
+echo "Copying public/lectures..."
+[ -d public/lectures ] && rm -rf public/lectures
+cp -r tmp/ruby-lectures/compiled public/lectures
