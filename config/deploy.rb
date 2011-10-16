@@ -5,9 +5,9 @@ set :deploy_to,   '/data/rails/evans'
 set :user,        'pyfmi'
 set :use_sudo,    false
 
-role :web, 'ruby.bg'
-role :app, 'ruby.bg'
-role :db,  'ruby.bg', :primary => true
+role :web, 'fmi.ruby.bg'
+role :app, 'fmi.ruby.bg'
+role :db,  'fmi.ruby.bg', :primary => true
 
 set :normalize_asset_timestamps, false
 
