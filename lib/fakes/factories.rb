@@ -17,7 +17,7 @@ FactoryGirl.define do
     email
     faculty_number
     full_name { Faker::Name.name }
-    photo { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/fakes', %w[1.jpg 2.jpg 3.jpg 4.jpg].rand)) }
+    photo { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/fakes', %w[1.jpg 2.jpg 3.jpg 4.jpg].sample)) }
   end
 
   factory :fake_admin, :parent => :fake_user do
@@ -25,14 +25,14 @@ FactoryGirl.define do
   end
 
   factory :fake_topic, :class => :topic do
-    user { User.all.rand }
+    user { User.all.sample }
     title { Faker::Lorem.sentence }
     body { Faker::Lorem.paragraphs.join("\n\n") }
   end
 
   factory :fake_reply, :class => :reply do
-    topic { Topic.all.rand }
-    user { User.all.rand }
+    topic { Topic.all.sample }
+    user { User.all.sample }
     body { Faker::Lorem.paragraphs.join("\n\n") }
   end
 
@@ -55,7 +55,7 @@ FactoryGirl.define do
 
   factory :fake_checked_solution, :class => :solution do
     association :user, :factory => :fake_user
-    add_attribute(:task) { Task.where('closes_at < ?', Time.now).rand }
+    add_attribute(:task) { Task.where('closes_at < ?', Time.now).sample }
     code 'print("larodi")'
     passed_tests { rand(10) }
     failed_tests { rand(10) }
@@ -64,7 +64,7 @@ FactoryGirl.define do
 
   factory :fake_non_checked_solution, :class => :solution do
     association :user, :factory => :fake_user
-    add_attribute(:task) { Task.where('closes_at > ?', Time.now).rand }
+    add_attribute(:task) { Task.where('closes_at > ?', Time.now).sample }
     code 'print("larodi")'
   end
 
@@ -74,7 +74,7 @@ FactoryGirl.define do
 
   factory :fake_quiz_result, :class => :quiz_result do
     association :user, :factory => :fake_user
-    quiz { Quiz.all.rand }
+    quiz { Quiz.all.sample }
     correct_answers { rand(51) }
     points { rand(31) }
   end
