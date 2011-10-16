@@ -1,3 +1,4 @@
+# encoding: utf-8
 class TasksController < ApplicationController
   before_filter :require_admin, :except => [:index, :show]
 

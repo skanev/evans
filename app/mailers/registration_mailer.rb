@@ -1,3 +1,4 @@
+# encoding: utf-8
 class RegistrationMailer < ActionMailer::Base
   default :from => 'fmi@py-bg.net', :reply_to => 'fmi@py-bg.net'
 

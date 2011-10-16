@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Registration
   include ActiveModel::Conversion
   include ActiveModel::Validations

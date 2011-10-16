@@ -1,3 +1,4 @@
+# encoding: utf-8
 class VoucherClaimsController < ApplicationController
   before_filter :require_user
 
