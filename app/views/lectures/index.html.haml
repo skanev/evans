@@ -1,0 +1,11 @@
+%h1 Материали
+
+#lectures
+  - unless @lectures.nil?
+    %ol(start="0")
+      - @lectures.each do |lecture|
+        %li
+          = link_to lecture_title(lecture), lecture_url(lecture)
+          (#{lecture[:date]})
+  - else
+    %p.missing Няма качени лекции

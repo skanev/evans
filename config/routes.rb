@@ -9,6 +9,7 @@ Trane::Application.routes.draw do
   resource :dashboard
   resources :voucher_claims
   resources :quizzes
+  resources :lectures
 
   resources :tasks do
     resource :my_solution
