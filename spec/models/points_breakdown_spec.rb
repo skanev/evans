@@ -19,7 +19,7 @@ describe PointsBreakdown do
 
     breakdown = PointsBreakdown.new user
 
-    breakdown.enum_for(:each_starred_post_with_title).map(&:first).should =~ [topic, reply]
+    breakdown.enum_for(:each_starred_post_with_title).to_a.map(&:first).should =~ [topic, reply]
   end
 
   it "yields the topic title when iterating topics" do
@@ -27,7 +27,7 @@ describe PointsBreakdown do
 
     breakdown = PointsBreakdown.new user
 
-    breakdown.enum_for(:each_starred_post_with_title).map(&:second).should =~ ['Topic']
+    breakdown.enum_for(:each_starred_post_with_title).to_a.map(&:second).should =~ ['Topic']
   end
 
   it "yields the title of the reply's topic when iterating replies" do
@@ -36,6 +36,6 @@ describe PointsBreakdown do
 
     breakdown = PointsBreakdown.new user
 
-    breakdown.enum_for(:each_starred_post_with_title).map(&:second).should =~ ['Topic with replies']
+    breakdown.enum_for(:each_starred_post_with_title).to_a.map(&:second).should =~ ['Topic with replies']
   end
 end

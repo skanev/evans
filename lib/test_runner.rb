@@ -17,7 +17,7 @@ class TestRunner
   end
 
   def run
-    ENV['PYTHONPATH'] = Rails.root.join("python")
+    ENV['PYTHONPATH'] = Rails.root.join("python").to_s
 
     solution_path = make_temp_file(@solution, 'solution')
     test_path = make_temp_file(@test, 'test')

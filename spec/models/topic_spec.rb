@@ -74,7 +74,7 @@ describe Topic do
         topic = FactoryGirl.create :topic
 
         topic_with_last_post.last_poster.should == topic.user
-        topic_with_last_post.last_post_at.should == Time.zone.now
+        topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
       end
     end
 
@@ -88,7 +88,7 @@ describe Topic do
       Timecop.freeze(1.hour.ago) do
         reply = FactoryGirl.create :reply, :topic => topic
 
-        topic_with_last_post.last_post_at.should == Time.zone.now
+        topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
         topic_with_last_post.last_poster.should == reply.user
       end
     end
