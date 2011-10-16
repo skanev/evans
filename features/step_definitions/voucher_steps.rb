@@ -4,7 +4,9 @@
 end
 
 То 'трябва да виждам следните ваучъри:' do |table|
-  table.diff! tableish('table tr', 'th, td')
+  codes = all('table td:first-child').map { |element| [element.text] }
+
+  table.diff! codes
 end
 
 То /^трябва да имам "(\d+)" точк(?:а|и) от ваучъри$/ do |count|

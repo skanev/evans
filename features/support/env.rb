@@ -9,7 +9,6 @@ Spork.prefork do
 
   require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
   require 'cucumber/rails'
-  require 'cucumber/web/tableish'
 
   require 'capybara/rails'
   require 'capybara/cucumber'

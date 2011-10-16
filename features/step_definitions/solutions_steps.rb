@@ -21,7 +21,11 @@ end
 end
 
 То 'трябва да виждам следните решения:' do |table|
-  table.diff! tableish('table tr', 'td, th')
+  header = all('table th').map(&:text)
+  rows   = all('table tbody tr').map do |table_row|
+    table_row.all('td').map(&:text)
+  end
+  table.diff! [header] + rows
 end
 
 То 'трябва да виждам едно решение с "$points" точки' do |points|
