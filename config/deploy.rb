@@ -71,3 +71,6 @@ namespace :sync do
     system "scp pyfmi@fmi.py-bg.net:#{shared_path}/secret_token.txt config/secret_token.txt"
   end
 end
+
+require './config/boot'
+require 'airbrake/capistrano'

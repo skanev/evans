@@ -19,6 +19,7 @@ gem 'sanitize'
 gem 'hoptoad_notifier'
 
 gem 'jquery-rails'
+gem 'airbrake'
 
 group :assets do
   gem 'sass-rails'

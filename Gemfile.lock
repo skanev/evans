@@ -30,6 +30,9 @@ GEM
     activesupport (3.1.1)
       multi_json (~> 1.0)
     addressable (2.2.6)
+    airbrake (3.0.4)
+      activesupport
+      builder
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
@@ -229,6 +232,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   capistrano (~> 2.8)
   capybara
   carrierwave
