@@ -18,3 +18,4 @@ tags
 gems.tags
 .sass-cache
 .rvmrc
+.rbenv-version
