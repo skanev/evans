@@ -11,7 +11,6 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 gem 'spork'
-gem 'capistrano'
 
 gem 'rails_autolink'
 gem 'rdiscount'
@@ -34,6 +33,10 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'guard'
+  gem 'guard-livereload'
+  gem 'guard-sass'
+  gem 'capistrano', '~> 2.8'
 end
 
 group :test do
@@ -43,10 +46,4 @@ group :test do
   gem 'database_cleaner'
   gem 'timecop'
   gem 'webrat'
-end
-
-group :development, :test do
-  gem 'guard'
-  gem 'guard-livereload'
-  gem 'guard-sass'
 end
