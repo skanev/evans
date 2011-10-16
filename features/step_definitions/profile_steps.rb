@@ -1,3 +1,4 @@
+# encoding: utf-8
 Когато 'кача снимка' do
   attach_file 'user[photo]', file_fixture('mind_flayer.jpg')
   click_button 'Запази'

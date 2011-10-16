@@ -1,3 +1,4 @@
+# encoding: utf-8
 Когато /^отида (?:на|в) (.*)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -16,7 +17,7 @@ end
   fill_in field, :with => text
 end
 
-Когато 'натисна "$текст"' do |text|
+Когато 'натисна "$text"' do |text|
   click_button text
 end
 

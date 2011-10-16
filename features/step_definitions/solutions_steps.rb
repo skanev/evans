@@ -1,3 +1,4 @@
+# encoding: utf-8
 Дадено 'че "$name" има следните решения:' do |name, table|
   task = Factory(:closed_task, :name => name)
 

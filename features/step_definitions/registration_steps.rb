@@ -1,3 +1,4 @@
+# encoding: utf-8
 Дадено 'че има записан студент' do
   SignUp.create! :full_name => 'Петър Иванов Петров', :faculty_number => '11111'
 end

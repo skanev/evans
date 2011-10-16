@@ -1,3 +1,4 @@
+# encoding: utf-8
 Дадено 'че съм студент' do
   backdoor_login Factory(:user)
 end

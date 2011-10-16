@@ -1,3 +1,4 @@
+# encoding: utf-8
 Дадено 'че съм влязъл като администратор' do
   backdoor_login Factory(:admin)
 end

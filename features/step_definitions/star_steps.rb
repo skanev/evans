@@ -1,3 +1,4 @@
+# encoding: utf-8
 Дадено 'че студент "$user" има звездичка за тема "$topic"' do |user_name, topic_title|
   user = Factory(:user, :full_name => user_name)
   Factory(:topic, :user => user, :starred => true, :title => topic_title)
