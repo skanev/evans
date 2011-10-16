@@ -40,6 +40,12 @@ after 'deploy:update_code', 'deploy:setup_gems'
 after 'deploy:update_code', 'deploy:symlink_shared'
 after 'deploy:update_code', 'deploy:assets:precompile'
 
+namespace :lectures do
+  task :update, roles: :app do
+    run "cd #{current_path} && script/lectures"
+  end
+end
+
 namespace :sync do
   # TODO: FIXME
   task :db, :roles => :app do

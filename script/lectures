@@ -8,7 +8,7 @@ cd tmp/ruby-lectures
 
 git pull
 bundle install
-thor rebuild
+bundle exec thor rebuild
 
 cd ../..
 
