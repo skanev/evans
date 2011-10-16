@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable
 
   def name
-    full_name.gsub(/^(\p{Word}+) .* (\p{Word}+)$/, '\1 \2')
+    full_name.gsub(/^(\S+) .* (\S+)$/, '\1 \2')
   end
 
   def points
