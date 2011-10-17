@@ -20,10 +20,10 @@ a { text-decoration: none; }
   a { color: $color-link; text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  h1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; margin-bottom: 20px; }
-  h2 { color: $subtitle-color; font-family: $font-headings; font-size: $font-larger; margin-bottom: 10px; }
+  h1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; line-height: $font-huge * 1.2; margin-bottom: 20px; }
+  h2 { color: $subtitle-color; font-family: $font-headings; font-size: $font-larger; margin: 1em 0; }
 
-  p { margin: 1em 0; }
+  p { margin: 1.5em 0; }
   strong { font-weight: bold; }
   em { font-style: italic; }
 
@@ -46,6 +46,7 @@ table {
 .requires-authentication { color: $disabled; font-style: italic; }
 
 #main .pagination {
+  margin-bottom: 1em;
   overflow: hidden;
 
   span,
