@@ -17,4 +17,8 @@ module ApplicationHelper
     yield if logged_in?
     nil
   end
+
+  def markdown_explanation
+    render 'common/markdown'
+  end
 end
