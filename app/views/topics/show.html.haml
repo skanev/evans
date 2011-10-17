@@ -11,6 +11,7 @@
 = will_paginate @replies
 
 - if logged_in?
+  %h2 Отговорете на темата
   = render @reply, :topic => @topic
 - else
   %p.requires-authentication
