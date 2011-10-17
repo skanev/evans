@@ -48,25 +48,22 @@ namespace :lectures do
 end
 
 namespace :sync do
-  # TODO: FIXME
   task :db, :roles => :app do
     system <<-END
-      ssh pyfmi@fmi.py-bg.net "pg_dump --format=c pyfmi | gzip -c" |
+      ssh pyfmi@fmi.ruby.bg "pg_dump --format=c evans | gzip -c" |
         gunzip -c |
-        pg_restore --dbname=trane_development --clean --no-owner
+        pg_restore --dbname=evans_development --clean --no-owner
     END
   end
 
-  # TODO: FIXME
   task :uploads, :roles => :app do
     system <<-END
       rsync --exclude tmp -av --delete \
-        pyfmi@fmi.py-bg.net:#{shared_path}/uploads/ \
+        pyfmi@fmi.ruby.bg:#{shared_path}/uploads/ \
         public/uploads/
     END
   end
 
-  # TODO: FIXME
   task :secrets, :roles => :app do
     system "scp pyfmi@fmi.py-bg.net:#{shared_path}/pepper.txt config/pepper.txt"
     system "scp pyfmi@fmi.py-bg.net:#{shared_path}/secret_token.txt config/secret_token.txt"
