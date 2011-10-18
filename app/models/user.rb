@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :rememberable, :trackable
 
+  validates_confirmation_of :password, :unless => lambda { |u| u.password.blank? }
+
   def name
     full_name.gsub(/^(\S+) .* (\S+)$/, '\1 \2')
   end

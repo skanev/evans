@@ -16,6 +16,10 @@
       %p Качи снимка:
       %p= form.file_field :photo
   %fieldset
+    %legend Промяна на парола
+    = form.input :password
+    = form.input :password_confirmation
+  %fieldset
     %legend Малко лична информация за вас
     = form.input :github
     = form.input :twitter
