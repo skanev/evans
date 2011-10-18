@@ -14,5 +14,5 @@ bundle exec thor rebuild
 cd ../..
 
 echo "Copying public/lectures..."
-[ -f public/lectures/* ] && rm -rf public/lectures/*
+[ -d public/lectures ] && rm -rf public/lectures/*
 cp -r tmp/ruby-lectures/compiled public/lectures
