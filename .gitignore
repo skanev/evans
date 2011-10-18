@@ -21,3 +21,5 @@ gems.tags
 .rbenv-version
 public/lectures
 tmp/ruby-lectures
+tmp/restart.txt
+tmp/*.sql
