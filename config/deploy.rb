@@ -52,7 +52,7 @@ namespace :sync do
     system <<-END
       ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans | gzip -c" |
         gunzip -c |
-        rails dbconsole
+        bundle exec rails dbconsole
     END
   end
 
