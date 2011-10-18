@@ -55,13 +55,13 @@ namespace :sync do
 
     connect_options = %w(host port username).map do |option|
       "--#{option}='#{local_db_config[option]}'" if local_db_config[option]
-    end.compact.join(' ')
-    connect_options << '--password' if local_db_config[password].to_s != ''
+    end
+    connect_options << '--password' if local_db_config['password'].to_s != ''
 
     system <<-END
       ssh pyfmi@fmi.ruby.bg "pg_dump --format=c evans | gzip -c" |
         gunzip -c |
-        pg_restore #{connect_options} --clean --no-owner --dbname=#{local_db_config['database']}
+        pg_restore #{connect_options.compact.join(' ')} --clean --no-owner --dbname=#{local_db_config['database']}
     END
   end
 
