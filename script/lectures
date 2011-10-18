@@ -8,11 +8,11 @@ cd tmp/ruby-lectures
 
 git pull
 bundle install
-rm -rf compiled
 bundle exec thor rebuild
 
 cd ../..
 
 echo "Copying public/lectures..."
-[ -d public/lectures ] && rm -rf public/lectures/*
-cp -r tmp/ruby-lectures/compiled public/lectures
+mkdir -p public/lectures
+rm -rf public/lectures/*
+cp -r tmp/ruby-lectures/compiled/* public/lectures
