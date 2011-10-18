@@ -15,10 +15,7 @@
     - else
       %p Качи снимка:
       %p= form.file_field :photo
-  %fieldset
-    %legend Промяна на парола
-    = form.input :password
-    = form.input :password_confirmation
+
   %fieldset
     %legend Малко лична информация за вас
     = form.input :github
@@ -27,4 +24,11 @@
     = form.input :phone
     = form.input :site
     = form.input :about, :input_html => {:size => '50x5'}
+
+  %fieldset
+    %legend Промяна на парола
+    %p Ако не искате да променяте паролата си, оставете долните полета празни:
+    = form.input :password
+    = form.input :password_confirmation
+
   = form.button :submit, 'Запази'
