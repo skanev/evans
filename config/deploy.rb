@@ -49,19 +49,10 @@ end
 
 namespace :sync do
   task :db, :roles => :app do
-    # gather local connection options
-    local_db_config_file = File.expand_path('../database.yml', __FILE__)
-    local_db_config = YAML::load(File.read(local_db_config_file))['development']
-
-    connect_options = %w(host port username).map do |option|
-      "--#{option}='#{local_db_config[option]}'" if local_db_config[option]
-    end
-    connect_options << '--password' if local_db_config['password'].to_s != ''
-
     system <<-END
-      ssh pyfmi@fmi.ruby.bg "pg_dump --format=c evans | gzip -c" |
+      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans | gzip -c" |
         gunzip -c |
-        pg_restore #{connect_options.compact.join(' ')} --clean --no-owner --dbname=#{local_db_config['database']}
+        rails dbconsole
     END
   end
 
