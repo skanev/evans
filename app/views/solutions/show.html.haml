@@ -1,7 +1,7 @@
 .solution
   %h1 Решение на #{@solution.task_name} от #{@solution.user_name}
 
-  %p= link_to 'Обратно към всички решения', task_solutions_path(@task), :class => :back
+  %p= link_to 'Обратно към всички решения', task_solutions_path(@solution.task), :class => :back
   %p= link_to "Към профила на #{@solution.user_name}", @solution.user, :class => :related
 
   %h2 Резултати
