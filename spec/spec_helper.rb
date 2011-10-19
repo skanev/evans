@@ -22,6 +22,7 @@ Spork.each_run do
     config.mock_with :rspec
     config.use_transactional_fixtures = true
 
+    config.include Factory::Syntax::Methods
     config.include Support::GeneralHelpers
     config.include Support::ModelHelpers, :type => :model
     config.include Support::ControllerHelpers, :type => :controller
