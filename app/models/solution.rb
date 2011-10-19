@@ -7,6 +7,8 @@ class Solution < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
 
+  has_many :comments
+
   class << self
     def submit(user, task, code)
       return false if task.closed?

@@ -20,3 +20,16 @@
   - if @solution.log.present?
     %h2 Лог от изпълнението
     %pre.test-log(data-test-log)= @solution.log
+
+  %h2 Коментари
+
+  - if @solution.comments.present?
+    %ul.comments
+      = list_of @solution.comments do |comment|
+        %li= comment.body
+  - else
+    %p.missing Няма коментари
+
+  = simple_form_for [@solution.task, @solution, Comment.new] do |form|
+    = form.input :body
+    = form.button :submit, 'Коментирай'
