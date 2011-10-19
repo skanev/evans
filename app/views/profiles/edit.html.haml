@@ -1,5 +1,8 @@
 %h1 Редакция на профил
 
+%p
+  = link_to 'Вижте публичния си профил &rarr;'.html_safe, user_path(current_user)
+
 = simple_form_for @user, :url => profile_path, :html => {:method => :put, :multipart => true} do |form|
   %fieldset
     %legend Снимка
