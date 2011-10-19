@@ -79,6 +79,8 @@ en:
         description: Условие
         test_case: Тест
         closes_at: Краен срок
+      comment:
+        body: Коментар
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"

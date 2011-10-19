@@ -8,6 +8,7 @@ describe Solution do
 
   it { should belong_to(:user) }
   it { should belong_to(:task) }
+  it { should have_many(:comments) }
 
   it "can find all the solutions for task" do
     task = FactoryGirl.create :task
