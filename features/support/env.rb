@@ -28,5 +28,6 @@ Spork.each_run do
 
   load 'Sporkfile.rb' if File.exists?('Sporkfile.rb')
 
+  World(CustomPaths)
   require './features/support/another_world'
 end
