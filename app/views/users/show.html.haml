@@ -34,3 +34,7 @@
 
       = @points_breakdown.each_starred_post_with_title do |post, title|
         %li= link_to title, post_path(post)
+
+  - if logged_in? && @user == current_user
+    %p
+      = link_to 'Редактирайте профила си тук', edit_profile_path
