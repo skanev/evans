@@ -7,11 +7,11 @@
   %dl
     - if @user.github.present?
       %dt GitHub
-      %dd= link_to @user.github, "http://github.com/#{@user.github}" 
+      %dd= link_to @user.github, "http://github.com/#{@user.github}"
 
     - if @user.twitter.present?
       %dt Twitter
-      %dd= link_to @user.twitter, "http://twitter.com/#{@user.twitter}" 
+      %dd= link_to @user.twitter, "http://twitter.com/#{@user.twitter}"
 
     - if @user.skype.present?
       %dt Skype
