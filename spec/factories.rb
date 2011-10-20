@@ -68,6 +68,12 @@ FactoryGirl.define do
     code 'code'
   end
 
+  factory :comment do
+    user
+    solution
+    body 'Body'
+  end
+
   factory :checked_solution, parent: :solution do
     association :task, factory: :closed_task
   end
