@@ -26,5 +26,7 @@ Spork.each_run do
     config.include Support::GeneralHelpers
     config.include Support::ModelHelpers, :type => :model
     config.include Support::ControllerHelpers, :type => :controller
+    config.include EmailSpec::Helpers, type: :mailer
+    config.include EmailSpec::Matchers, type: :mailer
   end
 end

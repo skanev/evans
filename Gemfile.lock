@@ -79,6 +79,9 @@ GEM
     em-websocket (0.3.1)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
+    email_spec (1.2.1)
+      mail (~> 2.2)
+      rspec (~> 2.0)
     erubis (2.7.0)
     eventmachine (0.12.10)
     execjs (1.2.9)
@@ -240,6 +243,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise
+  email_spec
   factory_girl_rails
   faker
   guard
