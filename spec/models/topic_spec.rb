@@ -66,6 +66,21 @@ describe Topic do
     Topic.new(:title => 'Title').topic_title.should == 'Title'
   end
 
+  describe "last reply id" do
+    let(:topic) { FactoryGirl.create :topic }
+
+    it "is the id of the last reply if there are any replies" do
+      one = FactoryGirl.create :reply, :topic => topic
+      two = FactoryGirl.create :reply, :topic => topic
+
+      topic.last_reply_id.should eq two.id
+    end
+
+    it "is nil if there were no replies" do
+      topic.last_reply_id.should be_nil
+    end
+  end
+
   describe "last post on boards page" do
     let(:topic_with_last_post) { Topic.boards_page(1).first }
 
