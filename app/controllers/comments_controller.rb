@@ -4,12 +4,15 @@ class CommentsController < ApplicationController
   # TODO Make sure that passing another task_id != solution.task_id won't surpass restrictions
   # TODO Redirect to last comment
   def create
-    solution = Solution.find params[:solution_id]
+    @solution = Solution.find params[:solution_id]
 
-    comment = solution.comments.build params[:comment]
-    comment.user = current_user
-    comment.save!
+    @comment = @solution.comments.build params[:comment]
+    @comment.user = current_user
 
-    redirect_to solution, notice: 'Коментарът е добавен успешно'
+    if @comment.save
+      redirect_to @solution, notice: 'Коментарът е добавен успешно'
+    else
+      render :new
+    end
   end
 end

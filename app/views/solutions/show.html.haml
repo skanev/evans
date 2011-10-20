@@ -31,5 +31,4 @@
     %p.missing Няма коментари
 
   = simple_form_for [@solution.task, @solution, Comment.new] do |form|
-    = form.input :body
-    = form.button :submit, 'Коментирай'
+    = render 'comments/form', form: form
