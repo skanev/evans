@@ -48,6 +48,10 @@ class Solution < ActiveRecord::Base
     (percentage_passed * MAX_POINTS).round
   end
 
+  def commentable_by?(user)
+    task.closed? or user.admin? or self.user == user
+  end
+
   private
 
   def checked?

@@ -75,6 +75,34 @@ describe Solution do
     end
   end
 
+  describe "commenting" do
+    context "when task is open" do
+      let(:solution) { build :solution, task: build(:open_task) }
+
+      it "is available to its author" do
+        solution.should be_commentable_by solution.user
+      end
+
+      it "is available to admins" do
+        solution.should be_commentable_by build(:admin)
+      end
+
+      it "is not available to other users" do
+        solution.should_not be_commentable_by build(:user)
+      end
+    end
+
+    context "when task is closed" do
+      let(:solution) { build :solution, task: build(:closed_task) }
+
+      it "is available to everybody" do
+        solution.should be_commentable_by solution.user
+        solution.should be_commentable_by build(:admin)
+        solution.should be_commentable_by build(:user)
+      end
+    end
+  end
+
   describe "(calculating points)" do
     [
       [15, 0, 5],

@@ -10,8 +10,21 @@ describe CommentsController do
     before do
       Solution.stub find: solution
       solution.stub_chain :comments, :build => comment
+      solution.stub commentable_by?: true
       comment.stub :user=
       comment.stub :save
+    end
+
+    it "denies access if not authenticated" do
+      controller.stub current_user: nil
+      post :create, task_id: '1', solution_id: '2'
+      response.should deny_access
+    end
+
+    it "denies access if the current user cannot comment on the solution" do
+      solution.should_receive(:commentable_by?).with(current_user).and_return(false)
+      post :create, task_id: '1', solution_id: '2'
+      response.should deny_access
     end
 
     it "looks up the solution by id" do

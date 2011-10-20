@@ -1,10 +1,15 @@
 # encoding: utf-8
 class CommentsController < ApplicationController
-  # TODO Restrict access when task is not closed (admins and user)
-  # TODO Make sure that passing another task_id != solution.task_id won't surpass restrictions
   # TODO Redirect to last comment
+  before_filter :require_user
+
   def create
     @solution = Solution.find params[:solution_id]
+
+    unless @solution.commentable_by? current_user
+      deny_access
+      return
+    end
 
     @comment = @solution.comments.build params[:comment]
     @comment.user = current_user
