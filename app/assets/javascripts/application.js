@@ -1,8 +1,8 @@
 /*
  *= require jquery
  *= require jquery_ujs
- *= require vendor/modernizr
  *= require vendor/prettify
+ *= require modernizr
  *
  *= require_self
  *
