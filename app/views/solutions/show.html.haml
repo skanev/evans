@@ -26,7 +26,7 @@
   - if @solution.comments.present?
     %ul.comments
       = list_of @solution.comments do |comment|
-        %li= comment.body
+        %li{class: "comment-#{comment.id}"}= comment.body
   - else
     %p.missing Няма коментари
 

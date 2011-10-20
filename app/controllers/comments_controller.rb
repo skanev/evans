@@ -1,6 +1,5 @@
 # encoding: utf-8
 class CommentsController < ApplicationController
-  # TODO Redirect to last comment
   before_filter :require_user
 
   def create
@@ -15,7 +14,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      redirect_to @solution, notice: 'Коментарът е добавен успешно'
+      redirect_to @comment, notice: 'Коментарът е добавен успешно'
     else
       render :new
     end

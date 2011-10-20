@@ -5,7 +5,7 @@ describe CommentsController do
     log_in_as :student
 
     let(:solution) { build_stubbed(:solution) }
-    let(:comment) { mock_model Comment }
+    let(:comment) { build_stubbed(:comment) }
 
     before do
       Solution.stub find: solution
@@ -61,7 +61,7 @@ describe CommentsController do
       comment.stub save: true
       post :create, task_id: '1', solution_id: '2'
 
-      controller.should redirect_to(solution)
+      controller.should redirect_to(comment)
     end
 
     it "redisplays the comment for editing on failure" do
