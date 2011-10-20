@@ -51,7 +51,7 @@ end
 end
 
 То 'трябва да виждам коментар "$comment"' do |comment|
-  within '.comments' do
+  within '.comment' do
     page.should have_content(comment)
   end
 end
