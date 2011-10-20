@@ -40,6 +40,11 @@ group :development, :test do
   gem 'capistrano', '~> 2.8'
 end
 
+group 'development' do
+  gem 'pry'
+  gem 'pry-doc'
+end
+
 group :test do
   gem 'launchy'
   gem 'shoulda-matchers'
