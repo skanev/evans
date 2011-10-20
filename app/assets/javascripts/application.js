@@ -1,7 +1,6 @@
 /*
  *= require jquery
  *= require jquery_ujs
- *= require vendor/prettify
  *= require modernizr
  *
  *= require_self
@@ -16,5 +15,4 @@ $.ajaxSetup({
 
 $(function() {
   $('pre:not([class])').addClass('prettyprint lang-python');
-  prettyPrint();
 });
