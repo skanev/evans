@@ -22,7 +22,7 @@ class Topic < Post
   end
 
   def last_reply_id
-    replies.last.id
+    replies.last.try(:id)
   end
 
   def last_poster
