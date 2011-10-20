@@ -5,4 +5,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   attr_protected :user_id, :solution_id
+
+  def editable_by?(user)
+    self.user == user or user.try(:admin?)
+  end
 end

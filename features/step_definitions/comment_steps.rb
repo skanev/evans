@@ -1,4 +1,9 @@
 # encoding: utf-8
+Дадено 'че имам коментар на чуждо решение' do
+  solution = FactoryGirl.create :solution, task: FactoryGirl.create(:closed_task)
+  FactoryGirl.create :comment, user: current_user, solution: solution
+end
+
 Когато 'коментирам решението на "$user" с:' do |user_name, comment|
   user     = User.find_by_full_name! user_name
   solution = Solution.find_by_user_id! user.id
@@ -15,6 +20,16 @@ end
 
   visit solution_path(solution)
 
+  click_on 'Коментирай'
+end
+
+Когато 'променя коментара си на "$comment"' do |comment_body|
+  comment   = Comment.find_by_user_id! current_user.id
+  edit_path = edit_task_solution_comment_path(comment.solution.task, comment.solution, comment)
+
+  visit edit_path
+
+  fill_in 'Коментар', with: comment_body
   click_on 'Коментирай'
 end
 

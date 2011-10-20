@@ -70,4 +70,76 @@ describe CommentsController do
       controller.should render_template(:new)
     end
   end
+
+  describe "GET edit" do
+    log_in_as :student
+
+    let(:comment) { double 'comment' }
+
+    before do
+      Comment.stub find: comment
+      comment.stub editable_by?: true
+    end
+
+    it "denies access to users who cannot edit the comment" do
+      comment.should_receive(:editable_by?).with(current_user).and_return(false)
+      get :edit, task_id: '1', solution_id: '2', id: '3'
+      response.should deny_access
+    end
+
+    it "assigns the comment to @comment" do
+      get :edit, task_id: '1', solution_id: '2', id: '3'
+      controller.should assign_to(:comment).with(comment)
+    end
+
+    it "looks up the comment by id" do
+      Comment.should_receive(:find).with('42')
+      get :edit, task_id: '1', solution_id: '2', id: '42'
+    end
+  end
+
+  describe "PUT update" do
+    log_in_as :student
+
+    let(:comment) { build_stubbed :comment }
+
+    before do
+      Comment.stub find: comment
+      comment.stub :update_attributes
+      comment.stub editable_by?: true
+    end
+
+    it "assigns the comment to @comment" do
+      put :update, task_id: '1', solution_id: '2', id: '3'
+      controller.should assign_to(:comment).with(comment)
+    end
+
+    it "denies access to users who cannot edit the comment" do
+      comment.should_receive(:editable_by?).with(current_user).and_return(false)
+      put :update, task_id: '1', solution_id: '2', id: '3'
+      response.should deny_access
+    end
+
+    it "looks up the comment by id" do
+      Comment.should_receive(:find).with('42')
+      put :update, task_id: '1', solution_id: '2', id: '42'
+    end
+
+    it "attempts to update the comment with params[:comment]" do
+      comment.should_receive(:update_attributes).with('comment-attributes')
+      put :update, task_id: '1', solution_id: '2', id: '3', comment: 'comment-attributes'
+    end
+
+    it "redirects to the comment on success" do
+      comment.stub update_attributes: true
+      put :update, task_id: '1', solution_id: '2', id: '3'
+      controller.should redirect_to comment
+    end
+
+    it "redisplays the form on failure" do
+      comment.stub update_attributes: false
+      put :update, task_id: '1', solution_id: '2', id: '3'
+      controller.should render_template :edit
+    end
+  end
 end
