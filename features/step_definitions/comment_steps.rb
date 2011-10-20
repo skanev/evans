@@ -4,6 +4,11 @@
   FactoryGirl.create :comment, user: current_user, solution: solution
 end
 
+Дадено 'че съм предал решение на "$task"' do |task_name|
+  task = FactoryGirl.create :closed_task, name: task_name
+  FactoryGirl.create :solution, user: current_user, task: task
+end
+
 Когато 'коментирам решението на "$user" с:' do |user_name, comment|
   user     = User.find_by_full_name! user_name
   solution = Solution.find_by_user_id! user.id
@@ -33,6 +38,18 @@ end
   click_on 'Коментирай'
 end
 
+Когато 'някой коментира решението ми на "$task"' do |task_name|
+  task = Task.find_by_name! task_name
+  solution = Solution.find_by_task_id_and_user_id! task.id, current_user.id
+
+  backdoor_login FactoryGirl.create(:user)
+
+  visit solution_path(solution)
+
+  fill_in 'Коментар', with: 'Something'
+  click_on 'Коментирай'
+end
+
 То 'трябва да виждам коментар "$comment"' do |comment|
   within '.comments' do
     page.should have_content(comment)
@@ -41,4 +58,8 @@ end
 
 То 'трябва да видя, че не мога да публикувам празни коментари' do
   page.should have_content('Намерихме няколко грешки. Погледнете и пробвайте пак:')
+end
+
+То 'трябва да получа писмо, че има нов коментар на решението ми' do
+  last_sent_email.should include 'Имате нов коментар'
 end
