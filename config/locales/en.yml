@@ -63,6 +63,7 @@ en:
         phone: Мобилен телефон
         site: Сайт
         about: Разкажете ни за себе си
+        comment_notification: Искам да получавам писма за коментари по решенията ми
       sign_up:
         full_name: Три имена
         faculty_number: Факултетен номер

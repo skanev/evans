@@ -15,4 +15,14 @@ describe CommentObserver do
 
     comment.save!
   end
+
+  it "does not notify people, who have disabled email notification" do
+    user     = create :user, comment_notification: false
+    solution = create :solution, user: user
+    comment  = build :comment, solution: solution
+
+    SolutionMailer.should_not_receive(:new_comment)
+
+    comment.save!
+  end
 end
