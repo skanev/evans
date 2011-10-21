@@ -1,7 +1,7 @@
 .solution
   %h1 Решение на #{@solution.task_name} от #{@solution.user_name}
 
-  %p= link_to 'Обратно към всички решения', task_solutions_path(@task), :class => :back
+  %p= link_to 'Обратно към всички решения', task_solutions_path(@solution.task), :class => :back
   %p= link_to "Към профила на #{@solution.user_name}", @solution.user, :class => :related
 
   %h2 Резултати
@@ -20,3 +20,23 @@
   - if @solution.log.present?
     %h2 Лог от изпълнението
     %pre.test-log(data-test-log)= @solution.log
+
+  %h2 Коментари
+
+  - if @solution.comments.present?
+    - @solution.comments.each do |comment|
+      %article.comment
+        %aside
+          = link_to user_thumbnail(comment.user), comment.user
+          = link_to comment.user.name, comment.user
+        .body
+          = markup comment.body
+        .published-at
+          Публикувано преди
+          %time{:datetime => comment.created_at.iso8601}= time_ago_in_words comment.created_at
+          = link_to 'Редактирай', edit_task_solution_comment_path(@solution.task, @solution, comment) if can_edit? comment
+  - else
+    %p.missing Няма коментари
+
+  = simple_form_for [@solution.task, @solution, Comment.new] do |form|
+    = render 'comments/form', form: form

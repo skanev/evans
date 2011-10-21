@@ -29,6 +29,10 @@
     = form.input :about, :input_html => {:size => '50x5'}
 
   %fieldset
+    %legend Известия по поща
+    = form.input :comment_notification
+
+  %fieldset
     %legend Промяна на парола
     %p Ако не искате да променяте паролата си, оставете долните полета празни:
     = form.input :password

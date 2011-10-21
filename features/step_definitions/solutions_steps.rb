@@ -20,6 +20,13 @@ end
   Factory(:task, :name => name)
 end
 
+Дадено 'че студент "$user" е предал решение на задача "$task"' do |user_name, task_name|
+  user = FactoryGirl.create :user, full_name: user_name
+  task = FactoryGirl.create :task, name: task_name
+  FactoryGirl.create :solution, user: user, task: task
+end
+
+
 То 'трябва да виждам следните решения:' do |table|
   header = all('table th').map(&:text)
   rows   = all('table tbody tr').map do |table_row|
