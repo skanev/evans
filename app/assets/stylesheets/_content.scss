@@ -6,7 +6,7 @@
   ul > li > ul > li { list-style: square; }
   ol > li { list-style: decimal; }
 
-  pre { font-family: $font-monospace; padding: 10px; }
-  code { font-family: $font-monospace; }
+  pre { font-family: $font-monospace; padding: 10px; font-size: $font-monospace-size; }
+  code { font-family: $font-monospace; font-size: $font-monospace-size; }
   blockquote { font-style: italic; padding-left: 20px; }
 }
