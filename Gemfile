@@ -52,4 +52,5 @@ group :test do
   gem 'database_cleaner'
   gem 'timecop'
   gem 'webrat'
+  gem 'email_spec'
 end
