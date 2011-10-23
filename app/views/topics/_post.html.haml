@@ -5,7 +5,8 @@
   .body
     = markup(post.body)
   .published-at
-    Публикувано преди
-    %time{:datetime => post.created_at.iso8601}= time_ago_in_words post.created_at
+    = link_to post_path(post), :class => 'permalink', :title => t(:'contributions.permalink') do
+      Публикувано преди
+      %time{:datetime => post.created_at.iso8601}= time_ago_in_words post.created_at
     = link_to 'Редактирай', edit_post_path(post) if can_edit? post
     = toggle_post_star_link post if admin?
