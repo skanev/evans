@@ -1,6 +1,7 @@
 # encoding: utf-8
 class ApplicationController < ActionController::Base
   include CustomPaths
+  helper  CustomPaths
 
   before_filter :set_time_zone
 
