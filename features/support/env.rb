@@ -25,8 +25,10 @@ Spork.each_run do
 
   Trane::Application.reload_routes!
   I18n.reload!
+  FactoryGirl.reload
 
   load 'Sporkfile.rb' if File.exists?('Sporkfile.rb')
 
+  World(CustomPaths)
   require './features/support/another_world'
 end

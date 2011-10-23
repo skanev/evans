@@ -1,5 +1,7 @@
 # encoding: utf-8
 class ApplicationController < ActionController::Base
+  include CustomPaths
+
   before_filter :set_time_zone
 
   helper_method :can_edit?, :logged_in?, :admin?

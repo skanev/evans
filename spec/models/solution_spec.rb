@@ -8,6 +8,7 @@ describe Solution do
 
   it { should belong_to(:user) }
   it { should belong_to(:task) }
+  it { should have_many(:comments) }
 
   it "can find all the solutions for task" do
     task = FactoryGirl.create :task
@@ -71,6 +72,34 @@ describe Solution do
 
     it "returns nil if the no solution submitted by this user" do
       Solution.code_for(user, task).should be_nil
+    end
+  end
+
+  describe "commenting" do
+    context "when task is open" do
+      let(:solution) { build :solution, task: build(:open_task) }
+
+      it "is available to its author" do
+        solution.should be_commentable_by solution.user
+      end
+
+      it "is available to admins" do
+        solution.should be_commentable_by build(:admin)
+      end
+
+      it "is not available to other users" do
+        solution.should_not be_commentable_by build(:user)
+      end
+    end
+
+    context "when task is closed" do
+      let(:solution) { build :solution, task: build(:closed_task) }
+
+      it "is available to everybody" do
+        solution.should be_commentable_by solution.user
+        solution.should be_commentable_by build(:admin)
+        solution.should be_commentable_by build(:user)
+      end
     end
   end
 

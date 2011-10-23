@@ -7,6 +7,8 @@ class Solution < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
 
+  has_many :comments
+
   class << self
     def submit(user, task, code)
       return false if task.closed?
@@ -44,6 +46,10 @@ class Solution < ActiveRecord::Base
 
     percentage_passed = passed_tests.quo total_tests
     (percentage_passed * MAX_POINTS).round
+  end
+
+  def commentable_by?(user)
+    task.closed? or user.admin? or self.user == user
   end
 
   private

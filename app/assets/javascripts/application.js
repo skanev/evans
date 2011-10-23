@@ -1,8 +1,8 @@
 /*
  *= require jquery
  *= require jquery_ujs
- *= require vendor/modernizr
- *= require vendor/prettify
+ *= require modernizr
+ *= require highlight
  *
  *= require_self
  *
@@ -15,6 +15,7 @@ $.ajaxSetup({
 });
 
 $(function() {
-  $('pre:not([class])').addClass('prettyprint lang-python');
-  prettyPrint();
+  $('pre:not([class])').addClass('language-ruby').each(function () {
+    hljs.highlightBlock(this);
+  });
 });

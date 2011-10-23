@@ -10,7 +10,7 @@ FactoryGirl.define do
     faculty_number
   end
 
-  factory :assigned_sign_up, :parent => :sign_up do
+  factory :assigned_sign_up, parent: :sign_up do
     token
     email
   end
@@ -21,11 +21,11 @@ FactoryGirl.define do
     full_name 'John Doe'
   end
 
-  factory :user_with_photo, :parent => :user do
+  factory :user_with_photo, parent: :user do
     photo { Rack::Test::UploadedFile.new Rails.root.join('spec/fixtures/files/mind_flayer.jpg') }
   end
 
-  factory :admin, :parent => :user do
+  factory :admin, parent: :user do
     admin true
   end
 
@@ -56,7 +56,9 @@ FactoryGirl.define do
     closes_at 1.week.from_now
   end
 
-  factory :closed_task, :parent => :task do
+  factory :open_task, parent: :task
+
+  factory :closed_task, parent: :task do
     closes_at 1.week.ago
   end
 
@@ -66,8 +68,14 @@ FactoryGirl.define do
     code 'code'
   end
 
-  factory :checked_solution, :parent => :solution do
-    association :task, :factory => :closed_task
+  factory :comment do
+    user
+    solution
+    body 'Body'
+  end
+
+  factory :checked_solution, parent: :solution do
+    association :task, factory: :closed_task
   end
 
   factory :quiz do

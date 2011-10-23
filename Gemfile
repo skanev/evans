@@ -40,6 +40,11 @@ group :development, :test do
   gem 'capistrano', '~> 2.8'
 end
 
+group 'development' do
+  gem 'pry'
+  gem 'pry-doc'
+end
+
 group :test do
   gem 'launchy'
   gem 'shoulda-matchers'
@@ -47,4 +52,5 @@ group :test do
   gem 'database_cleaner'
   gem 'timecop'
   gem 'webrat'
+  gem 'email_spec'
 end

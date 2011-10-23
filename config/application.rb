@@ -21,6 +21,7 @@ module Trane
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+    config.active_record.observers = :comment_observer
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -42,13 +43,5 @@ module Trane
     config.active_record.schema_format = :sql
 
     config.assets.enabled = true
-
-    ### Part of a Spork hack. See http://bit.ly/arY19y
-    if Rails.env.test?
-      initializer :after => :initialize_dependency_mechanism do
-        # Work around initializer in railties/lib/rails/application/bootstrap.rb
-        ActiveSupport::Dependencies.mechanism = :load
-      end
-    end
   end
 end
