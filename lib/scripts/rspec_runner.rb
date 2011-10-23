@@ -40,6 +40,6 @@ Dir.mktmpdir do |dir|
     end
   end
 
-  FileUtils.cp('output.txt',  File.join(original_wd, 'tmp', 'rspec_output.txt'))
-  FileUtils.cp('output.json', File.join(original_wd, 'tmp', 'rspec_output.json'))
+  FileUtils.cp('output.txt',  File.join(original_wd, 'tmp', 'rspec', 'output.txt'))
+  FileUtils.cp('output.json', File.join(original_wd, 'tmp', 'rspec', 'output.json'))
 end

@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class TestRunner
   attr_reader :passed_count, :failures_count, :results, :log
 
@@ -15,11 +17,14 @@ class TestRunner
   end
 
   def run
-    test_file     = Rails.root.join('tmp', 'test.rb').to_s
-    solution_file = Rails.root.join('tmp', 'solution.rb').to_s
+    temp_dir = Rails.root.join('tmp', 'rspec')
+    FileUtils.mkdir_p temp_dir unless File.exist?(temp_dir)
 
-    txt_result_file  = Rails.root.join('tmp', 'rspec_output.txt')
-    json_result_file = Rails.root.join('tmp', 'rspec_output.json')
+    test_file     = Rails.root.join('tmp', 'rspec', 'test.rb').to_s
+    solution_file = Rails.root.join('tmp', 'rspec', 'solution.rb').to_s
+
+    txt_result_file  = Rails.root.join('tmp', 'rspec', 'output.txt')
+    json_result_file = Rails.root.join('tmp', 'rspec', 'output.json')
 
     File.open(test_file, 'w')     { |f| f.write(@test) }
     File.open(solution_file, 'w') { |f| f.write(@solution) }
