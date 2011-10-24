@@ -30,7 +30,7 @@ Dir.mktmpdir do |dir|
   begin
     RSpec::Core::Runner.run(args)
   rescue Exception => e
-    File.open('output.txt', 'w') { |f| f.write(e.backtrace) }
+    File.open('output.txt', 'w') { |f| f.write(e.backtrace.join("\n")) }
     File.open('output.json', 'w') do |f|
       f.write({
         'count'  => 0,
