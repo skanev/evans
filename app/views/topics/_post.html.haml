@@ -5,7 +5,7 @@
   .body
     = markup(post.body)
   .published-at
-    = link_to post_path(post), :class => 'permalink', :title => t(:'contributions.permalink') do
+    = link_to post_path(post), :class => 'permalink', :title => 'Трайна връзка към това мнение' do
       Публикувано преди
       %time{:datetime => post.created_at.iso8601}= time_ago_in_words post.created_at
     = link_to 'Редактирай', edit_post_path(post) if can_edit? post

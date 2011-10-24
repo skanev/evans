@@ -32,7 +32,7 @@
         .body
           = markup comment.body
         .published-at
-          = link_to comment, :class => 'permalink', :title => t(:'contributions.permalink') do
+          = link_to comment, :class => 'permalink', :title => 'Трайна връзка към този коментар' do
             Публикувано преди
             %time{:datetime => comment.created_at.iso8601}= time_ago_in_words comment.created_at
           = link_to 'Редактирай', edit_task_solution_comment_path(@solution.task, @solution, comment) if can_edit? comment

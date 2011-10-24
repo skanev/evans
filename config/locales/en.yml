@@ -31,8 +31,6 @@ en:
       task:
         create: Създай
         update: Запази
-  contributions:
-    permalink: Трайна връзка към това мнение
   devise:
     failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'
