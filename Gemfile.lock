@@ -276,8 +276,7 @@ DEPENDENCIES
   rails (= 3.1.1)
   rails_autolink
   rdiscount
-  rspec-core
-  rspec-expectations
+  rspec
   rspec-rails
   sanitize
   sass-rails

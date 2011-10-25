@@ -56,6 +56,5 @@ group :test do
 end
 
 group :tasks do
-  gem 'rspec-core'
-  gem 'rspec-expectations'
+  gem 'rspec'
 end
