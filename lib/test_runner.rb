@@ -1,10 +1,10 @@
-require 'open3'
+require 'fileutils'
 
 class TestRunner
-  attr_reader :passed_count, :failures_count, :log
+  attr_reader :passed_count, :failures_count, :results, :log
 
   def initialize(test, solution)
-    @test = test
+    @test     = test
     @solution = solution
   end
 
@@ -17,32 +17,27 @@ class TestRunner
   end
 
   def run
-    ENV['PYTHONPATH'] = Rails.root.join("python").to_s
+    temp_dir = Rails.root.join('tmp', 'rspec')
+    FileUtils.mkdir_p temp_dir unless File.exist?(temp_dir)
 
-    solution_path = make_temp_file(@solution, 'solution')
-    test_path = make_temp_file(@test, 'test')
+    test_file     = Rails.root.join('tmp', 'rspec', 'test.rb').to_s
+    solution_file = Rails.root.join('tmp', 'rspec', 'solution.rb').to_s
 
-    Open3.popen3("python3.2", test_path, solution_path) do |stdin, stdout, stderr|
-      load_log stdout.read + stderr.read
+    txt_result_file  = Rails.root.join('tmp', 'rspec', 'output.txt')
+    json_result_file = Rails.root.join('tmp', 'rspec', 'output.json')
+
+    File.open(test_file, 'w')     { |f| f.write(@test) }
+    File.open(solution_file, 'w') { |f| f.write(@solution) }
+
+    `ruby lib/scripts/rspec_runner.rb #{test_file} #{solution_file} 2>&1`
+
+    unless File.exists?(txt_result_file) and File.exists?(json_result_file)
+      raise "RSpec runner script not working properly, please check it out."
     end
-  end
 
-  private
-
-  def make_temp_file(code, name)
-    file = Tempfile.new(name)
-    file.write code
-    file.close
-    file.path
-  end
-
-  def load_log(output)
-    if /\A(\d+) (\d+)\n/ =~ output
-      @passed_count, @failures_count = [$1, $2].map(&:to_i)
-      @log = $'
-    else
-      @passed_count, @failures_count = 0, 0, 0
-      @log = output
-    end
+    @results        = JSON.parse(File.read(json_result_file))
+    @log            = File.read(txt_result_file).strip
+    @passed_count   = results['passed'].count
+    @failures_count = results['failed'].count
   end
 end
