@@ -1,5 +1,5 @@
 class Solution < ActiveRecord::Base
-  MAX_POINTS = 5
+  MAX_POINTS = 6
 
   validates_presence_of :code, :user_id, :task_id
   validates_uniqueness_of :user_id, :scope => :task_id
