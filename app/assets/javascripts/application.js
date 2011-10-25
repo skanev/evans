@@ -4,6 +4,7 @@
  *= require modernizr
  *= require underscore
  *= require highlight
+ *= require highcharts
  *
  *= require_self
  *
