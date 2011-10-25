@@ -105,10 +105,10 @@ describe Solution do
 
   describe "(calculating points)" do
     [
-      [15, 0, 5],
-      [14, 1, 5],
-      [13, 2, 4],
-      [10, 5, 3],
+      [18, 0, 6],
+      [17, 1, 6],
+      [16, 2, 5],
+      [12, 6, 4],
     ].each do |passed, failed, points|
       it "has #{points} points for #{passed} passed and #{failed} failed tests" do
         Solution.new(:passed_tests => passed, :failed_tests => failed).points.should == points
