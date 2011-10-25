@@ -40,7 +40,7 @@ group :development, :test do
   gem 'capistrano', '~> 2.8'
 end
 
-group 'development' do
+group :development do
   gem 'pry'
   gem 'pry-doc'
 end
@@ -53,4 +53,9 @@ group :test do
   gem 'timecop'
   gem 'webrat'
   gem 'email_spec'
+end
+
+group :tasks do
+  gem 'rspec-core'
+  gem 'rspec-expectations'
 end
