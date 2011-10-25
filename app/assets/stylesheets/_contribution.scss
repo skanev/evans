@@ -10,6 +10,12 @@
 
   .published-at { border-top: 1px dotted gray; color: #666; font-size: $font-small; margin-right: 200px; padding-top: 5px; }
 
+  #main & a.permalink {
+    color: #666;
+    text-decoration: none;
+    &:hover { color: $color-link; }
+  }
+
   a[data-toggle-star=star],
   a[data-toggle-star=unstar] { background: { position: top left; repeat: no-repeat; }; padding-left: 20px; }
   a[data-toggle-star=star] { background-image: image-url('icons/star.png'); }
