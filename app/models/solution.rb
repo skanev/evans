@@ -25,7 +25,7 @@ class Solution < ActiveRecord::Base
     end
 
     def for_task(task_id)
-      where(:task_id => task_id)
+      where(:task_id => task_id).order('solutions.id ASC')
     end
   end
 
