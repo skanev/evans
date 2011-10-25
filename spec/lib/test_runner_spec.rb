@@ -3,8 +3,6 @@ require 'spec_helper'
 describe TestRunner do
   let(:test_case_code) do
     <<END.strip
-require './solution'
-
 describe "Homework" do
   it("succeeds once")   { true.should be_true }
   it("succeeds thrice") { puts "Just to mess with you" }

@@ -1,5 +1,3 @@
-require 'fileutils'
-
 class TestRunner
   attr_reader :passed_count, :failures_count, :results, :log
 
@@ -17,27 +15,20 @@ class TestRunner
   end
 
   def run
-    temp_dir = Rails.root.join('tmp', 'rspec')
-    FileUtils.mkdir_p temp_dir unless File.exist?(temp_dir)
+    Dir.mktmpdir do |dir|
+      spec_path     = Pathname(dir).join('spec.rb')
+      solution_path = Pathname(dir).join('solution.rb')
 
-    test_file     = Rails.root.join('tmp', 'rspec', 'test.rb').to_s
-    solution_file = Rails.root.join('tmp', 'rspec', 'solution.rb').to_s
+      open(spec_path, 'w') { |file| file.write @test.encode('utf-8') }
+      open(solution_path, 'w') { |file| file.write @solution }
 
-    txt_result_file  = Rails.root.join('tmp', 'rspec', 'output.txt')
-    json_result_file = Rails.root.join('tmp', 'rspec', 'output.json')
+      output = `ruby lib/homework/runner.rb #{spec_path} #{solution_path}`
+      json, log = output.split("\nLOG:\n", 2)
 
-    File.open(test_file, 'w')     { |f| f.write(@test) }
-    File.open(solution_file, 'w') { |f| f.write(@solution) }
-
-    `ruby lib/scripts/rspec_runner.rb #{test_file} #{solution_file} 2>&1`
-
-    unless File.exists?(txt_result_file) and File.exists?(json_result_file)
-      raise "RSpec runner script not working properly, please check it out."
+      @log            = log
+      @results        = JSON.parse json
+      @passed_count   = results['passed'].try(:count) || 0
+      @failures_count = results['failed'].try(:count) || 0
     end
-
-    @results        = JSON.parse(File.read(json_result_file))
-    @log            = File.read(txt_result_file).strip
-    @passed_count   = results['passed'].count
-    @failures_count = results['failed'].count
   end
 end
