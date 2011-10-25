@@ -7,6 +7,10 @@
   = authenticated_only do
     %p= link_to 'Моето решение', task_my_solution_path(@task)
 
+  - if admin? or @task.closed?
+    %p= link_to 'Предадени решения', task_solutions_path(@task)
+    
+
   %dl
     %dt Краен срок
     %dd
