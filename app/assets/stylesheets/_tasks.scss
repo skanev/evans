@@ -8,7 +8,7 @@
 
 table.solutions {
   .points { width: 130px; }
-  .results { width: 150px; }
+  .results { width: 180px; }
 
   .results span { display: inline-block; margin-left: 10px; }
   .results span:first-child { margin-left: 0; }
@@ -16,6 +16,7 @@ table.solutions {
   .passed { @include replace-with-image('icons/flag_green.png', 16px, 16px); }
   .failed { @include replace-with-image('icons/flag_red.png', 16px, 16px); }
   .lines { @include replace-with-image('icons/page_white_text.png', 16px, 16px); }
+  .comments { @include replace-with-image('icons/comments.png', 16px, 16px); }
 
   .point { @include replace-with-image('icons/emoticon_grin.png', 16px, 16px); display: inline-block; }
 }
