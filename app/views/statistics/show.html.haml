@@ -1,0 +1,27 @@
+#task-metrics
+  #passed-tests-chart
+  #submission-day-chart
+
+  %table.passed-tests
+    %caption Успешни тестове
+    %thead
+      %tr
+        %th Тестове
+        %th Решения
+    %tbody
+      - @task_metrics.passed_tests.each do |tests, people|
+        %tr
+          %td= tests
+          %td= people
+
+  %table.submission-day
+    %caption Ден на предаване
+    %thead
+      %tr
+        %th Ден
+        %th Решения
+    %tbody
+      - @task_metrics.submission_days.each do |day, people|
+        %tr
+          %td= day
+          %td= people

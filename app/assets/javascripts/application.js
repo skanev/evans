@@ -10,6 +10,7 @@
  *
  *= require message_boards
  *= require tasks
+ *= require statistics
  */
 
 $.ajaxSetup({
