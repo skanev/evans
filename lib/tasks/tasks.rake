@@ -57,7 +57,8 @@ namespace :task do
 
         puts "Processing #{solution_path.relative_path_from(Rails.root)}..."
 
-        log               = `rspec --require ./lib/homework/run_with_timeout --require #{solution_path} #{spec_path} 2>&1`
+        log_with_json     = `ruby lib/homework/runner.rb #{solution_path} #{spec_path}`
+        log               = log_with_json.split("\nLOG:\n")[1]
         solution_with_log = solution_path.read.gsub(/__END__.*\Z/m, '') + "__END__\n#{log}"
 
         open(solution_path, 'w') { |file| file.write solution_with_log }
