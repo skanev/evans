@@ -19,12 +19,14 @@ describe Submission do
     solution.code.should == 'new code'
   end
 
-  it "returns true on success" do
-    submit(user, task, 'new code').should be_true
+  it "indicates if the submission is successful" do
+    submission = Submission.new(user, task, 'new code')
+    submission.submit.should be_true
   end
 
-  it "returns false on failure" do
-    submit(user, task, nil).should be_false
+  it "indicates if the submission is unsuccessful" do
+    submission = Submission.new(user, task, nil)
+    submission.submit.should be_false
   end
 
   it "does not update the solution after the task is closed" do
@@ -35,6 +37,18 @@ describe Submission do
 
     solution.reload
     solution.code.should == 'old code'
+  end
+
+  describe "task with restrictions" do
+    it "can run with skeptic" do
+      code       = 'foo;bar'
+      task       = create :task, restrictions: {'no_semicolons' => true}
+      submission = Submission.new user, task, code
+
+      submission.submit.should be_false
+      submission.should be_violating_restrictions
+      submission.violations.should include('You have a semicolon')
+    end
   end
 
   def submit(user, task, code)
