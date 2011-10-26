@@ -8,6 +8,8 @@ class Comment < ActiveRecord::Base
 
   delegate :task_name, to: :solution
 
+  scope :sorted, order('comments.id ASC')
+
   def editable_by?(user)
     self.user == user or user.try(:admin?)
   end
