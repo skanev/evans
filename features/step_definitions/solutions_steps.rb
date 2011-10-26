@@ -26,6 +26,13 @@ end
   FactoryGirl.create :solution, user: user, task: task
 end
 
+Когато 'опитам да предам следното решение на "$task_name":' do |task_name, code|
+  task = Task.find_by_name! task_name
+
+  visit task_my_solution_path(task)
+  fill_in 'Код', with: code
+  click_on 'Изпрати'
+end
 
 То 'трябва да виждам следните решения:' do |table|
   header = all('table th').map(&:text)
@@ -37,4 +44,10 @@ end
 
 То 'трябва да виждам едно решение с "$points" точки' do |points|
   find('[data-points]').text.should == points
+end
+
+То 'трябва да видя, че метода "$method_name" е твърде дълъг' do |method_name|
+  page.should have_content('Решението ви не минава някои стилистически изисквания')
+  page.should have_content('Number of lines per method')
+  page.should have_content(method_name)
 end

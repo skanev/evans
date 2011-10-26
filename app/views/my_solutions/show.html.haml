@@ -6,6 +6,11 @@
   - if @task.closed?
     %p Крайният срок на тази задача е отминал. Вече не може да предавате решение.
 
+  - if @submission.try(:violating_restrictions?)
+    .violations
+      %p Решението ви не минава някои стилистически изисквания:
+      %pre= @submission.violations
+
   = form_tag task_my_solution_path(@task), :method => :put, :class => 'simple_form' do
     %div
       = label_tag :code, 'Код'
