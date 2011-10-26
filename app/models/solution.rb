@@ -10,10 +10,6 @@ class Solution < ActiveRecord::Base
   has_many :comments
 
   class << self
-    def submit(user, task, code)
-      Submission.new(user, task, code).submit
-    end
-
     def code_for(user, task)
       self.for(user, task).try(:code)
     end

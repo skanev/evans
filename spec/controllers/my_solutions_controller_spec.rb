@@ -36,10 +36,12 @@ describe MySolutionsController do
 
   describe "PUT update" do
     let(:task) { build_stubbed(:task) }
+    let(:submission) { double 'submission' }
 
     before do
-      Task.stub :find => task
-      Solution.stub :submit
+      Task.stub find: task
+      Submission.stub new: submission
+      submission.stub :submit
     end
 
     it "denies access if user not logged in" do
@@ -59,19 +61,29 @@ describe MySolutionsController do
       assigns(:code).should == 'code'
     end
 
+    it "assigns the submission to @submission" do
+      put :update, task_id: '42'
+      controller.should assign_to(:submission).with(submission)
+    end
+
+    it "constructs a submission with the current user and the task" do
+      Submission.should_receive(:new).with(current_user, task, 'code')
+      put :update, :task_id => '42', :code => 'code'
+    end
+
     it "attempts to submit the solution" do
-      Solution.should_receive(:submit).with(current_user, task, 'code')
+      submission.should_receive :submit
       put :update, :task_id => '42', :code => 'code'
     end
 
     it "redirects to the task on success" do
-      Solution.stub :submit => true
+      submission.stub submit: true
       put :update, :task_id => '42'
       response.should redirect_to(task)
     end
 
     it "redisplays the form on error" do
-      Solution.stub :submit => false
+      submission.stub submit: false
       put :update, :task_id => '42'
       response.should render_template(:show)
     end
