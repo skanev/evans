@@ -212,6 +212,8 @@ GEM
     simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
+    skeptic (0.0.0)
+      trollop (>= 1.16.2)
     slop (2.1.0)
     spork (0.8.5)
     sprockets (2.0.3)
@@ -229,6 +231,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (1.16.2)
     tzinfo (0.3.30)
     uglifier (1.0.4)
       execjs (>= 0.3.0)
@@ -277,6 +280,7 @@ DEPENDENCIES
   sass-rails
   shoulda-matchers
   simple_form
+  skeptic
   spork
   sqlite3
   therubyracer
