@@ -35,7 +35,7 @@ describe MySolutionsController do
   end
 
   describe "PUT update" do
-    let(:task) { Factory.stub(:task) }
+    let(:task) { build_stubbed(:task) }
 
     before do
       Task.stub :find => task
