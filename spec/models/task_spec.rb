@@ -10,4 +10,8 @@ describe Task do
     Factory(:task).should_not be_closed
     Factory(:closed_task).should be_closed
   end
+
+  it "has no restrictions by default" do
+    create(:task).restrictions.should eq Hash.new
+  end
 end

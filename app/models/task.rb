@@ -3,6 +3,8 @@ class Task < ActiveRecord::Base
 
   has_many :solutions
 
+  serialize :restrictions, Hash
+
   def closed?
     closes_at.past?
   end
