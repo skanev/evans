@@ -58,7 +58,7 @@ class Feed
         when :kind      then value.to_sym
         when :user_name then value.sub(/^(\S+) .* (\S+)$/, '\1 \2')
         when /_id$/     then value.to_i
-        when /_at$/     then Time.zone.parse(value)
+        when /_at$/     then ActiveRecord::ConnectionAdapters::Column.string_to_time(value)
         else value
       end
 
