@@ -12,7 +12,7 @@ gem 'mini_magick'
 
 gem 'skeptic'
 
-gem 'spork'
+gem 'spork', '0.9.0.rc9'
 
 gem 'rails_autolink'
 gem 'rdiscount'
