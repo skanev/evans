@@ -1,0 +1,6 @@
+#activity-feed {
+  li { background: no-repeat 0 10px; border-top: 1px solid $light-border; padding: 10px 0 10px 30px; }
+  li.comment { background-image: image-url('icons/comments.png'); }
+  li.solution { background-image: image-url('icons/page_white_text.png'); }
+  li time { color: $quiet; display: block; float: right; }
+}
