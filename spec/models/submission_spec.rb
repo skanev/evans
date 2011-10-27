@@ -25,7 +25,7 @@ describe Submission do
   end
 
   it "indicates if the submission is unsuccessful" do
-    submission = Submission.new(user, task, nil)
+    submission = Submission.new(user, task, '')
     submission.submit.should be_false
   end
 
