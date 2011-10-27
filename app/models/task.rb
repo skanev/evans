@@ -3,9 +3,15 @@ class Task < ActiveRecord::Base
 
   has_many :solutions
 
-  serialize :restrictions, Hash
-
   def closed?
     closes_at.past?
+  end
+
+  def restrictions_hash
+    YAML.load(restrictions)
+  end
+
+  def restrictions_hash=(hash)
+    self.restrictions = hash.to_yaml
   end
 end

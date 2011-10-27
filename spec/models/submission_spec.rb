@@ -42,7 +42,7 @@ describe Submission do
   describe "task with restrictions" do
     it "can run with skeptic" do
       code       = 'foo;bar'
-      task       = create :task, restrictions: {'no_semicolons' => true}
+      task       = create :task, restrictions_hash: {'no_semicolons' => true}
       submission = Submission.new user, task, code
 
       submission.submit.should be_false

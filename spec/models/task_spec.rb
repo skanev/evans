@@ -12,6 +12,6 @@ describe Task do
   end
 
   it "has no restrictions by default" do
-    create(:task).restrictions.should eq Hash.new
+    create(:task).restrictions_hash.should eq Hash.new
   end
 end

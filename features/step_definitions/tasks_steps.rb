@@ -13,7 +13,7 @@ end
 
 Дадено /^че методите в "(.*?)" са ограничени до (\d)+ реда?$/ do |task_name, lines_per_method|
   task = Task.find_by_name! task_name
-  task.restrictions['lines_per_method'] = lines_per_method.to_i
+  task.restrictions_hash = {'lines_per_method' => lines_per_method.to_i}
   task.save!
 end
 

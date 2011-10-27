@@ -26,7 +26,7 @@ class Submission
 
   def critic
     Skeptic::Critic.new.tap do |critic|
-      @task.restrictions.each do |rule, option|
+      @task.restrictions_hash.each do |rule, option|
         critic.send "#{rule}=", option
       end
 
