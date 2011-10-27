@@ -8,6 +8,10 @@ class Task < ActiveRecord::Base
     closes_at.past?
   end
 
+  def has_restrictions?
+    self.restrictions_hash.present?
+  end
+
   def restrictions_hash
     YAML.load(restrictions)
   end
