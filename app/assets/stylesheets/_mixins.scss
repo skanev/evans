@@ -12,3 +12,8 @@
   width: $width;
   height: $height;
 }
+
+@mixin monospace {
+  font-family: $font-monospace;
+  font-size: $font-monospace-size;
+}

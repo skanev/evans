@@ -19,7 +19,11 @@ class Submission
   end
 
   def violations
-    critic.criticism.map { |violation, rule| "#{rule}: #{violation}" }.join("\n")
+    critic
+      .criticism
+      .group_by { |violation, rule| rule }
+      .map { |rule, arrays| rule + "\n" + arrays.map { |message, _| "* #{message}" }.join("\n") }
+      .join("\n\n")
   end
 
   private

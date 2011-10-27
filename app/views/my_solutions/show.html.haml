@@ -9,7 +9,7 @@
   - if @submission.try(:violating_restrictions?)
     .violations
       %p Решението ви не минава някои стилистически изисквания:
-      %pre= @submission.violations
+      %pre.restrictions-violations= @submission.violations
 
   = form_tag task_my_solution_path(@task), :method => :put, :class => 'simple_form' do
     %div
