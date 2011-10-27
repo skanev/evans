@@ -20,3 +20,6 @@
     %p.closed Срокът за предаване на решения е отминал
 
   = markup @task.description
+
+  - if @task.has_restrictions?
+    = render 'restrictions', restrictions: @task.restrictions_hash

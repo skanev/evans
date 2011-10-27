@@ -10,12 +10,6 @@ class Solution < ActiveRecord::Base
   has_many :comments, order: 'comments.created_at ASC'
 
   class << self
-    def submit(user, task, code)
-      return false if task.closed?
-      solution = self.for(user, task) || Solution.new(:user_id => user.id, :task_id => task.id)
-      solution.update_attributes :code => code
-    end
-
     def code_for(user, task)
       self.for(user, task).try(:code)
     end

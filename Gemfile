@@ -10,7 +10,9 @@ gem 'will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
 
-gem 'spork'
+gem 'skeptic'
+
+gem 'spork', '0.9.0.rc9'
 
 gem 'rails_autolink'
 gem 'rdiscount'

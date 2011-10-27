@@ -23,44 +23,6 @@ describe Solution do
     Solution.new(:code => "1\n2\n3").rows.should == 3
   end
 
-  describe "submitting" do
-    let(:user) { FactoryGirl.create :user }
-    let(:task) { FactoryGirl.create :task }
-
-    it "creates a new solution for the given user and task" do
-      Solution.submit user, task, 'code'
-
-      Solution.exists?(:user_id => user.id, :task_id => task.id, :code => 'code').should be_true
-    end
-
-    it "updates the current solution if it exists" do
-      solution = FactoryGirl.create :solution, :user => user, :task => task, :code => 'old code'
-
-      Solution.submit user, task, 'new code'
-
-      solution.reload
-      solution.code.should == 'new code'
-    end
-
-    it "returns true on success" do
-      Solution.submit(user, task, 'new code').should be_true
-    end
-
-    it "returns false on failure" do
-      Solution.submit(user, task, nil).should be_false
-    end
-
-    it "does not update the solution after the task is closed" do
-      task = Factory(:closed_task)
-      solution = Factory(:solution, :task => task, :user => user, :code => 'old code')
-
-      Solution.submit user, task, 'new code'
-
-      solution.reload
-      solution.code.should == 'old code'
-    end
-  end
-
   describe "looking up the code of an existing solution" do
     let(:user) { FactoryGirl.create :user }
     let(:task) { FactoryGirl.create :task }

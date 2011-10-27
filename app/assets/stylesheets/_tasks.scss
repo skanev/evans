@@ -35,4 +35,9 @@ table.solutions {
   article.comment { @include contribution; }
 }
 
-#my-solution textarea#code { font-family: $font-monospace; width: 600px; height: 600px; }
+#my-solution {
+  .violations { background-color: #fdd; border: 1px #f55 solid; margin-top: 1em; padding: 20px; }
+  .violations p { margin: 0 0 1em 0; }
+  .violations pre { @include monospace; wrap: wrap; }
+  textarea#code { font-family: $font-monospace; width: 600px; height: 600px; }
+}

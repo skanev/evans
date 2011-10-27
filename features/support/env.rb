@@ -16,8 +16,6 @@ Spork.prefork do
 
   Capybara.default_selector = :css
   Cucumber::Rails::World.use_transactional_fixtures = true
-
-  ActiveSupport::Dependencies.clear
 end
 
 Spork.each_run do
