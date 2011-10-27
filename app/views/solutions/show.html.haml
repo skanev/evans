@@ -25,7 +25,7 @@
   %h2 Коментари
 
   - if @solution.comments.present?
-    - @solution.comments.sorted.each do |comment|
+    - @solution.comments.each do |comment|
       %article.comment{:id => "comment-#{comment.id}"}
         %aside
           = link_to user_thumbnail(comment.user), comment.user

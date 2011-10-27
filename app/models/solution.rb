@@ -7,7 +7,7 @@ class Solution < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
 
-  has_many :comments
+  has_many :comments, order: 'comments.created_at ASC'
 
   class << self
     def submit(user, task, code)
