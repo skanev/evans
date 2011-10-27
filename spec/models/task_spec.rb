@@ -14,4 +14,10 @@ describe Task do
   it "has no restrictions by default" do
     create(:task).restrictions_hash.should eq Hash.new
   end
+
+  it "validates that restrictions contains a yaml document" do
+    invalid_yaml = "a:\n  b:\n c:"
+
+    Task.new(restrictions: invalid_yaml).should have_error_on(:restrictions)
+  end
 end

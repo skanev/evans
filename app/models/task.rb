@@ -1,5 +1,6 @@
 class Task < ActiveRecord::Base
   validates_presence_of :name, :description
+  validate :restrictions_must_be_valid_yaml
 
   has_many :solutions
 
@@ -13,5 +14,13 @@ class Task < ActiveRecord::Base
 
   def restrictions_hash=(hash)
     self.restrictions = hash.to_yaml
+  end
+
+  private
+
+  def restrictions_must_be_valid_yaml
+    YAML.load(restrictions)
+  rescue Psych::SyntaxError
+    errors.add :restrictions, :invalid
   end
 end
