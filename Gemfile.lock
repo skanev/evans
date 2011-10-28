@@ -212,7 +212,7 @@ GEM
     simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    skeptic (0.0.0)
+    skeptic (0.0.1)
       trollop (>= 1.16.2)
     slop (2.1.0)
     spork (0.9.0.rc9)
