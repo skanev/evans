@@ -40,5 +40,6 @@
   - else
     %p.missing Няма коментари
 
-  = simple_form_for [@solution.task, @solution, Comment.new] do |form|
-    = render 'comments/form', form: form
+  - if @solution.commentable_by? current_user
+    = simple_form_for [@solution.task, @solution, Comment.new] do |form|
+      = render 'comments/form', form: form

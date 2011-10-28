@@ -52,15 +52,23 @@ describe Solution do
       it "is not available to other users" do
         solution.should_not be_commentable_by build(:user)
       end
+
+      it "is not available to unauthenticated people" do
+        solution.should_not be_commentable_by nil
+      end
     end
 
     context "when task is closed" do
       let(:solution) { build :solution, task: build(:closed_task) }
 
-      it "is available to everybody" do
+      it "is available to all users" do
         solution.should be_commentable_by solution.user
         solution.should be_commentable_by build(:admin)
         solution.should be_commentable_by build(:user)
+      end
+
+      it "is not available to unauthenticated people" do
+        solution.should_not be_commentable_by nil
       end
     end
   end

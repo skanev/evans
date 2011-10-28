@@ -43,6 +43,7 @@ class Solution < ActiveRecord::Base
   end
 
   def commentable_by?(user)
+    return false if user.nil?
     task.closed? or user.admin? or self.user == user
   end
 
