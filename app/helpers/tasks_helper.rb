@@ -6,6 +6,7 @@ module TasksHelper
       when :max_nesting_depth then "Най-много #{pluralize(option, 'ниво', 'нива')} на влагане"
       when :lines_per_method  then "Най-много #{option} реда на метод"
       when :methods_per_class then "Най-много #{option} метода в клас"
+      when :line_length       then "Най-много #{option} символа на ред"
       else "--#{rule.underscore} #{option}"
     end
   end
