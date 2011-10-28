@@ -5,8 +5,16 @@ class Announcement < ActiveRecord::Base
   validates_presence_of :body
 
   class << self
+    def reverse_chronological
+      order('created_at DESC')
+    end
+
     def page(number)
-      order('created_at DESC').paginate :page => number, :per_page => per_page
+      reverse_chronological.paginate :page => number, :per_page => per_page
+    end
+
+    def latest(number)
+      reverse_chronological.limit(number)
     end
   end
 end

@@ -1,5 +1,6 @@
-#announcements {
-  article { margin: 30px 0 30px 0; }
-  article h2 { margin: 0; }
-  article .published-at { color: $hint; font-size: $font-small; margin-top: 5px; }
+article.announcement {
+  margin: 30px 0 30px 0;
+
+  #main & h2 { margin-bottom: 0; }
+  .published-at { color: $hint; font-size: $font-small; margin-top: 5px; }
 }

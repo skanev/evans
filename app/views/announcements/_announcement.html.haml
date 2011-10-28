@@ -1,0 +1,9 @@
+%article.announcement
+  %h2= announcement.title
+  .published-at
+    Публикувано на
+    %time{:datetime => announcement.created_at.iso8601, :pubdate => :pubdate}
+      = l announcement.created_at
+  = markup announcement.body
+  - admin_only do
+    = link_to 'Редактирай', edit_announcement_path(announcement)
