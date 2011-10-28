@@ -24,7 +24,8 @@ a { text-decoration: none; }
   a:hover { text-decoration: underline; }
 
   h1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; line-height: $font-huge * 1.2; margin-bottom: 20px; }
-  h2 { color: $subtitle-color; font-family: $font-headings; font-size: $font-larger; margin: 1em 0; }
+  h2 { color: $subtitle-color; font-family: $font-headings; font-size: $font-larger; margin: 1.75em 0 1em; }
+  h3 { color: $subtitle-color; font-family: $font-headings; font-size: $font-large; margin: 2em 0 1em; }
 
   p { margin: 1.5em 0; }
   strong { font-weight: bold; }

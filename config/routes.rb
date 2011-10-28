@@ -12,6 +12,7 @@ Trane::Application.routes.draw do
   resources :lectures
 
   resources :tasks do
+    get :guide, on: :collection
     resource :my_solution
     resources :solutions do
       resources :comments

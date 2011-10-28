@@ -40,3 +40,6 @@ table.solutions {
   .violations p { margin: 0 0 1em 0; }
   textarea#code { font-family: $font-monospace; width: 600px; height: 600px; }
 }
+
+p.task-guide-notice { font-style: italic; color: $quiet; }
+#submission-guide { @include content; }

@@ -1,6 +1,6 @@
 # encoding: utf-8
 class TasksController < ApplicationController
-  before_filter :require_admin, :except => [:index, :show]
+  before_filter :require_admin, :except => [:index, :show, :guide]
 
   def index
     @tasks = Task.all :order => 'created_at ASC'

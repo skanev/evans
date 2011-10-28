@@ -4,12 +4,13 @@
   = admin_only do
     %p= link_to 'Редактирай', edit_task_path(@task)
 
-  = authenticated_only do
-    %p= link_to 'Моето решение', task_my_solution_path(@task)
+  = render 'tasks/guide_notice'
 
   - if admin? or @task.closed?
     %p= link_to 'Предадени решения', task_solutions_path(@task)
-    
+
+  = authenticated_only do
+    %p= link_to 'Моето решение', task_my_solution_path(@task)
 
   %dl
     %dt Краен срок
