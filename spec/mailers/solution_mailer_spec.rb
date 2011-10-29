@@ -10,15 +10,17 @@ describe SolutionMailer do
 
     before do
       comment.stub solution: solution
-      comment.stub task_name: 'Задача'
+      comment.stub task_name: 'Task name'
       comment.stub_chain :solution, :user, :email => 'solution.author@example.org'
-      comment.stub body: 'тяло на коментара'
+      comment.stub body: 'Comment body'
+      comment.stub user_name: 'Comment author'
     end
 
-    it { should have_subject 'Нов коментар на Задача' }
+    it { should have_subject 'Нов коментар на Task name' }
     it { should deliver_to 'solution.author@example.org' }
-    it { should have_body_text 'Задача' }
-    it { should have_body_text 'тяло на коментара' }
+    it { should have_body_text 'Task name' }
+    it { should have_body_text 'Comment author' }
     it { should have_body_text solution_url(solution) }
+    it { should have_body_text 'Comment body' }
   end
 end

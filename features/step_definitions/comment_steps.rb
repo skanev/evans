@@ -70,5 +70,5 @@ end
 end
 
 То 'трябва да получа писмо, че има нов коментар на решението ми' do
-  last_sent_email.should include 'Имате нов коментар'
+  last_sent_email.should include 'нов коментар на решението ви'
 end

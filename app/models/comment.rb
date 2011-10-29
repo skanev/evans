@@ -11,4 +11,8 @@ class Comment < ActiveRecord::Base
   def editable_by?(user)
     self.user == user or user.try(:admin?)
   end
+
+  def user_name
+    user.name
+  end
 end
