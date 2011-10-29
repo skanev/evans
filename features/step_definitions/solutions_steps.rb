@@ -26,6 +26,11 @@ end
   FactoryGirl.create :solution, user: user, task: task
 end
 
+Дадено 'че съм предал решение на текуща задача' do
+  task = FactoryGirl.create :open_task
+  FactoryGirl.create :solution, :task => task, :user => current_user
+end
+
 Когато 'опитам да предам следното решение на "$task_name":' do |task_name, code|
   task = Task.find_by_name! task_name
 

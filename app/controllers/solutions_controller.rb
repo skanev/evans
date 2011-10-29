@@ -1,22 +1,19 @@
 class SolutionsController < ApplicationController
-  before_filter :require_closed_task_or_admin
-
   def index
-    @task = find_task
+    @task = Task.find params[:task_id]
+
+    unless @task.closed? or admin?
+      deny_access
+      return
+    end
+
     @solutions = Solution.for_task params[:task_id]
   end
 
   def show
+    @task     = Task.find params[:task_id]
     @solution = Solution.find params[:id]
-  end
 
-  private
-
-  def require_closed_task_or_admin
-    deny_access unless find_task.closed? or admin?
-  end
-
-  def find_task
-    Task.find params[:task_id]
+    deny_access unless @task.closed? or @solution.commentable_by?(current_user)
   end
 end
