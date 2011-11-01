@@ -8,12 +8,12 @@
     %h2 Резултати
 
     %ul
-      %li.points= pluralize @solution.points, 'точка', 'точки'
-
+      %li.test-points= pluralize @solution.points_for_tests, 'точка от тестове', 'точки от тестове'
       - if @solution.adjustment >= 0
         %li.bonus= pluralize @solution.adjustment, 'бонус точка', 'бонус точки'
       - else
         %li.penalty= pluralize @solution.adjustment.abs, 'отнета точка', 'отнети точки'
+      %li.total-points= pluralize @solution.points, 'точка общо', 'точки общо'
 
     %ul
       %li.passed-tests #{@solution.passed_tests} успешни тест(а)

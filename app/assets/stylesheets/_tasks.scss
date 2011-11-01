@@ -7,7 +7,7 @@
 }
 
 table.solutions {
-  .points { width: 130px; }
+  .points { width: 150px; }
   .results { width: 180px; }
 
   .results span { display: inline-block; margin-left: 10px; }
@@ -19,6 +19,8 @@ table.solutions {
   .comments { @include replace-with-image('icons/comments.png', 16px, 16px); }
 
   .point { @include replace-with-image('icons/emoticon_grin.png', 16px, 16px); display: inline-block; }
+  .bonus-point { @include replace-with-image('icons/star.png', 16px, 16px); display: inline-block; }
+  .penalty-point { @include replace-with-image('icons/stop.png', 16px, 16px); display: inline-block; }
 }
 
 #tasks { @include content; }
@@ -27,9 +29,10 @@ table.solutions {
   @include content;
 
   .results ul li { background: { position: 0 0; repeat: no-repeat; } list-style: none; padding-left: 25px; }
-  .results ul li.points { background-image: image-url('icons/emoticon_grin.png'); }
+  .results ul li.test-points { background-image: image-url('icons/emoticon_grin.png'); }
   .results ul li.bonus { background-image: image-url('icons/star.png'); }
   .results ul li.penalty { background-image: image-url('icons/stop.png'); }
+  .results ul li.total-points { background-image: image-url('icons/bullet_go.png'); }
   .results ul li.passed-tests { background-image: image-url('icons/flag_green.png'); }
   .results ul li.failed-tests { background-image: image-url('icons/flag_red.png'); }
 
