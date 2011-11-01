@@ -80,6 +80,8 @@ en:
         description: Условие
         test_case: Тест
         closes_at: Краен срок
+      solution:
+        adjustment: Корекция
       comment:
         body: Коментар
   datetime:

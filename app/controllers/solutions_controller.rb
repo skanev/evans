@@ -1,4 +1,6 @@
 class SolutionsController < ApplicationController
+  before_filter :require_admin, only: :update
+
   def index
     @task = Task.find params[:task_id]
 
@@ -15,5 +17,11 @@ class SolutionsController < ApplicationController
     @solution = Solution.find params[:id]
 
     deny_access unless @task.closed? or @solution.commentable_by?(current_user)
+  end
+
+  def update
+    solution = Solution.find params[:id]
+    solution.update_attributes! params[:solution]
+    redirect_to solution
   end
 end

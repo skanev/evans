@@ -39,6 +39,15 @@ end
   click_on 'Изпрати'
 end
 
+When /^дам (\d+) бонус точку да решението на "([^"]*)"$/ do |points, student_name|
+  user     = User.find_by_full_name! student_name
+  solution = Solution.find_by_user_id! user.id
+
+  visit solution_path(solution)
+  choose "+#{points}"
+  click_on 'Промени'
+end
+
 То 'трябва да виждам следните решения:' do |table|
   header = all('table th').map(&:text)
   rows   = all('table tbody tr').map do |table_row|
@@ -55,4 +64,12 @@ end
   page.should have_content('Решението ви не минава някои стилистически изисквания')
   page.should have_content('Number of lines per method')
   page.should have_content(method_name)
+end
+
+Then /^решението на "([^"]*)" трябва да има (\d+) допълнителни точки$/ do |student_name, points|
+  user     = User.find_by_full_name! student_name
+  solution = Solution.find_by_user_id! user.id
+
+  visit solution_path(solution)
+  page.should have_content "#{points} бонус точки"
 end

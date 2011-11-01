@@ -28,7 +28,8 @@ table.solutions {
 
   .results ul li { background: { position: 0 0; repeat: no-repeat; } list-style: none; padding-left: 25px; }
   .results ul li.points { background-image: image-url('icons/emoticon_grin.png'); }
-  .results ul li.bonus-points { background-image: image-url('icons/star.png'); }
+  .results ul li.bonus { background-image: image-url('icons/star.png'); }
+  .results ul li.penalty { background-image: image-url('icons/stop.png'); }
   .results ul li.passed-tests { background-image: image-url('icons/flag_green.png'); }
   .results ul li.failed-tests { background-image: image-url('icons/flag_red.png'); }
 

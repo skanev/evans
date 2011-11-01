@@ -75,4 +75,36 @@ describe SolutionsController do
       assigns(:solution).should == 'solution'
     end
   end
+
+  describe "PUT update" do
+    log_in_as :admin
+
+    let(:solution) { build_stubbed :solution }
+
+    before do
+      Solution.stub find: solution
+      solution.stub :update_attributes!
+    end
+
+    it "denies access to non-admins" do
+      current_user.stub admin?: false
+      put :update, task_id: '1', id: '2'
+      response.should deny_access
+    end
+
+    it "looks up the solution by id" do
+      Solution.should_receive(:find).with('42')
+      put :update, task_id: '1', id: '42'
+    end
+
+    it "updates the solution with params[:solution]" do
+      solution.should_receive(:update_attributes!).with('attributes')
+      put :update, task_id: '1', id: '2', solution: 'attributes'
+    end
+
+    it "redirects to the solution" do
+      put :update, task_id: '1', id: '42'
+      response.should redirect_to solution
+    end
+  end
 end
