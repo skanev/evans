@@ -36,6 +36,10 @@ class Solution < ActiveRecord::Base
   end
 
   def points
+    [points_for_tests + adjustment, 0].max
+  end
+
+  def points_for_tests
     return 0 unless checked?
 
     percentage_passed = passed_tests.quo total_tests

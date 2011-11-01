@@ -11,7 +11,6 @@ describe Task do
     Factory(:closed_task).should be_closed
   end
 
-
   describe "restrictions" do
     it "has no restrictions by default" do
       create(:task).restrictions_hash.should eq Hash.new

@@ -88,5 +88,11 @@ describe Solution do
     it "has 0 points if not checked" do
       Solution.new.points.should == 0
     end
+
+    it "applies the adjustment to the points" do
+      Solution.new(passed_tests: 6, failed_tests: 0, adjustment: 3).points.should eq 9
+      Solution.new(passed_tests: 6, failed_tests: 0, adjustment: -2).points.should eq 4
+      Solution.new(passed_tests: 1, failed_tests: 5, adjustment: -2).points.should eq 0
+    end
   end
 end
