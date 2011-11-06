@@ -47,7 +47,7 @@ describe SolutionsController do
 
     before do
       Task.stub find: task
-      Solution.stub find: solution
+      task.stub_chain(:solutions, :find).and_return(solution)
       solution.stub :commentable_by?
     end
 
@@ -70,9 +70,8 @@ describe SolutionsController do
     end
 
     it "assigns the solution to @solution" do
-      Solution.should_receive(:find).with('10').and_return('solution')
       get :show, :task_id => '42', :id => '10'
-      assigns(:solution).should == 'solution'
+      assigns(:solution).should == solution
     end
   end
 
