@@ -47,7 +47,7 @@ describe SolutionsController do
 
     before do
       Task.stub find: task
-      task.stub_chain(:solutions, :find).and_return(solution)
+      task.stub_chain :solutions, find: solution
       solution.stub :commentable_by?
     end
 
