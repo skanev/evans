@@ -27,7 +27,7 @@ Dir.mktmpdir do |dir|
     :err => log_path.to_s,
     :out => log_path.to_s
 
-  if json_path.exist?
+  if json_path.exist? and not json_path.read.empty?
     puts json_path.read
   else
     puts "{}"
