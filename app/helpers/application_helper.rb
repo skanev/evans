@@ -4,8 +4,13 @@ module ApplicationHelper
     image_tag image, :alt => user.name
   end
 
-  def markup(text)
-    find_and_preserve auto_link(Markup.format(text))
+  def markup(text, options = {})
+    options = {auto_link: true}.merge options
+
+    formatted = Markup.format(text)
+    formatted = auto_link(formatted) if options[:auto_link]
+
+    find_and_preserve(formatted)
   end
 
   def admin_only(&block)
