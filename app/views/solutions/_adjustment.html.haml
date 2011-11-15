@@ -1,4 +1,5 @@
 %h2 Корекция на точки
 = simple_form_for [solution.task, solution] do |form|
+  = form.input :code
   = form.input :adjustment, as: :radio, collection: -6.upto(3).map { |n| ["%+d" % n, n] }
   = form.button :submit, 'Промени'
