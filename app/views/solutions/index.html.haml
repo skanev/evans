@@ -15,4 +15,4 @@
       %tr
         %td.name= link_to solution.user_name, [@task, solution]
         %td.points Точки: <span data-points>#{solution.points}</span> (<span data-adjustment>#{solution.adjustment}</span> добавка)
-        %td.results <span class="passed">Успешни тестове:</span> #{solution.passed_tests}<span class="failed">, Неуспешни тестове:</span> #{solution.failed_tests}<span class="lines">, Редове:</span> #{solution.rows}<span class="comments">, Коментари:</span> #{solution.comments.count}
+        %td.results <span class="passed" title="Успешни тестове">Успешни тестове:</span> #{solution.passed_tests}<span class="failed" title="Неуспешни тестове">, Неуспешни тестове:</span> #{solution.failed_tests}<span class="lines" title="Редове">, Редове:</span> #{solution.rows}<span class="comments" title="Коментари">, Коментари:</span> #{solution.comments.count}
