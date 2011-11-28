@@ -1,6 +1,4 @@
 class Solution < ActiveRecord::Base
-  MAX_POINTS = 6
-
   validates_presence_of :code, :user_id, :task_id
   validates_uniqueness_of :user_id, :scope => :task_id
 
@@ -8,6 +6,8 @@ class Solution < ActiveRecord::Base
   belongs_to :task
 
   has_many :comments, order: 'comments.created_at ASC'
+
+  delegate :max_points, to: :task
 
   class << self
     def code_for(user, task)
@@ -43,7 +43,7 @@ class Solution < ActiveRecord::Base
     return 0 unless checked?
 
     percentage_passed = passed_tests.quo total_tests
-    (percentage_passed * MAX_POINTS).round
+    (percentage_passed * max_points).round
   end
 
   def commentable_by?(user)

@@ -81,18 +81,31 @@ describe Solution do
       [12, 6, 4],
     ].each do |passed, failed, points|
       it "has #{points} points for #{passed} passed and #{failed} failed tests" do
-        Solution.new(:passed_tests => passed, :failed_tests => failed).points.should == points
+        FactoryGirl.build(:solution, passed_tests: passed, failed_tests: failed).points.should eq points
       end
     end
 
     it "has 0 points if not checked" do
-      Solution.new.points.should == 0
+      FactoryGirl.build(:solution).points.should eq 0
+    end
+
+    it "delegates max_points to task" do
+      solution = FactoryGirl.build(:solution, passed_tests: 10, failed_tests: 0)
+
+      solution.max_points.should eq Task::MAX_POINTS
+    end
+
+    it "allows non-default max points to be set" do
+      solution = FactoryGirl.build(:solution, passed_tests: 10, failed_tests: 0)
+      solution.task.max_points = 8
+
+      solution.points.should eq 8
     end
 
     it "applies the adjustment to the points" do
-      Solution.new(passed_tests: 6, failed_tests: 0, adjustment: 3).points.should eq 9
-      Solution.new(passed_tests: 6, failed_tests: 0, adjustment: -2).points.should eq 4
-      Solution.new(passed_tests: 1, failed_tests: 5, adjustment: -2).points.should eq 0
+      FactoryGirl.build(:solution, passed_tests: 6, failed_tests: 0, adjustment: 3).points.should eq 9
+      FactoryGirl.build(:solution, passed_tests: 6, failed_tests: 0, adjustment: -2).points.should eq 4
+      FactoryGirl.build(:solution, passed_tests: 1, failed_tests: 5, adjustment: -2).points.should eq 0
     end
   end
 end

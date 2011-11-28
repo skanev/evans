@@ -21,7 +21,7 @@ describe "Point mechanics" do
     solution = FactoryGirl.create :checked_solution, :passed_tests => 1
     user = solution.user
 
-    user.points.should == Solution::MAX_POINTS
+    user.points.should == solution.max_points
   end
 
   it "student gets points for each starred post" do
