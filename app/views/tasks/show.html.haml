@@ -13,9 +13,12 @@
     %p= link_to 'Моето решение', task_my_solution_path(@task)
 
   %dl
-    %dt Краен срок
+    %dt Краен срок:
     %dd
       = l @task.closes_at
+    %dt Точки:
+    %dd
+      = @task.max_points
 
   - if @task.closed?
     %p.closed Срокът за предаване на решения е отминал
