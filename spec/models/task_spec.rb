@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Task do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
+  it { should validate_numericality_of(:max_points) }
 
   it { should have_many(:solutions) }
 

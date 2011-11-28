@@ -1,6 +1,9 @@
 class Task < ActiveRecord::Base
+  MAX_POINTS = 6
+
   validates_presence_of :name, :description
   validate :restrictions_must_be_valid_yaml
+  validates_numericality_of :max_points, allow_nil: true
 
   has_many :solutions
 
@@ -18,6 +21,10 @@ class Task < ActiveRecord::Base
 
   def restrictions_hash=(hash)
     self.restrictions = hash.to_yaml
+  end
+
+  def max_points
+    self[:max_points] || MAX_POINTS
   end
 
   private
