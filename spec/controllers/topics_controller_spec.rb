@@ -150,6 +150,7 @@ describe TopicsController do
   end
 
   describe "GET last_reply" do
+    log_out
     let(:topic) { mock_model(Topic) }
 
     before do
