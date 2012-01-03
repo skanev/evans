@@ -14,6 +14,11 @@ module Support
           controller.stub :current_user => current_user
         end
       end
+
+      def log_out
+        let(:current_user) { nil }
+        before { controller.stub current_user: nil }
+      end
     end
 
     RSpec::Matchers.define :deny_access do
