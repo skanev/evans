@@ -1,4 +1,4 @@
-en:
+bg:
   time:
     formats:
       default: "%d.%m.%Y %H:%M"
@@ -6,6 +6,7 @@ en:
     messages:
       blank: задължително поле
       confirmation: не съвпада
+      taken: e заето
   simple_form:
     error_notification:
       default_message: 'Намерихме няколко грешки. Погледнете и пробвайте пак:'
