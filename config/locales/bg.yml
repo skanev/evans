@@ -7,6 +7,7 @@ bg:
       blank: задължително поле
       confirmation: не съвпада
       taken: e заето
+      not_a_number: трябва да е число
   simple_form:
     error_notification:
       default_message: 'Намерихме няколко грешки. Погледнете и пробвайте пак:'
