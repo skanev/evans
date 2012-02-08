@@ -34,6 +34,14 @@ end
   current_path.should == path_to(page_name)
 end
 
+То /^трябва да видя картинка (.*)$/ do |img|
+
+end
+
+То /^трябва да има линк към (.*)$/ do |url|
+
+end
+
 И 'кво?' do
   save_and_open_page
 end
