@@ -54,6 +54,7 @@ group :test do
   gem 'timecop'
   gem 'webrat'
   gem 'email_spec'
+  gem 'simplecov', :require => false
 end
 
 group :tasks do

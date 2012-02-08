@@ -24,3 +24,5 @@ tmp/ruby-lectures
 tmp/restart.txt
 tmp/*.sql
 tmp/rspec_output/*
+coverage/
+evans.kdev4
