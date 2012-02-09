@@ -12,7 +12,7 @@ describe "announcements/index.html.haml" do
 
   it "should show the rss image" do
     render
-    rendered.should have_selector("img[src='/assets/rss.gif']")
+    rendered.should have_selector("img[src='#{rss_image_path}']")
   end
 
   it "should awlays show the rss link" do

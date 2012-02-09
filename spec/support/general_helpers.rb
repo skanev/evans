@@ -7,5 +7,9 @@ module Support
     def uploaded_photo
       File.open fixture_file('beholder.jpg')
     end
+
+    def rss_image_path
+      "/assets/rss.gif"
+    end
   end
 end
