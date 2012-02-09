@@ -1,3 +1,4 @@
+# encoding: utf-8
 module ApplicationHelper
   def user_thumbnail(user)
     image = user.photo.try(:url, :thumb) || image_path('photoless-user.png')
@@ -25,5 +26,10 @@ module ApplicationHelper
 
   def markdown_explanation
     render 'common/markdown'
+  end
+
+  def rss_feed(url)
+    alt_text = 'Абонирайте се за RSS Feed към тази страница'
+    link_to image_tag('rss.gif', {:alt => alt_text}), url, { :id => 'rss_feed' }
   end
 end

@@ -1,4 +1,6 @@
 # encoding: utf-8
+require 'uri'
+
 Когато /^отида (?:на|в) (.*)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -34,12 +36,17 @@ end
   current_path.should == path_to(page_name)
 end
 
-То /^трябва да видя картинка (.*)$/ do |img|
-
+То /^трябва да виждам картинка с алтернативен текст "([^"]*)"$/ do |alt_text|
+  page.should have_selector("img[alt='#{alt_text}']")
 end
 
-То /^трябва да има линк към (.*)$/ do |url|
+То /^трябва да има линк "([^"]*)" към (.*)$/ do |link_id, link_url|
+  page.should have_selector("a[id='#{link_id}']")
 
+  click_link(link_id)
+
+  current_path = URI.parse(current_url).path
+  current_path.should =~ /#{URI.parse(link_url).path}$/
 end
 
 И 'кво?' do
