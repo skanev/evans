@@ -8,18 +8,8 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'x
 
     if @items.present?
       @items.each do |item|
-        item_title = if defined? item.title
-                       item.title
-                     else
-                       get_item_title item
-                     end
-        item_date = if defined? item.created_at
-                       item.created_at
-                     else
-                       item[:date]
-                     end
         xml.item do
-          xml.title   item_title
+          xml.title   item.title
           xml.link    item_path(item, :only_path => false)
 
           if defined? item.body
@@ -27,7 +17,7 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'x
             xml.tag!('content:encoded') { xml.cdata! Markup.format(item.body) }
           end
 
-          xml.pubDate item_date.rfc2822
+          xml.pubDate item.created_at.rfc2822
           xml.guid    item_path(item, :only_path => false)
         end
       end

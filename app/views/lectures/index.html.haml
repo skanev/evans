@@ -7,7 +7,7 @@
     %ol(start="0")
       - @lectures.each do |lecture|
         %li
-          = link_to lecture_title(lecture), lecture_url(lecture)
-          (#{lecture[:date]})
+          = link_to lecture.title, lecture.url
+          (#{lecture.created_at})
   - else
     %p.missing Няма качени лекции
