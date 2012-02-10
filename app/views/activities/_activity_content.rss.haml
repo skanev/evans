@@ -1,0 +1,8 @@
+= link_to activity.user_name, user_path(activity.user_id)
+- case activity.kind
+- when :comment
+  остави коментар на
+  = link_to "решение на #{activity.subject}", task_solution_path(activity.secondary_id, activity.target_id)
+- when :solution
+  предаде
+  = link_to "решение на #{activity.subject}", task_solution_path(activity.secondary_id, activity.target_id)

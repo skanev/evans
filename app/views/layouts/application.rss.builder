@@ -8,19 +8,22 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'x
 
     if @items.present?
       @items.each do |item|
+        item_title = defined?(item.title)     ? item.title      : feed_title(item)
+        item_link  = defined?(item.url)       ? item.url        : feed_path(item)
+        item_body  = defined?(item.body)      ? item.body       : feed_body(item)
+        item_date  = defined?(item.created_at)? item.created_at : feed_date(item)
+
         xml.item do
-          xml.title   item.title
-          xml.link    item_path(item, :only_path => false)
-
-          if defined? item.body
-            xml.description { xml.cdata! Markup.format(item.body) }
-            xml.tag!('content:encoded') { xml.cdata! Markup.format(item.body) }
-          end
-
-          xml.pubDate item.created_at.rfc2822
-          xml.guid    item_path(item, :only_path => false)
+          xml.title   item_title
+          xml.link    item_link
+          xml.description { xml.cdata! Markup.format(item_body) }
+          xml.tag!('content:encoded') { xml.cdata! Markup.format(item_body) }
+          xml.pubDate item_date.rfc2822
+          xml.guid    item_link
         end
       end
+    elsif content_for?(:feed_content)
+      yield :feed_content
     end
   end
 end

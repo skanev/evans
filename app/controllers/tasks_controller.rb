@@ -4,6 +4,11 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all :order => 'created_at ASC'
+
+    respond_to do |format|
+      format.html
+      format.rss { response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8' }
+    end
   end
 
   def new

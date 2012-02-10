@@ -136,4 +136,8 @@ describe TasksController do
       response.should render_template(:edit)
     end
   end
+
+  describe "GET RSS feed" do
+    it_behaves_like "RSS page", :tasks
+  end
 end

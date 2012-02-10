@@ -3,6 +3,6 @@
 @items = @posts
 
 # methods to be used from default layout
-def item_path(post, args)
-  topic_path post, args
+def feed_path(post)
+  topic_path post, :only_path => false
 end

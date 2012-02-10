@@ -3,6 +3,6 @@
 @items = @lectures
 
 # methods to be used from default layout
-def item_path(lecture, args)
-  lecture.url
+def feed_body(lecture)
+  link_to lecture.title, lecture.url
 end

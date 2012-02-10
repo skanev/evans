@@ -3,6 +3,6 @@
 @items = @announcements
 
 # methods to be used from default layout
-def item_path(announcement, args)
-  announcement_path announcement, args
+def feed_path(announcement)
+  announcement_path announcement, :only_path => false
 end
