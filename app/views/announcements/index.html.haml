@@ -1,8 +1,9 @@
-%h1 Новини
-= rss_feed announcements_url(:rss)
+%h1
+  Новини
+  = rss_feed announcements_url(:rss)
 
 - if admin?
-  = link_to 'Нова', new_announcement_path
+  %p= link_to 'Нова', new_announcement_path
 
 #announcements
   - unless @announcements.empty?
