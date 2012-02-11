@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'uri'
 
 describe "lectures/index.html.haml" do
 

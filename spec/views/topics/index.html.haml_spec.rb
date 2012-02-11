@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'uri'
 
 describe "topics/index.html.haml" do
 
