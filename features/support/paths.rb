@@ -1,6 +1,12 @@
 # encoding: utf-8
 module NavigationHelpers
   def path_to(page_name)
+    format = nil
+
+    if page_name =~ /RSS адреса на/
+      format = :rss
+    end
+
     case page_name
       when /страницата за регистрация/
         new_registration_path
@@ -19,7 +25,7 @@ module NavigationHelpers
       when /таблото си/
         dashboard_path
       when /новините/
-        announcements_path
+        announcements_path format
       when /задачите/
         tasks_path
       when /задачата "(.*)"/
