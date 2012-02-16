@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe "tasks/index.html.haml" do
@@ -7,7 +9,7 @@ describe "tasks/index.html.haml" do
 
     before do
       view.stub :admin_only => false
-     assign :tasks, tasks
+      assign :tasks, tasks
     end
 
     it_behaves_like "has RSS feed" do
