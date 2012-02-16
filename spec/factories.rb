@@ -54,7 +54,6 @@ FactoryGirl.define do
     name 'Name'
     description 'Description'
     closes_at 1.week.from_now
-    created_at 1.week.ago
   end
 
   factory :open_task, parent: :task

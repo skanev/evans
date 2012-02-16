@@ -1,5 +1,6 @@
 # variables to be used from default layout
 @title = 'Активност'
+@items = nil
 
 content_for :feed_content do
   @feed.each_activity do |activity|

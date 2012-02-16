@@ -8,10 +8,10 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'x
 
     if @items.present?
       @items.each do |item|
-        item_title = defined?(item.title)     ? item.title      : feed_title(item)
-        item_link  = defined?(item.url)       ? item.url        : feed_path(item)
-        item_body  = defined?(item.body)      ? item.body       : feed_body(item)
-        item_date  = defined?(item.created_at)? item.created_at : feed_date(item)
+        item_title = item.respond_to?(:title)     ? item.title      : feed_title(item)
+        item_link  = item.respond_to?(:url)       ? item.url        : feed_path(item)
+        item_body  = item.respond_to?(:body)      ? item.body       : feed_body(item)
+        item_date  = item.respond_to?(:created_at)? item.created_at : feed_date(item)
 
         xml.item do
           xml.title   item_title
