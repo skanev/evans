@@ -31,7 +31,7 @@ module NavigationHelpers
       when /задачата "(.*)"/
         task_path Task.find_by_name!($1)
       when /решенията на "(.*)"/
-        task_solutions_path Task.find_by_name!($1)
+        task_solutions_path Task.find_by_name!($1), format
       when /решението на "(.*)" за "(.*)"/
         user = User.find_by_full_name! $1
         task = Task.find_by_name! $2

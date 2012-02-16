@@ -39,7 +39,7 @@ end
   click_on 'Изпрати'
 end
 
-When /^дам (\d+) бонус точку да решението на "([^"]*)"$/ do |points, student_name|
+When /^дам (\d+) бонус точки на решението на "([^"]*)"$/ do |points, student_name|
   user     = User.find_by_full_name! student_name
   solution = Solution.find_by_user_id! user.id
 
