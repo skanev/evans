@@ -10,6 +10,14 @@ class SolutionsController < ApplicationController
     end
 
     @solutions = Solution.for_task params[:task_id]
+
+    respond_to do |format|
+      format.html
+      format.rss do
+        @comments = get_comments_for_task(@task)
+        response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
+      end
+    end
   end
 
   def show
@@ -23,5 +31,13 @@ class SolutionsController < ApplicationController
     solution = Solution.find params[:id]
     solution.update_attributes! params[:solution]
     redirect_to solution
+  end
+
+  def get_comments_for_task(task)
+    task.solutions
+        .map { |solution| solution.comments }
+        .inject(:+)
+        .to_a
+        .sort_by { |comment| comment.created_at }
   end
 end

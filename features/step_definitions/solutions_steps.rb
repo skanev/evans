@@ -31,6 +31,20 @@ end
   FactoryGirl.create :solution, :task => task, :user => current_user
 end
 
+Дадено /^следните коментари към решението на "([^"]*)"$/ do |user_name, table|
+  solution = Solution.where("user_id = ?", User.where("full_name = ?", user_name).first.id) # TODO: refactor this!
+
+  table.hashes.each do |row|
+    attributes = {
+      :user => Factory(:user, :full_name => row['Студент']),
+      :body => row['Коментар'],
+      :solution => solution.first,
+    }
+
+    Factory(:comment, attributes)
+  end
+end
+
 Когато 'опитам да предам следното решение на "$task_name":' do |task_name, code|
   task = Task.find_by_name! task_name
 
@@ -39,7 +53,7 @@ end
   click_on 'Изпрати'
 end
 
-When /^дам (\d+) бонус точки на решението на "([^"]*)"$/ do |points, student_name|
+Когато /^дам (\d+) бонус точки на решението на "([^"]*)"$/ do |points, student_name|
   user     = User.find_by_full_name! student_name
   solution = Solution.find_by_user_id! user.id
 
@@ -72,4 +86,11 @@ Then /^решението на "([^"]*)" трябва да има (\d+) допъ
 
   visit solution_path(solution)
   page.should have_content "#{points} бонус точки"
+end
+
+То /^трябва да виждам следните feeds:$/ do |table|
+  table.hashes.each do |row|
+    page.should have_content(row['Заглавие'])   # TODO: make layout validation (or xml tags structure validation ?!)
+    page.should have_content(row['Тяло'])
+  end
 end
