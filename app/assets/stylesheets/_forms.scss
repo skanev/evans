@@ -16,10 +16,6 @@
   input.string,
   input.password { width: 280px; }
 
-  .input.radio {
-    span label { display: inline-block; padding: 0 3ex 0 1ex; }
-  }
-
   .error,
   .hint { line-height: 35px; margin-left: 10px; vertical-align: top; }
 

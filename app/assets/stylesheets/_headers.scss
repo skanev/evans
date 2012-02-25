@@ -1,43 +1,46 @@
-body > header { 
+body > header {
   background: image-url('header.png') repeat-x;
   border-bottom: 1px solid #999;
-  height: 130px;
+  height: 82px;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
 
-  a.logo { float: left; margin: 10px 40px 0 40px; }
-  h1 { font-family: $font-site-title; font-size: $font-huge; font-weight: bold; margin-top: 35px; }
-  h2 { margin-top: 10px; }
+  h1,
+  h2 { display: none; }
+
+  a.logo { background: image-url('logo.png') no-repeat; display: block; left: 40px; top: 10px; position: absolute; width: 221px; height: 71px; }
+  a.logo span { display: none; }
 
   nav { color: $dark-text; font-weight: bold; position: absolute; right: 50px; bottom: 10px; }
   nav li { border-left: 2px solid $dark-text; display: inline; padding: 0 6px 0 10px; }
   nav li:first-child { border-left: none; }
-  nav li a { color: $title-color; font-size: $font-normal; }
+  nav li a { color: #436a85; font-size: $font-normal;}
   nav li a:hover { text-decoration: underline; }
 }
 
 body > nav {
   position: absolute;
-  top: 160px;
-  left: 30px;
+  top: 100px;
+  left: 50px;
 
-  ul li { margin: 4px 0; }
-  ul li a {
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    color: black;
-    display: block;
+  ul li {
+    background: whiteSmoke image-url('navigation-item.png') no-repeat 100% 0%;
+    border: 1px solid #dadada;
     font-family: $font-navigation;
-    padding: 10px 15px 12px;
-    text-decoration: none;
+    font-size: $font-small;
+    margin: 4px 0;
+    padding: 3px 5px 1px;
+    text-transform: uppercase;
     width: 150px;
+    height: 16px;
   }
-  ul li a:hover { background-color: #3371a3; color: white; }
+  ul li a { color: #4b5a6a; display: block; }
+  ul li a:hover { text-decoration: underline; }
 }
 
-#container { position: absolute; top: 170px; left: 240px; right: 60px; }
+#container { position: absolute; top: 105px; left: 240px; right: 60px; }
 #container > footer {
   border-top: 1px dotted #ccc;
   font-size: $font-small;
@@ -48,7 +51,7 @@ body > nav {
 }
 
 @mixin flash($background, $border, $icon) {
-  background: { color: $background; image: image-url("icons/#{$icon}.png"); position: 15px 15px; repeat: no-repeat; }
+  background: { color: $background; image: image-url('icons/#{$icon}.png'); position: 15px 15px; repeat: no-repeat; }
   border: 1px solid $border;
   margin-bottom: 20px;
   padding: 15px 40px;
