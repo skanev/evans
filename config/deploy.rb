@@ -1,6 +1,7 @@
 set :application, 'Trane Revisited'
 set :scm,         :git
 set :repository,  'git://github.com/skanev/evans.git'
+set :tag,         'ruby-2011'
 set :deploy_to,   '/data/rails/evans'
 set :user,        'pyfmi'
 set :use_sudo,    false
