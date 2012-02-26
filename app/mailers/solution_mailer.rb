@@ -2,7 +2,8 @@
 class SolutionMailer < ActionMailer::Base
   include CustomPaths
 
-  default :from => '"Python ФМИ" <fmi@py-bg.bg>', :reply_to => '"Python ФМИ" <fmi@py-bg.bg>'
+  default from:     Rails.application.config.email_from,
+          reply_to: Rails.application.config.email_from
 
   def new_comment(comment)
     @task_name      = comment.task_name

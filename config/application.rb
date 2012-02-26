@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -43,5 +44,10 @@ module Trane
     config.active_record.schema_format = :sql
 
     config.assets.enabled = true
+
+    # Custom configuration
+    config.site_domain   = 'fmi.py-bg.net'
+    config.contact_email = 'fmi@py-bg.net'
+    config.email_from    = '"Програмиране с Python във ФМИ" <' + config.contact_email + '>'
   end
 end

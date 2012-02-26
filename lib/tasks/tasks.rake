@@ -32,7 +32,7 @@ namespace :task do
           open(file.to_s, 'w') do |output|
             output.puts "# #{user_name}"
             output.puts "# #{faculty_number}"
-            output.puts "# http://fmi.ruby.bg/tasks/#{task.id}/solutions/#{solution.id}"
+            output.puts "# http://#{Rails.application.config.site_domain}/tasks/#{task.id}/solutions/#{solution.id}"
             output.puts ""
             output.puts code.gsub(/\t/, '    ').gsub(/\r/, '').strip
             output.puts ""
