@@ -26,6 +26,8 @@ module NavigationHelpers
         dashboard_path
       when /новините/
         announcements_path format
+      when /страницата с активността/
+        activities_path format
       when /задачите/
         tasks_path
       when /задачата "(.*)"/
