@@ -9,21 +9,20 @@ class Feed
   private
 
   def activity_query
-    Comment.all
-      .concat(Solution.all)
-      .sort_by { |x| x.created_at }.reverse # DESC sort (the soonest are first)
-      .map do |activity|
-        solution = activity.kind_of?(Comment) ? activity.solution : activity
-        {
-          kind:         activity.kind_of?(Comment) ? 'comment' : 'solution',
-          user_id:      activity.user.id,
-          user_name:    activity.user.full_name,
-          target_id:    solution.id,
-          secondary_id: solution.task.id,
-          subject:      solution.task.name,
-          happened_at:  activity.created_at
-        }
-      end
+    activities = Comment.all.concat(Solution.all).map do |activity|
+      solution = activity.kind_of?(Comment) ? activity.solution : activity
+      {
+        kind:         activity.kind_of?(Comment) ? 'comment' : 'solution',
+        user_id:      activity.user.id,
+        user_name:    activity.user.full_name,
+        target_id:    solution.id,
+        secondary_id: solution.task.id,
+        subject:      solution.task.name,
+        happened_at:  activity.kind_of?(Comment) ? activity.created_at : activity.updated_at
+      }
+    end
+
+    activities.sort_by { |x| x[:happened_at] }.reverse # DESC sort (the soonest are first)
   end
 
   class Activity
