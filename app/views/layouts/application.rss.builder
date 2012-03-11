@@ -22,8 +22,8 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'x
           xml.guid    item_link
         end
       end
-    elsif content_for?(:feed_content)
-      yield :feed_content
+    elsif defined? feed_content
+      feed_content xml
     end
   end
 end
