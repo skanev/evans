@@ -30,6 +30,8 @@ table.solutions {
   ul li.bonus-points { background-image: image-url('icons/star.png'); }
   ul li.passed-tests { background-image: image-url('icons/flag_green.png'); }
   ul li.failed-tests { background-image: image-url('icons/flag_red.png'); }
+
+  article.comment { @include contribution; }
 }
 
 #my-solution textarea#code { font-family: $font-monospace; width: 600px; height: 600px; }
