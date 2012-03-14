@@ -16,5 +16,4 @@ describe "tasks/index.html.haml" do
       let(:rss_url) { tasks_url(:rss) }
     end
   end
-
 end

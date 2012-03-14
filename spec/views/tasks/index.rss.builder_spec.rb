@@ -22,5 +22,4 @@ describe "tasks/index.rss.builder" do
       rendered.should contain(task.description)
     end
   end
-
 end

@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'uri'
 
 Когато /^отида (?:на|в) (.*)$/ do |page_name|
   visit path_to(page_name)

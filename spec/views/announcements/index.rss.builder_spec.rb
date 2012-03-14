@@ -22,5 +22,4 @@ describe "announcements/index.rss.builder" do
       rendered.should contain(announcement.body)
     end
   end
-
 end

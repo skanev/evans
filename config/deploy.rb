@@ -49,11 +49,11 @@ end
 
 namespace :sync do
   task :db, :roles => :app do
-#    system <<-END
-#      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans | gzip -c" |
-#        gunzip -c |
-#        bundle exec rails dbconsole
-#    END
+    system <<-END
+      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans | gzip -c" |
+        gunzip -c |
+        bundle exec rails dbconsole
+    END
   end
 
   task :uploads, :roles => :app do

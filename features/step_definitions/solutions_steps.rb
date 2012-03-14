@@ -32,13 +32,14 @@ end
 end
 
 Дадено /^следните коментари към решението на "([^"]*)"$/ do |user_name, table|
-  solution = Solution.where("user_id = ?", User.where("full_name = ?", user_name).first.id) # TODO: refactor this!
+  user = User.all.find { |u| u.full_name == user_name }
+  solution = Solution.all.find { |s| s.user == user }
 
   table.hashes.each do |row|
     attributes = {
       :user => Factory(:user, :full_name => row['Студент']),
       :body => row['Коментар'],
-      :solution => solution.first,
+      :solution => solution,
     }
 
     Factory(:comment, attributes)
@@ -90,7 +91,7 @@ end
 
 То /^трябва да виждам следните feeds:$/ do |table|
   table.hashes.each do |row|
-    page.should have_content(row['Заглавие'])   # TODO: make layout validation (or xml tags structure validation ?!)
+    page.should have_content(row['Заглавие'])
     page.should have_content(row['Тяло'])
   end
 end

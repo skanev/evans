@@ -1,20 +1,28 @@
 # variables to be used from default layout
 @title = 'Активност'
-@items = nil
 
-def feed_content(xml)
-  @feed.each_activity do |activity|
-    feed_body  = render 'activity_content', :activity => activity
-    feed_title = "#{activity.user_name} #{activity.describe} решение на #{activity.subject}"
-
-    xml.item do
-      xml.title   feed_title
-      xml.link    activities_path
-      xml.description { xml.cdata! Markup.format(feed_body) }
-      xml.tag!('content:encoded') { xml.cdata! Markup.format(feed_body) }
-      xml.pubDate activity.happened_at.rfc2822
-      xml.guid    activities_path
-    end
+# a little adjustment to feed object, in order to keep the RSS items logic
+def @feed.each
+  each_activity do |activity|
+    yield activity
   end
 end
 
+@items = @feed
+
+# methods to be used from default layout
+def feed_path(activity)
+  activities_path
+end
+
+def feed_title(activity)
+  "#{activity.user_name} #{activity.describe} решение на #{activity.subject}"
+end
+
+def feed_body(activity)
+  render 'activity_content', :activity => activity
+end
+
+def feed_date(activity)
+  activity.happened_at
+end
