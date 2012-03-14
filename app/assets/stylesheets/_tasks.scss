@@ -7,17 +7,20 @@
 }
 
 table.solutions {
-  .points { width: 130px; }
-  .results { width: 150px; }
+  .points { width: 150px; }
+  .results { width: 180px; }
 
   .results span { display: inline-block; margin-left: 10px; }
   .results span:first-child { margin-left: 0; }
 
-  .passed { @include replace-with-image('/images/icons/flag_green.png', 16px, 16px); }
-  .failed { @include replace-with-image('/images/icons/flag_red.png', 16px, 16px); }
-  .lines { @include replace-with-image('/images/icons/page_white_text.png', 16px, 16px); }
+  .passed { @include replace-with-image('icons/flag_green.png', 16px, 16px); }
+  .failed { @include replace-with-image('icons/flag_red.png', 16px, 16px); }
+  .lines { @include replace-with-image('icons/page_white_text.png', 16px, 16px); }
+  .comments { @include replace-with-image('icons/comments.png', 16px, 16px); }
 
-  .point { @include replace-with-image('/images/icons/emoticon_grin.png', 16px, 16px); display: inline-block; }
+  .point { @include replace-with-image('icons/emoticon_grin.png', 16px, 16px); display: inline-block; }
+  .bonus-point { @include replace-with-image('icons/star.png', 16px, 16px); display: inline-block; }
+  .penalty-point { @include replace-with-image('icons/stop.png', 16px, 16px); display: inline-block; }
 }
 
 #tasks { @include content; }
@@ -25,13 +28,22 @@ table.solutions {
 .solution {
   @include content;
 
-  ul li { background: { position: 0 0; repeat: no-repeat; } list-style: none; padding-left: 25px; }
-  ul li.points { background-image: image-url('icons/emoticon_grin.png'); }
-  ul li.bonus-points { background-image: image-url('icons/star.png'); }
-  ul li.passed-tests { background-image: image-url('icons/flag_green.png'); }
-  ul li.failed-tests { background-image: image-url('icons/flag_red.png'); }
+  .results ul li { background: { position: 0 0; repeat: no-repeat; } list-style: none; padding-left: 25px; }
+  .results ul li.test-points { background-image: image-url('icons/emoticon_grin.png'); }
+  .results ul li.bonus { background-image: image-url('icons/star.png'); }
+  .results ul li.penalty { background-image: image-url('icons/stop.png'); }
+  .results ul li.total-points { background-image: image-url('icons/bullet_go.png'); }
+  .results ul li.passed-tests { background-image: image-url('icons/flag_green.png'); }
+  .results ul li.failed-tests { background-image: image-url('icons/flag_red.png'); }
 
   article.comment { @include contribution; }
 }
 
-#my-solution textarea#code { font-family: $font-monospace; width: 600px; height: 600px; }
+#my-solution {
+  .violations { background-color: #fdd; border: 1px #f55 solid; margin-top: 1em; padding: 20px; }
+  .violations p { margin: 0 0 1em 0; }
+  textarea#code { font-family: $font-monospace; width: 600px; height: 600px; }
+}
+
+p.task-guide-notice { font-style: italic; color: $quiet; }
+#submission-guide { @include content; }
