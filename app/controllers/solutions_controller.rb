@@ -14,7 +14,7 @@ class SolutionsController < ApplicationController
     respond_to do |format|
       format.html
       format.rss do
-        @comments = get_comments_for_task(@task)
+        @comments = @task.comments
         response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
       end
     end
@@ -33,11 +33,4 @@ class SolutionsController < ApplicationController
     redirect_to solution
   end
 
-  def get_comments_for_task(task)
-    task.solutions
-        .map { |solution| solution.comments }
-        .inject(:+)
-        .to_a
-        .sort_by { |comment| comment.created_at }
-  end
 end
