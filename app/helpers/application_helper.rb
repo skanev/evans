@@ -30,6 +30,6 @@ module ApplicationHelper
 
   def rss_feed(url)
     alt_text = 'Абонирайте се за RSS Feed към тази страница'
-    link_to image_tag('rss.gif', {:alt => alt_text}), url, { :id => 'rss_feed' }
+    link_to image_tag('rss.gif', {:alt => alt_text}), url, :id => 'rss_feed'
   end
 end

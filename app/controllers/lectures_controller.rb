@@ -23,7 +23,11 @@ class LecturesController < ApplicationController
 
     def initialize(lecture)
       @title = lecture[:title].sub /^\d+\.\s+/, ''
-      @url = (lecture.has_key?(:slug) and "/lectures/#{lecture[:slug]}") or lecture[:url]
+      @url = if lecture.has_key? :slug
+        "/lectures/#{lecture[:slug]}"
+      else
+        lecture[:url]
+      end
       @created_at = lecture[:date]
     end
   end
