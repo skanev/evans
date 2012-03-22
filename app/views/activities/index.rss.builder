@@ -20,7 +20,7 @@ def feed_title(activity)
 end
 
 def feed_body(activity)
-  render 'activity_content', :activity => activity
+  render 'activity_content.html', :activity => activity
 end
 
 def feed_date(activity)
