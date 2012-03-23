@@ -1,6 +1,6 @@
 # variables to be used from default layout
 @title = "Решения на #{@task.name}"
-@items = @comments
+@items = @task.comments
 
 # methods to be used from default layout
 def feed_path(comment)
