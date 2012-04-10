@@ -2,7 +2,7 @@ class Task < ActiveRecord::Base
   MAX_POINTS = 6
 
   validates_presence_of :name, :description
-  validate :restrictions_must_be_valid_yaml
+  validate :restrictions_must_be_valid
   validates_numericality_of :max_points, allow_nil: true
 
   has_many :solutions
@@ -29,8 +29,9 @@ class Task < ActiveRecord::Base
 
   private
 
-  def restrictions_must_be_valid_yaml
-    YAML.load(restrictions)
+  def restrictions_must_be_valid
+    restrictions_hash = YAML.load(restrictions)
+    errors.add :restrictions, :not_a_hash unless restrictions_hash.respond_to?(:each)
   rescue Psych::SyntaxError
     errors.add :restrictions, :invalid
   end

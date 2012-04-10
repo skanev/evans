@@ -8,6 +8,7 @@ bg:
       confirmation: не съвпада
       taken: e заето
       not_a_number: трябва да е число
+      not_a_hash: трябва да е хеш
   simple_form:
     error_notification:
       default_message: 'Намерихме няколко грешки. Погледнете и пробвайте пак:'
