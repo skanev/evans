@@ -31,7 +31,7 @@ class Task < ActiveRecord::Base
 
   def restrictions_must_be_valid
     restrictions_hash = YAML.load(restrictions)
-    errors.add :restrictions, :not_a_hash unless restrictions_hash.respond_to?(:each)
+    errors.add :restrictions, :not_a_hash unless restrictions_hash.is_a? Hash
   rescue Psych::SyntaxError
     errors.add :restrictions, :invalid
   end
