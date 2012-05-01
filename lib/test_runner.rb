@@ -1,8 +1,10 @@
+require 'open3'
+
 class TestRunner
-  attr_reader :passed_count, :failures_count, :results, :log
+  attr_reader :passed_count, :failures_count, :log
 
   def initialize(test, solution)
-    @test     = test
+    @test = test
     @solution = solution
   end
 
@@ -15,20 +17,32 @@ class TestRunner
   end
 
   def run
-    Dir.mktmpdir do |dir|
-      spec_path     = Pathname(dir).join('spec.rb')
-      solution_path = Pathname(dir).join('solution.rb')
+    ENV['PYTHONPATH'] = Rails.root.join("python").to_s
 
-      open(spec_path, 'w') { |file| file.write @test.encode('utf-8') }
-      open(solution_path, 'w') { |file| file.write @solution }
+    solution_path = make_temp_file(@solution, 'solution')
+    test_path = make_temp_file(@test, 'test')
 
-      output = `ruby lib/homework/runner.rb #{spec_path} #{solution_path}`
-      json, log = output.split("\nLOG:\n", 2)
+    Open3.popen3("python3.2", test_path, solution_path) do |stdin, stdout, stderr|
+      load_log stdout.read + stderr.read
+    end
+  end
 
-      @log            = log
-      @results        = JSON.parse json
-      @passed_count   = results['passed'].try(:count) || 0
-      @failures_count = results['failed'].try(:count) || 0
+  private
+
+  def make_temp_file(code, name)
+    file = Tempfile.new(name)
+    file.write code
+    file.close
+    file.path
+  end
+
+  def load_log(output)
+    if /\A(\d+) (\d+)\n/ =~ output
+      @passed_count, @failures_count = [$1, $2].map(&:to_i)
+      @log = $'
+    else
+      @passed_count, @failures_count = 0, 0, 0
+      @log = output
     end
   end
 end
