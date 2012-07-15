@@ -1,8 +1,7 @@
-# This is a fairly experimental implementation of an activity feed. I'm
-# very curious whether I can this out with a fat SQL query
+#encoding: utf-8
 class Feed
   def each_activity
-    ActiveRecord::Base.connection.execute(activity_query).each do |row|
+    activity_query.each do |row|
       yield Activity.new(row)
     end
   end
@@ -10,35 +9,20 @@ class Feed
   private
 
   def activity_query
-    <<-SQL
-      (
-        SELECT
-          'comment'            AS kind,
-          comments.user_id     AS user_id,
-          users.full_name      AS user_name,
-          comments.solution_id AS target_id,
-          tasks.id             AS secondary_id,
-          tasks.name           AS subject,
-          comments.created_at  AS happened_at
-        FROM comments
-          LEFT JOIN users     ON comments.user_id = users.id
-          LEFT JOIN solutions ON comments.solution_id = solutions.id
-          LEFT JOIN tasks     ON solutions.task_id = tasks.id
-      ) UNION (
-        SELECT
-          'solution'           AS kind,
-          solutions.user_id    AS user_id,
-          users.full_name      AS user_name,
-          solutions.id         AS target_id,
-          solutions.task_id    AS secondary_id,
-          tasks.name           AS subject,
-          solutions.updated_at AS happened_at
-        FROM solutions
-          LEFT JOIN users ON solutions.user_id = users.id
-          LEFT JOIN tasks ON solutions.task_id = tasks.id
-      )
-      ORDER BY happened_at DESC
-    SQL
+    activities = Comment.all.concat(Solution.all).map do |activity|
+      solution = activity.kind_of?(Comment) ? activity.solution : activity
+      {
+        kind:         activity.kind_of?(Comment) ? 'comment' : 'solution',
+        user_id:      activity.user.id,
+        user_name:    activity.user.full_name,
+        target_id:    solution.id,
+        secondary_id: solution.task.id,
+        subject:      solution.task.name,
+        happened_at:  activity.kind_of?(Comment) ? activity.created_at : activity.updated_at
+      }
+    end
+
+    activities.sort_by { |x| x[:happened_at] }.reverse # DESC sort (the soonest are first)
   end
 
   class Activity
@@ -51,8 +35,17 @@ class Feed
       end
     end
 
+    def describe
+      case @kind
+        when :comment
+          "остави коментар на"
+        when :solution
+          "предаде"
+      end
+    end
+
     private
-    
+
     def set(name, value)
       converted = case name
         when :kind      then value.to_sym

@@ -3,7 +3,15 @@ class TopicsController < ApplicationController
   before_filter :authorize, :only => [:edit, :update]
 
   def index
-    @topics = Topic.boards_page params[:page] || 1
+    respond_to do |format|
+      format.html do
+        @topics = Topic.boards_page params[:page] || 1
+      end
+      format.rss do
+        @posts = Post.all
+        response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
+      end
+    end
   end
 
   def new

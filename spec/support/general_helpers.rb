@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Support
   module GeneralHelpers
     def fixture_file(file_name)
@@ -6,6 +8,14 @@ module Support
 
     def uploaded_photo
       File.open fixture_file('beholder.jpg')
+    end
+
+    def rss_image_path
+      "/assets/rss.gif"
+    end
+
+    def rss_title(title)
+      "Програмиране с Ruby :: #{title}"
     end
   end
 end

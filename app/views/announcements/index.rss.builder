@@ -1,24 +1,8 @@
-xml.instruct! :xml, :version => "1.0", :encoding => 'UTF-8'
-xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'xmlns:content' => 'http://purl.org/rss/1.0/modules/content' do
-  xml.channel do
-    xml.title       'Програмиране с Python :: Новини'
-    xml.link        'http://fmi.py-bg.bg/'
-    xml.description 'Новини за курса "Програмиране с Python"'
-    xml.language    'bg-BG'
+# variables to be used from default layout
+@title = 'Новини'
+@items = @announcements
 
-    @announcements.each do |announcement|
-      xml.item do
-        xml.title   announcement.title
-        xml.link    announcement_path(announcement, :only_path => false)
-
-        xml.description { xml.cdata! Markup.format(announcement.body) }
-        xml.tag!('content:encoded') { xml.cdata! Markup.format(announcement.body) }
-
-        xml.pubDate announcement.created_at.rfc2822
-        xml.guid    announcement_path(announcement, :only_path => false)
-      end
-    end
-  end
+# methods to be used from default layout
+def feed_path(announcement)
+  announcement_path announcement, :only_path => false
 end
-
-

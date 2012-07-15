@@ -1,5 +1,8 @@
 #tasks
-  %h1 Задачи
+  %h1
+    Задачи
+    = rss_feed tasks_url(:rss)
+
   = admin_only do
     = link_to 'Нова', new_task_path
 

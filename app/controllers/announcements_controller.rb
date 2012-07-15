@@ -4,11 +4,6 @@ class AnnouncementsController < ApplicationController
 
   def index
     @announcements = Announcement.page params[:page]
-
-    respond_to do |format|
-      format.html
-      format.rss { response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8' }
-    end
   end
 
   def new

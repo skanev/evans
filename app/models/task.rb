@@ -6,6 +6,7 @@ class Task < ActiveRecord::Base
   validates_numericality_of :max_points, allow_nil: true
 
   has_many :solutions
+  has_many :comments, :through => :solutions
 
   def closed?
     closes_at.past?
