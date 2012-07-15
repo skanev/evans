@@ -15,7 +15,7 @@ module Support
     end
 
     def rss_title(title)
-      "Програмиране с Ruby :: #{title}"
+      "#{Rails.application.config.site_title} :: #{title}"
     end
   end
 end

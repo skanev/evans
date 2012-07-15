@@ -1,9 +1,9 @@
 xml.instruct! :xml, :version => "1.0", :encoding => 'UTF-8'
 xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'xmlns:content' => 'http://purl.org/rss/1.0/modules/content' do
   xml.channel do
-    xml.title       "Програмиране с Ruby :: #{@title}"
-    xml.link        'http://fmi.ruby.bg/'
-    xml.description "#{@title} към курса \"Програмиране с Ruby\""
+    xml.title       "#{Rails.application.config.site_title} :: #{@title}"
+    xml.link        "http://#{Rails.application.config.site_domain}" 
+    xml.description "#{@title} към курса \"#{Rails.application.config.site_title}\""
     xml.language    'bg-BG'
 
     @items.present? and @items.each do |item|

@@ -49,5 +49,6 @@ module Trane
     config.site_domain   = 'fmi.py-bg.net'
     config.contact_email = 'fmi@py-bg.net'
     config.email_from    = '"Програмиране с Python във ФМИ" <' + config.contact_email + '>'
+    config.site_title    = 'Програмиране с Python'
   end
 end
