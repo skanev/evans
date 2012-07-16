@@ -4,6 +4,7 @@ gem 'rails', '3.1.1'
 gem 'pg'
 
 gem 'devise'
+gem 'devise-encryptable'
 gem 'simple_form'
 gem 'haml'
 gem 'will_paginate'

@@ -1,10 +1,10 @@
 # encoding: utf-8
 Дадено 'че "$name" има следните решения:' do |name, table|
-  task = Factory(:closed_task, :name => name)
+  task = create :closed_task, :name => name
 
   table.hashes.each do |row|
     attributes = {
-      :user => Factory(:user, :full_name => row['Студент']),
+      :user => create(:user, :full_name => row['Студент']),
       :task => task,
       :passed_tests => row['Успешни'],
       :failed_tests => row['Неуспешни'],
@@ -12,23 +12,23 @@
       :log => row['Лог'],
     }
 
-    Factory(:solution, attributes)
+    create :solution, attributes
   end
 end
 
 Дадено 'че има отворена задача "$name"' do |name|
-  Factory(:task, :name => name)
+  create :task, :name => name
 end
 
 Дадено 'че студент "$user" е предал решение на задача "$task"' do |user_name, task_name|
-  user = FactoryGirl.create :user, full_name: user_name
-  task = FactoryGirl.create :task, name: task_name
-  FactoryGirl.create :solution, user: user, task: task
+  user = create :user, full_name: user_name
+  task = create :task, name: task_name
+  create :solution, user: user, task: task
 end
 
 Дадено 'че съм предал решение на текуща задача' do
-  task = FactoryGirl.create :open_task
-  FactoryGirl.create :solution, :task => task, :user => current_user
+  task = create :open_task
+  create :solution, :task => task, :user => current_user
 end
 
 Когато 'опитам да предам следното решение на "$task_name":' do |task_name, code|

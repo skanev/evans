@@ -4,7 +4,7 @@ describe MySolutionsController do
   log_in_as :student
 
   describe "GET show" do
-    let(:task) { Factory.stub(:task) }
+    let(:task) { build_stubbed :task }
 
     before do
       Task.stub :find => task

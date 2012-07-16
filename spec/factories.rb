@@ -42,7 +42,7 @@ FactoryGirl.define do
   end
 
   factory :voucher do
-    code { Factory.next(:voucher_code) }
+    code { FactoryGirl.generate(:voucher_code) }
   end
 
   factory :announcement do
@@ -79,7 +79,7 @@ FactoryGirl.define do
   end
 
   factory :quiz do
-    name { Factory.next(:quiz_name) }
+    name { FactoryGirl.generate(:quiz_name) }
   end
 
   factory :quiz_result do

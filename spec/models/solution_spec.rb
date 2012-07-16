@@ -4,15 +4,15 @@ describe Solution do
   it { should validate_presence_of(:user_id) }
   it { should validate_presence_of(:task_id) }
   it { should validate_presence_of(:code) }
-  it { Factory(:solution).should validate_uniqueness_of(:user_id).scoped_to(:task_id) }
+  it { create(:solution).should validate_uniqueness_of(:user_id).scoped_to(:task_id) }
 
   it { should belong_to(:user) }
   it { should belong_to(:task) }
   it { should have_many(:comments) }
 
   it "can find all the solutions for task" do
-    task = FactoryGirl.create :task
-    solution = FactoryGirl.create :solution, :task => task
+    task = create :task
+    solution = create :solution, :task => task
 
     Solution.for_task(task.id).should == [solution]
   end
@@ -24,11 +24,11 @@ describe Solution do
   end
 
   describe "looking up the code of an existing solution" do
-    let(:user) { FactoryGirl.create :user }
-    let(:task) { FactoryGirl.create :task }
+    let(:user) { create :user }
+    let(:task) { create :task }
 
     it "retuns the code as a string" do
-      FactoryGirl.create :solution, :user => user, :task => task, :code => 'code'
+      create :solution, :user => user, :task => task, :code => 'code'
       Solution.code_for(user, task).should == 'code'
     end
 
@@ -81,31 +81,31 @@ describe Solution do
       [12, 6, 4],
     ].each do |passed, failed, points|
       it "has #{points} points for #{passed} passed and #{failed} failed tests" do
-        FactoryGirl.build(:solution, passed_tests: passed, failed_tests: failed).points.should eq points
+        build(:solution, passed_tests: passed, failed_tests: failed).points.should eq points
       end
     end
 
     it "has 0 points if not checked" do
-      FactoryGirl.build(:solution).points.should eq 0
+      build(:solution).points.should eq 0
     end
 
     it "delegates max_points to task" do
-      solution = FactoryGirl.build(:solution, passed_tests: 10, failed_tests: 0)
+      solution = build(:solution, passed_tests: 10, failed_tests: 0)
 
       solution.max_points.should eq Task::MAX_POINTS
     end
 
     it "allows non-default max points to be set" do
-      solution = FactoryGirl.build(:solution, passed_tests: 10, failed_tests: 0)
+      solution = build(:solution, passed_tests: 10, failed_tests: 0)
       solution.task.max_points = 8
 
       solution.points.should eq 8
     end
 
     it "applies the adjustment to the points" do
-      FactoryGirl.build(:solution, passed_tests: 6, failed_tests: 0, adjustment: 3).points.should eq 9
-      FactoryGirl.build(:solution, passed_tests: 6, failed_tests: 0, adjustment: -2).points.should eq 4
-      FactoryGirl.build(:solution, passed_tests: 1, failed_tests: 5, adjustment: -2).points.should eq 0
+      build(:solution, passed_tests: 6, failed_tests: 0, adjustment: 3).points.should eq 9
+      build(:solution, passed_tests: 6, failed_tests: 0, adjustment: -2).points.should eq 4
+      build(:solution, passed_tests: 1, failed_tests: 5, adjustment: -2).points.should eq 0
     end
   end
 end

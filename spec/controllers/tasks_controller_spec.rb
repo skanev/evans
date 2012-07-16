@@ -28,7 +28,7 @@ describe TasksController do
   describe "POST create" do
     log_in_as :admin
 
-    let(:task) { Factory.stub(:task) }
+    let(:task) { build_stubbed :task }
 
     before do
       Task.stub :new => task
@@ -94,7 +94,7 @@ describe TasksController do
   end
 
   describe "PUT update" do
-    let(:task) { Factory.stub(:task) }
+    let(:task) { build_stubbed :task }
 
     log_in_as :admin
 

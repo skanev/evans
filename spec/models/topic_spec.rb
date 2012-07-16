@@ -5,8 +5,8 @@ describe Topic do
   it { should validate_presence_of(:title) }
 
   it "does not allow mass reassignment of user_id" do
-    original, modified = FactoryGirl.create(:user), FactoryGirl.create(:user)
-    topic = FactoryGirl.create :topic, :user => original
+    original, modified = create(:user), create(:user)
+    topic = create :topic, :user => original
 
     topic.update_attributes! :user_id => modified.id
 
@@ -15,7 +15,7 @@ describe Topic do
 
   it "supports paging, ordering in reverse chronological order of the last post" do
     create_topic_with_last_reply_at = lambda do |timestamp|
-      FactoryGirl.create(:reply, :created_at => timestamp).topic
+      create(:reply, :created_at => timestamp).topic
     end
 
     second = create_topic_with_last_reply_at.call 2.days.ago
@@ -28,9 +28,9 @@ describe Topic do
   end
 
   it "can paginate its replies" do
-    topic  = FactoryGirl.create :topic, :created_at => 3.days.ago
-    first  = FactoryGirl.create :reply, :topic => topic, :created_at => 2.days.ago
-    second = FactoryGirl.create :reply, :topic => topic, :created_at => 1.day.ago
+    topic  = create :topic, :created_at => 3.days.ago
+    first  = create :reply, :topic => topic, :created_at => 2.days.ago
+    second = create :reply, :topic => topic, :created_at => 1.day.ago
 
     Reply.stub :per_page => 1
 
@@ -39,19 +39,19 @@ describe Topic do
   end
 
   it "can be edited by its owner or by an admin" do
-    topic = FactoryGirl.create :topic
+    topic = create :topic
 
-    topic.should be_editable_by(topic.user)
-    topic.should be_editable_by(Factory(:admin))
+    topic.should be_editable_by topic.user
+    topic.should be_editable_by create(:admin)
 
-    topic.should_not be_editable_by(Factory(:user))
-    topic.should_not be_editable_by(nil)
+    topic.should_not be_editable_by create(:user)
+    topic.should_not be_editable_by nil
   end
 
   it "can tell how many pages of replies it has" do
     topic_with_replies = lambda do |count|
       topic = FactoryGirl.create :topic
-      count.times { FactoryGirl.create :reply, :topic => topic }
+      count.times { create :reply, :topic => topic }
       topic.reload
     end
 
@@ -67,11 +67,11 @@ describe Topic do
   end
 
   describe "last reply id" do
-    let(:topic) { FactoryGirl.create :topic }
+    let(:topic) { create :topic }
 
     it "is the id of the last reply if there are any replies" do
-      one = FactoryGirl.create :reply, :topic => topic
-      two = FactoryGirl.create :reply, :topic => topic
+      one = create :reply, :topic => topic
+      two = create :reply, :topic => topic
 
       topic.last_reply_id.should eq two.id
     end
@@ -86,7 +86,7 @@ describe Topic do
 
     it "is the topic itself initially" do
       Timecop.freeze(Time.now) do
-        topic = FactoryGirl.create :topic
+        topic = create :topic
 
         topic_with_last_post.last_poster.should == topic.user
         topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
@@ -97,11 +97,11 @@ describe Topic do
       topic = nil
 
       Timecop.freeze(1.day.ago) do
-        topic = FactoryGirl.create :topic
+        topic = create :topic
       end
 
       Timecop.freeze(1.hour.ago) do
-        reply = FactoryGirl.create :reply, :topic => topic
+        reply = create :reply, :topic => topic
 
         topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
         topic_with_last_post.last_poster.should == reply.user
@@ -110,7 +110,7 @@ describe Topic do
   end
 
   it_behaves_like 'Post' do
-    let(:post) { Factory(:topic) }
-    let(:starred_post) { Factory(:topic, :starred => true) }
+    let(:post) { create :topic }
+    let(:starred_post) { create :topic, :starred => true }
   end
 end

@@ -1,6 +1,6 @@
 # encoding: utf-8
 Дадено 'че съществува свободен ваучър "$code"' do |code|
-  Factory(:voucher, :code => code)
+  create :voucher, :code => code
 end
 
 То 'трябва да виждам следните ваучъри:' do |table|

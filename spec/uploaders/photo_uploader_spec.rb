@@ -6,7 +6,7 @@ describe PhotoUploader do
 
   before do
     PhotoUploader.enable_processing = true
-    @uploader = PhotoUploader.new(Factory(:user), :photo)
+    @uploader = PhotoUploader.new create(:user), :photo
     @uploader.store! File.open(fixture_file('beholder.jpg'))
   end
 

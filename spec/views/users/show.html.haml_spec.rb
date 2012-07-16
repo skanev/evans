@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "users/show.html.haml" do
-  let(:user) { Factory.stub(:user) }
+  let(:user) { build_stubbed :user }
   let(:points_breakdown) { double('points breakdown') }
 
   before do
@@ -23,7 +23,7 @@ describe "users/show.html.haml" do
 
     it "shows links to starred posts of the user" do
       points_breakdown.stub :having_starred_posts? => true
-      points_breakdown.should_receive(:each_starred_post_with_title).and_yield(Factory.stub(:reply), "Post title")
+      points_breakdown.should_receive(:each_starred_post_with_title).and_yield(build_stubbed(:reply), "Post title")
       view.stub :post_path => '/post-path'
 
       render
@@ -49,7 +49,7 @@ describe "users/show.html.haml" do
     end
 
     it "doesn't show a link to the edit profile page if viewing someone else's profile" do
-      assign :user, Factory.stub(:user)
+      assign :user, build_stubbed(:user)
 
       render
 

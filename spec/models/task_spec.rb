@@ -8,8 +8,8 @@ describe Task do
   it { should have_many(:solutions) }
 
   it "can tell whether it is closed" do
-    Factory(:task).should_not be_closed
-    Factory(:closed_task).should be_closed
+    create(:task).should_not be_closed
+    create(:closed_task).should be_closed
   end
 
   describe "restrictions" do

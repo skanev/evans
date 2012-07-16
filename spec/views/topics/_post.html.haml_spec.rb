@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'topics/_post.html.haml' do
-  let(:post) { Factory.stub(:topic, :created_at => Time.now) }
+  let(:post) { build_stubbed :topic, :created_at => Time.now }
 
   before do
     view.stub :post => post

@@ -4,8 +4,8 @@ describe RepliesController do
   log_in_as :student
 
   describe "POST create" do
-    let(:topic) { Factory.stub(:topic) }
-    let(:reply) { Factory.stub(:reply) }
+    let(:topic) { build_stubbed :topic }
+    let(:reply) { build_stubbed :reply }
 
     before do
       Topic.stub :find => topic
@@ -94,8 +94,8 @@ describe RepliesController do
   end
 
   describe "PUT update" do
-    let(:reply) { Factory.stub(:reply) }
-    let(:topic) { Factory.stub(:topic) }
+    let(:reply) { build_stubbed :reply }
+    let(:topic) { build_stubbed :topic }
 
     before do
       Reply.stub :find => reply

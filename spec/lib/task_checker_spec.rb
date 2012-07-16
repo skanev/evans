@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe TaskChecker do
   it "runs the test against each solution and updates it" do
-    task = Factory(:task, :test_case => 'test case')
-    solution = Factory(:solution, :task => task, :code => 'solution code')
+    task = create :task, :test_case => 'test case'
+    solution = create :solution, :task => task, :code => 'solution code'
 
     TestRunner.should_receive(:run).with('test case', 'solution code').and_return([2, 1, 'log'])
     TaskChecker.new(task).run

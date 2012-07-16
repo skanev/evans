@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'spork'
- 
+
 Spork.prefork do
   ENV["RAILS_ENV"] ||= "test"
   require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
@@ -16,6 +16,8 @@ Spork.prefork do
 
   Capybara.default_selector = :css
   Cucumber::Rails::World.use_transactional_fixtures = true
+
+  World(FactoryGirl::Syntax::Methods)
 end
 
 Spork.each_run do

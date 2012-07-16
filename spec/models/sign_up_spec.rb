@@ -3,13 +3,13 @@ require 'spec_helper'
 describe SignUp do
   describe ".with_token" do
     it "looks up by token" do
-      sign_up = FactoryGirl.create :sign_up, :token => 'token'
+      sign_up = create :sign_up, :token => 'token'
       SignUp.with_token('token').should == sign_up
     end
 
     it "never finds empty tokens" do
-      FactoryGirl.create :sign_up, :token => nil
-      FactoryGirl.create :sign_up, :token => ''
+      create :sign_up, :token => nil
+      create :sign_up, :token => ''
 
       SignUp.with_token(nil).should be_nil
       SignUp.with_token('').should be_nil
@@ -17,7 +17,7 @@ describe SignUp do
   end
 
   describe "assigning to an email address" do
-    let(:sign_up) { FactoryGirl.create :sign_up }
+    let(:sign_up) { create :sign_up }
 
     it "updates the email to the assigned one" do
       sign_up.assign_to('peter@example.org')

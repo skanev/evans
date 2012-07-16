@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe Activation do
   it "can be constructed with a SignUp token" do
-    sign_up = FactoryGirl.create :sign_up, :token => 'token'
+    sign_up = create :sign_up, :token => 'token'
 
     Activation.for('token').should be_present
     Activation.for('unexisting').should be_nil
   end
 
   it "validates the password's confirmation" do
-    activation = Activation.new Factory(:assigned_sign_up)
+    activation = Activation.new create(:assigned_sign_up)
 
     activation.password = 'right'
     activation.password_confirmation = 'wrong'
@@ -19,7 +19,7 @@ describe Activation do
   end
 
   describe "on submission" do
-    let(:sign_up) { Factory(:assigned_sign_up) }
+    let(:sign_up) { create(:assigned_sign_up) }
     let(:activation) { Activation.new(sign_up) }
     let(:valid_attributes) {{:password => 'larodi', :password_confirmation => 'larodi'}}
 

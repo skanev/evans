@@ -1,7 +1,7 @@
 # encoding: utf-8
 Дадено 'че съществува новина:' do |title|
   title, body = title.rows_hash.values_at('Заглавие', 'Тяло')
-  Factory(:announcement, :title => title, :body => body)
+  create :announcement, :title => title, :body => body
 end
 
 То 'трябва да съществува новина "$title"' do |title|
