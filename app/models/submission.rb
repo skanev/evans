@@ -1,6 +1,4 @@
 class Submission
-  extend ActiveSupport::Memoizable
-
   def initialize(user, task, code)
     @user = user
     @task = task
@@ -29,7 +27,7 @@ class Submission
   private
 
   def critic
-    Skeptic::Critic.new.tap do |critic|
+    @critic ||= Skeptic::Critic.new.tap do |critic|
       @task.restrictions_hash.each do |rule, option|
         critic.send "#{rule}=", option
       end
@@ -37,5 +35,4 @@ class Submission
       critic.criticize @code
     end
   end
-  memoize :critic
 end

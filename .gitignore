@@ -6,7 +6,7 @@ tmp/**/*
 config/database.yml
 config/secret_token.txt
 config/pepper.txt
-db/development_structure.sql
+db/structure.sql
 public/stylesheets/trane.css
 public/uploads
 Sporkfile.rb
