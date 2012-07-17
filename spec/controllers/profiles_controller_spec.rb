@@ -6,7 +6,7 @@ describe ProfilesController do
   describe "GET edit" do
     it "assigns my user to @user" do
       get :edit
-      assigns(:user).should == current_user
+      assigns(:user).should eq current_user
     end
 
     it "denies access if unauthenticated" do
@@ -23,7 +23,7 @@ describe ProfilesController do
 
     it "assigns my user to @user" do
       put :update
-      assigns(:user).should == current_user
+      assigns(:user).should eq current_user
     end
 
     it "updates my user" do

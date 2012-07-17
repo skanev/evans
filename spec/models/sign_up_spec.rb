@@ -4,7 +4,7 @@ describe SignUp do
   describe ".with_token" do
     it "looks up by token" do
       sign_up = create :sign_up, token: 'token'
-      SignUp.with_token('token').should == sign_up
+      SignUp.with_token('token').should eq sign_up
     end
 
     it "never finds empty tokens" do
@@ -21,7 +21,7 @@ describe SignUp do
 
     it "updates the email to the assigned one" do
       sign_up.assign_to('peter@example.org')
-      sign_up.email.should == 'peter@example.org'
+      sign_up.email.should eq 'peter@example.org'
     end
 
     it "generates a random token" do

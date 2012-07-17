@@ -7,7 +7,7 @@ describe SignUpsController do
     it "lists all sign ups" do
       SignUp.should_receive(:all).and_return('sign ups')
       get :index
-      assigns(:sign_ups).should == 'sign ups'
+      assigns(:sign_ups).should eq 'sign ups'
     end
 
     it "denies access unless admin" do

@@ -34,7 +34,7 @@ describe Registration do
 
         registration('Peter', '11111', 'peter@example.org').create
 
-        sign_up.reload.email.should == 'peter@example.org'
+        sign_up.reload.email.should eq 'peter@example.org'
       end
 
       it "sends a confirmation email" do

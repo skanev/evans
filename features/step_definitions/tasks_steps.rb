@@ -25,7 +25,7 @@ end
   task = Task.find_by_name!(name)
   solution = Solution.find_by_user_id_and_task_id(@current_user.id, task.id)
   solution.should be_present
-  solution.code.should == code
+  solution.code.should eq code
 end
 
 Дадено 'че темата "$topic" има "$replies" отговора, последния от които на "$author"' do |title, replies, author_name|

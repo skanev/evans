@@ -29,13 +29,13 @@ describe SolutionsController do
     it "assigns all solutions for the given task to @solutions" do
       Solution.should_receive(:for_task).with('42').and_return('solutions')
       get :index, task_id: '42'
-      assigns(:solutions).should == 'solutions'
+      assigns(:solutions).should eq 'solutions'
     end
 
     it "assigns the task to @task" do
       Task.should_receive(:find).with('42')
       get :index, task_id: '42'
-      assigns(:task).should == task
+      assigns(:task).should eq task
     end
   end
 
@@ -74,7 +74,7 @@ describe SolutionsController do
 
       get :show, task_id: '42', id: '10'
 
-      assigns(:solution).should == solution
+      assigns(:solution).should eq solution
     end
   end
 

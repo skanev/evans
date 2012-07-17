@@ -20,8 +20,8 @@ END
 
     runner.run
 
-    runner.passed_count.should == 0
-    runner.failures_count.should == 0
+    runner.passed_count.should eq 0
+    runner.failures_count.should eq 0
   end
 
   describe "on successful run" do
@@ -38,11 +38,11 @@ END
     end
 
     it "calculates the number of passed tests" do
-      @runner.passed_count.should == 3
+      @runner.passed_count.should eq 3
     end
 
     it "calculates the number of failed tests" do
-      @runner.failures_count.should == 3
+      @runner.failures_count.should eq 3
     end
 
     it "collects the execution log" do

@@ -5,7 +5,7 @@ describe AnnouncementsController do
     it "assigns a page of news to @announcements" do
       Announcement.should_receive(:page).with('3').and_return('announcements')
       get :index, page: '3'
-      assigns(:announcements).should == 'announcements'
+      assigns(:announcements).should eq 'announcements'
     end
   end
 
@@ -21,7 +21,7 @@ describe AnnouncementsController do
     it "assigns a new announcement to @announcement" do
       Announcement.stub new: 'announcement'
       get :new
-      assigns(:announcement).should == 'announcement'
+      assigns(:announcement).should eq 'announcement'
     end
   end
 
@@ -48,7 +48,7 @@ describe AnnouncementsController do
 
     it "assigns the new announcement to @announcement" do
       post :create
-      assigns(:announcement).should == announcement
+      assigns(:announcement).should eq announcement
     end
 
     it "saves the initialized announcement" do
@@ -81,7 +81,7 @@ describe AnnouncementsController do
     it "assigns the announcement to @announcement" do
       Announcement.should_receive(:find).with('42').and_return('announcement')
       get :edit, id: '42'
-      assigns(:announcement).should == 'announcement'
+      assigns(:announcement).should eq 'announcement'
     end
   end
 
@@ -108,7 +108,7 @@ describe AnnouncementsController do
 
     it "assigns the announcement to @announcement" do
       put :update, id: '42'
-      assigns(:announcement).should == announcement
+      assigns(:announcement).should eq announcement
     end
 
     it "attempts to update the announcement" do

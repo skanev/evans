@@ -13,7 +13,7 @@ describe VouchersController do
     it "assigns all voucher codes to @vouchers" do
       Voucher.stub all: 'vouchers'
       get :index
-      assigns(:vouchers).should == 'vouchers'
+      assigns(:vouchers).should eq 'vouchers'
     end
   end
 

@@ -83,7 +83,7 @@ describe RepliesController do
     it "assigns the reply to @reply" do
       Reply.should_receive(:find).with('20')
       get :edit, topic_id: 10, id: '20'
-      assigns(:reply).should == reply
+      assigns(:reply).should eq reply
     end
 
     it "denies access if the user cannot edit the reply" do
@@ -113,7 +113,7 @@ describe RepliesController do
     it "assigns the reply to @reply" do
       Reply.should_receive(:find).with('20')
       put :update, topic_id: 10, id: '20'
-      assigns(:reply).should == reply
+      assigns(:reply).should eq reply
     end
 
     it "updates the reply" do

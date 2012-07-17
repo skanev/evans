@@ -10,8 +10,8 @@ describe Announcement do
 
     Announcement.stub per_page: 1
 
-    Announcement.page(1).should == [first]
-    Announcement.page(2).should == [second]
+    Announcement.page(1).should eq [first]
+    Announcement.page(2).should eq [second]
   end
 
   it "retuns the latest announcements" do

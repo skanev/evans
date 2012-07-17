@@ -101,7 +101,7 @@ Then /^(?:|I )should see JSON:$/ do |expected_json|
   require 'json'
   expected = JSON.pretty_generate(JSON.parse(expected_json))
   actual   = JSON.pretty_generate(JSON.parse(response.body))
-  expected.should == actual
+  expected.should eq actual
 end
 
 Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
@@ -195,7 +195,7 @@ end
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
-    current_path.should == path_to(page_name)
+    current_path.should eq path_to(page_name)
   else
     assert_equal path_to(page_name), current_path
   end
@@ -208,7 +208,7 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
   
   if actual_params.respond_to? :should
-    actual_params.should == expected_params
+    actual_params.should eq expected_params
   else
     assert_equal expected_params, actual_params
   end

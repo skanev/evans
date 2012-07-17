@@ -9,8 +9,8 @@ describe TaskChecker do
     TaskChecker.new(task).run
 
     solution.reload
-    solution.passed_tests.should == 2
-    solution.failed_tests.should == 1
-    solution.log.should == 'log'
+    solution.passed_tests.should eq 2
+    solution.failed_tests.should eq 1
+    solution.log.should eq 'log'
   end
 end

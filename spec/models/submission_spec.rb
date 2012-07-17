@@ -16,7 +16,7 @@ describe Submission do
     submit user, task, 'new code'
 
     solution.reload
-    solution.code.should == 'new code'
+    solution.code.should eq 'new code'
   end
 
   it "indicates if the submission is successful" do
@@ -36,7 +36,7 @@ describe Submission do
     submit user, task, 'new code'
 
     solution.reload
-    solution.code.should == 'old code'
+    solution.code.should eq 'old code'
   end
 
   describe "task with restrictions" do

@@ -24,13 +24,13 @@ describe MySolutionsController do
 
     it "assigns the task to @task" do
       get :show, task_id: '42'
-      assigns(:task).should == task
+      assigns(:task).should eq task
     end
 
     it "assigns the existing solutions' code to @code" do
       Solution.should_receive(:code_for).with(current_user, task).and_return('code')
       get :show, task_id: '42'
-      assigns(:code).should == 'code'
+      assigns(:code).should eq 'code'
     end
   end
 
@@ -53,12 +53,12 @@ describe MySolutionsController do
     it "assigns the task to @task" do
       Task.should_receive(:find).with('42').and_return(task)
       put :update, task_id: '42'
-      assigns(:task).should == task
+      assigns(:task).should eq task
     end
 
     it "assigns params[:code] to @code" do
       put :update, task_id: '42', code: 'code'
-      assigns(:code).should == 'code'
+      assigns(:code).should eq 'code'
     end
 
     it "assigns the submission to @submission" do

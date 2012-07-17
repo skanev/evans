@@ -7,7 +7,7 @@ describe TopicsController do
     it "assigns a page of topics to @topics" do
       Topic.should_receive(:boards_page).with('3').and_return 'topics'
       get :index, page: '3'
-      assigns(:topics).should == 'topics'
+      assigns(:topics).should eq 'topics'
     end
 
     it "shows the first page by default" do
@@ -20,7 +20,7 @@ describe TopicsController do
     it "assigns an empty topic to @topic" do
       Topic.stub new: 'topic'
       get :new
-      assigns(:topic).should == 'topic'
+      assigns(:topic).should eq 'topic'
     end
   end
 
@@ -79,19 +79,19 @@ describe TopicsController do
     it "assigns the topic to @topic" do
       Topic.should_receive(:find).with('42').and_return(topic)
       get :show, id: '42'
-      assigns(:topic).should == topic
+      assigns(:topic).should eq topic
     end
 
     it "assigns a page of replies to @replies" do
       topic.should_receive(:replies_on_page).with('4').and_return('page 4')
       get :show, id: '42', page: '4'
-      assigns(:replies).should == 'page 4'
+      assigns(:replies).should eq 'page 4'
     end
 
     it "assigns an empty reply to @reply" do
       Reply.stub new: 'reply'
       get :show, id: '42'
-      assigns(:reply).should == 'reply'
+      assigns(:reply).should eq 'reply'
     end
   end
 
@@ -106,7 +106,7 @@ describe TopicsController do
     it "assigns the topic to @topic" do
       Topic.should_receive(:find).with('42')
       get :edit, id: '42'
-      assigns(:topic).should == topic
+      assigns(:topic).should eq topic
     end
 
     it "denies access if the user cannot edit the topic" do
@@ -128,7 +128,7 @@ describe TopicsController do
     it "assigns the topic to @topic" do
       Topic.should_receive(:find).with('42').and_return(topic)
       put :update, id: '42'
-      assigns(:topic).should == topic
+      assigns(:topic).should eq topic
     end
 
     it "updates the topic" do

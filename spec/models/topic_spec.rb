@@ -10,7 +10,7 @@ describe Topic do
 
     topic.update_attributes! user_id: modified.id
 
-    topic.reload.user.should == original
+    topic.reload.user.should eq original
   end
 
   it "supports paging, ordering in reverse chronological order of the last post" do
@@ -23,8 +23,8 @@ describe Topic do
 
     Topic.stub per_page: 1
 
-    Topic.boards_page(1).should == [first]
-    Topic.boards_page(2).should == [second]
+    Topic.boards_page(1).should eq [first]
+    Topic.boards_page(2).should eq [second]
   end
 
   it "can paginate its replies" do
@@ -34,8 +34,8 @@ describe Topic do
 
     Reply.stub per_page: 1
 
-    topic.replies_on_page(1).should == [first]
-    topic.replies_on_page(2).should == [second]
+    topic.replies_on_page(1).should eq [first]
+    topic.replies_on_page(2).should eq [second]
   end
 
   it "can be edited by its owner or by an admin" do
@@ -57,13 +57,13 @@ describe Topic do
 
     Reply.stub per_page: 2
 
-    topic_with_replies[0].pages_of_replies.should == 1
-    topic_with_replies[2].pages_of_replies.should == 1
-    topic_with_replies[3].pages_of_replies.should == 2
+    topic_with_replies[0].pages_of_replies.should eq 1
+    topic_with_replies[2].pages_of_replies.should eq 1
+    topic_with_replies[3].pages_of_replies.should eq 2
   end
 
   it "gives its own title when asked for the containing topic's title" do
-    Topic.new(title: 'Title').topic_title.should == 'Title'
+    Topic.new(title: 'Title').topic_title.should eq 'Title'
   end
 
   describe "last reply id" do
@@ -88,7 +88,7 @@ describe Topic do
       Timecop.freeze(Time.now) do
         topic = create :topic
 
-        topic_with_last_post.last_poster.should == topic.user
+        topic_with_last_post.last_poster.should eq topic.user
         topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
       end
     end
@@ -104,7 +104,7 @@ describe Topic do
         reply = create :reply, topic: topic
 
         topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
-        topic_with_last_post.last_poster.should == reply.user
+        topic_with_last_post.last_poster.should eq reply.user
       end
     end
   end

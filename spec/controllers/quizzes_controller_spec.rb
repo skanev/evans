@@ -12,13 +12,13 @@ describe QuizzesController do
     it "assigns the quiz to @quiz" do
       Quiz.should_receive(:find).with('42')
       get :show, id: '42'
-      assigns(:quiz).should == quiz
+      assigns(:quiz).should eq quiz
     end
 
     it "assigns the results to @results" do
       quiz.stub results: 'results'
       get :show, id: '42'
-      assigns(:results).should == 'results'
+      assigns(:results).should eq 'results'
     end
   end
 end

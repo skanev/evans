@@ -10,5 +10,5 @@ end
 end
 
 То /^трябва да имам "(\d+)" точк(?:а|и) от ваучъри$/ do |count|
-  Voucher.where(user_id: @current_user.id).count.should == count.to_i
+  Voucher.where(user_id: @current_user.id).count.should eq count.to_i
 end

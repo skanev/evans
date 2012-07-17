@@ -5,7 +5,7 @@ describe UsersController do
     it "paginates all users to @user" do
       User.should_receive(:page).with('3').and_return('users')
       get :index, page: '3'
-      assigns(:users).should == 'users'
+      assigns(:users).should eq 'users'
     end
   end
 
@@ -24,13 +24,13 @@ describe UsersController do
 
     it "assigns the user to @user" do
       get :show, id: '42'
-      assigns(:user).should == user
+      assigns(:user).should eq user
     end
 
     it "assigns a point breakdown of the user to @points_breakdown" do
       PointsBreakdown.should_receive(:new).with(user).and_return('points breakdown')
       get :show, id: '42'
-      assigns(:points_breakdown).should == 'points breakdown'
+      assigns(:points_breakdown).should eq 'points breakdown'
     end
   end
 end

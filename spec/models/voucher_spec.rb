@@ -6,7 +6,7 @@ describe Voucher do
   it "can create a batch of vouchers" do
     Voucher.create_codes "1111\n2222 3333"
 
-    Voucher.count.should == 3
+    Voucher.count.should eq 3
     Voucher.find_by_code('1111').should be_present
     Voucher.find_by_code('2222').should be_present
     Voucher.find_by_code('3333').should be_present
@@ -20,7 +20,7 @@ describe Voucher do
 
       it "assigns the user to the voucher" do
         Voucher.claim(user, voucher.code)
-        voucher.reload.user.should == user
+        voucher.reload.user.should eq user
       end
 
       it "updates the voucher's claimed_at time" do
@@ -42,7 +42,7 @@ describe Voucher do
 
       it "does not change the voucher's owner" do
         Voucher.claim impostor, voucher.code
-        voucher.reload.user.should == owner
+        voucher.reload.user.should eq owner
       end
 
       it "returns false" do

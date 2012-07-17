@@ -10,6 +10,6 @@ describe QuizResult do
     user = create :user, full_name: 'John Doe'
     result = create :quiz_result, user: user
 
-    result.user_name.should == 'John Doe'
+    result.user_name.should eq 'John Doe'
   end
 end

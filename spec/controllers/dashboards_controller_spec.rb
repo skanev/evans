@@ -13,7 +13,7 @@ describe DashboardsController do
     it "assigns the number of points the current user has to @points" do
       current_user.stub points: 2
       get :show
-      assigns(:points).should == 2
+      assigns(:points).should eq 2
     end
   end
 end

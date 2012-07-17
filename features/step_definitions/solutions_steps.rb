@@ -57,7 +57,7 @@ end
 end
 
 То 'трябва да виждам едно решение с "$points" точки' do |points|
-  find('[data-points]').text.should == points
+  find('[data-points]').text.should eq points
 end
 
 То 'трябва да видя, че метода "$method_name" е твърде дълъг' do |method_name|

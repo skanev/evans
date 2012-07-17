@@ -33,7 +33,7 @@ end
 
 То /^"(.*?)" трябва да има "(\d+)" точк(?:а|и)$/ do |name, points|
   user = User.find_by_full_name! name
-  user.points.should == points.to_i
+  user.points.should eq points.to_i
 end
 
 То 'темата "$topic" трябва да има звездичка' do |topic_title|

@@ -23,16 +23,16 @@ describe Reply do
 
     Reply.stub per_page: 2
 
-    first.page_in_topic.should == 1
-    second.page_in_topic.should == 1
-    third.page_in_topic.should == 2
+    first.page_in_topic.should eq 1
+    second.page_in_topic.should eq 1
+    third.page_in_topic.should eq 2
   end
 
   it "gives the title of its topic when asked for the containing topic's title" do
     topic = create :topic, title: 'Topic title'
     reply = create :reply, topic: topic
 
-    reply.topic_title.should == 'Topic title'
+    reply.topic_title.should eq 'Topic title'
   end
 
   it_behaves_like 'Post' do

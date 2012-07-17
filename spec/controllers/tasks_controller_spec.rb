@@ -5,7 +5,7 @@ describe TasksController do
     it "assigns all tasks to @tasks" do
       Task.stub all: 'tasks'
       get :index
-      assigns(:tasks).should == 'tasks'
+      assigns(:tasks).should eq 'tasks'
     end
   end
 
@@ -21,7 +21,7 @@ describe TasksController do
     it "assigns a new task to @task" do
       Task.stub new: 'task'
       get :new
-      assigns(:task).should == 'task'
+      assigns(:task).should eq 'task'
     end
   end
 
@@ -48,7 +48,7 @@ describe TasksController do
 
     it "assigns the new task to @task" do
       post :create
-      assigns(:task).should == task
+      assigns(:task).should eq task
     end
 
     it "attempts to save the task" do
@@ -73,7 +73,7 @@ describe TasksController do
     it "assigns the task to @task" do
       Task.should_receive(:find).with('42').and_return('task')
       get :show, id: '42'
-      assigns(:task).should == 'task'
+      assigns(:task).should eq 'task'
     end
   end
 
@@ -89,7 +89,7 @@ describe TasksController do
     it "assigns the task to @task" do
       Task.should_receive(:find).with('42').and_return('task')
       get :edit, id: '42'
-      assigns(:task).should == 'task'
+      assigns(:task).should eq 'task'
     end
   end
 
@@ -116,7 +116,7 @@ describe TasksController do
 
     it "assigns the task to @task" do
       put :update, id: '42'
-      assigns(:task).should == task
+      assigns(:task).should eq task
     end
 
     it "attempts to update the task with params[:task]" do

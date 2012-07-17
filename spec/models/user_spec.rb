@@ -9,9 +9,9 @@ describe User do
   it { should_not allow_mass_assignment_of(:admin) }
 
   it "displays only first and last name" do
-    build(:user, full_name: 'Петър Иванов').name.should == 'Петър Иванов'
-    build(:user, full_name: 'Петър Петров Иванов').name.should == 'Петър Иванов'
-    build(:user, full_name: 'Петър Петров Петров Иванов').name.should == 'Петър Иванов'
+    build(:user, full_name: 'Петър Иванов').name.should eq 'Петър Иванов'
+    build(:user, full_name: 'Петър Петров Иванов').name.should eq 'Петър Иванов'
+    build(:user, full_name: 'Петър Петров Петров Иванов').name.should eq 'Петър Иванов'
   end
 
   describe "pagination" do
@@ -20,14 +20,14 @@ describe User do
       third  = create :user, created_at: 1.day.ago
       first  = create :user, created_at: 3.days.ago
 
-      User.page(1).should == [first, second, third]
+      User.page(1).should eq [first, second, third]
     end
 
     it "puts users with photos before users without photos" do
       second = create :user
       first  = create :user_with_photo
 
-      User.page(1).should == [first, second]
+      User.page(1).should eq [first, second]
     end
   end
 end

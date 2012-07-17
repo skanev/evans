@@ -31,7 +31,7 @@ end
 
 То /^трябва да съм на (.*)$/ do |page_name|
   current_path = URI.parse(current_url).path
-  current_path.should == path_to(page_name)
+  current_path.should eq path_to(page_name)
 end
 
 И 'кво?' do

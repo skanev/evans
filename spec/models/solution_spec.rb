@@ -14,13 +14,13 @@ describe Solution do
     task = create :task
     solution = create :solution, task: task
 
-    Solution.for_task(task.id).should == [solution]
+    Solution.for_task(task.id).should eq [solution]
   end
 
   it "can find the number of rows in the code" do
-    Solution.new(code: 'print("baba")').rows.should == 1
-    Solution.new(code: "1\n2").rows.should == 2
-    Solution.new(code: "1\n2\n3").rows.should == 3
+    Solution.new(code: 'print("baba")').rows.should eq 1
+    Solution.new(code: "1\n2").rows.should eq 2
+    Solution.new(code: "1\n2\n3").rows.should eq 3
   end
 
   describe "looking up the code of an existing solution" do
@@ -29,7 +29,7 @@ describe Solution do
 
     it "retuns the code as a string" do
       create :solution, user: user, task: task, code: 'code'
-      Solution.code_for(user, task).should == 'code'
+      Solution.code_for(user, task).should eq 'code'
     end
 
     it "returns nil if the no solution submitted by this user" do

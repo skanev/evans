@@ -5,7 +5,7 @@ describe ActivationsController do
     it "assigns the current activation to @activation" do
       Activation.should_receive(:for).with('token').and_return('activation')
       get :show, id: 'token'
-      assigns[:activation].should == 'activation'
+      assigns[:activation].should eq 'activation'
     end
 
     it "displays an error message if the activation token is invalid" do
