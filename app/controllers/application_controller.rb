@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def deny_access(message = 'Нямате достъп до тази страница.')
-    redirect_to root_path, :flash => {:error => message}
+    redirect_to root_path, alert: message
   end
 
   def require_user

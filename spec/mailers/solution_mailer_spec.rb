@@ -11,7 +11,7 @@ describe SolutionMailer do
     before do
       comment.stub solution: solution
       comment.stub task_name: 'Task name'
-      comment.stub_chain :solution, :user, :email => 'solution.author@example.org'
+      comment.stub_chain :solution, :user, email: 'solution.author@example.org'
       comment.stub body: 'Comment body'
       comment.stub user_name: 'Comment author'
     end

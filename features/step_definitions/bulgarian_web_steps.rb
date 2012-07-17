@@ -5,16 +5,16 @@ end
 
 Когато 'попълня:' do |table|
   table.rows_hash.each do |name, value|
-    fill_in name, :with => value
+    fill_in name, with: value
   end
 end
 
 Когато /^попълня "([^"]*)" с(?:ъс)? "([^"]*)"$/ do |name, value|
-  fill_in name, :with => value
+  fill_in name, with: value
 end
 
 Когато 'попълня "$field" с:' do |field, text|
-  fill_in field, :with => text
+  fill_in field, with: text
 end
 
 Когато 'натисна "$text"' do |text|

@@ -3,7 +3,7 @@
 %p
   = link_to 'Вижте публичния си профил &rarr;'.html_safe, user_path(current_user)
 
-= simple_form_for @user, :url => profile_path, :html => {:method => :put, :multipart => true} do |form|
+= simple_form_for @user, url: profile_path, html: {method: :put, multipart: true} do |form|
   %fieldset
     %legend Снимка
     %p
@@ -12,7 +12,7 @@
       Ще махаме останалите.
     = user_thumbnail @user
     - if @user.photo.present?
-      = form.input :remove_photo, :as => :boolean, :label => 'Изтрий снимката'
+      = form.input :remove_photo, as: :boolean, label: 'Изтрий снимката'
       %p Или качи друга:
       %p= form.file_field :photo
     - else
@@ -26,7 +26,7 @@
     = form.input :skype
     = form.input :phone
     = form.input :site
-    = form.input :about, :input_html => {:size => '50x5'}
+    = form.input :about, input_html: {size: '50x5'}
 
   %fieldset
     %legend Известия по поща

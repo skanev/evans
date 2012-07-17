@@ -3,7 +3,7 @@
 %p Браво! Почти сте се готови.
 %p Остава само да си изберете парола и сте в играта.
 
-= simple_form_for @activation, :as => :activation do |form|
+= simple_form_for @activation, as: :activation do |form|
   = form.error_notification
 
   = form.input :password

@@ -1,7 +1,7 @@
 # encoding: utf-8
 Дадено 'че студент "$user" има звездичка за тема "$topic"' do |user_name, topic_title|
-  user = create :user, :full_name => user_name
-  create :topic, :user => user, :starred => true, :title => topic_title
+  user = create :user, full_name: user_name
+  create :topic, user: user, starred: true, title: topic_title
 end
 
 Когато 'махна звездичката на темата "$topic"' do |topic_title|
@@ -42,9 +42,9 @@ end
 end
 
 Дадено 'че студент "$user" има звездичка за отговор на тема "$topic"' do |user_name, topic_title|
-  user  = User.find_by_full_name(user_name) || create(:user, :full_name => user_name)
-  topic = create :topic, :title => topic_title
-  create :reply, :topic => topic, :user => user, :starred => true
+  user  = User.find_by_full_name(user_name) || create(:user, full_name: user_name)
+  topic = create :topic, title: topic_title
+  create :reply, topic: topic, user: user, starred: true
 end
 
 То 'профилът на "$user" трябва да показва, че има бонус точки от темите:' do |user_name, table|

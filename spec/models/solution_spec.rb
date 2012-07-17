@@ -12,15 +12,15 @@ describe Solution do
 
   it "can find all the solutions for task" do
     task = create :task
-    solution = create :solution, :task => task
+    solution = create :solution, task: task
 
     Solution.for_task(task.id).should == [solution]
   end
 
   it "can find the number of rows in the code" do
-    Solution.new(:code => 'print("baba")').rows.should == 1
-    Solution.new(:code => "1\n2").rows.should == 2
-    Solution.new(:code => "1\n2\n3").rows.should == 3
+    Solution.new(code: 'print("baba")').rows.should == 1
+    Solution.new(code: "1\n2").rows.should == 2
+    Solution.new(code: "1\n2\n3").rows.should == 3
   end
 
   describe "looking up the code of an existing solution" do
@@ -28,7 +28,7 @@ describe Solution do
     let(:task) { create :task }
 
     it "retuns the code as a string" do
-      create :solution, :user => user, :task => task, :code => 'code'
+      create :solution, user: user, task: task, code: 'code'
       Solution.code_for(user, task).should == 'code'
     end
 

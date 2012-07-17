@@ -6,33 +6,33 @@ describe Topic do
 
   it "does not allow mass reassignment of user_id" do
     original, modified = create(:user), create(:user)
-    topic = create :topic, :user => original
+    topic = create :topic, user: original
 
-    topic.update_attributes! :user_id => modified.id
+    topic.update_attributes! user_id: modified.id
 
     topic.reload.user.should == original
   end
 
   it "supports paging, ordering in reverse chronological order of the last post" do
     create_topic_with_last_reply_at = lambda do |timestamp|
-      create(:reply, :created_at => timestamp).topic
+      create(:reply, created_at: timestamp).topic
     end
 
     second = create_topic_with_last_reply_at.call 2.days.ago
     first  = create_topic_with_last_reply_at.call 1.day.ago
 
-    Topic.stub :per_page => 1
+    Topic.stub per_page: 1
 
     Topic.boards_page(1).should == [first]
     Topic.boards_page(2).should == [second]
   end
 
   it "can paginate its replies" do
-    topic  = create :topic, :created_at => 3.days.ago
-    first  = create :reply, :topic => topic, :created_at => 2.days.ago
-    second = create :reply, :topic => topic, :created_at => 1.day.ago
+    topic  = create :topic, created_at: 3.days.ago
+    first  = create :reply, topic: topic, created_at: 2.days.ago
+    second = create :reply, topic: topic, created_at: 1.day.ago
 
-    Reply.stub :per_page => 1
+    Reply.stub per_page: 1
 
     topic.replies_on_page(1).should == [first]
     topic.replies_on_page(2).should == [second]
@@ -51,11 +51,11 @@ describe Topic do
   it "can tell how many pages of replies it has" do
     topic_with_replies = lambda do |count|
       topic = FactoryGirl.create :topic
-      count.times { create :reply, :topic => topic }
+      count.times { create :reply, topic: topic }
       topic.reload
     end
 
-    Reply.stub :per_page => 2
+    Reply.stub per_page: 2
 
     topic_with_replies[0].pages_of_replies.should == 1
     topic_with_replies[2].pages_of_replies.should == 1
@@ -63,15 +63,15 @@ describe Topic do
   end
 
   it "gives its own title when asked for the containing topic's title" do
-    Topic.new(:title => 'Title').topic_title.should == 'Title'
+    Topic.new(title: 'Title').topic_title.should == 'Title'
   end
 
   describe "last reply id" do
     let(:topic) { create :topic }
 
     it "is the id of the last reply if there are any replies" do
-      one = create :reply, :topic => topic
-      two = create :reply, :topic => topic
+      one = create :reply, topic: topic
+      two = create :reply, topic: topic
 
       topic.last_reply_id.should eq two.id
     end
@@ -101,7 +101,7 @@ describe Topic do
       end
 
       Timecop.freeze(1.hour.ago) do
-        reply = create :reply, :topic => topic
+        reply = create :reply, topic: topic
 
         topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
         topic_with_last_post.last_poster.should == reply.user
@@ -111,6 +111,6 @@ describe Topic do
 
   it_behaves_like 'Post' do
     let(:post) { create :topic }
-    let(:starred_post) { create :topic, :starred => true }
+    let(:starred_post) { create :topic, starred: true }
   end
 end

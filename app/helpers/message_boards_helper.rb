@@ -8,6 +8,6 @@ module MessageBoardsHelper
   end
 
   def toggle_post_star_link(post)
-    render 'topics/toggle_post_star', :post => post
+    render 'topics/toggle_post_star', post: post
   end
 end

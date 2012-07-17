@@ -9,7 +9,7 @@ describe CommentsController do
 
     before do
       Solution.stub find: solution
-      solution.stub_chain :comments, :build => comment
+      solution.stub_chain :comments, build: comment
       solution.stub commentable_by?: true
       comment.stub :user=
       comment.stub :save

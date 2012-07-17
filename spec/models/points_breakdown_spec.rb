@@ -9,13 +9,13 @@ describe PointsBreakdown do
 
     breakdown.should_not be_having_starred_posts
 
-    topic = create :topic, :user => user, :starred => true
+    topic = create :topic, user: user, starred: true
     breakdown.should be_having_starred_posts
   end
 
   it "can iterate all starred posts a user has" do
-    topic = create :topic, :user => user, :starred => true
-    reply = create :reply, :user => user, :starred => true
+    topic = create :topic, user: user, starred: true
+    reply = create :reply, user: user, starred: true
 
     breakdown = PointsBreakdown.new user
 
@@ -23,7 +23,7 @@ describe PointsBreakdown do
   end
 
   it "yields the topic title when iterating topics" do
-    create :topic, :user => user, :starred => true, :title => 'Topic'
+    create :topic, user: user, starred: true, title: 'Topic'
 
     breakdown = PointsBreakdown.new user
 
@@ -31,8 +31,8 @@ describe PointsBreakdown do
   end
 
   it "yields the title of the reply's topic when iterating replies" do
-    topic = create :topic, :title => 'Topic with replies'
-    create :reply, :user => user, :topic => topic, :starred => true
+    topic = create :topic, title: 'Topic with replies'
+    create :reply, user: user, topic: topic, starred: true
 
     breakdown = PointsBreakdown.new user
 

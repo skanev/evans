@@ -72,7 +72,7 @@ describe SolutionsController do
     it "assigns the solution to @solution" do
       task.solutions.should_receive(:find).with('10').and_return(solution)
 
-      get :show, :task_id => '42', :id => '10'
+      get :show, task_id: '42', id: '10'
 
       assigns(:solution).should == solution
     end

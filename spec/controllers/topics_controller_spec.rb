@@ -6,7 +6,7 @@ describe TopicsController do
   describe "GET index" do
     it "assigns a page of topics to @topics" do
       Topic.should_receive(:boards_page).with('3').and_return 'topics'
-      get :index, :page => '3'
+      get :index, page: '3'
       assigns(:topics).should == 'topics'
     end
 
@@ -18,7 +18,7 @@ describe TopicsController do
 
   describe "GET new" do
     it "assigns an empty topic to @topic" do
-      Topic.stub :new => 'topic'
+      Topic.stub new: 'topic'
       get :new
       assigns(:topic).should == 'topic'
     end
@@ -28,20 +28,20 @@ describe TopicsController do
     let(:topic) { mock_model(Topic) }
 
     before do
-      Topic.stub :new => topic
+      Topic.stub new: topic
       topic.stub :user=
       topic.stub :save
     end
 
     it "denies access if not authenticated" do
-      controller.stub :current_user => nil
+      controller.stub current_user: nil
       post :create
       response.should deny_access
     end
 
     it "constructs a topic with params[:topic]" do
       Topic.should_receive(:new).with('params')
-      post :create, :topic => 'params'
+      post :create, topic: 'params'
     end
 
     it "assigns the user to the topic" do
@@ -55,13 +55,13 @@ describe TopicsController do
     end
 
     it "redirects to the topic when successful" do
-      topic.stub :save => true
+      topic.stub save: true
       post :create
       response.should redirect_to(topic)
     end
 
     it "redisplays the form when unsuccessful" do
-      topic.stub :save => false
+      topic.stub save: false
       post :create
       response.should render_template(:new)
     end
@@ -71,26 +71,26 @@ describe TopicsController do
     let(:topic) { double }
 
     before do
-      Topic.stub :find => topic
+      Topic.stub find: topic
       topic.stub :replies_on_page
       Reply.stub :new
     end
 
     it "assigns the topic to @topic" do
       Topic.should_receive(:find).with('42').and_return(topic)
-      get :show, :id => '42'
+      get :show, id: '42'
       assigns(:topic).should == topic
     end
 
     it "assigns a page of replies to @replies" do
       topic.should_receive(:replies_on_page).with('4').and_return('page 4')
-      get :show, :id => '42', :page => '4'
+      get :show, id: '42', page: '4'
       assigns(:replies).should == 'page 4'
     end
 
     it "assigns an empty reply to @reply" do
-      Reply.stub :new => 'reply'
-      get :show, :id => '42'
+      Reply.stub new: 'reply'
+      get :show, id: '42'
       assigns(:reply).should == 'reply'
     end
   end
@@ -99,19 +99,19 @@ describe TopicsController do
     let(:topic) { double }
 
     before do
-      Topic.stub :find => topic
-      controller.stub :can_edit? => true
+      Topic.stub find: topic
+      controller.stub can_edit?: true
     end
 
     it "assigns the topic to @topic" do
       Topic.should_receive(:find).with('42')
-      get :edit, :id => '42'
+      get :edit, id: '42'
       assigns(:topic).should == topic
     end
 
     it "denies access if the user cannot edit the topic" do
       controller.should_receive(:can_edit?).with(topic).and_return(false)
-      get :edit, :id => '42'
+      get :edit, id: '42'
       response.should deny_access
     end
   end
@@ -120,31 +120,31 @@ describe TopicsController do
     let(:topic) { mock_model(Topic) }
 
     before do
-      Topic.stub :find => topic
+      Topic.stub find: topic
       topic.stub :update_attributes
-      controller.stub :can_edit? => true
+      controller.stub can_edit?: true
     end
 
     it "assigns the topic to @topic" do
       Topic.should_receive(:find).with('42').and_return(topic)
-      put :update, :id => '42'
+      put :update, id: '42'
       assigns(:topic).should == topic
     end
 
     it "updates the topic" do
       topic.should_receive(:update_attributes).with('attributes')
-      put :update, :id => '42', :topic => 'attributes'
+      put :update, id: '42', topic: 'attributes'
     end
 
     it "displays the topic on success" do
-      topic.stub :update_attributes => true
-      put :update, :id => '42'
+      topic.stub update_attributes: true
+      put :update, id: '42'
       response.should redirect_to(topic)
     end
 
     it "redisplays the edit form on failure" do
-      topic.stub :update_attributes => false
-      put :update, :id => '42'
+      topic.stub update_attributes: false
+      put :update, id: '42'
       response.should render_template(:edit)
     end
   end
@@ -154,21 +154,21 @@ describe TopicsController do
     let(:topic) { mock_model(Topic) }
 
     before do
-      Topic.stub :find => topic
+      Topic.stub find: topic
     end
 
     it "redirects to the topic itself if it has no replies" do
-      topic.stub :last_reply_id => nil
+      topic.stub last_reply_id: nil
 
-      get :last_reply, :id => '42'
+      get :last_reply, id: '42'
 
       response.should redirect_to(topic_path(topic))
     end
 
     it "redirects to the last page of the topic" do
-      topic.stub :last_reply_id => 20
+      topic.stub last_reply_id: 20
 
-      get :last_reply, :id => 10
+      get :last_reply, id: 10
 
       response.should redirect_to(topic_reply_path(topic, 20))
     end

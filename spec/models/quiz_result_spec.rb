@@ -7,8 +7,8 @@ describe QuizResult do
   it { should validate_presence_of(:points) }
 
   it "knows the name of its user" do
-    user = create :user, :full_name => 'John Doe'
-    result = create :quiz_result, :user => user
+    user = create :user, full_name: 'John Doe'
+    result = create :quiz_result, user: user
 
     result.user_name.should == 'John Doe'
   end

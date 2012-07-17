@@ -17,11 +17,11 @@ describe Reply do
 
   it "can tell on which page of the topic it is" do
     topic  = create :topic
-    first  = create :reply, :topic => topic
-    second = create :reply, :topic => topic
-    third  = create :reply, :topic => topic
+    first  = create :reply, topic: topic
+    second = create :reply, topic: topic
+    third  = create :reply, topic: topic
 
-    Reply.stub :per_page => 2
+    Reply.stub per_page: 2
 
     first.page_in_topic.should == 1
     second.page_in_topic.should == 1
@@ -29,14 +29,14 @@ describe Reply do
   end
 
   it "gives the title of its topic when asked for the containing topic's title" do
-    topic = create :topic, :title => 'Topic title'
-    reply = create :reply, :topic => topic
+    topic = create :topic, title: 'Topic title'
+    reply = create :reply, topic: topic
 
     reply.topic_title.should == 'Topic title'
   end
 
   it_behaves_like 'Post' do
     let(:post) { create :reply }
-    let(:starred_post) { create :reply, :starred => true }
+    let(:starred_post) { create :reply, starred: true }
   end
 end

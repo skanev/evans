@@ -9,9 +9,9 @@
   Разбира се, ще се радваме, ако не опитвате да злоупотребявате. Не за друго —
   имаме ви факултетния номер и логовете са относително лесни за обработка.
 
-= form_tag voucher_claims_path, :method => :post, :class => 'simple_form' do
+= form_tag voucher_claims_path, method: :post, class: 'simple_form' do
   %div
     = label_tag :code, 'Код'
-    = text_field_tag :code, '', :class => 'string'
+    = text_field_tag :code, '', class: 'string'
   %div
     = submit_tag 'Въведи'

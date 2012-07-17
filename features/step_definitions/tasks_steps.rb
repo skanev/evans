@@ -1,14 +1,14 @@
 # encoding: utf-8
 Дадено 'че съществува задача "$name"' do |name|
-  create :task, :name => name
+  create :task, name: name
 end
 
 Дадено 'че в момента тече задача "$name"' do |name|
-  create :task, :name => name
+  create :task, name: name
 end
 
 Дадено 'че има затворена задача "$name"' do |name|
-  create :closed_task, :name => name
+  create :closed_task, name: name
 end
 
 Дадено /^че методите в "(.*?)" са ограничени до (\d)+ реда?$/ do |task_name, lines_per_method|
@@ -18,7 +18,7 @@ end
 end
 
 Когато 'попълня бъдеща дата в "$field"' do |field|
-  fill_in 'Краен срок', :with => 1.week.from_now.to_s
+  fill_in 'Краен срок', with: 1.week.from_now.to_s
 end
 
 То 'да имам решение на "$name" с код:' do |name, code|
@@ -31,10 +31,10 @@ end
 Дадено 'че темата "$topic" има "$replies" отговора, последния от които на "$author"' do |title, replies, author_name|
   topic = Topic.find_by_title! title
 
-  (replies.to_i - 1).times { create :reply, :topic => topic }
+  (replies.to_i - 1).times { create :reply, topic: topic }
 
-  last_reply_author = create :user, :full_name => author_name
-  create :reply, :topic => topic, :user => last_reply_author
+  last_reply_author = create :user, full_name: author_name
+  create :reply, topic: topic, user: last_reply_author
 end
 
 То 'трябва да виждам следните теми:' do |table|

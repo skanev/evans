@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Registration do
   def registration(full_name, faculty_number, email = 'peter@example.org')
-    Registration.new :full_name => full_name, :faculty_number => faculty_number, :email => email
+    Registration.new full_name: full_name, faculty_number: faculty_number, email: email
   end
 
   it "requires a signup with the same full name and faculty number" do
-    create :sign_up, :full_name => 'Peter', :faculty_number => '11111'
+    create :sign_up, full_name: 'Peter', faculty_number: '11111'
 
     registration('Peter', '11111').should be_valid
 
@@ -15,22 +15,22 @@ describe Registration do
   end
 
   it "requires an unused email" do
-    create :user, :email => 'used_by_user@example.org'
-    create :sign_up, :email => 'used_by_sign_up@example.org'
+    create :user, email: 'used_by_user@example.org'
+    create :sign_up, email: 'used_by_sign_up@example.org'
 
-    Registration.new(:email => 'unused@example.org').should have(:no).errors_on(:email)
-    Registration.new(:email => 'used_by_user@example.org').should have(1).error_on(:email)
-    Registration.new(:email => 'used_by_sign_up@example.org').should have(1).error_on(:email)
+    Registration.new(email: 'unused@example.org').should have(:no).errors_on(:email)
+    Registration.new(email: 'used_by_user@example.org').should have(1).error_on(:email)
+    Registration.new(email: 'used_by_sign_up@example.org').should have(1).error_on(:email)
   end
 
   describe "creating" do
     before do
-      RegistrationMailer.stub :confirmation => double.as_null_object
+      RegistrationMailer.stub confirmation: double.as_null_object
     end
 
     context "when valid" do
       it "updates the sign up" do
-        sign_up = create :sign_up, :full_name => 'Peter', :faculty_number => '11111'
+        sign_up = create :sign_up, full_name: 'Peter', faculty_number: '11111'
 
         registration('Peter', '11111', 'peter@example.org').create
 
@@ -38,7 +38,7 @@ describe Registration do
       end
 
       it "sends a confirmation email" do
-        sign_up = create :sign_up, :full_name => 'Peter', :faculty_number => '11111'
+        sign_up = create :sign_up, full_name: 'Peter', faculty_number: '11111'
 
         expect_email_delivery RegistrationMailer, :confirmation, sign_up
 

@@ -5,7 +5,7 @@ class PointsBreakdown
 
   def each_starred_post_with_title
     starred_posts.each do |post|
-      yield post, post.topic_title 
+      yield post, post.topic_title
     end
 
     nil
@@ -18,6 +18,6 @@ class PointsBreakdown
   private
 
   def starred_posts
-    Post.where(:user_id => @user.id, :starred => true)
+    Post.where(user_id: @user.id, starred: true)
   end
 end

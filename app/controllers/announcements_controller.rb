@@ -1,6 +1,6 @@
 # encoding: utf-8
 class AnnouncementsController < ApplicationController
-  before_filter :require_admin, :except => :index
+  before_filter :require_admin, except: :index
 
   def index
     @announcements = Announcement.page params[:page]
@@ -19,7 +19,7 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new params[:announcement]
 
     if @announcement.save
-      redirect_to announcements_path, :notice => 'Новината е създадена. Браво'
+      redirect_to announcements_path, notice: 'Новината е създадена. Браво'
     else
       render :new
     end
@@ -33,7 +33,7 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.find params[:id]
 
     if @announcement.update_attributes params[:announcement]
-      redirect_to announcements_path, :notice => 'Новината е обновена. Честито'
+      redirect_to announcements_path, notice: 'Новината е обновена. Честито'
     else
       render :edit
     end

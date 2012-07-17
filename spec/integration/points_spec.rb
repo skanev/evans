@@ -12,13 +12,13 @@ describe "Point mechanics" do
 
   it "student gets a point for each claimed voucher" do
     user = create :user
-    2.times { create :voucher, :user => user }
+    2.times { create :voucher, user: user }
 
     user.points.should == 2
   end
 
   it "student gets points from each solution" do
-    solution = create :checked_solution, :passed_tests => 1
+    solution = create :checked_solution, passed_tests: 1
     user = solution.user
 
     user.points.should == solution.max_points
@@ -26,15 +26,15 @@ describe "Point mechanics" do
 
   it "student gets points for each starred post" do
     user = create :user
-    create :topic, :user => user, :starred => true
-    create :reply, :user => user, :starred => true
+    create :topic, user: user, starred: true
+    create :reply, user: user, starred: true
 
     user.points.should == 2
   end
 
   it "student gets points from quizzes" do
     user = create :user
-    create :quiz_result, :user => user, :points => 10
+    create :quiz_result, user: user, points: 10
 
     user.points.should == 10
   end

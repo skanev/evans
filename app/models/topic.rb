@@ -1,5 +1,5 @@
 class Topic < Post
-  has_many :replies, :order => 'created_at ASC'
+  has_many :replies, order: 'created_at ASC'
 
   validates_presence_of :title
 
@@ -10,7 +10,7 @@ class Topic < Post
   end
 
   def replies_on_page(page)
-    replies.paginate :page => page, :per_page => Reply.per_page
+    replies.paginate page: page, per_page: Reply.per_page
   end
 
   def pages_of_replies
@@ -35,7 +35,7 @@ class Topic < Post
 
   class << self
     def boards_page(page)
-      select(<<-END).order('last_post_at DESC').paginate(:page => page, :per_page => per_page)
+      select(<<-END).order('last_post_at DESC').paginate(page: page, per_page: per_page)
         posts.id,
         posts.title,
         #{attribute_of_last_reply('created_at')} AS last_post_at,

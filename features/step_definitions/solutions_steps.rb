@@ -1,15 +1,15 @@
 # encoding: utf-8
 Дадено 'че "$name" има следните решения:' do |name, table|
-  task = create :closed_task, :name => name
+  task = create :closed_task, name: name
 
   table.hashes.each do |row|
     attributes = {
-      :user => create(:user, :full_name => row['Студент']),
-      :task => task,
-      :passed_tests => row['Успешни'],
-      :failed_tests => row['Неуспешни'],
-      :code => row['Код'],
-      :log => row['Лог'],
+      user: create(:user, full_name: row['Студент']),
+      task: task,
+      passed_tests: row['Успешни'],
+      failed_tests: row['Неуспешни'],
+      code: row['Код'],
+      log: row['Лог'],
     }
 
     create :solution, attributes
@@ -17,7 +17,7 @@
 end
 
 Дадено 'че има отворена задача "$name"' do |name|
-  create :task, :name => name
+  create :task, name: name
 end
 
 Дадено 'че студент "$user" е предал решение на задача "$task"' do |user_name, task_name|
@@ -28,7 +28,7 @@ end
 
 Дадено 'че съм предал решение на текуща задача' do
   task = create :open_task
-  create :solution, :task => task, :user => current_user
+  create :solution, task: task, user: current_user
 end
 
 Когато 'опитам да предам следното решение на "$task_name":' do |task_name, code|

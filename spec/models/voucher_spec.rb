@@ -37,7 +37,7 @@ describe Voucher do
 
     context "a claimed voucher" do
       let(:owner) { create :user }
-      let(:voucher) { create :voucher, :user => owner }
+      let(:voucher) { create :voucher, user: owner }
       let(:impostor) { create :user }
 
       it "does not change the voucher's owner" do

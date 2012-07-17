@@ -11,7 +11,7 @@ class SignUp < ActiveRecord::Base
   end
 
   def assign_to(email)
-    update_attributes! :email => email, :token => random_string(40)
+    update_attributes! email: email, token: random_string(40)
   end
 
   private

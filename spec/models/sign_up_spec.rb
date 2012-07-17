@@ -3,13 +3,13 @@ require 'spec_helper'
 describe SignUp do
   describe ".with_token" do
     it "looks up by token" do
-      sign_up = create :sign_up, :token => 'token'
+      sign_up = create :sign_up, token: 'token'
       SignUp.with_token('token').should == sign_up
     end
 
     it "never finds empty tokens" do
-      create :sign_up, :token => nil
-      create :sign_up, :token => ''
+      create :sign_up, token: nil
+      create :sign_up, token: ''
 
       SignUp.with_token(nil).should be_nil
       SignUp.with_token('').should be_nil

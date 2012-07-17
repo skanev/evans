@@ -1,8 +1,8 @@
 .solution
   %h1 Решение на #{@solution.task_name} от #{@solution.user_name}
 
-  %p= link_to 'Обратно към всички решения', task_solutions_path(@solution.task), :class => :back
-  %p= link_to "Към профила на #{@solution.user_name}", @solution.user, :class => :related
+  %p= link_to 'Обратно към всички решения', task_solutions_path(@solution.task), class: :back
+  %p= link_to "Към профила на #{@solution.user_name}", @solution.user, class: :related
 
   .results
     %h2 Резултати
@@ -40,7 +40,7 @@
         .body
           = markup comment.body
         .published-at
-          = link_to comment, :class => 'permalink', :title => 'Трайна връзка към този коментар' do
+          = link_to comment, class: 'permalink', title: 'Трайна връзка към този коментар' do
             Публикувано преди
             %time{:datetime => comment.created_at.iso8601}= time_ago_in_words comment.created_at
           = link_to 'Редактирай', edit_task_solution_comment_path(@solution.task, @solution, comment) if can_edit? comment

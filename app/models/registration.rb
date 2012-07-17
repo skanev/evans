@@ -32,11 +32,11 @@ class Registration
   private
 
   def sign_up
-    SignUp.where(:full_name => full_name, :faculty_number => faculty_number).first
+    SignUp.where(full_name: full_name, faculty_number: faculty_number).first
   end
 
   def email_not_taken
-    if SignUp.exists?(:email => email) or User.exists?(:email => email)
+    if SignUp.exists?(email: email) or User.exists?(email: email)
       errors.add :email, 'този адрес вече се ползва'
     end
   end

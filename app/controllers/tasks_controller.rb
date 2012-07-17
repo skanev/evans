@@ -1,9 +1,9 @@
 # encoding: utf-8
 class TasksController < ApplicationController
-  before_filter :require_admin, :except => [:index, :show, :guide]
+  before_filter :require_admin, except: [:index, :show, :guide]
 
   def index
-    @tasks = Task.all :order => 'created_at ASC'
+    @tasks = Task.all order: 'created_at ASC'
   end
 
   def new
@@ -14,7 +14,7 @@ class TasksController < ApplicationController
     @task = Task.new params[:task]
 
     if @task.save
-      redirect_to @task, :notice => 'Задачата е създадена успешно'
+      redirect_to @task, notice: 'Задачата е създадена успешно'
     else
       render :new
     end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
     @task = Task.find params[:id]
 
     if @task.update_attributes params[:task]
-      redirect_to @task, :notice => 'Задачата е обновена успешно'
+      redirect_to @task, notice: 'Задачата е обновена успешно'
     else
       render :edit
     end

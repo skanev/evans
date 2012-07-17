@@ -6,8 +6,8 @@ describe RegistrationsController do
       let(:registration) { double }
 
       before do
-        Registration.stub :new => registration
-        registration.stub :create => true
+        Registration.stub new: registration
+        registration.stub create: true
       end
 
       it "sends a confirmation to the user" do
@@ -25,8 +25,8 @@ describe RegistrationsController do
       let(:registration) { double }
 
       before do
-        Registration.stub :new => registration
-        registration.stub :create => false
+        Registration.stub new: registration
+        registration.stub create: false
       end
 
       it "renders the original form" do

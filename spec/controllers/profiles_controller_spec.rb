@@ -10,7 +10,7 @@ describe ProfilesController do
     end
 
     it "denies access if unauthenticated" do
-      controller.stub :current_user => nil
+      controller.stub current_user: nil
       get :edit
       response.should deny_access
     end
@@ -28,17 +28,17 @@ describe ProfilesController do
 
     it "updates my user" do
       current_user.should_receive(:update_attributes).with('attributes')
-      put :update, :user => 'attributes'
+      put :update, user: 'attributes'
     end
 
     it "redirects to the dashboard on success" do
-      current_user.stub :update_attributes => true
+      current_user.stub update_attributes: true
       put :update
       response.should redirect_to(dashboard_path)
     end
 
     it "redisplays the form on failure" do
-      current_user.stub :update_attributes => false
+      current_user.stub update_attributes: false
       put :update
       response.should render_template(:edit)
     end

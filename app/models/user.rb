@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
   def points
     points = 0
     points += 1 if photo.present?
-    points += Voucher.where(:user_id => id).count
+    points += Voucher.where(user_id: id).count
     points += solutions.map(&:points).sum
-    points += Post.where(:user_id => id, :starred => true).count
-    points += QuizResult.where(:user_id => id).map(&:points).sum
+    points += Post.where(user_id: id, starred: true).count
+    points += QuizResult.where(user_id: id).map(&:points).sum
     points
   end
 
@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
         END) ASC,
         created_at ASC
       END
-      order(sort_order).paginate :page => page_number, :per_page => 32
+      order(sort_order).paginate page: page_number, per_page: 32
     end
   end
 end

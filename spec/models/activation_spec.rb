@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Activation do
   it "can be constructed with a SignUp token" do
-    sign_up = create :sign_up, :token => 'token'
+    sign_up = create :sign_up, token: 'token'
 
     Activation.for('token').should be_present
     Activation.for('unexisting').should be_nil
@@ -21,7 +21,7 @@ describe Activation do
   describe "on submission" do
     let(:sign_up) { create(:assigned_sign_up) }
     let(:activation) { Activation.new(sign_up) }
-    let(:valid_attributes) {{:password => 'larodi', :password_confirmation => 'larodi'}}
+    let(:valid_attributes) {{password: 'larodi', password_confirmation: 'larodi'}}
 
     it "creates a user for the matching SignUp" do
       expect do
@@ -38,7 +38,7 @@ describe Activation do
     it "destroys the SignUp" do
       activation.submit valid_attributes
 
-      SignUp.exists?(:id => sign_up.id).should be_false
+      SignUp.exists?(id: sign_up.id).should be_false
     end
 
     it "can indicate which user it created" do

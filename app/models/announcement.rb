@@ -10,7 +10,7 @@ class Announcement < ActiveRecord::Base
     end
 
     def page(number)
-      reverse_chronological.paginate :page => number, :per_page => per_page
+      reverse_chronological.paginate page: number, per_page: per_page
     end
 
     def latest(number)

@@ -5,13 +5,13 @@ describe VouchersController do
 
   describe "GET index" do
     it "is accessible only by admins" do
-      current_user.stub :admin? => false
+      current_user.stub admin?: false
       get :index
       response.should deny_access
     end
 
     it "assigns all voucher codes to @vouchers" do
-      Voucher.stub :all => 'vouchers'
+      Voucher.stub all: 'vouchers'
       get :index
       assigns(:vouchers).should == 'vouchers'
     end
@@ -30,14 +30,14 @@ describe VouchersController do
     end
 
     it "is accessible only by admins" do
-      current_user.stub :admin? => false
+      current_user.stub admin?: false
       post :create
       response.should deny_access
     end
 
     it "creates voucher codes" do
       Voucher.should_receive(:create_codes).with('codes')
-      post :create, :codes => 'codes'
+      post :create, codes: 'codes'
     end
 
     it "redirects to the list of vouchers" do

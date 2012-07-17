@@ -1,6 +1,6 @@
 class RepliesController < ApplicationController
-  before_filter :require_user, :only => [:create]
-  before_filter :authorize, :only => [:edit, :update]
+  before_filter :require_user, only: [:create]
+  before_filter :authorize, only: [:edit, :update]
 
   def create
     @topic = Topic.find params[:topic_id]
@@ -17,7 +17,7 @@ class RepliesController < ApplicationController
   def show
     reply = Reply.find params[:id]
 
-    redirect_to topic_path(reply.topic_id, :page => reply.page_in_topic, :anchor => "reply_#{reply.id}")
+    redirect_to topic_path(reply.topic_id, page: reply.page_in_topic, anchor: "reply_#{reply.id}")
   end
 
   def edit

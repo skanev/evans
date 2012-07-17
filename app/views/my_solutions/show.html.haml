@@ -12,10 +12,10 @@
       %p Решението ви не минава някои стилистически изисквания:
       %pre.restrictions-violations= @submission.violations
 
-  = form_tag task_my_solution_path(@task), :method => :put, :class => 'simple_form' do
+  = form_tag task_my_solution_path(@task), method: :put, class: 'simple_form' do
     %div
       = label_tag :code, 'Код'
-      = text_area_tag :code, @code, :disabled => @task.closed?
+      = text_area_tag :code, @code, disabled: @task.closed?
     - unless @task.closed?
       %div
         = submit_tag 'Изпрати'
