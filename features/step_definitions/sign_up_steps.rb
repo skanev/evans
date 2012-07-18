@@ -7,6 +7,12 @@ end
   backdoor_login FactoryGirl.create(:user)
 end
 
+Когато 'добавя записан студент:' do |table|
+  visit sign_ups_path
+  fill_in_fields table
+  click_on 'Запиши'
+end
+
 То 'трябва да мога да регистрирам потребител "$name" с номер "$number"' do |name, number|
   SignUp.exists?(full_name: name, faculty_number: number).should be_true
 end

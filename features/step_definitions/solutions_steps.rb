@@ -31,21 +31,46 @@ end
   create :solution, task: task, user: current_user
 end
 
-Когато 'опитам да предам следното решение на "$task_name":' do |task_name, code|
-  task = Task.find_by_name! task_name
+Когато 'отида на решенията на "$name"' do |name|
+  task = Task.find_by_name! name
+  visit task_solutions_path task
+end
+
+Когато 'отида на решението на "$user_name" за "$task_name"' do |user_name, task_name|
+  user     = User.find_by_full_name! user_name
+  task     = Task.find_by_name! task_name
+  solution = Solution.find_by_task_id_and_user_id task.id, user.id
+
+  visit task_solution_path(task, solution)
+end
+
+Когато 'предам следното решение на "$task":' do |name, code|
+  task = Task.find_by_name!(name)
 
   visit task_my_solution_path(task)
   fill_in 'Код', with: code
   click_on 'Изпрати'
 end
 
-When /^дам (\d+) бонус точку да решението на "([^"]*)"$/ do |points, student_name|
+Когато /^дам (\d+) бонус точку да решението на "([^"]*)"$/ do |points, student_name|
   user     = User.find_by_full_name! student_name
   solution = Solution.find_by_user_id! user.id
 
   visit solution_path(solution)
   choose "+#{points}"
   click_on 'Промени'
+end
+
+Когато 'отворя моето решение на "$task"' do |name|
+  task = Task.find_by_name!(name)
+  visit task_my_solution_path(task)
+end
+
+То 'да имам решение на "$name" с код:' do |name, code|
+  task = Task.find_by_name!(name)
+  solution = Solution.find_by_user_id_and_task_id(@current_user.id, task.id)
+  solution.should be_present
+  solution.code.should eq code
 end
 
 То 'трябва да виждам следните решения:' do |table|
@@ -66,7 +91,7 @@ end
   page.should have_content(method_name)
 end
 
-Then /^решението на "([^"]*)" трябва да има (\d+) допълнителни точки$/ do |student_name, points|
+То /^решението на "([^"]*)" трябва да има (\d+) допълнителни точки$/ do |student_name, points|
   user     = User.find_by_full_name! student_name
   solution = Solution.find_by_user_id! user.id
 

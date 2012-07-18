@@ -3,10 +3,12 @@
   SignUp.create! full_name: 'Петър Иванов Петров', faculty_number: '11111'
 end
 
-Когато 'попълня данните на регистрирания студент' do
+Когато 'се регистрирам' do
+  visit new_registration_path
   fill_in 'Трите имена', with: 'Петър Иванов Петров'
   fill_in 'Факултетен номер', with: '11111'
   fill_in 'Електронна поща', with: 'peter@example.org'
+  click_on 'Регистрирай ме'
 end
 
 Когато 'проследя активационната връзка в полученото писмо' do

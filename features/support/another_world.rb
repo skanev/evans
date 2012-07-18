@@ -16,6 +16,16 @@ module AnotherWorld
   def file_fixture(file_name)
     Rails.root.join('spec/fixtures/files', file_name)
   end
+
+  def fill_in_fields(table)
+    table.rows_hash.each do |key, value|
+      fill_in key, with: value
+    end
+  end
+
+  def current_path
+    URI.parse(current_url).path
+  end
 end
 
 World(AnotherWorld)

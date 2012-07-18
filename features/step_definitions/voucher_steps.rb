@@ -3,7 +3,21 @@
   create :voucher, code: code
 end
 
-То 'трябва да виждам следните ваучъри:' do |table|
+Когато 'добавя следните ваучъри:' do |codes|
+  visit new_voucher_path
+  fill_in 'Кодове', with: codes
+  click_on 'Създай'
+end
+
+Когато 'въведа ваучър "$code"' do |code|
+  visit new_voucher_claim_path
+  fill_in 'Код', with: code
+  click_on 'Въведи'
+end
+
+То 'трябва да съществуват следните ваучъри:' do |table|
+  visit vouchers_path
+
   codes = all('table td:first-child').map { |element| [element.text] }
 
   table.diff! codes
