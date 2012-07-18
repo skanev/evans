@@ -1,4 +1,6 @@
-%h1 Форуми
+%h1
+  Форуми
+  = rss_feed topics_url(:rss) if logged_in?
 
 %p= link_to 'Нова тема', new_topic_path if logged_in?
 

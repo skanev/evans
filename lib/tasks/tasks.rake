@@ -25,14 +25,14 @@ namespace :task do
           faculty_number = solution.user.faculty_number
           code           = solution.code
           log            = solution.log
-          file           = directory.join("#{faculty_number}.rb")
+          file           = directory.join("#{faculty_number}.py")
 
           puts "Dumping #{file}"
 
           open(file.to_s, 'w') do |output|
             output.puts "# #{user_name}"
             output.puts "# #{faculty_number}"
-            output.puts "# http://fmi.ruby.bg/tasks/#{task.id}/solutions/#{solution.id}"
+            output.puts "# http://#{Rails.application.config.site_domain}/tasks/#{task.id}/solutions/#{solution.id}"
             output.puts ""
             output.puts code.gsub(/\t/, '    ').gsub(/\r/, '').strip
             output.puts ""
@@ -48,7 +48,7 @@ namespace :task do
     task :check, [:task_id] => :environment do |_, args|
       task_id   = args.task_id
       directory = Rails.root.join("tmp/solutions/#{task_id}")
-      spec_path = directory.join('spec.rb')
+      spec_path = directory.join('spec.py')
 
       raise "There should be a spec in #{spec_path.relative_path_from(Rails.root)}" unless spec_path.exist?
 
@@ -57,7 +57,7 @@ namespace :task do
 
         puts "Processing #{solution_path.relative_path_from(Rails.root)}..."
 
-        log_with_json     = `ruby lib/homework/runner.rb #{solution_path} #{spec_path}`
+        log_with_json     = `python3.2 python/homework.py #{solution_path} #{spec_path}`
         log               = log_with_json.split("\nLOG:\n")[1]
         solution_with_log = solution_path.read.gsub(/__END__.*\Z/m, '') + "__END__\n#{log}"
 

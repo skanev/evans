@@ -1,14 +1,18 @@
-set :application, 'Trane Revisited'
+site_domain     = 'fmi.py-bg.net'
+database_config = database_config = YAML.load(File.read("#{File.dirname(__FILE__)}/database.yml"))
+database_name   = database_config['production']['database']
+
+set :application, 'pyfmi-2012'
 set :scm,         :git
 set :repository,  'git://github.com/skanev/evans.git'
-set :tag,         'ruby-2011'
-set :deploy_to,   '/data/rails/evans'
+set :branch,      'master'
+set :deploy_to,   '/data/rails/pyfmi-2012'
 set :user,        'pyfmi'
 set :use_sudo,    false
 
-role :web, 'fmi.ruby.bg'
-role :app, 'fmi.ruby.bg'
-role :db,  'fmi.ruby.bg', :primary => true
+role :web, site_domain
+role :app, site_domain
+role :db,  site_domain, :primary => true
 
 set :normalize_asset_timestamps, false
 
@@ -51,7 +55,7 @@ end
 namespace :sync do
   task :db, :roles => :app do
     system <<-END
-      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans | gzip -c" |
+      ssh pyfmi@#{site_domain} "pg_dump --clean #{database_name} | gzip -c" |
         gunzip -c |
         bundle exec rails dbconsole
     END
@@ -60,14 +64,14 @@ namespace :sync do
   task :uploads, :roles => :app do
     system <<-END
       rsync --exclude tmp -av --delete \
-        pyfmi@fmi.ruby.bg:#{shared_path}/uploads/ \
+        pyfmi@#{site_domain}:#{shared_path}/uploads/ \
         public/uploads/
     END
   end
 
   task :secrets, :roles => :app do
-    system "scp pyfmi@fmi.py-bg.net:#{shared_path}/pepper.txt config/pepper.txt"
-    system "scp pyfmi@fmi.py-bg.net:#{shared_path}/secret_token.txt config/secret_token.txt"
+    system "scp pyfmi@#{site_domain}:#{shared_path}/pepper.txt config/pepper.txt"
+    system "scp pyfmi@#{site_domain}:#{shared_path}/secret_token.txt config/secret_token.txt"
   end
 end
 

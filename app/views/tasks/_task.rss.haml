@@ -1,0 +1,16 @@
+.task
+  %h1= task.name
+
+  %dl
+    %dt Краен срок:
+    %dd
+      = l task.closes_at
+    %dt Точки:
+    %dd
+      = task.max_points
+
+  - if task.closed?
+    %p.closed Срокът за предаване на решения е отминал
+
+  = markup task.description, auto_link: false
+

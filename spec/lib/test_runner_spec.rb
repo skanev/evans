@@ -3,19 +3,23 @@ require 'spec_helper'
 describe TestRunner do
   let(:test_case_code) do
     <<END.strip
-describe "Homework" do
-  it("succeeds once")   { true.should be_true }
-  it("succeeds thrice") { puts "Just to mess with you" }
-  it("fails once")      { true.should be_false }
-  it("succeeds twice")  { Homework.answer.should eq 42 }
-  it("fails twice")     { 1.should eq 2 }
-  it("errors once")     { raise RuntimeError }
-end
+import homework
+
+class HomeworkTest(homework.Test):
+    def test_success_1(self): self.assert_(True)
+    def test_success_3(self): print("Just to mess up with you")
+    def test_failure_1(self): self.assert_(False)
+    def test_success_2(self): self.assertEquals(self.solution.answer, 42)
+    def test_failure_2(self): self.assertEquals(1, 2)
+    def test_errored_1(self): raise RuntimeError
+
+if __name__ == '__main__':
+    HomeworkTest.main()
 END
   end
 
   it "handles solutions that raise a runtime error" do
-    solution = 'require "intertools"'
+    solution = 'import intertools'
     runner = TestRunner.new(test_case_code, solution)
 
     runner.run
@@ -26,12 +30,7 @@ END
 
   describe "on successful run" do
     before(:all) do
-      solution = <<-EOF
-        module Homework
-          def self.answer; 42; end
-          puts "Another puts"
-        end
-      EOF
+      solution = 'answer = 42; print("Another print")'
       @runner = TestRunner.new(test_case_code, solution)
 
       @runner.run
@@ -46,7 +45,7 @@ END
     end
 
     it "collects the execution log" do
-      @runner.log.should include("6 examples, 3 failures")
+      @runner.log.should include("FAILED (failures=2, errors=1)")
     end
   end
 end

@@ -126,7 +126,10 @@ describe AnnouncementsController do
       announcement.stub :update_attributes => false
       put :update, :id => '42'
       response.should render_template(:edit)
-      
     end
+  end
+
+  describe "GET RSS feed" do
+    it_behaves_like "RSS page", :announcements
   end
 end

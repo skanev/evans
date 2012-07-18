@@ -1,4 +1,7 @@
-%h1 Решения на #{@task.name}
+%h1
+  Решения на #{@task.name}
+  = rss_feed task_solutions_path @task, :rss
+
 %p= link_to 'Към задачата', @task, :class => :back
 %p
   %strong= @solutions.count

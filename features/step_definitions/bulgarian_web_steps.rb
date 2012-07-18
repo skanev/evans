@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 Когато /^отида (?:на|в) (.*)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -32,6 +33,10 @@ end
 То /^трябва да съм на (.*)$/ do |page_name|
   current_path = URI.parse(current_url).path
   current_path.should == path_to(page_name)
+end
+
+То /^трябва да виждам картинка с алтернативен текст "([^"]*)"$/ do |alt_text|
+  page.should have_selector("img[alt='#{alt_text}']")
 end
 
 И 'кво?' do

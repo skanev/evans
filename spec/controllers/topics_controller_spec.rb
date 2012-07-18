@@ -173,4 +173,8 @@ describe TopicsController do
       response.should redirect_to(topic_reply_path(topic, 20))
     end
   end
+
+  describe "GET RSS feed" do
+    it_behaves_like "RSS page", :topics
+  end
 end

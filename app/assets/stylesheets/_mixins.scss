@@ -6,14 +6,9 @@
 }
 
 @mixin replace-with-image($img, $width, $height) {
-  background: { image: image-url($img); repeat: no-repeat; }
+  background: { image: url($img); repeat: no-repeat; }
   overflow: hidden;
   text: { align: left; indent: -9999px; }
   width: $width;
   height: $height;
-}
-
-@mixin monospace {
-  font-family: $font-monospace;
-  font-size: $font-monospace-size;
 }

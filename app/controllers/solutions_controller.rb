@@ -24,4 +24,5 @@ class SolutionsController < ApplicationController
     solution.update_attributes! params[:solution]
     redirect_to solution
   end
+
 end

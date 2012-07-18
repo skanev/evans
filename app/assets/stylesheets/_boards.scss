@@ -1,11 +1,8 @@
 ol.topic {
   > li { @include contribution; }
-  #main & .body p:first-child { margin-top: 0; }
 }
 
 table.topics {
   time { display: block; }
   td.last-reply { font-size: $font-small; }
 }
-
-p.markdown-explanation { color: #999; font-style: italic; width: 650px; }

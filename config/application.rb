@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -25,7 +26,7 @@ module Trane
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
+    # config.time_zone = 'Sofia' # UTC +0200
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -43,5 +44,11 @@ module Trane
     config.active_record.schema_format = :sql
 
     config.assets.enabled = true
+
+    # Custom configuration
+    config.site_domain   = 'fmi.py-bg.net'
+    config.contact_email = 'fmi@py-bg.net'
+    config.email_from    = '"Програмиране с Python във ФМИ" <' + config.contact_email + '>'
+    config.site_title    = 'Програмиране с Python'
   end
 end
