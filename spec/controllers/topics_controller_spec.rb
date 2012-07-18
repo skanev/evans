@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe TopicsController do
-  log_in_as :student
-
   describe "GET index" do
     it "assigns a page of topics to @topics" do
       Topic.should_receive(:boards_page).with('3').and_return 'topics'
@@ -17,6 +15,8 @@ describe TopicsController do
   end
 
   describe "GET new" do
+    log_in_as :student
+
     it "assigns an empty topic to @topic" do
       Topic.stub new: 'topic'
       get :new
@@ -25,6 +25,8 @@ describe TopicsController do
   end
 
   describe "POST create" do
+    log_in_as :student
+
     let(:topic) { mock_model(Topic) }
 
     before do
@@ -96,6 +98,8 @@ describe TopicsController do
   end
 
   describe "GET edit" do
+    log_in_as :student
+
     let(:topic) { double }
 
     before do
@@ -117,6 +121,8 @@ describe TopicsController do
   end
 
   describe "PUT update" do
+    log_in_as :student
+
     let(:topic) { mock_model(Topic) }
 
     before do
@@ -150,7 +156,6 @@ describe TopicsController do
   end
 
   describe "GET last_reply" do
-    log_out
     let(:topic) { mock_model(Topic) }
 
     before do
