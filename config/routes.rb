@@ -1,39 +1,39 @@
 Trane::Application.routes.draw do
-  resource :registration
-  resources :activations, :constraints => {:id => /.+/}
+  resource :registration, only: %w(new create)
+  resources :activations, constraints: {id: /.+/}, only: %w(show update)
 
-  resources :vouchers
+  resources :vouchers, only: %w(index new create)
 
-  resources :announcements
-  resource :profile
-  resource :dashboard
-  resources :voucher_claims
-  resources :quizzes
-  resources :lectures
+  resources :announcements, except: %w(show destroy)
+  resource :profile, only: %w(edit update)
+  resource :dashboard, only: :show
+  resources :voucher_claims, only: %w(new create)
+  resources :quizzes, only: %w(show)
+  resources :lectures, only: %w(index)
 
-  resources :tasks do
+  resources :tasks, except: :destroy do
     get :guide, on: :collection
-    resource :my_solution
-    resources :solutions do
-      resources :comments
+    resource :my_solution, only: %w(show update)
+    resources :solutions, only: %w(index show update) do
+      resources :comments, only: %w(create edit update)
     end
   end
 
-  resources :topics do
-    get :last_reply, :on => :member
-    resources :replies
+  resources :topics, except: :destroy do
+    get :last_reply, on: :member
+    resources :replies, except: %w(index new destroy)
   end
 
-  resources :posts do
-    resource :star
+  resources :posts, only: :show do
+    resource :star, only: %w(create destroy)
   end
 
   devise_for :users
-  resources :users
-  resources :sign_ups
-  resources :activities
+  resources :users, only: %w(index show)
+  resources :sign_ups, only: %w(index create)
+  resources :activities, only: :index
 
-  get '/backdoor-login', :to => 'backdoor_login#login' if Rails.env.test?
+  get '/backdoor-login', to: 'backdoor_login#login' if Rails.env.test?
 
-  root :to => "home#index"
+  root to: "home#index"
 end
