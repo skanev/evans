@@ -92,7 +92,7 @@ describe Solution do
     it "delegates max_points to task" do
       solution = build(:solution, passed_tests: 10, failed_tests: 0)
 
-      solution.max_points.should eq Task::MAX_POINTS
+      solution.max_points.should eq solution.task.max_points
     end
 
     it "allows non-default max points to be set" do
