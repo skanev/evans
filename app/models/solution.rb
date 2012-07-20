@@ -21,6 +21,12 @@ class Solution < ActiveRecord::Base
     def for_task(task_id)
       where(task_id: task_id).order('solutions.id ASC')
     end
+
+    def calculate_points(passed, failed, max)
+      return 0 if passed.zero? and failed.zero?
+
+      (passed.quo(passed + failed) * max).round
+    end
   end
 
   def user_name
@@ -40,24 +46,11 @@ class Solution < ActiveRecord::Base
   end
 
   def points_for_tests
-    return 0 unless checked?
-
-    percentage_passed = passed_tests.quo total_tests
-    (percentage_passed * max_points).round
+    self.class.calculate_points passed_tests, failed_tests, max_points
   end
 
   def commentable_by?(user)
     return false if user.nil?
     task.closed? or user.admin? or self.user == user
-  end
-
-  private
-
-  def checked?
-    total_tests.nonzero?
-  end
-
-  def total_tests
-    passed_tests + failed_tests
   end
 end

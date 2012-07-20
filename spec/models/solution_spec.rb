@@ -23,6 +23,18 @@ describe Solution do
     Solution.new(code: "1\n2\n3").rows.should eq 3
   end
 
+  it "delegates max_points to task" do
+    solution = build(:solution, passed_tests: 10, failed_tests: 0)
+
+    solution.max_points.should eq solution.task.max_points
+  end
+
+  it "applies the adjustment to the points" do
+    build(:solution, passed_tests: 6, failed_tests: 0, adjustment: 3).total_points.should eq 9
+    build(:solution, passed_tests: 6, failed_tests: 0, adjustment: -2).total_points.should eq 4
+    build(:solution, passed_tests: 1, failed_tests: 5, adjustment: -2).total_points.should eq 0
+  end
+
   describe "looking up the code of an existing solution" do
     let(:user) { create :user }
     let(:task) { create :task }
@@ -73,39 +85,21 @@ describe Solution do
     end
   end
 
-  describe "(calculating points)" do
+  describe "calculating points" do
     [
-      [18, 0, 6],
-      [17, 1, 6],
-      [16, 2, 5],
-      [12, 6, 4],
-    ].each do |passed, failed, points|
-      it "has #{points} points for #{passed} passed and #{failed} failed tests" do
-        build(:solution, passed_tests: passed, failed_tests: failed).total_points.should eq points
+      [18, 0, 6, 6],
+      [17, 1, 6, 6],
+      [16, 2, 6, 5],
+      [12, 6, 6, 4],
+      [10, 0, 8, 8],
+    ].each do |passed, failed, max_points, points|
+      it "scores #{points} points for #{passed} passed and #{failed} failed tests in a task that ammounts to #{max_points} points" do
+        Solution.calculate_points(passed, failed, max_points).should eq points
       end
     end
 
-    it "has 0 points if not checked" do
-      build(:solution).total_points.should eq 0
-    end
-
-    it "delegates max_points to task" do
-      solution = build(:solution, passed_tests: 10, failed_tests: 0)
-
-      solution.max_points.should eq solution.task.max_points
-    end
-
-    it "allows non-default max points to be set" do
-      solution = build(:solution, passed_tests: 10, failed_tests: 0)
-      solution.task.max_points = 8
-
-      solution.total_points.should eq 8
-    end
-
-    it "applies the adjustment to the points" do
-      build(:solution, passed_tests: 6, failed_tests: 0, adjustment: 3).total_points.should eq 9
-      build(:solution, passed_tests: 6, failed_tests: 0, adjustment: -2).total_points.should eq 4
-      build(:solution, passed_tests: 1, failed_tests: 5, adjustment: -2).total_points.should eq 0
+    it "scores 0 points if the solution is not checked" do
+      Solution.calculate_points(0, 0, 6).should eq 0
     end
   end
 end
