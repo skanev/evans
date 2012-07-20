@@ -18,7 +18,7 @@ describe "Point mechanics" do
   end
 
   it "student gets points from each solution" do
-    solution = create :checked_solution, passed_tests: 1
+    solution = create :checked_solution, points: 6
     user = solution.user
 
     user.points.should eq solution.max_points

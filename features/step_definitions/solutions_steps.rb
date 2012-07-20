@@ -81,10 +81,6 @@ end
   table.diff! [header] + rows
 end
 
-То 'трябва да виждам едно решение с "$points" точки' do |points|
-  find('[data-points]').text.should eq points
-end
-
 То 'трябва да видя, че метода "$method_name" е твърде дълъг' do |method_name|
   page.should have_content('Решението ви не минава някои стилистически изисквания')
   page.should have_content('Number of lines per method')

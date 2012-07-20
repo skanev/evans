@@ -8,7 +8,7 @@
     %h2 Резултати
 
     %ul
-      %li.test-points= pluralize @solution.points_for_tests, 'точка от тестове', 'точки от тестове'
+      %li.test-points= pluralize @solution.points, 'точка от тестове', 'точки от тестове'
       - if @solution.adjustment >= 0
         %li.bonus= pluralize @solution.adjustment, 'бонус точка', 'бонус точки'
       - else

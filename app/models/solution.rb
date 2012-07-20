@@ -42,11 +42,7 @@ class Solution < ActiveRecord::Base
   end
 
   def total_points
-    [points_for_tests + adjustment, 0].max
-  end
-
-  def points_for_tests
-    self.class.calculate_points passed_tests, failed_tests, max_points
+    [points + adjustment, 0].max
   end
 
   def commentable_by?(user)

@@ -29,10 +29,10 @@ describe Solution do
     solution.max_points.should eq solution.task.max_points
   end
 
-  it "applies the adjustment to the points" do
-    build(:solution, passed_tests: 6, failed_tests: 0, adjustment: 3).total_points.should eq 9
-    build(:solution, passed_tests: 6, failed_tests: 0, adjustment: -2).total_points.should eq 4
-    build(:solution, passed_tests: 1, failed_tests: 5, adjustment: -2).total_points.should eq 0
+  it "can calculate the total points for a task" do
+    build(:solution, points: 6, adjustment: 3).total_points.should eq 9
+    build(:solution, points: 6, adjustment: -2).total_points.should eq 4
+    build(:solution, points: 1, adjustment: -2).total_points.should eq 0
   end
 
   describe "looking up the code of an existing solution" do
