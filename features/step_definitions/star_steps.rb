@@ -46,13 +46,3 @@ end
   topic = create :topic, title: topic_title
   create :reply, topic: topic, user: user, starred: true
 end
-
-То 'профилът на "$user" трябва да показва, че има бонус точки от темите:' do |user_name, table|
-  user = User.find_by_full_name! user_name
-  visit user_path(user)
-
-  table.raw.each do |row|
-    topic_title = row.first
-    page.should have_selector("a:contains('#{topic_title}')")
-  end
-end

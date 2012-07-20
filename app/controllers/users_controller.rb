@@ -5,6 +5,5 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
-    @points_breakdown = PointsBreakdown.new @user
   end
 end

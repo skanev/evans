@@ -14,7 +14,6 @@ describe UsersController do
 
     before do
       User.stub find: user
-      PointsBreakdown.stub :new
     end
 
     it "looks up the user by id" do
@@ -25,12 +24,6 @@ describe UsersController do
     it "assigns the user to @user" do
       get :show, id: '42'
       assigns(:user).should eq user
-    end
-
-    it "assigns a point breakdown of the user to @points_breakdown" do
-      PointsBreakdown.should_receive(:new).with(user).and_return('points breakdown')
-      get :show, id: '42'
-      assigns(:points_breakdown).should eq 'points breakdown'
     end
   end
 end
