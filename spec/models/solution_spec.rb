@@ -81,12 +81,12 @@ describe Solution do
       [12, 6, 4],
     ].each do |passed, failed, points|
       it "has #{points} points for #{passed} passed and #{failed} failed tests" do
-        build(:solution, passed_tests: passed, failed_tests: failed).points.should eq points
+        build(:solution, passed_tests: passed, failed_tests: failed).total_points.should eq points
       end
     end
 
     it "has 0 points if not checked" do
-      build(:solution).points.should eq 0
+      build(:solution).total_points.should eq 0
     end
 
     it "delegates max_points to task" do
@@ -99,13 +99,13 @@ describe Solution do
       solution = build(:solution, passed_tests: 10, failed_tests: 0)
       solution.task.max_points = 8
 
-      solution.points.should eq 8
+      solution.total_points.should eq 8
     end
 
     it "applies the adjustment to the points" do
-      build(:solution, passed_tests: 6, failed_tests: 0, adjustment: 3).points.should eq 9
-      build(:solution, passed_tests: 6, failed_tests: 0, adjustment: -2).points.should eq 4
-      build(:solution, passed_tests: 1, failed_tests: 5, adjustment: -2).points.should eq 0
+      build(:solution, passed_tests: 6, failed_tests: 0, adjustment: 3).total_points.should eq 9
+      build(:solution, passed_tests: 6, failed_tests: 0, adjustment: -2).total_points.should eq 4
+      build(:solution, passed_tests: 1, failed_tests: 5, adjustment: -2).total_points.should eq 0
     end
   end
 end

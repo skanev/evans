@@ -13,7 +13,7 @@
         %li.bonus= pluralize @solution.adjustment, 'бонус точка', 'бонус точки'
       - else
         %li.penalty= pluralize @solution.adjustment.abs, 'отнета точка', 'отнети точки'
-      %li.total-points= pluralize @solution.points, 'точка общо', 'точки общо'
+      %li.total-points= pluralize @solution.total_points, 'точка общо', 'точки общо'
 
     %ul
       %li.passed-tests #{@solution.passed_tests} успешни тест(а)

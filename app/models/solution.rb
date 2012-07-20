@@ -35,7 +35,7 @@ class Solution < ActiveRecord::Base
     code.split("\n").count
   end
 
-  def points
+  def total_points
     [points_for_tests + adjustment, 0].max
   end
 
