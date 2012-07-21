@@ -48,6 +48,7 @@ class Activation
     @user = User.create! do |user|
       user.email = @sign_up.email
       user.full_name = @sign_up.full_name
+      user.name = User.shorten_name @sign_up.full_name
       user.faculty_number = @sign_up.faculty_number
       user.password = password
       user.password_confirmation = password_confirmation

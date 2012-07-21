@@ -10,7 +10,7 @@ end
 end
 
 Когато 'коментирам решението на "$user" с:' do |user_name, comment|
-  user     = User.find_by_full_name! user_name
+  user     = User.find_by_name! user_name
   solution = Solution.find_by_user_id! user.id
 
   visit solution_path(solution)
@@ -29,7 +29,7 @@ end
 end
 
 Когато 'опитам да оставя празен коментар на решението на "$user_name"' do |user_name|
-  user     = User.find_by_full_name! user_name
+  user     = User.find_by_name! user_name
   solution = Solution.find_by_user_id! user.id
 
   visit solution_path(solution)

@@ -21,12 +21,12 @@ end
 end
 
 Дадено 'че студент "$name" е публикувал тема "$topic"' do |user_name, topic|
-  user = create :user, full_name: user_name
+  user = create :user, name: user_name
   create :topic, title: topic, user: user
 end
 
 Дадено 'че студент "$user" е отговорил на тема "$topic"' do |user_name, topic_title|
-  user  = create :user, full_name: user_name
+  user  = create :user, name: user_name
   topic = create :topic, title: topic_title
 
   create :reply, user: user, topic: topic

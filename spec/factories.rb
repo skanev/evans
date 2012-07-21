@@ -18,7 +18,8 @@ FactoryGirl.define do
   factory :user do
     email
     faculty_number
-    full_name 'John Doe'
+    full_name 'John D. Doe'
+    name 'John Doe'
   end
 
   factory :user_with_photo, parent: :user do

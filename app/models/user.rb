@@ -10,10 +10,6 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password, unless: -> { password.blank? }
 
-  def name
-    self.class.shorten_name full_name
-  end
-
   def points
     points = 0
     points += 1 if photo.present?

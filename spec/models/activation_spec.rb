@@ -46,6 +46,12 @@ describe Activation do
       activation.user_created.should be_persisted
     end
 
+    it "shortens the user name" do
+      User.should_receive(:shorten_name).with(sign_up.full_name).and_return('Short Name')
+      activation.submit valid_attributes
+      activation.user_created.name.should eq 'Short Name'
+    end
+
     it "returns false when the activation is invalid" do
       activation.submit.should be_false
     end

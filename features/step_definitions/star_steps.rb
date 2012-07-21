@@ -1,6 +1,6 @@
 # encoding: utf-8
 Дадено 'че студент "$user" има звездичка за тема "$topic"' do |user_name, topic_title|
-  user = create :user, full_name: user_name
+  user = create :user, name: user_name
   create :topic, user: user, starred: true, title: topic_title
 end
 
@@ -32,7 +32,7 @@ end
 end
 
 То /^"(.*?)" трябва да има "(\d+)" точк(?:а|и)$/ do |name, points|
-  user = User.find_by_full_name! name
+  user = User.find_by_name! name
   user.points.should eq points.to_i
 end
 
@@ -42,7 +42,7 @@ end
 end
 
 Дадено 'че студент "$user" има звездичка за отговор на тема "$topic"' do |user_name, topic_title|
-  user  = User.find_by_full_name(user_name) || create(:user, full_name: user_name)
+  user  = User.find_by_name(user_name) || create(:user, full_name: user_name)
   topic = create :topic, title: topic_title
   create :reply, topic: topic, user: user, starred: true
 end

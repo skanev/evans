@@ -4,7 +4,7 @@
 
   table.hashes.each do |row|
     attributes = {
-      user: create(:user, full_name: row['Студент']),
+      user: create(:user, name: row['Студент']),
       task: task,
       passed_tests: row['Успешни'],
       failed_tests: row['Неуспешни'],
@@ -21,7 +21,7 @@ end
 end
 
 Дадено 'че студент "$user" е предал решение на задача "$task"' do |user_name, task_name|
-  user = create :user, full_name: user_name
+  user = create :user, name: user_name
   task = create :task, name: task_name
   create :solution, user: user, task: task
 end
@@ -37,7 +37,7 @@ end
 end
 
 Когато 'отида на решението на "$user_name" за "$task_name"' do |user_name, task_name|
-  user     = User.find_by_full_name! user_name
+  user     = User.find_by_name! user_name
   task     = Task.find_by_name! task_name
   solution = Solution.find_by_task_id_and_user_id task.id, user.id
 
@@ -53,7 +53,7 @@ end
 end
 
 Когато /^дам (\d+) бонус точки да решението на "([^"]*)"$/ do |points, student_name|
-  user     = User.find_by_full_name! student_name
+  user     = User.find_by_name! student_name
   solution = Solution.find_by_user_id! user.id
 
   visit solution_path(solution)
@@ -88,7 +88,7 @@ end
 end
 
 То /^решението на "([^"]*)" трябва да има (\d+) допълнителни точки$/ do |student_name, points|
-  user     = User.find_by_full_name! student_name
+  user     = User.find_by_name! student_name
   solution = Solution.find_by_user_id! user.id
 
   visit solution_path(solution)

@@ -22,7 +22,7 @@ end
 
   (replies.to_i - 1).times { create :reply, topic: topic }
 
-  last_reply_author = create :user, full_name: author_name
+  last_reply_author = create :user, name: author_name
   create :reply, topic: topic, user: last_reply_author
 end
 
