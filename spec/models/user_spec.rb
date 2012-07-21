@@ -8,10 +8,10 @@ describe User do
   it { should_not allow_mass_assignment_of(:email) }
   it { should_not allow_mass_assignment_of(:admin) }
 
-  it "displays only first and last name" do
-    build(:user, full_name: 'Петър Иванов').name.should eq 'Петър Иванов'
-    build(:user, full_name: 'Петър Петров Иванов').name.should eq 'Петър Иванов'
-    build(:user, full_name: 'Петър Петров Петров Иванов').name.should eq 'Петър Иванов'
+  it "can shorten the name of a user" do
+    User.shorten_name('Петър Иванов').should eq 'Петър Иванов'
+    User.shorten_name('Петър Петров Иванов').should eq 'Петър Иванов'
+    User.shorten_name('Петър Петров Петров Иванов').should eq 'Петър Иванов'
   end
 
   describe "pagination" do

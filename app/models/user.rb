@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, unless: -> { password.blank? }
 
   def name
-    full_name.gsub(/^(\S+) .* (\S+)$/, '\1 \2')
+    self.class.shorten_name full_name
   end
 
   def points
@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
   end
 
   class << self
+    def shorten_name(name)
+      name.gsub(/^(\S+) .* (\S+)$/, '\1 \2')
+    end
+
     def page(page_number)
       sort_order = <<-END
         (CASE
