@@ -50,7 +50,7 @@ describe Topic do
 
   it "can tell how many pages of replies it has" do
     topic_with_replies = lambda do |count|
-      topic = FactoryGirl.create :topic
+      topic = create :topic
       count.times { create :reply, topic: topic }
       topic.reload
     end

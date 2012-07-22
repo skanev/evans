@@ -1,12 +1,12 @@
 # encoding: utf-8
 Дадено 'че имам коментар на чуждо решение' do
-  solution = FactoryGirl.create :solution, task: FactoryGirl.create(:closed_task)
-  FactoryGirl.create :comment, user: current_user, solution: solution
+  solution = create :solution, task: create(:closed_task)
+  create :comment, user: current_user, solution: solution
 end
 
 Дадено 'че съм предал решение на "$task"' do |task_name|
-  task = FactoryGirl.create :closed_task, name: task_name
-  FactoryGirl.create :solution, user: current_user, task: task
+  task = create :closed_task, name: task_name
+  create :solution, user: current_user, task: task
 end
 
 Когато 'коментирам решението на "$user" с:' do |user_name, comment|
@@ -51,7 +51,7 @@ end
   task = Task.find_by_name! task_name
   solution = Solution.find_by_task_id_and_user_id! task.id, current_user.id
 
-  backdoor_login FactoryGirl.create(:user)
+  backdoor_login create(:user)
 
   visit solution_path(solution)
 
