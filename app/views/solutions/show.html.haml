@@ -29,10 +29,13 @@
   - if admin?
     = render 'solutions/adjustment', solution: @solution
 
-  %h2 Коментари
+  %h2 История (5 версии и 41 коментара)
   - @history.revisions.each do |revision|
     %article.revision
+      %h3 #{@solution.user.first_name} обнови решението на #{l revision.created_at} (преди #{time_ago_in_words revision.created_at})
+
       %pre= @history.code_for revision
+
       - @history.comments(revision).each do |comment|
         %article.comment{:id => "comment-#{comment.id}"}
           %aside
