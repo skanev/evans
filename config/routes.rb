@@ -32,6 +32,7 @@ Trane::Application.routes.draw do
   resources :users, only: %w(index show)
   resources :sign_ups, only: %w(index create)
   resources :activities, only: :index
+  resources :points_breakdowns, only: :index
 
   get '/backdoor-login', to: 'backdoor_login#login' if Rails.env.test?
 

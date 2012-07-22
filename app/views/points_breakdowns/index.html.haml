@@ -1,0 +1,26 @@
+%h1 Точки до момента
+
+%table
+  %thead
+    %tr
+      %th Име
+      %th Фак. №
+      %th Звезди
+      %th Ваучъри
+      - if Task.exists?
+        %th{:colspan => Task.count} Задачи
+      - if Quiz.exists?
+        %th{:colspan => Quiz.count} Тестове
+      %th Общо
+  %tbody
+    - @points_breakdowns.each do |breakdown|
+      %tr
+        %td= link_to breakdown.name, user_path(breakdown.id)
+        %td= breakdown.faculty_number
+        %td= breakdown.stars
+        %td= breakdown.vouchers
+        - breakdown.tasks_breakdown.each do |points|
+          %td= points
+        - breakdown.quizzes_breakdown.each do |points|
+          %td= points
+        %td= breakdown.total

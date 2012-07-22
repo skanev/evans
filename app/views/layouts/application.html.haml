@@ -37,6 +37,7 @@
           %li= link_to 'Активност', activities_path
           %li= link_to 'Ваучъри', vouchers_path
           %li= link_to 'Записани', sign_ups_path
+          %li= link_to 'Точки', points_breakdowns_path
     #container
       - flash.keys.each do |key|
         %div{:class => [:flash, key]}= flash[key]
