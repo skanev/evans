@@ -3,6 +3,11 @@ require 'spork'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= "test"
+
+  # Don't let Devise load the User model early
+  require 'rails/application'
+  Spork.trap_method Rails::Application::RoutesReloader, :reload!
+
   require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
   require 'rspec'
