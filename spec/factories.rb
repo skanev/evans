@@ -42,6 +42,10 @@ FactoryGirl.define do
     user
   end
 
+  factory :starred_post, parent: :topic do
+    starred true
+  end
+
   factory :voucher do
     code { FactoryGirl.generate(:voucher_code) }
   end
