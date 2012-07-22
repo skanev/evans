@@ -1,0 +1,10 @@
+%article{:id => contribution.dom_id, :class => contribution.css_class, 'data-starred' => contribution.starred?.to_s}
+  %aside
+    = contribution.user_avatar
+    = contribution.user_name
+  .body
+    = markup contribution.body
+  .published-at
+    = contribution.permalink
+    = contribution.edit_link
+    = contribution.star_link

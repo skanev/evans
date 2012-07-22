@@ -37,17 +37,7 @@
       %pre= @history.code_for revision
 
       - @history.comments(revision).each do |comment|
-        %article.comment{:id => "comment-#{comment.id}"}
-          %aside
-            = link_to user_thumbnail(comment.user), comment.user
-            = link_to comment.user.name, comment.user
-          .body
-            = markup comment.body
-          .published-at
-            = link_to comment, class: 'permalink', title: 'Трайна връзка към този коментар' do
-              Публикувано преди
-              %time{:datetime => comment.created_at.iso8601}= time_ago_in_words comment.created_at
-            = link_to 'Редактирай', [:edit, comment.revision, comment] if can_edit? comment
+        = contribution comment
 
   - if @solution.commentable_by? current_user
     = simple_form_for [@last_revision, Comment.new] do |form|

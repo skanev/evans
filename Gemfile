@@ -10,6 +10,7 @@ gem 'haml'
 gem 'will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'draper'
 
 gem 'skeptic'
 

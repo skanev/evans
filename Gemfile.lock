@@ -79,6 +79,9 @@ GEM
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
     diff-lcs (1.1.3)
+    draper (0.15.0)
+      actionpack (~> 3.2)
+      activesupport (~> 3.2)
     em-websocket (0.3.8)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
@@ -264,6 +267,7 @@ DEPENDENCIES
   database_cleaner
   devise
   devise-encryptable
+  draper
   email_spec
   factory_girl_rails
   faker
