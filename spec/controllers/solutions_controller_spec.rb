@@ -42,13 +42,15 @@ describe SolutionsController do
   describe "GET show" do
     log_in_as :student
 
-    let(:task) { double(closed?: true) }
-    let(:solution) { double('solution') }
+    let(:task) { double closed?: true }
+    let(:solution) { double 'solution' }
+    let(:last_revision) { double 'last revision' }
 
     before do
       Task.stub find: task
       task.stub_chain :solutions, find: solution
       solution.stub :commentable_by?
+      solution.stub_chain :revisions, :last => last_revision
     end
 
     it "allows access to people, who can comment on the solution, while the task is still open" do
@@ -69,12 +71,17 @@ describe SolutionsController do
       response.should deny_access
     end
 
-    it "assigns the solution to @solution" do
+    it "assigns the solution" do
       task.solutions.should_receive(:find).with('10').and_return(solution)
 
       get :show, task_id: '42', id: '10'
 
       assigns(:solution).should eq solution
+    end
+
+    it "assigns the last revision" do
+      get :show, task_id: '42', id: '10'
+      controller.should assign_to(:last_revision).with(last_revision)
     end
   end
 
