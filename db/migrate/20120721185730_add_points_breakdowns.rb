@@ -75,6 +75,7 @@ class AddPointsBreakdowns < ActiveRecord::Migration
       LEFT JOIN quizzes_summary ON quizzes_summary.user_id = users.id
       LEFT JOIN stars_summary ON stars_summary.user_id = users.id
       LEFT JOIN vouchers_summary ON vouchers_summary.user_id = users.id
+      WHERE NOT users.admin
       ORDER BY rank
     SQL
   end

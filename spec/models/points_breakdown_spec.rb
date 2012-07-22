@@ -84,4 +84,24 @@ describe PointsBreakdown do
   it "raises an error the user does not exists" do
     expect { PointsBreakdown.find 0 }.to raise_error 'Cannot find user with id = 0'
   end
+
+  it "can retrieve breakdowns for all users" do
+    first  = create :user
+    second = create :user
+    create :voucher, user: first
+
+    breakdowns = PointsBreakdown.all
+
+    breakdowns.map(&:id).should eq [first.id, second.id]
+  end
+
+  it "does not retrieve breakdowns for admins" do
+    user  = create :user
+    admin = create :admin
+
+    user_ids = PointsBreakdown.all.map(&:id)
+
+    user_ids.should include user.id
+    user_ids.should_not include admin.id
+  end
 end

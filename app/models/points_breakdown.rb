@@ -36,9 +36,21 @@ class PointsBreakdown
 
   class << self
     def find(user_id)
-      hash = ActiveRecord::Base.connection.execute("SELECT #{@fields.join(', ')} FROM points_breakdowns WHERE id = #{user_id.to_i}").first
+      hash = query("id = #{user_id.to_i}").first
       raise "Cannot find user with id = #{user_id}" if hash.nil?
       new hash
+    end
+
+    def all
+      query.to_a.map { |hash| new hash }
+    end
+
+    private
+
+    def query(conditions = nil)
+      sql = "SELECT #{@fields.join(', ')} FROM points_breakdowns"
+      sql << " WHERE #{conditions}" if conditions
+      ActiveRecord::Base.connection.execute sql
     end
   end
 end
