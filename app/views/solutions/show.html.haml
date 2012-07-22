@@ -43,11 +43,11 @@
           = link_to comment, class: 'permalink', title: 'Трайна връзка към този коментар' do
             Публикувано преди
             %time{:datetime => comment.created_at.iso8601}= time_ago_in_words comment.created_at
-          = link_to 'Редактирай', [:edit, comment.task, comment.solution, comment.revision, comment] if can_edit? comment
+          = link_to 'Редактирай', [:edit, comment.revision, comment] if can_edit? comment
   - else
     %p.missing Няма коментари
 
   - if @solution.commentable_by? current_user
     - revision = @solution.revisions.last
-    = simple_form_for [revision.task, revision.solution, revision, Comment.new] do |form|
+    = simple_form_for [revision, Comment.new] do |form|
       = render 'comments/form', form: form

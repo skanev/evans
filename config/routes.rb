@@ -14,11 +14,11 @@ Trane::Application.routes.draw do
   resources :tasks, except: :destroy do
     get :guide, on: :collection
     resource :my_solution, only: %w(show update)
-    resources :solutions, only: %w(index show update) do
-      resources :revisions, only: [] do
-        resources :comments, only: %w(create edit update)
-      end
-    end
+    resources :solutions, only: %w(index show update)
+  end
+
+  resources :revisions, only: [] do
+    resources :comments, only: %w(create edit update)
   end
 
   resources :topics, except: :destroy do

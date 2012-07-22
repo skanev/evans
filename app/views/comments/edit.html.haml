@@ -1,4 +1,4 @@
 %h1 Редактиране на коментар
 
-= simple_form_for [@comment.task, @comment.solution, @comment.revision, @comment] do |form|
+= simple_form_for [@comment.revision, @comment] do |form|
   = render 'form', form: form

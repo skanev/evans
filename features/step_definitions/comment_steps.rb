@@ -39,7 +39,7 @@ end
 
 Когато 'променя коментара си на "$comment"' do |comment_body|
   comment   = Comment.find_by_user_id! current_user.id
-  edit_path = edit_task_solution_revision_comment_path(comment.task, comment.solution, comment.revision, comment)
+  edit_path = edit_revision_comment_path(comment.revision, comment)
 
   visit edit_path
 
