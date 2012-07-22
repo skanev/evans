@@ -6,6 +6,7 @@ class Solution < ActiveRecord::Base
   belongs_to :task
 
   has_many :comments, order: 'comments.created_at ASC'
+  has_many :revisions, order: 'revisions.id ASC'
 
   delegate :max_points, to: :task
 

@@ -70,7 +70,12 @@ FactoryGirl.define do
   factory :solution do
     user
     task
-    code 'code'
+    code 'Code'
+  end
+
+  factory :revision do
+    solution
+    code 'Code'
   end
 
   factory :comment do

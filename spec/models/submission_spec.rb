@@ -4,19 +4,25 @@ describe Submission do
   let(:user) { create :user }
   let(:task) { create :task }
 
-  it "creates a new solution for the given user and task" do
+  it "creates a new solution and revision for the given user and task" do
     submit user, task, 'code'
 
-    Solution.exists?(user_id: user.id, task_id: task.id, code: 'code').should be_true
+    solution = Solution.where(user_id: user.id, task_id: task.id).first
+    solution.should be_present
+    solution.should have(1).revisions
+    solution.revisions.first.code.should eq 'code'
   end
 
-  it "updates the current solution if it exists" do
+  it "updates the current solution and creates a new revision if already submitted" do
     solution = create :solution, user: user, task: task, code: 'old code'
+    create :revision, solution: solution, code: 'old code'
 
     submit user, task, 'new code'
 
     solution.reload
     solution.code.should eq 'new code'
+    solution.should have(2).revisions
+    solution.revisions.last.code.should eq 'new code'
   end
 
   it "indicates if the submission is successful" do
