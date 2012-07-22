@@ -13,16 +13,17 @@ class Feed
     <<-SQL
       (
         SELECT
-          'comment'            AS kind,
-          comments.user_id     AS user_id,
-          users.full_name      AS user_name,
-          comments.solution_id AS target_id,
-          tasks.id             AS secondary_id,
-          tasks.name           AS subject,
-          comments.created_at  AS happened_at
+          'comment'           AS kind,
+          comments.user_id    AS user_id,
+          users.full_name     AS user_name,
+          solutions.id        AS target_id,
+          tasks.id            AS secondary_id,
+          tasks.name          AS subject,
+          comments.created_at AS happened_at
         FROM comments
           LEFT JOIN users     ON comments.user_id = users.id
-          LEFT JOIN solutions ON comments.solution_id = solutions.id
+          LEFT JOIN revisions ON comments.revision_id = revisions.id
+          LEFT JOIN solutions ON revisions.solution_id = solutions.id
           LEFT JOIN tasks     ON solutions.task_id = tasks.id
       ) UNION (
         SELECT

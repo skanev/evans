@@ -15,7 +15,9 @@ Trane::Application.routes.draw do
     get :guide, on: :collection
     resource :my_solution, only: %w(show update)
     resources :solutions, only: %w(index show update) do
-      resources :comments, only: %w(create edit update)
+      resources :revisions, only: [] do
+        resources :comments, only: %w(create edit update)
+      end
     end
   end
 

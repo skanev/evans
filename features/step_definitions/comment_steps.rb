@@ -1,7 +1,7 @@
 # encoding: utf-8
 Дадено 'че имам коментар на чуждо решение' do
   solution = create :solution_with_revisions, task: create(:closed_task)
-  create :comment, user: current_user, solution: solution
+  create :comment, user: current_user, revision: solution.revisions.last
 end
 
 Дадено 'че съм предал решение на "$task"' do |task_name|
@@ -39,7 +39,7 @@ end
 
 Когато 'променя коментара си на "$comment"' do |comment_body|
   comment   = Comment.find_by_user_id! current_user.id
-  edit_path = edit_task_solution_comment_path(comment.solution.task, comment.solution, comment)
+  edit_path = edit_task_solution_revision_comment_path(comment.task, comment.solution, comment.revision, comment)
 
   visit edit_path
 

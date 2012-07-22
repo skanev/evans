@@ -4,14 +4,14 @@ class CommentsController < ApplicationController
   before_filter :require_editable_comment, only: [:edit, :update]
 
   def create
-    @solution = Solution.find params[:solution_id]
+    @revision = Revision.find params[:revision_id]
 
-    unless @solution.commentable_by? current_user
+    unless @revision.commentable_by? current_user
       deny_access
       return
     end
 
-    @comment = @solution.comments.build params[:comment]
+    @comment = @revision.comments.build params[:comment]
     @comment.user = current_user
 
     if @comment.save

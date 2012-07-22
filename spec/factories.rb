@@ -90,7 +90,7 @@ FactoryGirl.define do
 
   factory :comment do
     user
-    solution
+    revision
     body 'Body'
   end
 

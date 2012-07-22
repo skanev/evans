@@ -8,8 +8,8 @@ describe CommentObserver do
   end
 
   it "does not notify people about comments they make on their own solutions" do
-    solution = create :solution
-    comment  = build :comment, solution: solution, user: solution.user
+    revision = create :revision
+    comment  = build :comment, revision: revision, user: revision.solution.user
 
     SolutionMailer.should_not_receive(:new_comment)
 
@@ -18,8 +18,8 @@ describe CommentObserver do
 
   it "does not notify people, who have disabled email notification" do
     user     = create :user, comment_notification: false
-    solution = create :solution, user: user
-    comment  = build :comment, solution: solution
+    solution = create :solution_with_revisions, user: user
+    comment  = build :comment, revision: solution.revisions.first
 
     SolutionMailer.should_not_receive(:new_comment)
 
