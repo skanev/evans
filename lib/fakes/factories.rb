@@ -16,6 +16,7 @@ FactoryGirl.define do
   factory :fake_user, :class => :user do
     email
     faculty_number
+    name { Faker::Name.name }
     full_name { Faker::Name.name }
     photo { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/fakes', %w[1.jpg 2.jpg 3.jpg 4.jpg].sample)) }
   end
@@ -56,15 +57,26 @@ FactoryGirl.define do
   factory :fake_checked_solution, :class => :solution do
     association :user, :factory => :fake_user
     add_attribute(:task) { Task.where('closes_at < ?', Time.now).sample }
-    code 'print("larodi")'
     passed_tests { rand(10) }
     failed_tests { rand(10) }
     log 'Log'
+
+    after :create do |solution|
+      create :fake_revision, :solution => solution
+    end
   end
 
   factory :fake_non_checked_solution, :class => :solution do
     association :user, :factory => :fake_user
     add_attribute(:task) { Task.where('closes_at > ?', Time.now).sample }
+
+    after :create do |solution|
+      create :fake_revision, :solution => solution
+    end
+  end
+
+  factory :fake_revision, :class => :revision do
+    association :solution, :factory => :fake_checked_solution
     code 'print("larodi")'
   end
 
