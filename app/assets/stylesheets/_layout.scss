@@ -1,0 +1,32 @@
+body { font-family: $font-text; font-size: $font-normal; line-height: 19px; }
+a { color: $color-link; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+table { @include data-table; }
+p { margin: 1.5em 0; }
+strong { font-weight: bold; }
+em { font-style: italic; }
+abbr { border-bottom: 1px dotted $dark-border; }
+
+.main h1 { @include heading-1; margin-bottom: 1em; }
+.action { @include action; }
+
+.no-records,
+.requires-authentication { color: $disabled; font-style: italic; }
+
+.pagination {
+  margin-bottom: 1em;
+  overflow: hidden;
+
+  span,
+  em,
+  a { display: block; float: left; margin: 2px; padding: 5px 10px; }
+
+  .disabled,
+  a { border: 1px solid #ddd; }
+
+  em { color: #FF8000; font-weight: bold; font-style: normal; }
+  a:hover { background-color: #0063DC; color: white; text-decoration: none; }
+}
+
+#home-page { @include content; }

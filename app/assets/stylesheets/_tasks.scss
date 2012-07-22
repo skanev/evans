@@ -4,6 +4,7 @@
 
   dl dt { display: block; float: left; font-weight: bold; width: 100px; }
   dl dd { clear: right; margin: 5px 0; }
+
 }
 
 table.solutions {
@@ -37,7 +38,7 @@ table.solutions {
   .results ul li.failed-tests { background-image: image-url('icons/flag_red.png'); }
 
   article.revision { border: 1px dotted $light-border; padding: 2em; margin: 2em 0; }
-  #main & article.revision h3 { margin: 0 0 2em; }
+  article.revision h3 { margin: 0 0 2em; }
   article.comment { @include contribution; }
   article.revision > pre,
   > pre { background-color: #f8f8ff; color: #444; padding: .5em 1em; border: 1px solid #dedede; border-radius: 2px; overflow-x: auto; }

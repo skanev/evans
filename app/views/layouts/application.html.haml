@@ -41,7 +41,7 @@
     #container
       - flash.keys.each do |key|
         %div{:class => [:flash, key]}= flash[key]
-      #main
+      .main
         = yield
       %footer
         = link_to 'Някои права запазени', '#'

@@ -1,9 +1,9 @@
-%h1 Новини
-
-- if admin?
-  = link_to 'Нова', new_announcement_path
-
 #announcements
+  %h1 Новини
+
+  - if admin?
+    = link_to 'Нова', new_announcement_path, class: :action
+
   - unless @announcements.empty?
     - @announcements.each do |announcement|
       = render announcement

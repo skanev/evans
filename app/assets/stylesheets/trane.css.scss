@@ -5,6 +5,7 @@
 @import "contribution";
 
 @import "headers";
+@import "layout";
 @import "forms";
 @import "boards";
 @import "users";
@@ -13,57 +14,3 @@
 @import "lectures";
 @import "tasks";
 @import "feed";
-
-body { font-family: $font-text; font-size: $font-normal; }
-a { text-decoration: none; }
-
-#main {
-  line-height: 19px;
-
-  a { color: $color-link; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  h1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; line-height: $font-huge * 1.2; margin-bottom: 20px; }
-  h2 { color: $subtitle-color; font-family: $font-headings; font-size: $font-larger; margin: 1.75em 0 1em; }
-  h3 { color: $subtitle-color; font-family: $font-headings; font-size: $font-large; margin: 2em 0 1em; }
-
-  p { margin: 1.5em 0; }
-  strong { font-weight: bold; }
-  em { font-style: italic; }
-
-  abbr { border-bottom: 1px dotted $dark-border; }
-}
-
-table {
-  border: { collapse: separate; spacing: 5px; }
-  margin: 20px 0;
-  width: 100%;
-
-  caption { color: #3371a3; font-size: $font-large; font-weight: bold; padding: 10px 0; text-align: left; }
-  thead th { background-color: #3371a3; color: white; font-weight: bold; text-align: left; }
-  th, td { padding: 8px 16px; vertical-align: middle; }
-  tr:nth-child(even) { background-color: #f0f0f0; }
-  td.no-records { text-align: center; }
-}
-
-.no-records,
-.requires-authentication { color: $disabled; font-style: italic; }
-
-#main .pagination {
-  margin-bottom: 1em;
-  overflow: hidden;
-
-  span,
-  em,
-  a { display: block; float: left; margin: 2px; padding: 5px 10px; }
-
-  .disabled,
-  a { border: 1px solid #ddd; }
-
-  em { color: #FF8000; font-weight: bold; font-style: normal; }
-  a:hover { background-color: #0063DC; color: white; text-decoration: none; }
-}
-
-#home-page { @include content; }
-a.back:before { content: "↶ " }
-a.related:before { content: "↗ " }

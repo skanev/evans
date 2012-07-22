@@ -1,5 +1,9 @@
 @mixin content {
-  h2 { margin-top: 10px; }
+  h1 { @include heading-1; margin: 1em 0; }
+  h1:first-of-type { margin-top: 0; }
+  h2 { @include heading-2; margin: 1.75em 0 1em; }
+  h3 { @include heading-3; margin: 2em 0 1em; }
+
   ul, ol { margin: 10px 0 10px 30px; }
   li { margin: 2px 0; }
   ul > li { list-style: circle; }

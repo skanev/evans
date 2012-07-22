@@ -17,3 +17,33 @@
   font-family: $font-monospace;
   font-size: $font-monospace-size;
 }
+
+@mixin heading-1 { color: $title-color; font-family: $font-headings; font-size: $font-huge; line-height: $font-huge * 1.2; }
+@mixin heading-2 { color: $subtitle-color; font-family: $font-headings; font-size: $font-larger; }
+@mixin heading-3 { color: $subtitle-color; font-family: $font-headings; font-size: $font-large; }
+
+@mixin data-table {
+  border: { collapse: separate; spacing: 5px; }
+  margin: 20px 0;
+  width: 100%;
+
+  caption { color: #3371a3; font-size: $font-large; font-weight: bold; padding: 10px 0; text-align: left; }
+  thead th { background-color: #3371a3; color: white; font-weight: bold; text-align: left; }
+  th, td { padding: 8px 16px; vertical-align: middle; }
+  tr:nth-child(even) { background-color: #f0f0f0; }
+  td.no-records { text-align: center; }
+}
+
+@mixin action {
+  background-color: $action;
+  color: white;
+  display: inline-block;
+  padding: .35em 1em .3em;
+  border-radius: 4px;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: none;
+    background-color: $action-hover;
+  }
+}

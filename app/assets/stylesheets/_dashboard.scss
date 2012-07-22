@@ -1,4 +1,6 @@
 #dashboard {
+  @include content;
+
   .points { border: 1px solid $light-border; float: right; width: 100px; };
   .points h2 { display: none; }
   .points p { text-align: center; }

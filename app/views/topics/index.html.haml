@@ -1,6 +1,6 @@
 %h1 Форуми
 
-%p= link_to 'Нова тема', new_topic_path if logged_in?
+%p= link_to 'Нова тема', new_topic_path, class: :action if logged_in?
 
 %table.topics
   %thead

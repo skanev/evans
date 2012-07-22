@@ -1,6 +1,6 @@
 ol.topic {
   > li { @include contribution; }
-  #main & .body p:first-child { margin-top: 0; }
+  .body p:first-child { margin-top: 0; }
 }
 
 table.topics {
