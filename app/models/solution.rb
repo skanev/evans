@@ -1,5 +1,5 @@
 class Solution < ActiveRecord::Base
-  validates_presence_of :code, :user_id, :task_id
+  validates_presence_of :user_id, :task_id
   validates_uniqueness_of :user_id, scope: :task_id
 
   belongs_to :user
@@ -28,6 +28,10 @@ class Solution < ActiveRecord::Base
 
       (passed.quo(passed + failed) * max).round
     end
+  end
+
+  def code
+    revisions.last.code
   end
 
   def user_name

@@ -7,15 +7,12 @@ class Submission
 
   def submit
     return false if @task.closed?
+    return false if @code.blank?
     return false if violating_restrictions?
-    solution = Solution.for(@user, @task) || Solution.new(user_id: @user.id, task_id: @task.id)
 
-    if solution.update_attributes code: @code
-      Revision.create! solution: solution, code: @code
-      true
-    else
-      false
-    end
+    solution = Solution.for(@user, @task) || Solution.create!(user_id: @user.id, task_id: @task.id)
+    Revision.create! solution: solution, code: @code
+    true
   end
 
   def violating_restrictions?
