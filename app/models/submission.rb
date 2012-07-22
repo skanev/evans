@@ -10,8 +10,15 @@ class Submission
     return false if @code.blank?
     return false if violating_restrictions?
 
-    solution = Solution.for(@user, @task) || Solution.create!(user_id: @user.id, task_id: @task.id)
-    Revision.create! solution: solution, code: @code
+    solution = Solution.for(@user, @task)
+
+    if solution
+      Revision.create! solution: solution, code: @code unless solution.code == @code
+    else
+      solution = Solution.create! user_id: @user.id, task_id: @task.id
+      Revision.create! solution: solution, code: @code
+    end
+
     true
   end
 

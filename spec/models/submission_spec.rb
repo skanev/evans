@@ -44,6 +44,14 @@ describe Submission do
     solution.code.should eq 'old code'
   end
 
+  it "does not create a new revision if the user submits the same code" do
+    solution = create :solution_with_revisions, task: task, user: user, code: 'original code'
+
+    expect do
+      submit user, task, 'original code'
+    end.not_to change(Revision, :count)
+  end
+
   describe "task with restrictions" do
     it "can run with skeptic" do
       code       = 'foo;bar'
