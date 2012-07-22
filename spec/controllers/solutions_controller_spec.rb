@@ -44,13 +44,13 @@ describe SolutionsController do
 
     let(:task) { double closed?: true }
     let(:solution) { double 'solution' }
-    let(:last_revision) { double 'last revision' }
 
     before do
       Task.stub find: task
+      SolutionHistory.stub :new
       task.stub_chain :solutions, find: solution
       solution.stub :commentable_by?
-      solution.stub last_revision: last_revision
+      solution.stub :last_revision
     end
 
     it "allows access to people, who can comment on the solution, while the task is still open" do
@@ -80,8 +80,15 @@ describe SolutionsController do
     end
 
     it "assigns the last revision" do
+      solution.stub last_revision: 'last revision'
       get :show, task_id: '42', id: '10'
-      controller.should assign_to(:last_revision).with(last_revision)
+      controller.should assign_to(:last_revision).with('last revision')
+    end
+
+    it "assigns the solution history" do
+      SolutionHistory.should_receive(:new).with(solution).and_return('solution history')
+      get :show, task_id: '42', id: '10'
+      controller.should assign_to(:history).with('solution history')
     end
   end
 

@@ -15,6 +15,7 @@ class SolutionsController < ApplicationController
   def show
     @task          = Task.find params[:task_id]
     @solution      = @task.solutions.find params[:id]
+    @history       = SolutionHistory.new @solution
     @last_revision = @solution.last_revision
 
     deny_access unless @task.closed? or @solution.commentable_by?(current_user)

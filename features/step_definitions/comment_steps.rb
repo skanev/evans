@@ -9,6 +9,19 @@ end
   solution = create :solution_with_revisions, user: current_user, task: task
 end
 
+Дадено 'решението ми на "$task" има следната история:' do |task_name, table|
+  task     = create :task, name: task_name
+  solution = create :solution, task: task, user: current_user
+
+  table.raw.each do |kind, text|
+    case kind
+      when 'Версия'   then create :revision, solution: solution, code: text
+      when 'Коментар' then create :comment, revision: solution.revisions.last, body: text
+      else                 raise "Don't know how to process #{kind}"
+    end
+  end
+end
+
 Когато 'коментирам решението на "$user" с:' do |user_name, comment|
   user     = User.find_by_name! user_name
   solution = Solution.find_by_user_id! user.id
@@ -59,7 +72,17 @@ end
   click_on 'Коментирай'
 end
 
-То 'трябва да виждам коментар "$comment"' do |comment|
+То 'трябва да виждам версия "$revision"' do |code|
+  page.should have_content code
+end
+
+То 'трябва да виждам коментар "$comment" за "$revision"' do |comment, revision|
+  within ".revision:contains('#{revision}')" do
+    page.should have_content comment
+  end
+end
+
+То /^трябва да виждам коментар "([^"]*?)"$/ do |comment|
   within '.comment' do
     page.should have_content(comment)
   end

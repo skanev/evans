@@ -66,6 +66,13 @@ end
   visit task_my_solution_path(task)
 end
 
+Когато 'отворя публичната страница на решението ми на "$task"' do |name|
+  task     = Task.find_by_name! name
+  solution = Solution.find_by_user_id_and_task_id! current_user.id, task.id
+
+  visit solution_path solution
+end
+
 То 'да имам решение на "$name" с код:' do |name, code|
   task = Task.find_by_name!(name)
   solution = Solution.find_by_user_id_and_task_id(@current_user.id, task.id)
