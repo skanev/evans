@@ -63,6 +63,7 @@ class AddPointsBreakdowns < ActiveRecord::Migration
         rank() OVER (ORDER BY arrays_summary.tasks + arrays_summary.quizzes + stars_summary.points + vouchers_summary.points DESC) AS rank,
         users.id AS id,
         users.name AS name,
+        users.faculty_number AS faculty_number,
         arrays_summary.tasks_breakdown AS tasks_breakdown,
         arrays_summary.tasks AS tasks,
         arrays_summary.quizzes_breakdown AS quizzes_breakdown,

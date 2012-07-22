@@ -8,6 +8,10 @@ describe PointsBreakdown do
     breakdown.id.should eq user.id
   end
 
+  it "knows the facutly number of the user" do
+    breakdown.faculty_number.should eq user.faculty_number
+  end
+
   it "knows the name of the user" do
     breakdown.name.should eq user.name
   end

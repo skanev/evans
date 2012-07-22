@@ -21,6 +21,7 @@ class PointsBreakdown
   field :vouchers, Integer
   field :stars, Integer
   field :name, String
+  field :faculty_number, String
   field :tasks_breakdown, Array
   field :quizzes_breakdown, Array
 
