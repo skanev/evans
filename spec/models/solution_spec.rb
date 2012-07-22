@@ -33,6 +33,14 @@ describe Solution do
     build(:solution, points: 1, adjustment: -2).total_points.should eq 0
   end
 
+  it "can tell the latest revision" do
+    solution = create :solution
+    first    = create :revision, solution: solution
+    second   = create :revision, solution: solution
+
+    solution.last_revision.should eq second
+  end
+
   it "can tell the code of the lastest revision" do
     solution = create :solution
     create :revision, solution: solution, code: 'first revision'

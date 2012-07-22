@@ -50,7 +50,7 @@ describe SolutionsController do
       Task.stub find: task
       task.stub_chain :solutions, find: solution
       solution.stub :commentable_by?
-      solution.stub_chain :revisions, :last => last_revision
+      solution.stub last_revision: last_revision
     end
 
     it "allows access to people, who can comment on the solution, while the task is still open" do

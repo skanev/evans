@@ -31,7 +31,11 @@ class Solution < ActiveRecord::Base
   end
 
   def code
-    revisions.last.code
+    last_revision.code
+  end
+
+  def last_revision
+    revisions.last
   end
 
   def user_name
