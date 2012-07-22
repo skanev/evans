@@ -14,8 +14,7 @@ describe Submission do
   end
 
   it "updates the current solution and creates a new revision if already submitted" do
-    solution = create :solution, user: user, task: task
-    create :revision, solution: solution, code: 'old code'
+    solution = create :solution_with_revisions, user: user, task: task, code: 'old code'
 
     submit user, task, 'new code'
 
@@ -37,8 +36,7 @@ describe Submission do
 
   it "does not update the solution after the task is closed" do
     task = create(:closed_task)
-    solution = create :solution, task: task, user: user
-    create :revision, solution: solution, code: 'old code'
+    solution = create :solution_with_revisions, task: task, user: user, code: 'old code'
 
     submit user, task, 'new code'
 

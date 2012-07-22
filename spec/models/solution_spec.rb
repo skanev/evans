@@ -17,9 +17,9 @@ describe Solution do
   end
 
   it "can find the number of rows in the code" do
-    create_solution_with_code('print("baba")').rows.should eq 1
-    create_solution_with_code("1\n2").rows.should eq 2
-    create_solution_with_code("1\n2\n3").rows.should eq 3
+    create(:solution_with_revisions, code: 'print("baba")').rows.should eq 1
+    create(:solution_with_revisions, code: "1\n2").rows.should eq 2
+    create(:solution_with_revisions, code: "1\n2\n3").rows.should eq 3
   end
 
   it "delegates max_points to task" do
@@ -47,7 +47,7 @@ describe Solution do
     let(:task) { create :task }
 
     it "retuns the code as a string" do
-      create_solution_with_code 'code', user: user, task: task
+      create :solution_with_revisions, code: 'code', user: user, task: task
       Solution.code_for(user, task).should eq 'code'
     end
 
@@ -108,11 +108,5 @@ describe Solution do
     it "scores 0 points if the solution is not checked" do
       Solution.calculate_points(0, 0, 6).should eq 0
     end
-  end
-
-  def create_solution_with_code(code, attributes = {})
-    solution = create :solution, attributes
-    create :revision, code: code, solution: solution
-    solution
   end
 end

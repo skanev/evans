@@ -1,14 +1,12 @@
 # encoding: utf-8
 Дадено 'че имам коментар на чуждо решение' do
-  solution = create :solution, task: create(:closed_task)
-  create :revision, solution: solution
+  solution = create :solution_with_revisions, task: create(:closed_task)
   create :comment, user: current_user, solution: solution
 end
 
 Дадено 'че съм предал решение на "$task"' do |task_name|
   task     = create :closed_task, name: task_name
-  solution = create :solution, user: current_user, task: task
-  create :revision, solution: solution
+  solution = create :solution_with_revisions, user: current_user, task: task
 end
 
 Когато 'коментирам решението на "$user" с:' do |user_name, comment|

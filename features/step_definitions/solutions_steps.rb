@@ -8,11 +8,11 @@
       task: task,
       passed_tests: row['Успешни'],
       failed_tests: row['Неуспешни'],
+      code: row['Код'],
       log: row['Лог'],
     }
 
-    solution = create :solution, attributes
-    create :revision, code: row['Код'], solution: solution
+    create :solution_with_revisions, attributes
   end
 end
 
@@ -21,16 +21,14 @@ end
 end
 
 Дадено 'че студент "$user" е предал решение на задача "$task"' do |user_name, task_name|
-  user     = create :user, name: user_name
-  task     = create :task, name: task_name
-  solution = create :solution, user: user, task: task
-  create :revision, solution: solution
+  user = create :user, name: user_name
+  task = create :task, name: task_name
+  create :solution_with_revisions, user: user, task: task
 end
 
 Дадено 'че съм предал решение на текуща задача' do
-  task     = create :open_task
-  solution = create :solution, task: task, user: current_user
-  create :revision, solution: solution
+  task = create :open_task
+  create :solution_with_revisions, task: task, user: current_user
 end
 
 Когато 'отида на решенията на "$name"' do |name|

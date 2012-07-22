@@ -70,6 +70,17 @@ FactoryGirl.define do
   factory :solution do
     user
     task
+
+    factory :solution_with_revisions do
+      ignore do
+        code 'Code'
+        revisions_count 1
+      end
+
+      after :create do |solution, evaluator|
+        create_list :revision, evaluator.revisions_count, solution: solution, code: evaluator.code
+      end
+    end
   end
 
   factory :revision do
