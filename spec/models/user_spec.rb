@@ -14,6 +14,12 @@ describe User do
     User.shorten_name('Петър Петров Петров Иванов').should eq 'Петър Иванов'
   end
 
+  it "can tell the first name of the user" do
+    build(:user, name: 'Петър').first_name.should eq 'Петър'
+    build(:user, name: 'Петър Петров').first_name.should eq 'Петър'
+    build(:user, name: 'Петър Петров Иванов').first_name.should eq 'Петър'
+  end
+
   describe "pagination" do
     it "sorts by creation time, older users first" do
       second = create :user, created_at: 2.days.ago

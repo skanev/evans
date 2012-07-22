@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     points
   end
 
+  def first_name
+    name.split(' ').first
+  end
+
   class << self
     def shorten_name(name)
       name.gsub(/^(\S+) .* (\S+)$/, '\1 \2')
