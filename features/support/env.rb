@@ -23,9 +23,13 @@ Spork.prefork do
   Cucumber::Rails::World.use_transactional_fixtures = true
 
   World(FactoryGirl::Syntax::Methods)
+
+  ActiveRecord::Base.remove_connection
 end
 
 Spork.each_run do
+  ActiveRecord::Base.establish_connection
+
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
   Trane::Application.reload_routes!
