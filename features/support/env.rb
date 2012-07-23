@@ -19,6 +19,8 @@ Spork.prefork do
   require 'capybara/cucumber'
   require 'capybara/session'
 
+  require 'sidekiq/testing'
+
   Capybara.default_selector = :css
   Cucumber::Rails::World.use_transactional_fixtures = true
 

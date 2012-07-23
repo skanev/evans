@@ -25,6 +25,12 @@ gem 'hoptoad_notifier'
 gem 'jquery-rails'
 gem 'airbrake'
 
+
+# Sidekiq and its dependencies
+gem 'sidekiq'
+gem 'slim'
+gem 'sinatra', require: false
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'

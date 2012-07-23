@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Trane::Application.routes.draw do
   resource :registration, only: %w(new create)
   resources :activations, constraints: {id: /.+/}, only: %w(show update)
@@ -37,6 +39,8 @@ Trane::Application.routes.draw do
   resources :points_breakdowns, only: :index
 
   get '/backdoor-login', to: 'backdoor_login#login' if Rails.env.test?
+
+  mount Sidekiq::Web => '/queue', :constraints => AdminConstraint.new
 
   root to: "home#index"
 end
