@@ -63,16 +63,17 @@ describe PointsBreakdown do
     PointsBreakdown.find(third.id).rank.should eq 3
   end
 
-  it "has reasonable defaults when the user has no points" do
-    breakdown.vouchers.should eq 0
-    breakdown.stars.should eq 0
-    breakdown.tasks_breakdown.should eq []
-    breakdown.quizzes_breakdown.should eq []
-  end
-
   it "assigns 0 points to tasks without solutions" do
     create :task
     breakdown.tasks_breakdown.should eq [0]
+  end
+
+  it "ignores tasks that are not checked" do
+    create :solution, user: user, points: 1, task: create(:closed_task)
+    create :solution, user: user, points: 2, task: create(:open_task)
+    create :solution, user: user, points: 3, task: create(:closed_task)
+
+    breakdown.tasks_breakdown.should eq [1, 3]
   end
 
   it "does not assign negative points to tasks" do
@@ -83,6 +84,13 @@ describe PointsBreakdown do
   it "assigns 0 points to quizzes without results" do
     create :quiz
     breakdown.quizzes_breakdown.should eq [0]
+  end
+
+  it "has reasonable defaults when the user has no points" do
+    breakdown.vouchers.should eq 0
+    breakdown.stars.should eq 0
+    breakdown.tasks_breakdown.should eq []
+    breakdown.quizzes_breakdown.should eq []
   end
 
   it "raises an error the user does not exists" do

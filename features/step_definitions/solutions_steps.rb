@@ -17,7 +17,7 @@
 end
 
 Дадено 'че има отворена задача "$name"' do |name|
-  create :task, name: name
+  create :open_task, name: name
 end
 
 Дадено 'че студент "$user" е предал решение на задача "$task"' do |user_name, task_name|

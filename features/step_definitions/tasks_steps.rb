@@ -4,7 +4,7 @@
 end
 
 Дадено 'че в момента тече задача "$name"' do |name|
-  create :task, name: name
+  create :open_task, name: name
 end
 
 Дадено 'че има затворена задача "$name"' do |name|

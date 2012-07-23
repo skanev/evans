@@ -58,13 +58,14 @@ FactoryGirl.define do
   factory :task do
     name 'Name'
     description 'Description'
-    closes_at 1.week.from_now
-  end
-
-  factory :open_task, parent: :task
-
-  factory :closed_task, parent: :task do
     closes_at 1.week.ago
+    checked true
+
+    factory :closed_task
+    factory :open_task do
+      closes_at 1.week.from_now
+      checked false
+    end
   end
 
   factory :solution do

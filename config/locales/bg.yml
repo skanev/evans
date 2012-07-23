@@ -80,6 +80,7 @@ bg:
       task:
         name: Име
         description: Условие
+        checked: Проверена
         test_case: Тест
         closes_at: Краен срок
       solution:

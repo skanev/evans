@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Submission do
   let(:user) { create :user }
-  let(:task) { create :task }
+  let(:task) { create :open_task }
 
   it "creates a new solution and revision for the given user and task" do
     submit user, task, 'code'

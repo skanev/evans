@@ -9,7 +9,7 @@ describe Task do
   it { should have_many(:solutions) }
 
   it "can tell whether it is closed" do
-    create(:task).should_not be_closed
+    create(:open_task).should_not be_closed
     create(:closed_task).should be_closed
   end
 

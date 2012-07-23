@@ -1,5 +1,9 @@
 # encoding: utf-8
 module TasksHelper
+  def show_results?(task)
+    task.checked? or admin?
+  end
+
   def restriction_name(rule, option)
     case rule.to_sym
       when :no_semicolons     then 'Не ползвайте ; за да разделяте изрази'
