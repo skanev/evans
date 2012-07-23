@@ -1,5 +1,16 @@
 %h1 Решения на #{@task.name}
 %p= link_to 'Към задачата', @task, class: :back
+
+= admin_only do
+  - unless TaskCheckWorker.queued? @task.id
+    = link_to 'Пусни тестовете', task_check_path(@task), method: :create, class: :action
+  - else
+    %p
+      %em
+        В момента тази задача се проверява. В случай, че твърде дълго не
+        се случи нищо, погледни #{link_to 'опашката', sidekiq_web_path}
+        за повече информация.
+
 %p
   %strong= @solutions.count
   решения
