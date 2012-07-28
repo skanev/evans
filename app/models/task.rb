@@ -5,6 +5,8 @@ class Task < ActiveRecord::Base
 
   has_many :solutions
 
+  scope :checked, conditions: {checked: true}
+
   def closed?
     closes_at.past?
   end

@@ -8,7 +8,7 @@
       %th Звезди
       %th Ваучъри
       - if Task.exists?
-        %th{:colspan => Task.count} Задачи
+        %th{:colspan => Task.checked.count} Задачи
       - if Quiz.exists?
         %th{:colspan => Quiz.count} Тестове
       %th Общо

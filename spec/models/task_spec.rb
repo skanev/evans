@@ -17,6 +17,13 @@ describe Task do
     create(:task).max_points.should eq 6
   end
 
+  it "can retrieve only checed tasks" do
+    checked = create :task, checked: true
+    create :task, checked: false
+
+    Task.checked.should eq [checked]
+  end
+
   describe "restrictions" do
     it "has no restrictions by default" do
       create(:task).restrictions_hash.should eq Hash.new
