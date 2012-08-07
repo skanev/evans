@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def markup(text, options = {})
-    options = {auto_link: true}.merge options
+    options = options.reverse_merge auto_link: true
 
     formatted = Markup.format(text)
     formatted = auto_link(formatted) if options[:auto_link]
