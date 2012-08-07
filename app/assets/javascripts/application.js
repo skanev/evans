@@ -13,9 +13,3 @@
 $.ajaxSetup({
   dataType: 'json'
 });
-
-$(function() {
-  $('pre:not([class])').addClass('language-ruby').each(function () {
-     hljs.highlightBlock(this);
-  });
-});
