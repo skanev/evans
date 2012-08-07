@@ -285,6 +285,7 @@ DEPENDENCIES
   capistrano (~> 2.8)
   capybara
   carrierwave
+  coderay
   coffee-rails
   cucumber-rails
   database_cleaner

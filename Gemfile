@@ -19,12 +19,12 @@ gem 'spork', '0.9.0.rc9'
 gem 'rails_autolink'
 gem 'rdiscount'
 gem 'sanitize'
+gem 'coderay'
 
 gem 'hoptoad_notifier'
 
 gem 'jquery-rails'
 gem 'airbrake'
-
 
 # Sidekiq and its dependencies
 gem 'sidekiq'
