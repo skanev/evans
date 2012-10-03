@@ -41,7 +41,6 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
-  gem 'cucumber-rails'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'guard'
@@ -55,6 +54,7 @@ group :development do
 end
 
 group :test do
+  gem 'cucumber-rails'
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
