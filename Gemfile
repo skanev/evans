@@ -46,7 +46,7 @@ group :development, :test do
   gem 'faker'
   gem 'guard'
   gem 'guard-livereload'
-  gem 'guard-sass'
+  gem 'guard-sass', require: false
   gem 'capistrano', '~> 2.8'
 end
 
