@@ -1,8 +1,7 @@
 set :application, 'Trane Revisited'
 set :scm,         :git
 set :repository,  'git://github.com/skanev/evans.git'
-set :tag,         'ruby-2011'
-set :deploy_to,   '/data/rails/evans'
+set :deploy_to,   '/data/rails/evans-2012'
 set :user,        'pyfmi'
 set :use_sudo,    false
 
@@ -51,7 +50,7 @@ end
 namespace :sync do
   task :db, :roles => :app do
     system <<-END
-      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans | gzip -c" |
+      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans_2012 | gzip -c" |
         gunzip -c |
         bundle exec rails dbconsole
     END
