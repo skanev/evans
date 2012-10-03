@@ -2,7 +2,7 @@ set :application, 'Trane Revisited'
 set :scm,         :git
 set :repository,  'git://github.com/skanev/evans.git'
 set :branch,      'ruby-2011'
-set :deploy_to,   '/data/rails/evans'
+set :deploy_to,   '/data/rails/evans-2011'
 set :user,        'pyfmi'
 set :use_sudo,    false
 
@@ -49,14 +49,16 @@ namespace :lectures do
 end
 
 namespace :sync do
+  desc 'Copy the production data in the local db'
   task :db, :roles => :app do
     system <<-END
-      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans | gzip -c" |
+      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans_2011 | gzip -c" |
         gunzip -c |
         bundle exec rails dbconsole
     END
   end
 
+  desc 'Copy uploaded media from the production server locally'
   task :uploads, :roles => :app do
     system <<-END
       rsync --exclude tmp -av --delete \
