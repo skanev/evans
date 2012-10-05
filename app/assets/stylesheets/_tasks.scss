@@ -28,6 +28,10 @@ table.solutions {
 .solution {
   @include content;
 
+  .CodeRay .row-comment { background: transparent image-url('icons/comment.png') no-repeat top center; display: block; overflow: hidden; text-align: left; text-indent: -999px; width: 25px; height: 19px; }
+  .CodeRay td { height: 19px; }
+  .CodeRay td:first-child { min-width: 25px; }
+
   .results ul li { background: { position: 0 0; repeat: no-repeat; } list-style: none; padding-left: 25px; }
   .results ul li.test-points { background-image: image-url('icons/emoticon_grin.png'); }
   .results ul li.bonus { background-image: image-url('icons/star.png'); }

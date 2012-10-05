@@ -24,6 +24,7 @@ gem 'coderay'
 gem 'hoptoad_notifier'
 
 gem 'jquery-rails'
+gem 'rails-backbone'
 gem 'airbrake'
 
 # Sidekiq and its dependencies
