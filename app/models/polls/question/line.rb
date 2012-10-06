@@ -4,8 +4,9 @@ module Polls
       attr_reader :name
 
       def initialize(hash)
-        @name = hash[:name]
-        @text = hash[:text]
+        @name     = hash[:name]
+        @text     = hash[:text]
+        @required = hash[:required]
       end
 
       def value(value)
@@ -17,6 +18,10 @@ module Polls
           as: :string,
           label: @text,
         }
+      end
+
+      def required?
+        @required
       end
     end
   end

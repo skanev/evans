@@ -26,7 +26,7 @@ module Polls
     end
 
     describe "updating" do
-      let(:blueprint) { [{type: 'single-line', name: 'age', text: 'Your age:'}] }
+      let(:blueprint) { [{type: 'single-line', name: 'age', text: 'Your age:', required: true}] }
       let(:poll) { create :poll, blueprint: blueprint }
       let(:user) { create :user }
 
@@ -34,13 +34,23 @@ module Polls
         submission = Submission.new poll, user
 
         expect do
-          submission.update 'age' => '10'
+          submission.update('age' => '10').should be_true
         end.to change(PollAnswer, :count).by(1)
 
         answer = PollAnswer.last
         answer.answers.should eq 'age' => '10'
         answer.user.should eq user
         answer.poll.should eq poll
+      end
+
+      it "validates the presence of the required fields" do
+        submission = Submission.new poll, user
+
+        expect do
+          submission.update('age' => '').should be_false
+        end.not_to change(PollAnswer, :count)
+
+        submission.should have_error_on(:age)
       end
     end
   end

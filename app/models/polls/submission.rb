@@ -6,6 +6,12 @@ module Polls
 
     attr_reader :questions
 
+    validate :required_answers_validations
+
+    def self.for(poll, user)
+      new poll, user
+    end
+
     def initialize(poll, user, hash = {})
       @poll      = poll
       @user      = user
@@ -20,13 +26,15 @@ module Polls
     def update(hash = {})
       @hash = @hash.merge hash
 
-      PollAnswer.create do |poll_answer|
-        poll_answer.user = @user
-        poll_answer.poll = @poll
-        poll_answer.answers = @hash
-      end
+      if valid?
+        PollAnswer.create! do |poll_answer|
+          poll_answer.user = @user
+          poll_answer.poll = @poll
+          poll_answer.answers = @hash
+        end
 
-      true
+        true
+      end
     end
 
     def respond_to?(name, include_private = false)
@@ -43,8 +51,13 @@ module Polls
       end
     end
 
-    def self.for(poll, user)
-      new poll, user
+    private
+
+    def required_answers_validations
+      @questions.select(&:required?).each do |question|
+        value = question.value @hash[question.name]
+        errors.add question.name, :presence if value.blank?
+      end
     end
   end
 end
