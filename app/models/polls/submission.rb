@@ -13,10 +13,10 @@ module Polls
       new poll, user, answers
     end
 
-    def initialize(poll, user, hash = {})
+    def initialize(poll, user, answers = {})
       @poll      = poll
       @user      = user
-      @hash      = hash
+      @answers   = answers
       @questions = poll.blueprint.map { |hash| Question::Line.new hash.with_indifferent_access }
     end
 
@@ -24,12 +24,12 @@ module Polls
       false
     end
 
-    def update(hash = {})
-      @hash = @hash.merge hash
+    def update(answers = {})
+      @answers = @answers.merge answers
 
       if valid?
         poll_answer = find_or_build_poll_answer
-        poll_answer.answers = @hash
+        poll_answer.answers = @answers
         poll_answer.save!
 
         true
@@ -46,7 +46,7 @@ module Polls
       question = @questions.detect { |q| q.name == name.to_s }
 
       if question
-        question.value @hash[name.to_s]
+        question.value @answers[name.to_s]
       else
         super
       end
@@ -56,7 +56,7 @@ module Polls
 
     def required_answers_validations
       @questions.select(&:required?).each do |question|
-        value = question.value @hash[question.name]
+        value = question.value @answers[question.name]
         errors.add question.name, :presence if value.blank?
       end
     end
