@@ -9,7 +9,8 @@ module Polls
     validate :required_answers_validations
 
     def self.for(poll, user)
-      new poll, user
+      answers = PollAnswer.where(poll_id: poll.id, user_id: user.id).first.try(:answers) || {}
+      new poll, user, answers
     end
 
     def initialize(poll, user, hash = {})
@@ -27,13 +28,13 @@ module Polls
       @hash = @hash.merge hash
 
       if valid?
-        PollAnswer.create! do |poll_answer|
-          poll_answer.user = @user
-          poll_answer.poll = @poll
-          poll_answer.answers = @hash
-        end
+        poll_answer = find_or_build_poll_answer
+        poll_answer.answers = @hash
+        poll_answer.save!
 
         true
+      else
+        false
       end
     end
 
@@ -58,6 +59,10 @@ module Polls
         value = question.value @hash[question.name]
         errors.add question.name, :presence if value.blank?
       end
+    end
+
+    def find_or_build_poll_answer
+      PollAnswer.where(poll_id: @poll.id, user_id: @user.id).first || PollAnswer.new(poll_id: @poll.id, user_id: @user.id)
     end
   end
 end

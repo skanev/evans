@@ -3,7 +3,12 @@
   create :poll, name: name, blueprint_yaml: blueprint_yaml
 end
 
-Когато 'отговоря на анкетата "$name" с:' do |name, table|
+Дадено 'че съм отговорил на анкетата "$name" с:' do |name, answers_yaml|
+  poll = Poll.find_by_name name
+  create :poll_answer, user: current_user, poll: poll, answers: YAML.load(answers_yaml)
+end
+
+Когато 'попълня анкетата "$name" с:' do |name, table|
   poll = Poll.find_by_name name
 
   visit poll_my_answer_path(poll)

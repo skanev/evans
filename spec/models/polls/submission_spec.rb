@@ -6,7 +6,7 @@ module Polls
       Submission.new double('poll', blueprint: blueprint), double('user'), hash
     end
 
-    it "can construct questions from a blueprint" do
+    it "constructs the questions from the poll's blueprint" do
       submission = build_submission([{type: 'single-line', name: 'age', text: 'How old are you?'}])
 
       submission.should have(1).question
@@ -15,7 +15,7 @@ module Polls
       question.name.should eq 'age'
     end
 
-    it "can provide the values of a question" do
+    it "provides the answers in an ActiveModel compatible interface" do
       submission = build_submission(
         [{type: 'single-line', name: 'age', text: 'How old are you?'}],
         {'age' => '42'}
@@ -23,6 +23,16 @@ module Polls
 
       submission.should respond_to :age
       submission.age.should eq '42'
+    end
+
+    it "populates the answers if a user has already taken the poll" do
+      poll = create :poll, blueprint: [{type: 'single-line', name: 'age', text: 'Your age:'}]
+      user = create :user
+      create :poll_answer, user: user, poll: poll, answers: {'age' => '33'}
+
+      submission = Submission.for poll, user
+
+      submission.age.should eq '33'
     end
 
     describe "updating" do
@@ -51,6 +61,15 @@ module Polls
         end.not_to change(PollAnswer, :count)
 
         submission.should have_error_on(:age)
+      end
+
+      it "updates an existing PollAnswer if present" do
+        poll_answer = create :poll_answer, user: user, poll: poll
+        submission  = Submission.new poll, user
+
+        submission.update 'age' => '33'
+
+        poll_answer.reload.answers.should eq 'age' => '33'
       end
     end
   end
