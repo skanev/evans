@@ -1,17 +1,15 @@
 # encoding: utf-8
-Дадено 'че съществува анкета "$name":' do |name, blueprint_yaml|
-  create :poll, name: name, blueprint_yaml: blueprint_yaml
+Дадено 'че съществува анкета:' do |blueprint_yaml|
+  @poll = create :poll, blueprint_yaml: blueprint_yaml
 end
 
-Дадено 'че съм отговорил на анкетата "$name" с:' do |name, answers_yaml|
-  poll = Poll.find_by_name name
-  create :poll_answer, user: current_user, poll: poll, answers: YAML.load(answers_yaml)
+Дадено 'че съм отговорил на анкетата с:' do |answers_yaml|
+  create :poll_answer, user: current_user, poll: @poll, answers: YAML.load(answers_yaml)
 end
 
-Когато 'попълня анкетата "$name" с:' do |name, table|
-  poll = Poll.find_by_name name
+Когато 'попълня анкетата с:' do |table|
+  visit poll_my_answer_path(@poll)
 
-  visit poll_my_answer_path(poll)
   table.rows.each do |question, answer|
     fill_in question, with: answer
   end
@@ -19,10 +17,9 @@ end
   click_on 'Изпрати'
 end
 
-То 'трябва да бъдат записани следните отговори на "$name":' do |name, yaml|
+То 'моите отговори трябва да бъдат:' do |yaml|
   answers     = YAML.load yaml
-  poll        = Poll.find_by_name name
-  poll_answer = PollAnswer.where(poll_id: poll.id, user_id: current_user).first
+  poll_answer = PollAnswer.where(poll_id: @poll.id, user_id: current_user.id).first
 
   poll_answer.answers.should eq answers
 end
