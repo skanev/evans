@@ -1,0 +1,5 @@
+= simple_form_for @submission, url: poll_my_answer_path(@poll), method: :put, as: :submission do |form|
+  - @submission.questions.each do |question|
+    = form.input question.name, question.form_options
+
+  = form.submit 'Изпрати'

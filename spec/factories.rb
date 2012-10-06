@@ -109,4 +109,15 @@ FactoryGirl.define do
     correct_answers 0
     points 0
   end
+
+  factory :poll do
+    name 'Name'
+    blueprint_yaml Hash.new.to_yaml
+  end
+
+  factory :poll_answer do
+    user
+    poll
+    answers_yaml Hash.new.to_yaml
+  end
 end

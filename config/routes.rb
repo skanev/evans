@@ -33,6 +33,10 @@ Trane::Application.routes.draw do
     resource :star, only: %w(create destroy)
   end
 
+  resources :polls do
+    resource :my_answer
+  end
+
   devise_for :users
   resources :users, only: %w(index show)
   resources :sign_ups, only: %w(index create)
