@@ -10,8 +10,16 @@ end
 Когато 'попълня анкетата с:' do |table|
   visit poll_my_answer_path(@poll)
 
-  table.rows.each do |question, answer|
-    fill_in question, with: answer
+  table.hashes.each do |row|
+    question = row['Въпрос']
+    answer   = row['Отговор']
+    kind     = row['Тип']
+
+    case kind
+      when 'Текст'   then fill_in question, with: answer
+      when 'Отметки' then answer.split(/\s*,\s*/).each { |choice| check choice }
+      else raise "Unknown question type: #{kind}"
+    end
   end
 
   click_on 'Изпрати'
