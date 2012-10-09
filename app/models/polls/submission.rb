@@ -46,8 +46,7 @@ module Polls
       question = @questions.detect { |q| q.name == name.to_s }
 
       if question
-        answer = @answers[name.to_s]
-        question.value answer
+        answer_of question
       else
         super
       end
@@ -67,12 +66,14 @@ module Polls
 
     def required_answers_validations
       @questions.select(&:required?).each do |question|
-        answer = @answers[question.name]
-        value  = question.value answer
-        errors.add question.name, :presence if value.blank?
+        errors.add question.name, :presence if answer_of(question).blank?
       end
     end
 
+
+    def answer_of(question)
+      question.value @answers[question.name]
+    end
     def find_or_build_poll_answer
       PollAnswer.where(poll_id: @poll.id, user_id: @user.id).first || PollAnswer.new(poll_id: @poll.id, user_id: @user.id)
     end
