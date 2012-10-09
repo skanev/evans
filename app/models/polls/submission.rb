@@ -29,7 +29,7 @@ module Polls
 
       if valid?
         poll_answer = find_or_build_poll_answer
-        poll_answer.answers = @answers
+        poll_answer.answers = serializable_answers
         poll_answer.save!
 
         true
@@ -70,10 +70,21 @@ module Polls
       end
     end
 
+    def serializable_answers
+      result = {}
+
+      @questions.each do |question|
+        name = question.name
+        result[name] = answer_of question
+      end
+
+      result
+    end
 
     def answer_of(question)
       question.value @answers[question.name]
     end
+
     def find_or_build_poll_answer
       PollAnswer.where(poll_id: @poll.id, user_id: @user.id).first || PollAnswer.new(poll_id: @poll.id, user_id: @user.id)
     end
