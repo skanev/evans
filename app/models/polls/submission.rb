@@ -46,7 +46,8 @@ module Polls
       question = @questions.detect { |q| q.name == name.to_s }
 
       if question
-        question.value @answers[name.to_s]
+        answer = @answers[name.to_s]
+        question.value answer
       else
         super
       end
@@ -56,7 +57,8 @@ module Polls
 
     def required_answers_validations
       @questions.select(&:required?).each do |question|
-        value = question.value @answers[question.name]
+        answer = @answers[question.name]
+        value  = question.value answer
         errors.add question.name, :presence if value.blank?
       end
     end
