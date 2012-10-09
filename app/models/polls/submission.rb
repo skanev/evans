@@ -17,7 +17,7 @@ module Polls
       @poll      = poll
       @user      = user
       @answers   = answers
-      @questions = poll.blueprint.map { |hash| Question::Line.new hash.with_indifferent_access }
+      @questions = poll.blueprint.map { |hash| questions_from_hash hash }
     end
 
     def persisted?
@@ -54,6 +54,16 @@ module Polls
     end
 
     private
+
+    def questions_from_hash(hash)
+      hash = hash.with_indifferent_access
+
+      case hash[:type]
+        when 'single-line' then Question::Line.new hash
+        when 'multi-line'  then Question::MultiLine.new hash
+        else raise "Unknown question type: #{hash[:type]}"
+      end
+    end
 
     def required_answers_validations
       @questions.select(&:required?).each do |question|

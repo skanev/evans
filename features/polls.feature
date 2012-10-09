@@ -13,7 +13,7 @@
         type: single-line
       - name: editor
         text: Какъв текстов редактор ползвате?
-        type: single-line
+        type: multi-line
       """
     Когато попълня анкетата с:
       | Въпрос                                  | Отговор |
@@ -34,7 +34,7 @@
         type: single-line
       - name: editor
         text: Какъв текстов редактор ползвате?
-        type: single-line
+        type: multi-line
       """
     И че съм отговорил на анкетата с:
       """
