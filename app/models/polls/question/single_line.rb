@@ -1,6 +1,6 @@
 module Polls
   module Question
-    class Line
+    class SingleLine
       attr_reader :name
 
       def initialize(hash)

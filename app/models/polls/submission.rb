@@ -58,7 +58,7 @@ module Polls
       hash = hash.with_indifferent_access
 
       case hash[:type]
-        when 'single-line'   then Question::Line.new hash
+        when 'single-line'   then Question::SingleLine.new hash
         when 'multi-line'    then Question::MultiLine.new hash
         when 'single-choice' then Question::SingleChoice.new hash
         when 'multi-choice'  then Question::MultiChoice.new hash
