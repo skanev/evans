@@ -56,14 +56,9 @@ module Polls
 
     def questions_from_hash(hash)
       hash = hash.with_indifferent_access
+      type = Question.const_get hash[:type].tr('-', '_').classify
 
-      case hash[:type]
-        when 'single-line'   then Question::SingleLine.new hash
-        when 'multi-line'    then Question::MultiLine.new hash
-        when 'single-choice' then Question::SingleChoice.new hash
-        when 'multi-choice'  then Question::MultiChoice.new hash
-        else raise "Unknown question type: #{hash[:type]}"
-      end
+      type.new hash.except(:type)
     end
 
     def required_answers_validations
