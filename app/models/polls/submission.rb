@@ -72,14 +72,7 @@ module Polls
     end
 
     def serializable_answers
-      result = {}
-
-      @questions.each do |question|
-        name = question.name
-        result[name] = answer_of question
-      end
-
-      result
+      @questions.map_hash { |question| [question.name, answer_of(question)] }
     end
 
     def answer_of(question)
