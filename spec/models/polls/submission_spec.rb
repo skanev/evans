@@ -11,7 +11,7 @@ module Polls
 
       submission.should have(1).question
       question = submission.questions.first
-      question.should be_a Question::Line
+      question.should be_a Question::SingleLine
       question.name.should eq 'age'
     end
 

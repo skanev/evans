@@ -14,6 +14,14 @@
       - name: editor
         type: multi-line
         text: Какъв текстов редактор ползвате?
+      - name: best_language
+        type: single-choice
+        text: Кой от следните езици знаете най-добре?
+        options:
+          - Ruby
+          - JavaScript
+          - Python
+          - Perl
       - name: known_languages
         type: multi-choice
         text: Кои от следните езици знаете?
@@ -27,11 +35,13 @@
       | Въпрос                                  | Тип     | Отговор    |
       | Кой е основния ви език за програмиране? | Текст   | Ruby       |
       | Какъв текстов редактор ползвате?        | Текст   | Vim        |
+      | Кои от следните езици знаете най-добре? | Избор   | Perl       |
       | Кои от следните езици знаете?           | Отметки | Ruby, Perl |
     То моите отговори трябва да бъдат:
       """
       main_language: Ruby
       editor: Vim
+      best_language: Perl
       known_languages:
         - Ruby
         - Perl

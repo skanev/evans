@@ -18,6 +18,7 @@ end
     case kind
       when 'Текст'   then fill_in question, with: answer
       when 'Отметки' then answer.split(/\s*,\s*/).each { |choice| check choice }
+      when 'Избор'   then choose answer
       else raise "Unknown question type: #{kind}"
     end
   end
