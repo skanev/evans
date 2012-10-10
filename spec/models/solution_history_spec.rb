@@ -11,6 +11,13 @@ describe SolutionHistory do
     history.revisions.should eq [first, second]
   end
 
+  it "knows how many revisions are there" do
+    first  = create :revision, solution: solution
+    second = create :revision, solution: solution
+
+    history.revisions_count.should eq 2
+  end
+
   it "knows the comments of each revision" do
     first_revision  = create :revision, solution: solution
     second_revision = create :revision, solution: solution
@@ -21,6 +28,17 @@ describe SolutionHistory do
 
     history.comments(first_revision).should eq [first, second]
     history.comments(second_revision).should eq [third]
+  end
+
+  it "knows how many comments there are" do
+    first_revision  = create :revision, solution: solution
+    second_revision = create :revision, solution: solution
+
+    create :comment, revision: first_revision
+    create :comment, revision: first_revision
+    create :comment, revision: second_revision
+
+    history.comments_count.should eq 3
   end
 
   it "knows the code of a revision" do

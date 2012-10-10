@@ -30,7 +30,7 @@
   - if admin?
     = render 'solutions/adjustment', solution: @solution
 
-  %h2 История (5 версии и 41 коментара)
+  %h2 История (#{@history.revisions_count} версии и #{@history.comments_count} коментара)
   - @history.revisions.each do |revision|
     %article.revision
       %h3 #{@solution.user.first_name} обнови решението на #{l revision.created_at} (преди #{time_ago_in_words revision.created_at})
