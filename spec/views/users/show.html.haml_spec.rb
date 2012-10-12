@@ -83,7 +83,6 @@ describe "users/show.html.haml" do
       view.stub logged_in?: true
       view.stub admin?: true
       view.stub current_user: build_stubbed(:admin)
-      render
     end
 
     it "shows the faculty number" do
