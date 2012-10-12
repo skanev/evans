@@ -1,6 +1,7 @@
 #user-page
   %h1= @user.name
-  %p.faculty-number (№#{@user.faculty_number})
+  - if admin? || logged_in? && @user == current_user
+    %p.faculty-number (№#{@user.faculty_number})
 
   = user_thumbnail @user
 

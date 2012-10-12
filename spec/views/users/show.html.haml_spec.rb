@@ -20,6 +20,11 @@ describe "users/show.html.haml" do
       render
       rendered.should_not have_selector("a[href='/profile/edit']")
     end
+
+    it "doesn't show the user's faculty number" do
+      render
+      rendered.should_not have_selector(".faculty-number")
+    end
   end
 
   context 'when a user is logged in' do
@@ -39,6 +44,25 @@ describe "users/show.html.haml" do
       render
 
       rendered.should_not have_selector("a[href='/profile/edit']")
+    end
+
+    it "shows the faculty number if viewing user's own profile" do
+      render
+      rendered.should have_selector(".faculty-number")
+    end
+
+    it "doesn't show the faculty number if viewing someone else's profile" do
+      assign :user, build_stubbed(:user)
+      render
+      rendered.should_not have_selector(".faculty-number")
+    end
+
+    it "shows the faculty number if viewing someone else's profile as admin" do
+      view.stub admin?: true
+      assign :user, build_stubbed(:user)
+
+      render
+      rendered.should have_selector(".faculty-number")
     end
   end
 end
