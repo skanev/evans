@@ -8,4 +8,5 @@ table.topics {
   td.last-reply { font-size: $font-small; }
 }
 
+.new-reply { @include content; }
 p.markdown-explanation { color: #999; font-style: italic; width: 650px; }
