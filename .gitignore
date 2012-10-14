@@ -19,6 +19,7 @@ gems.tags
 .sass-cache
 .rvmrc
 .rbenv-version
+.powrc
 public/lectures
 tmp/ruby-lectures
 tmp/restart.txt
