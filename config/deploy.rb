@@ -42,12 +42,14 @@ after 'deploy:update_code', 'deploy:symlink_shared'
 after 'deploy:update_code', 'deploy:assets:precompile'
 
 namespace :lectures do
+  desc 'Regenerate the lectures from the GitHub repo'
   task :update, roles: :app do
     run "cd #{current_path} && script/lectures"
   end
 end
 
 namespace :sync do
+  desc 'Fetch the production database'
   task :db, :roles => :app do
     system <<-END
       ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans_2012 | gzip -c" |
@@ -56,6 +58,7 @@ namespace :sync do
     END
   end
 
+  desc 'Fetch the images uploaded in production'
   task :uploads, :roles => :app do
     system <<-END
       rsync --exclude tmp -av --delete \
