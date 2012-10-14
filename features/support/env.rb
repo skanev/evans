@@ -8,8 +8,6 @@ Spork.prefork do
   require 'rails/application'
   Spork.trap_method Rails::Application::RoutesReloader, :reload!
 
-  require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
-
   require 'rspec'
 
   require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
@@ -20,6 +18,8 @@ Spork.prefork do
   require 'capybara/session'
 
   require 'sidekiq/testing'
+
+  require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
   Capybara.default_selector = :css
   Cucumber::Rails::World.use_transactional_fixtures = true
