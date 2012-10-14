@@ -35,4 +35,16 @@ $(function() {
       .click()
       .insertBefore(testLog);
   });
+
+  $('[data-revision-code]').each(function() {
+    var codeBlock = $(this);
+
+    $('<a href="#" class="show-code"></a>')
+      .toggle(
+        function() { $(this).html('▸ Покажи кода'); codeBlock.hide(); },
+        function() { $(this).html('▾ Скрий кода'); codeBlock.show(); }
+      )
+      .click()
+      .insertBefore(codeBlock);
+  });
 });

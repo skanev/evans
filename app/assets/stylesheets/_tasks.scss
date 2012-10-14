@@ -39,6 +39,7 @@ table.solutions {
   article.revision { border: 1px dotted $light-border; padding: 2em; margin: 2em 0; }
   article.revision h3 { margin: 0 0 2em; }
   article.comment { @include contribution; }
+  article.comment:first-of-type { margin-top: 1em; }
   article.revision > pre,
   > pre { background-color: #f8f8ff; color: #444; padding: .5em 1em; border: 1px solid #dedede; border-radius: 2px; overflow-x: auto; }
 }

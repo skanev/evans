@@ -35,7 +35,7 @@
     %article.revision
       %h3 #{@solution.user.first_name} обнови решението на #{l revision.created_at} (преди #{time_ago_in_words revision.created_at})
 
-      = format_code @history.code_for revision
+      %div(data-revision-code)= format_code @history.code_for revision
 
       - @history.comments(revision).each do |comment|
         = contribution comment
