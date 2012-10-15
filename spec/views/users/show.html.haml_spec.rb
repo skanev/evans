@@ -1,11 +1,7 @@
-# encoding: utf-8
-
 require 'spec_helper'
 
 describe "users/show.html.haml" do
   let(:user)           { build_stubbed :user }
-  let(:have_edit_link) { have_selector "a[href='#{edit_profile_path}']" }
-  let(:faculty_number) { "№#{user.faculty_number}" }
 
   before do
     view.stub admin?: false
@@ -20,12 +16,12 @@ describe "users/show.html.haml" do
 
     it "does not show a link to the edit profile page" do
       render
-      rendered.should_not have_edit_link
+      rendered.should_not have_link_to edit_profile_path
     end
 
     it "does not show the faculty number" do
       render
-      rendered.should_not have_content faculty_number
+      rendered.should_not have_content user.faculty_number
     end
 
     it "does not show the email" do
@@ -42,12 +38,12 @@ describe "users/show.html.haml" do
 
     it "shows a link to the edit profile page" do
       render
-      rendered.should have_edit_link
+      rendered.should have_link_to edit_profile_path
     end
 
     it "shows their faculty number" do
       render
-      rendered.should have_content faculty_number
+      rendered.should have_content user.faculty_number
     end
 
     it "does not show the email" do
@@ -64,12 +60,12 @@ describe "users/show.html.haml" do
 
     it "does not show a link to the edit profile page" do
       render
-      rendered.should_not have_edit_link
+      rendered.should_not have_link_to edit_profile_path
     end
 
     it "does not show the faculty number" do
       render
-      rendered.should_not have_content faculty_number
+      rendered.should_not have_content user.faculty_number
     end
 
     it "does not show the email" do
@@ -87,7 +83,7 @@ describe "users/show.html.haml" do
 
     it "shows the faculty number" do
       render
-      rendered.should have_content faculty_number
+      rendered.should have_content user.faculty_number
     end
 
     it "shows the email" do
