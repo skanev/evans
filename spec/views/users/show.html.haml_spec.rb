@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "users/show.html.haml" do
-  let(:user)           { build_stubbed :user }
+  let(:user) { build_stubbed :user }
 
   before do
     view.stub admin?: false
