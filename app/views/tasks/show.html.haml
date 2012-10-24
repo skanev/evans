@@ -6,6 +6,8 @@
       = link_to 'Редактирай', edit_task_path(@task), class: :action
     = authenticated_only do
       = link_to 'Моето решение', task_my_solution_path(@task), class: :action
+      - if submitted_solution_for? @task
+        = link_to 'Коментари', solution_path(solution_for(@task)), class: :action
 
   - if admin? or @task.closed?
     %p= link_to 'Предадени решения', task_solutions_path(@task)
