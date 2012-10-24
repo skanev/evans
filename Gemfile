@@ -53,7 +53,7 @@ group :development do
 end
 
 group :test do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'capybara'
