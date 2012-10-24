@@ -4,6 +4,14 @@ module TasksHelper
     task.checked? or admin?
   end
 
+  def submitted_solution_for?(task)
+    !!solution_for(task)
+  end
+
+  def solution_for(task)
+    Solution.for(current_user, task)
+  end
+
   def restriction_name(rule, option)
     case rule.to_sym
       when :no_semicolons          then 'Не ползвайте ; за да разделяте изрази'
