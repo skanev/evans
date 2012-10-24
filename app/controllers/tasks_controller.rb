@@ -22,6 +22,7 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find params[:id]
+    @current_user_solution = Solution.for current_user, @task if current_user
   end
 
   def edit

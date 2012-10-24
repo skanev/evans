@@ -70,10 +70,40 @@ describe TasksController do
   end
 
   describe "GET show" do
+    let(:task) { double }
+    let(:solution) { double }
+
+    before do
+      controller.stub current_user: nil
+      Task.stub find: task
+      Solution.stub for: solution
+    end
+
     it "assigns the task to @task" do
-      Task.should_receive(:find).with('42').and_return('task')
+      Task.should_receive(:find).with('42')
       get :show, id: '42'
-      assigns(:task).should eq 'task'
+      assigns(:task).should eq task
+    end
+
+    context "when user is logged in" do
+      log_in_as :student
+
+      it "looks up the current user's solution" do
+        Solution.should_receive(:for).with(current_user, task)
+        get :show, id: '1'
+      end
+
+      it "assigns the solution to @current_user_solution" do
+        get :show, id: '1'
+        controller.should assign_to(:current_user_solution).with(solution)
+      end
+    end
+
+    context "when nobody is logged in" do
+      it "does not attempt to find the solution" do
+        Solution.should_not_receive(:for)
+        get :show, id: '1'
+      end
     end
   end
 
