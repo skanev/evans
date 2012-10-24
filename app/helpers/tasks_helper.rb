@@ -11,7 +11,7 @@ module TasksHelper
       when :lines_per_method       then "Най-много #{option} реда на метод"
       when :methods_per_class      then "Най-много #{option} метода в клас"
       when :line_length            then "Най-много #{option} символа на ред"
-      when :no_trailing_whitespace then "Без whitespace на края на реда"
+      when :no_trailing_whitespace then 'Без whitespace на края на реда'
       else "--#{rule.underscore} #{option}"
     end
   end
