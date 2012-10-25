@@ -33,4 +33,31 @@ describe Markup do
   it "allows setting class on <pre>" do
     format('<pre class="baba"></pre>').should include('<pre class="baba"></pre>')
   end
+
+  describe "(emoji)" do
+    def image_tag(slug)
+      %{<img src="#{Markup.emoji_url(slug)}" alt=":#{slug}:" class="emoji" />}
+    end
+
+    it "converts emoji emoticons" do
+      format(':hammer:').should include image_tag(:hammer)
+    end
+
+    it "does not convert emoji within <code> blocks" do
+      format('<code>:hammer:</code>').should_not include image_tag(:hammer)
+    end
+
+    it "converts emoji betweeen two code tags" do
+      format('<code>:smile:</code>:hammer:<code>:smile:</code>').should include image_tag(:hammer)
+      format('<code>:smile:</code>:hammer:<code>:smile:</code>').should_not include image_tag(:smile)
+    end
+
+    it "does not convert emoji in multiline code blocs" do
+      format(<<-END).should_not include image_tag(:hammer)
+        ```
+          :hammer:
+        ```
+      END
+    end
+  end
 end
