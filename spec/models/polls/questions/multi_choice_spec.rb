@@ -4,8 +4,9 @@ module Polls
   module Question
     describe MultiChoice do
       it "renders as a list of check boxes" do
-        line = MultiChoice.new name: 'languages', text: 'What do you speak?', options: %w[Ruby Perl]
-        line.form_options.should eq as: :check_boxes, label: 'What do you speak?', collection: %w[Ruby Perl]
+        choice = MultiChoice.new name: 'languages', text: 'What do you speak?', options: %w[Ruby Perl]
+        choice.form_options[:as].should eq :check_boxes
+        choice.form_options[:label].should eq 'What do you speak?'
       end
 
       it "removes blank items from the value" do

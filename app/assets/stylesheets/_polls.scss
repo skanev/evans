@@ -1,8 +1,18 @@
 #poll-submission {
+  .input { margin: 2em 0; }
   .radio_buttons .radio { display: block; margin: 0.2em 0; }
   .check_boxes .checkbox { display: block; margin: 0.4em 0; }
   .check_boxes .checkbox label { display: inline; }
+
+  .hint { display: block; line-height: 20px; margin: 0; }
+
+  .inline { overflow: hidden; }
+  .inline .checkbox,
+  .inline .radio { float: left; margin: .1em 0 ; width: 200px; }
+  .inline .hint { clear: left; padding-top: 1em; }
+
+  input[type=text] { width: 600px; }
+  textarea { width: 600px; height: 140px; }
 }
 
 ol.polls { list-style: decimal; margin: 10px 0 10px 30px; }
-.inline { border: 1px solid red; }
