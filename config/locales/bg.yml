@@ -87,6 +87,9 @@ bg:
         adjustment: Корекция
       comment:
         body: Коментар
+      poll:
+        name: Име
+        blueprint_yaml: YAML
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"

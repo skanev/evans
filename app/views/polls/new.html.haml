@@ -1,0 +1,5 @@
+%h1 Нова анкета
+
+= simple_form_for @poll do |form|
+  = render 'form', form: form
+  = form.submit 'Създай'

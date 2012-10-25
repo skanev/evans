@@ -1,0 +1,7 @@
+%h1 Анкети
+
+%ol
+  - @polls.each do |poll|
+    %li= link_to poll.name, edit_poll_path(poll)
+
+%p= link_to 'Добави анкета', new_poll_path, class: :action

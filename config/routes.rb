@@ -33,8 +33,8 @@ Trane::Application.routes.draw do
     resource :star, only: %w(create destroy)
   end
 
-  resources :polls do
-    resource :my_answer
+  resources :polls, except: %w(show destroy) do
+    resource :my_answer, only: %w(show update)
   end
 
   devise_for :users

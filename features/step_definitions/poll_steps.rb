@@ -7,6 +7,23 @@ end
   create :poll_answer, user: current_user, poll: @poll, answers: YAML.load(answers_yaml)
 end
 
+Когато 'добавя нова анкета "$name":' do |name, blueprint_yaml|
+  visit new_poll_path
+
+  fill_in 'Име', with: name
+  fill_in 'YAML', with: blueprint_yaml
+
+  click_on 'Създай'
+end
+
+Когато 'променя името на анкетата на "$name"' do |name|
+  visit edit_poll_path(@poll)
+
+  fill_in 'Име', with: name
+
+  click_on 'Запази'
+end
+
 Когато 'попълня анкетата с:' do |table|
   visit poll_my_answer_path(@poll)
 
@@ -31,4 +48,9 @@ end
   poll_answer = PollAnswer.where(poll_id: @poll.id, user_id: current_user.id).first
 
   poll_answer.answers.should eq answers
+end
+
+То 'трябва да съществува анкета "$name"' do |name|
+  poll = Poll.find_by_name name
+  poll.should be, "Expected a poll named '#{name}' to exist"
 end

@@ -1,0 +1,5 @@
+%h1 Редактиране на анкета #{@poll.name}
+
+= simple_form_for @poll do |form|
+  = render 'form', form: form
+  = form.submit 'Запази'
