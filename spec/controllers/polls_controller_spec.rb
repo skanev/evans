@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe PollsController do
   describe "GET index" do
-    log_in_as :admin
-
     it "assigns all the polls" do
       Poll.stub all: 'polls'
       get :index

@@ -1,0 +1,7 @@
+#poll-submission {
+  .radio_buttons .radio { display: block; margin: 0.2em 0; }
+  .check_boxes .checkbox { display: block; margin: 0.4em 0; }
+  .check_boxes .checkbox label { display: inline; }
+}
+
+ol.polls { list-style: decimal; margin: 10px 0 10px 30px; }

@@ -18,7 +18,8 @@
 
   div.input { margin: 1em 0; }
 
-  .input.radio_buttons {
+  .input.radio_buttons,
+  .input.check_boxes {
     span { display: inline-block; }
     span label { display: inline-block; margin: 0 3ex 0 1ex; }
   }

@@ -1,7 +1,10 @@
 %h1 Анкети
 
-%ol
+%ol.polls
   - @polls.each do |poll|
-    %li= link_to poll.name, edit_poll_path(poll)
+    %li
+      = link_to poll.name, poll_my_answer_path(poll)
+      = admin_only do
+        (#{link_to 'редактирай', edit_poll_path(poll)})
 
 %p= link_to 'Добави анкета', new_poll_path, class: :action

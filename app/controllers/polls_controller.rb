@@ -1,6 +1,6 @@
 # encoding: utf-8
 class PollsController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_admin, except: :index
 
   def index
     @polls = Poll.all
