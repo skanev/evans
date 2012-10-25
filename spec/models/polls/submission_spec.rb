@@ -15,6 +15,12 @@ module Polls
       question.name.should eq 'age'
     end
 
+    it "raises an error if the question type does not exists" do
+      expect do
+        build_submission [{type: 'string'}]
+      end.to raise_error 'uninitialized constant Polls::Question::String'
+    end
+
     it "provides the answers in an ActiveModel compatible interface" do
       submission = build_submission(
         [{type: 'single-line', name: 'age', text: 'How old are you?'}],

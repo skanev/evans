@@ -56,7 +56,7 @@ module Polls
 
     def questions_from_hash(hash)
       hash = hash.with_indifferent_access
-      type = Question.const_get hash[:type].tr('-', '_').classify
+      type = "#{Question.name}::#{hash[:type].tr('-', '_').classify}".constantize
 
       type.new hash.except(:type)
     end
