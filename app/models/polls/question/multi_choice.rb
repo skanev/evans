@@ -1,12 +1,8 @@
 module Polls
   module Question
-    class MultiChoice
-      attr_reader :name
-
+    class MultiChoice < Base
       def initialize(hash)
-        @name     = hash[:name]
-        @text     = hash[:text]
-        @required = hash[:required]
+        super
         @options  = hash[:options]
       end
 
@@ -14,16 +10,12 @@ module Polls
         value.try :reject, &:blank?
       end
 
-      def form_options
-        {
-          as: :check_boxes,
-          label: @text,
-          collection: @options,
-        }
+      def input_type
+        :check_boxes
       end
 
-      def required?
-        @required
+      def additional_options
+        {collection: @options}
       end
     end
   end

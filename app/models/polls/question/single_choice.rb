@@ -1,29 +1,17 @@
 module Polls
   module Question
-    class SingleChoice
-      attr_reader :name
-
+    class SingleChoice < Base
       def initialize(hash)
-        @name     = hash[:name]
-        @text     = hash[:text]
-        @required = hash[:required]
+        super
         @options  = hash[:options]
       end
 
-      def value(value)
-        value
+      def input_type
+        :radio_buttons
       end
 
-      def form_options
-        {
-          as: :radio_buttons,
-          label: @text,
-          collection: @options,
-        }
-      end
-
-      def required?
-        @required
+      def additional_options
+        {collection: @options}
       end
     end
   end
