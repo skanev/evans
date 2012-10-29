@@ -5,6 +5,7 @@
     %li
       = link_to poll.name, poll_my_answer_path(poll)
       = admin_only do
+        (#{pluralize poll.answers.count, 'отговор', 'отговори'})
         (#{link_to 'редактирай', edit_poll_path(poll)})
 
 %p= link_to 'Добави анкета', new_poll_path, class: :action
