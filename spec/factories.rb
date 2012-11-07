@@ -120,4 +120,9 @@ FactoryGirl.define do
     poll
     answers_yaml Hash.new.to_yaml
   end
+
+  factory :challenge do
+    name 'Name'
+    closes_at 1.day.from_now
+  end
 end

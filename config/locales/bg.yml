@@ -93,6 +93,7 @@ bg:
         blueprint_yaml: YAML
       challenge:
         name: Име
+        closes_at: Краен срок
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"

@@ -29,6 +29,7 @@ module KnowsHowToUseChallenges
     visit new_challenge_path
 
     fill_in 'Име', with: name
+    fill_in 'Краен срок', with: 1.day.from_now.strftime('%Y-%m-%d %H:%M:%S')
     click_on 'Създай'
   end
 end
