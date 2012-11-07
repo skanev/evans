@@ -47,4 +47,17 @@ $(function() {
       .click()
       .insertBefore(codeBlock);
   });
+  
+  $('[data-current-solution]').each(function() {
+    var codeBlock       = $(this), 
+        codeLineNumbers = codeBlock.find('td:even');
+
+    $('<a href="#" class="toggle-numbers"></a>')
+      .toggle(
+        function() { $(this).html('Скрий номерата'); codeLineNumbers.show(); },
+        function() { $(this).html('Покажи номерата'); codeLineNumbers.hide(); }
+      )
+      .click()
+      .insertBefore(codeBlock);
+  });
 });
