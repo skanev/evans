@@ -20,4 +20,18 @@ module KnowsHowToUseMessageBoards
   end
 end
 
+module KnowsHowToUseChallenges
+  def find_challenge(name)
+    Challenge.find_by_name! name
+  end
+
+  def create_challenge(name)
+    visit new_challenge_path
+
+    fill_in 'Име', with: name
+    click_on 'Създай'
+  end
+end
+
 World(KnowsHowToUseMessageBoards)
+World(KnowsHowToUseChallenges)

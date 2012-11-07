@@ -20,6 +20,10 @@ Trane::Application.routes.draw do
     resource :check, controller: :task_checks, only: :create
   end
 
+  resources :challenges, only: %w(new show create) do
+    resource :my_solution, only: %w(show), controller: :my_challenge_solutions
+  end
+
   resources :revisions, only: [] do
     resources :comments, only: %w(create edit update)
   end

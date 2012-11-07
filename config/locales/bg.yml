@@ -91,6 +91,8 @@ bg:
       poll:
         name: Име
         blueprint_yaml: YAML
+      challenge:
+        name: Име
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"
