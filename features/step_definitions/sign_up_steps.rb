@@ -1,10 +1,10 @@
 # encoding: utf-8
 Дадено 'че съм влязъл като администратор' do
-  backdoor_login create(:admin)
+  log_in_as_admin
 end
 
 Дадено 'че съм влязъл като студент' do
-  backdoor_login create(:user)
+  log_in_as_student
 end
 
 Когато 'добавя записан студент:' do |table|

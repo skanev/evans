@@ -9,6 +9,14 @@ module AnotherWorld
     @current_user = user
   end
 
+  def log_in_as_admin
+    backdoor_login create(:admin)
+  end
+
+  def log_in_as_student
+    backdoor_login create(:user)
+  end
+
   def current_user
     @current_user
   end
