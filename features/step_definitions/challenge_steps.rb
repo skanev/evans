@@ -14,7 +14,7 @@ end
 
 Дадено 'че "$user_name" е предал решение на отминало предизвикателство "$challenge_name"' do |user_name, challenge_name|
   user      = create :user, name: user_name
-  challenge = create :challenge, name: challenge_name
+  challenge = create :closed_challenge, name: challenge_name
 
   create :challenge_solution, user: user, challenge: challenge
 end
