@@ -1,3 +1,3 @@
 = form.input :name
 = form.input :description
-= form.input :closes_at, as: :string, input_html: {value: @challenge.closes_at.try(:strftime, '%Y-%m-%d %H:%M:%S')}
+= form.input :closes_at, as: :date_time
