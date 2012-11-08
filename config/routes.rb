@@ -21,7 +21,7 @@ Trane::Application.routes.draw do
   end
 
   resources :challenges, only: %w(new show create) do
-    resource :my_solution, only: %w(show), controller: :my_challenge_solutions
+    resource :my_solution, only: %w(show update), controller: :my_challenge_solutions
   end
 
   resources :revisions, only: [] do

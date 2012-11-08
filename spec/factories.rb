@@ -124,5 +124,15 @@ FactoryGirl.define do
   factory :challenge do
     name 'Name'
     closes_at 1.day.from_now
+
+    factory :open_challenge do
+      closes_at 1.day.from_now
+    end
+  end
+
+  factory :challenge_solution do
+    challenge
+    user
+    code 'Code'
   end
 end

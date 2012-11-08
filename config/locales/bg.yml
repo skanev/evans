@@ -54,6 +54,8 @@ bg:
       activation:
         password: Парола
         password_confirmation: Въведете паролата повторно
+      challenge_submission:
+        code: Код
   activerecord:
     attributes:
       user:

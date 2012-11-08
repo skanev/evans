@@ -17,6 +17,10 @@ module AnotherWorld
     backdoor_login create(:user)
   end
 
+  def log_in_as_another_user
+    log_in_as_student
+  end
+
   def current_user
     @current_user
   end

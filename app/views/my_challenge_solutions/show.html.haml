@@ -1,0 +1,3 @@
+= simple_form_for @submission, as: :submission, url: challenge_my_solution_path(@challenge), method: :put do |form|
+  = form.input :code, as: :text
+  = form.submit 'Изпрати'

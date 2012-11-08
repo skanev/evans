@@ -22,7 +22,20 @@ end
 
 module KnowsHowToUseChallenges
   def find_challenge(name)
-    Challenge.find_by_name! name
+    @challenge = Challenge.find_by_name!(name)
+  end
+
+  def challenge
+    @challenge
+  end
+
+  def submitted_code
+    @submitted_code
+  end
+
+  def visit_my_challenge_solution(challenge)
+    visit challenge_path(challenge)
+    click_on 'Моето решение'
   end
 
   def create_challenge(name)
@@ -31,6 +44,15 @@ module KnowsHowToUseChallenges
     fill_in 'Име', with: name
     fill_in 'Краен срок', with: 1.day.from_now.strftime('%Y-%m-%d %H:%M:%S')
     click_on 'Създай'
+  end
+
+  def submit_challenge_solution(challenge, code = 'arbitrary.ruby.code')
+    visit challenge_my_solution_path(challenge)
+
+    fill_in 'Код', with: code
+    click_on 'Изпрати'
+
+    @submitted_code = code
   end
 end
 

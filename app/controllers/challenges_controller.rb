@@ -1,6 +1,6 @@
 # encoding: utf-8
 class ChallengesController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_admin, except: :show
 
   def new
     @challenge = Challenge.new
@@ -17,6 +17,6 @@ class ChallengesController < ApplicationController
   end
 
   def show
-    render nothing: true
+    @challenge = Challenge.find params[:id]
   end
 end

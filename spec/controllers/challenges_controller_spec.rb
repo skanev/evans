@@ -60,4 +60,30 @@ describe ChallengesController do
       controller.should render_template :new
     end
   end
+
+  describe "GET show" do
+    log_in_as :student
+
+    let(:challenge) { double }
+
+    before do
+      Challenge.stub find: challenge
+    end
+
+    it "does not requrie a logged in user" do
+      controller.stub current_user: nil
+      get :show, id: '1'
+      response.should_not deny_access
+    end
+
+    it "looks up the challenge by id" do
+      Challenge.should_receive(:find).with('42')
+      get :show, id: '42'
+    end
+
+    it "assigns the challenge" do
+      get :show, id: '1'
+      controller.should assign_to(:challenge).with(challenge)
+    end
+  end
 end
