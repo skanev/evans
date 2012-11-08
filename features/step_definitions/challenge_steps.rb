@@ -1,4 +1,12 @@
 # encoding: utf-8
+Дадено 'че съществува активно предизвикателство "$name"' do |name|
+  create :open_challenge, name: name
+end
+
+Когато 'предам решение на предизвикателството "$name"' do |name|
+  submit_challenge_solution find_challenge(name)
+end
+
 Когато 'създам предизвикателство "$name"' do |name|
   create_challenge name
 end
@@ -7,14 +15,6 @@ end
   log_in_as_student
   visit challenge_my_solution_path find_challenge(name)
   # TODO Verify something
-end
-
-Дадено 'че съществува активно предизвикателство "$name"' do |name|
-  create :open_challenge, name: name
-end
-
-Когато 'предам решение на предизвикателството "$name"' do |name|
-  submit_challenge_solution find_challenge(name)
 end
 
 То 'трябва да мога да редактирам решението си' do
