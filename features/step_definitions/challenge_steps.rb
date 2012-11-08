@@ -8,6 +8,10 @@ end
   create :challenge_solution, user: current_user, challenge: challenge
 end
 
+Дадено 'че съществува отминало предизвикателство "$name"' do |name|
+  create :closed_challenge, name: name
+end
+
 Когато 'предам решение на предизвикателството "$name"' do |name|
   submit_challenge_solution find_challenge(name)
 end
@@ -20,10 +24,14 @@ end
   submit_challenge_solution find_challenge(name), 'new code'
 end
 
+Когато 'опитам да предам решение на "$name"' do |name|
+  visit_my_challenge_solution find_challenge(name)
+end
+
 То 'студентите трябва да могат да предават решения на "$name"' do |name|
   log_in_as_student
   visit challenge_my_solution_path find_challenge(name)
-  # TODO Verify something
+  page.should have_selector :field, 'textarea', 'Код'
 end
 
 То 'трябва да мога да редактирам решението си' do
@@ -40,4 +48,10 @@ end
   log_in_as_another_user
   visit challenge_path(challenge)
   page.should_not have_content submitted_code
+end
+
+То 'трябва да видя, че не мога да предавам решения на предизвикателства след крайния срок' do
+  page.should have_content 'Крайният срок е отминал. Вече не можете да предавате решения.'
+  page.should have_css 'textarea[disabled]'
+  page.should_not have_css 'input[type=submit]'
 end

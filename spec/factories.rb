@@ -128,6 +128,10 @@ FactoryGirl.define do
     factory :open_challenge do
       closes_at 1.day.from_now
     end
+
+    factory :closed_challenge do
+      closes_at 1.day.ago
+    end
   end
 
   factory :challenge_solution do

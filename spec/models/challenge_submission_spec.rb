@@ -28,9 +28,17 @@ describe ChallengeSubmission do
     let(:challenge) { create :challenge }
     let(:submission) { ChallengeSubmission.for challenge, user }
 
+    it "verifies that the challenge is open" do
+      challenge  = create :closed_challenge
+      submission = ChallengeSubmission.for challenge, user
+
+      submission.update(code: 'code').should be_false
+      submission.should have_error_on :base
+    end
+
     it "creates a solution if one is not present" do
       expect do
-        submission.update code: 'ruby code'
+        submission.update(code: 'ruby code').should be_true
       end.to change(ChallengeSolution, :count).by(1)
 
       solution = ChallengeSolution.first
@@ -42,7 +50,7 @@ describe ChallengeSubmission do
     it "updates the existing solution if one is present" do
       solution = create :challenge_solution, challenge: challenge, user: user, code: 'old code'
 
-      submission.update code: 'new code'
+      submission.update(code: 'new code').should be_true
 
       solution.reload.code.should eq 'new code'
     end
