@@ -1,4 +1,8 @@
 # encoding: utf-8
+Дадено 'че съществува предизвикателство "$name"' do |name|
+  create :challenge, name: name
+end
+
 Дадено 'че съществува активно предизвикателство "$name"' do |name|
   create :open_challenge, name: name
 end
@@ -39,6 +43,11 @@ end
   visit_my_challenge_solution find_challenge(name)
 end
 
+Когато 'преименувам предизвикателството "$old_name" на "$new_name"' do |old_name, new_name|
+  challenge = find_challenge(old_name)
+  modify_challenge challenge, 'Име' => new_name
+end
+
 То 'студентите трябва да могат да предават решения на "$name"' do |name|
   log_in_as_student
   visit challenge_my_solution_path find_challenge(name)
@@ -74,4 +83,9 @@ end
   visit challenge_path(challenge)
 
   page.should have_content solution.code
+end
+
+То 'трябва да има предизвикателство "$name"' do |name|
+  visit challenges_path
+  page.should have_content name
 end

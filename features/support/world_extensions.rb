@@ -54,6 +54,12 @@ module KnowsHowToUseChallenges
     click_on 'Създай'
   end
 
+  def modify_challenge(challenge, attributes)
+    visit edit_challenge_path(challenge)
+    fill_in_fields attributes
+    click_on 'Запази'
+  end
+
   def submit_challenge_solution(challenge, code = 'arbitrary.ruby.code')
     visit challenge_my_solution_path(challenge)
 

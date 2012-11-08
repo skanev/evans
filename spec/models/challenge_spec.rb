@@ -5,4 +5,11 @@ describe Challenge do
     create(:challenge, closes_at: 1.day.from_now).should_not be_closed
     create(:challenge, closes_at: 1.day.ago).should be_closed
   end
+
+  it "can fetch all records, sorted in reverse chronological order" do
+    second = create :challenge, created_at: 2.days.ago
+    first  = create :challenge, created_at: 1.day.ago
+
+    Challenge.in_reverse_chronological_order.should eq [first, second]
+  end
 end

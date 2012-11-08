@@ -1,0 +1,6 @@
+%h1 Създаване на предизвикателство
+
+= simple_form_for @challenge do |form|
+  = form.input :name
+  = form.input :closes_at, as: :string, input_html: {value: @challenge.closes_at.try(:strftime, '%Y-%m-%d %H:%M:%S')}
+  = form.submit 'Запази'

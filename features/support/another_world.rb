@@ -30,7 +30,9 @@ module AnotherWorld
   end
 
   def fill_in_fields(table)
-    table.rows_hash.each do |key, value|
+    rows = table.respond_to?(:rows_hash) ? table.rows_hash : table
+
+    rows.each do |key, value|
       fill_in key, with: value
     end
   end
