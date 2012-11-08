@@ -95,6 +95,7 @@ bg:
         blueprint_yaml: YAML
       challenge:
         name: Име
+        description: Описание
         closes_at: Краен срок
   datetime:
     distance_in_words:

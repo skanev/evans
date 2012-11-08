@@ -1,4 +1,7 @@
 class Challenge < ActiveRecord::Base
+  validates :name, presence: true
+  validates :description, presence: true
+
   has_many :solutions, class_name: 'ChallengeSolution'
 
   class << self

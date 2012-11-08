@@ -123,6 +123,7 @@ FactoryGirl.define do
 
   factory :challenge do
     name 'Name'
+    description 'Description'
     closes_at 1.day.from_now
 
     factory :open_challenge do
