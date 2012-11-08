@@ -6,5 +6,7 @@ class CreateChallengeSolutions < ActiveRecord::Migration
       t.text :code, null: false
       t.timestamps
     end
+
+    add_index :challenge_solutions, [:user_id, :challenge_id], unique: true
   end
 end
