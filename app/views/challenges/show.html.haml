@@ -16,7 +16,7 @@
 
   = markup @challenge.description, auto_link: false
 
-  - if @challenge.closed?
+  - if @challenge.closed? or admin?
     %h2 Решения
     .solutions
       - @challenge.solutions.each do |solution|
