@@ -26,10 +26,9 @@ describe ChallengeSubmission do
   describe "(updating)" do
     let(:user) { create :user }
     let(:challenge) { create :challenge }
+    let(:submission) { ChallengeSubmission.for challenge, user }
 
     it "creates a solution if one is not present" do
-      submission = ChallengeSubmission.for challenge, user
-
       expect do
         submission.update code: 'ruby code'
       end.to change(ChallengeSolution, :count).by(1)
@@ -38,6 +37,14 @@ describe ChallengeSubmission do
       solution.user.should eq user
       solution.challenge.should eq challenge
       solution.code.should eq 'ruby code'
+    end
+
+    it "updates the existing solution if one is present" do
+      solution = create :challenge_solution, challenge: challenge, user: user, code: 'old code'
+
+      submission.update code: 'new code'
+
+      solution.reload.code.should eq 'new code'
     end
   end
 end

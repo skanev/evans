@@ -3,12 +3,21 @@
   create :open_challenge, name: name
 end
 
+Дадено 'че съм предал решение на активно предизвикателство "$name"' do |name|
+  challenge = create :open_challenge, name: name
+  create :challenge_solution, user: current_user, challenge: challenge
+end
+
 Когато 'предам решение на предизвикателството "$name"' do |name|
   submit_challenge_solution find_challenge(name)
 end
 
 Когато 'създам предизвикателство "$name"' do |name|
   create_challenge name
+end
+
+Когато 'обновя решението си на "$name"' do |name|
+  submit_challenge_solution find_challenge(name), 'new code'
 end
 
 То 'студентите трябва да могат да предават решения на "$name"' do |name|
@@ -18,6 +27,11 @@ end
 end
 
 То 'трябва да мога да редактирам решението си' do
+  visit_my_challenge_solution challenge
+  page.should have_selector :field, 'textarea', content: submitted_code
+end
+
+То 'решението ми трябва да съдържа новия код' do
   visit_my_challenge_solution challenge
   page.should have_selector :field, 'textarea', content: submitted_code
 end

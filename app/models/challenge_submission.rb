@@ -14,7 +14,7 @@ class ChallengeSubmission
 
   class << self
     def for(challenge, user)
-      solution = ChallengeSolution.where(user_id: user.id, challenge_id: challenge.id).first
+      solution = ChallengeSolution.for(challenge, user)
       code     = solution.try(:code)
 
       new challenge, user, code
@@ -26,6 +26,15 @@ class ChallengeSubmission
   end
 
   def update(attributes)
-    ChallengeSolution.create! code: attributes[:code], user: user, challenge: challenge
+    solution = ChallengeSolution.for(challenge, user)
+    code     = attributes[:code]
+
+    if solution
+      solution.update_attributes! code: code
+    else
+      ChallengeSolution.create! code: code, user: user, challenge: challenge
+    end
+
+    true
   end
 end
