@@ -21,8 +21,16 @@ module KnowsHowToUseMessageBoards
 end
 
 module KnowsHowToUseChallenges
+  def find_user(name)
+    User.find_by_name! name
+  end
+
   def find_challenge(name)
     @challenge = Challenge.find_by_name!(name)
+  end
+
+  def find_challenge_solution(challenge, user)
+    ChallengeSolution.find_by_challenge_id_and_user_id! challenge.id, user.id
   end
 
   def challenge

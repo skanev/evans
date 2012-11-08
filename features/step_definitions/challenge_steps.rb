@@ -12,6 +12,13 @@ end
   create :closed_challenge, name: name
 end
 
+Дадено 'че "$user_name" е предал решение на отминало предизвикателство "$challenge_name"' do |user_name, challenge_name|
+  user      = create :user, name: user_name
+  challenge = create :challenge, name: challenge_name
+
+  create :challenge_solution, user: user, challenge: challenge
+end
+
 Когато 'предам решение на предизвикателството "$name"' do |name|
   submit_challenge_solution find_challenge(name)
 end
@@ -22,6 +29,10 @@ end
 
 Когато 'обновя решението си на "$name"' do |name|
   submit_challenge_solution find_challenge(name), 'new code'
+end
+
+Когато 'отворя предизвикателството "$name"' do |name|
+  visit challenge_path find_challenge(name)
 end
 
 Когато 'опитам да предам решение на "$name"' do |name|
@@ -54,4 +65,13 @@ end
   page.should have_content 'Крайният срок е отминал. Вече не можете да предавате решения.'
   page.should have_css 'textarea[disabled]'
   page.should_not have_css 'input[type=submit]'
+end
+
+То 'трябва да виждам решението на предизвикателството, изпратено от "$name"' do |name|
+  user     = find_user name
+  solution = find_challenge_solution challenge, user
+
+  visit challenge_path(challenge)
+
+  page.should have_content solution.code
 end
