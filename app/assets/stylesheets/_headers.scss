@@ -32,12 +32,12 @@ body > nav {
     font-family: $font-navigation;
     padding: 10px 15px 12px;
     text-decoration: none;
-    width: 150px;
+    width: 160px;
   }
   ul li a:hover { background-color: #3371a3; color: white; text-decoration: none; }
 }
 
-#container { position: absolute; top: 170px; left: 240px; right: 60px; }
+#container { position: absolute; top: 170px; left: 250px; right: 60px; }
 #container > footer {
   border-top: 1px dotted #ccc;
   font-size: $font-small;

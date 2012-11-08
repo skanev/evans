@@ -1,0 +1,16 @@
+#challenges { @include content; }
+
+.challenge {
+  @include content;
+  p.closed { font-weight: bold; }
+
+  dl dt { display: block; float: left; font-weight: bold; width: 100px; }
+  dl dd { clear: right; margin: 5px 0; }
+}
+
+.challenge .solutions {
+  article { border-bottom: 1px solid $light-border; margin-bottom: 30px; overflow: hidden; padding-bottom: 30px; }
+  article .author { float: right; width: 150px; }
+  article .author a { display: block; }
+  article .code { margin-right: 170px; }
+}

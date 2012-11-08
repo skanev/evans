@@ -1,9 +1,10 @@
-%h1 Предизвиксателства
-= admin_only do
-  = link_to 'Ново', new_challenge_path, class: :action
+#challenges
+  %h1 Предизвиксателства
+  = admin_only do
+    = link_to 'Ново', new_challenge_path, class: :action
 
-%ul
-  - @challenges.each do |challenge|
-    %li
-      = link_to challenge.name, challenge
-      (краен срок: #{l(challenge.closes_at)})
+  %ul
+    - @challenges.each do |challenge|
+      %li
+        = link_to challenge.name, challenge
+        (краен срок: #{l(challenge.closes_at)})

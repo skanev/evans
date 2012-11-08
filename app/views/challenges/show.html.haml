@@ -1,5 +1,28 @@
-= link_to 'Моето решение', challenge_my_solution_path(@challenge)
+.challenge
+  %h1= @challenge.name
 
-- if @challenge.closed?
-  - @challenge.solutions.each do |solution|
-    %pre= solution.code
+  %p
+    = admin_only do
+      = link_to 'Редактирай', edit_challenge_path(@challenge), class: :action
+    = authenticated_only do
+      = link_to 'Моето решение', challenge_my_solution_path(@challenge), class: :action
+
+  %dl
+    %dt Краен срок
+    %dd= l @challenge.closes_at
+
+  - if @challenge.closed?
+    %p.closed Срокът за предаване на решения е отминал
+
+  = markup @challenge.description, auto_link: false
+
+  - if @challenge.closed?
+    %h2 Решения
+    .solutions
+      - @challenge.solutions.each do |solution|
+        %article
+          .author
+            = link_to user_thumbnail(solution.user), solution.user
+            = link_to solution.user.name, solution.user
+          .code= format_code solution.code
+

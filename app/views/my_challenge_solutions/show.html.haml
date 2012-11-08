@@ -1,7 +1,12 @@
-- if @challenge.closed?
-  %p Крайният срок е отминал. Вече не можете да предавате решения.
+#my-solution
+  %h1 #{@challenge.name} &mdash; Моето решение
 
-= simple_form_for @submission, as: :submission, url: challenge_my_solution_path(@challenge), method: :put do |form|
-  = form.input :code, as: :text, disabled: @challenge.closed?
-  - unless @challenge.closed?
-    = form.submit 'Изпрати'
+  = link_to 'Обратно към условието', @challenge
+
+  - if @challenge.closed?
+    %p Крайният срок е отминал. Вече не можете да предавате решения.
+
+  = simple_form_for @submission, as: :submission, url: challenge_my_solution_path(@challenge), method: :put do |form|
+    = form.input :code, as: :text, disabled: @challenge.closed?
+    - unless @challenge.closed?
+      = form.submit 'Изпрати'
