@@ -1,0 +1,170 @@
+- name: referer
+  text: Откъде разбрахте за този курс?
+  type: single-line
+  required: true
+- name: best_language
+  text: В кой от следните езици за програмиране сте най-добри?
+  type: single-choice
+  required: true
+  style: inline
+  options: &languages
+    - C
+    - C#
+    - C++
+    - Haskell
+    - Java
+    - PHP
+    - Perl
+    - Python
+    - Ruby
+    - Scheme
+- name: good_languages
+  text: Кои езици за програмиране знаете добре?
+  note: Под "добре" имаме предвид, че можете да програмирате на ниво, близко до това на най-добрия ви език
+  type: multi-choice
+  required: true
+  style: inline
+  options: *languages
+- name: ok_languages
+  text: Кои езици знаете повърхностно?
+  note: Под "повърхностно" имаме предвид, че не сте толкова умели колкото на "най-добрия" си език, но можете да четете код и да се оправяте с прости неща.
+  type: multi-choice
+  required: true
+  style: inline
+  options: *languages
+- name: other_languages
+  text: Какви други езици знаете, които не са в този списък?
+  type: multi-line
+- name: interests
+  text: Към кое от следните неща имате интерес и бихте искали да научите?
+  type: multi-choice
+  required: true
+  options:
+    - Test-Driven Development
+    - git
+    - Обектно-ориентиран дизайн
+    - Функционално програмиране
+    - Уеб програмиране
+    - Програмиране на мобилни устройства
+    - Разработка на игри
+    - Създаване на компилатори
+    - Системна администрация
+- name: html_and_css
+  text: Колко добри сте в HTML и CSS?
+  type: single-choice
+  required: true
+  options:
+    - Не разбирам нищо
+    - Мога да правя прости неща
+    - Мога да направя HTML и CSS за повечето сайтове, които съм виждал(а)
+    - Абсолютен майстор съм
+- name: sql
+  text: Колко добри сте в релационните бази от данни?
+  type: single-choice
+  required: true
+  options:
+    - Нищо не разбирам
+    - Мога да се оправя с прости заявки
+    - Знам какво е трета нормална форма и мога да я прилагам
+    - Относително умел(а) съм
+    - Абсолютен майстор съм
+- name: experience
+  text: Занимавали ли сте се професионално с програмиране? От колко време?
+  hint: Имаме предвид да сте работили това някъде, а не просто да сте се занимавали с програмиране
+  type: single-choice
+  required: true
+  options:
+    - Не съм
+    - под 1 година
+    - 1 година
+    - 2 години
+    - 3-4 години
+    - над 5 години
+- name: work
+  text: Колко работите?
+  type: single-choice
+  required: true
+  options:
+    - Не работя
+    - По-малко от 20 часа на седмица
+    - По-малко от 40 часа на седмица
+    - Пълен работен ден
+    - Пълен работен ден с гъвкаво време
+- name: workplace
+  text: Къде работите, ако работите някъде?
+  type: single-line
+- name: laptop
+  text: Имате ли преносим компютър?
+  type: single-choice
+  required: true
+  options:
+    - Да
+    - Не
+- name: pre_fmi_experience
+  text: Програмирали ли сте преди ФМИ?
+  type: single-choice
+  required: true
+  options:
+    - Да
+    - Не
+- name: operating_system
+  text: Коя ви е основната операционна система?
+  type: single-choice
+  required: true
+  options: &OPERATING_SYSTEMS
+    - Windows
+    - Linux
+    - Mac OS
+    - FreeBSD
+- name: operating_systems
+  text: На кои операционни системи можете да работите?
+  type: multi-choice
+  required: true
+  options: *OPERATING_SYSTEMS
+- name: linux_distro
+  text: Ако ползвате Linux, коя дистрибуция?
+  type: single-line
+- name: platforms
+  text: Ако програмирате редовно за някаква платформа, каква е тя?
+  type: multi-choice
+  options:
+    - Mobile
+    - Web
+    - Desktop
+    - Embedded
+- name: version_control
+  text: Ползвате ли version control за (почти) всичко, което правите?
+  type: single-choice
+  required: true
+  options:
+    - Да
+    - Не
+- name: version_control_systems
+  text: Кои version control системи познавате?
+  type: multi-choice
+  options:
+    - git
+    - Subversion
+    - Mercurial
+    - DARCS
+    - CVS
+    - Perforce
+    - SourceSafe
+    - Bazaar
+- name: why_programming
+  text: Разкажете ни защо избрахте програмиране и какво ви е интересно в него?
+  type: multi-line
+  required: true
+- name: motivation
+  text: Защо записахте курса?
+  type: multi-line
+  required: true
+- name: books
+  text: Какви книги за програмиране сте чели, които са ви оставили трайно впечатление?
+  type: multi-line
+- name: after_fmi
+  text: С какво искате да се занимавате след ФМИ?
+  type: multi-line
+- name: anything
+  text: Напишете ни нещо. Само за нас.
+  type: multi-line

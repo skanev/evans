@@ -1,0 +1,6 @@
+= @poll.name
+
+- @data.values.each do |chart|
+  .js-chart{'data-type' => chart['type'], 'data-title' => chart['title'], 'data-source' => chart['data'].to_a.to_json}
+
+#chart

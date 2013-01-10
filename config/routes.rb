@@ -37,7 +37,7 @@ Trane::Application.routes.draw do
     resource :star, only: %w(create destroy)
   end
 
-  resources :polls, except: %w(show destroy) do
+  resources :polls, except: %w(destroy) do
     resource :my_answer, only: %w(show update)
   end
 

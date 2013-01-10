@@ -20,6 +20,38 @@ class PollsController < ApplicationController
     end
   end
 
+  def show
+    @poll = Poll.find params[:id]
+
+    @data = {}
+    questions = []
+    @poll.blueprint.each do |question|
+      next unless question['type'].in? ['single-choice', 'multi-choice']
+      questions << question
+    end
+
+    @poll.answers.each do |submission|
+      submission_answers = submission.answers
+
+      questions.each do |question|
+        name    = question['name']
+        answers = Array(submission_answers[name])
+
+        @data[name] ||= {}
+        @data[name]['type'] ||= (question['type'] == 'single-choice' ? 'pie' : 'column')
+        @data[name]['title'] ||= question['text']
+        @data[name]['data'] ||= {}
+
+        answers.each do |answer|
+          @data[name]['data'][answer] ||= 0
+          @data[name]['data'][answer] += 1
+        end
+      end
+    end
+
+    #@data = questions
+  end
+
   def edit
     @poll = Poll.find params[:id]
   end
