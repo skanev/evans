@@ -5,7 +5,7 @@ database_name   = database_config['production']['database']
 set :application, 'pyfmi-2012'
 set :scm,         :git
 set :repository,  'git://github.com/skanev/evans.git'
-set :branch,      'master'
+set :branch,      'python-2012'
 set :deploy_to,   '/data/rails/pyfmi-2012'
 set :user,        'pyfmi'
 set :use_sudo,    false
