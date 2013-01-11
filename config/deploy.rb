@@ -1,5 +1,6 @@
 set :application, "Trane Revisited"
 set :repository,  "git://github.com/fmi/trane.git"
+set :branch, 'python-2011'
 
 set :scm, :git
 set :use_sudo, false
@@ -9,7 +10,7 @@ role :app, "fmi.py-bg.net"
 role :db,  "fmi.py-bg.net", :primary => true
 
 set :user, :pyfmi
-set :deploy_to, '/data/rails/pyfmi'
+set :deploy_to, '/data/rails/pyfmi-2011'
 
 namespace :deploy do
   task :restart, :roles => :app, :except => {:no_release => true} do
@@ -28,7 +29,7 @@ end
 namespace :sync do
   task :db, :roles => :app do
     system <<-END
-      ssh pyfmi@fmi.py-bg.net "pg_dump --format=c pyfmi | gzip -c" |
+      ssh pyfmi@fmi.py-bg.net "pg_dump --format=c pyfmi_2011 | gzip -c" |
         gunzip -c |
         pg_restore --dbname=trane_development --clean --no-owner
     END
