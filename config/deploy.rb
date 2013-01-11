@@ -1,5 +1,5 @@
 set :application, "Trane Revisited"
-set :repository,  "git://github.com/fmi/trane.git"
+set :repository,  "git://github.com/skanev/evans.git"
 set :branch, 'python-2011'
 
 set :scm, :git
