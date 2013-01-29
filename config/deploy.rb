@@ -71,7 +71,6 @@ namespace :sync do
         public/uploads/
     END
   end
-end
 
 require './config/boot'
 require 'sidekiq/capistrano'
