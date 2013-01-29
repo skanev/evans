@@ -95,6 +95,9 @@ bg:
         name: Име
         description: Описание
         closes_at: Краен срок
+      tip:
+        title: Заглавие
+        body: Тяло
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"
