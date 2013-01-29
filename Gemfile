@@ -2,22 +2,18 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.4'
 gem 'pg'
-
 gem 'devise'
 gem 'simple_form'
 gem 'haml'
 gem 'will_paginate', '~> 3.0.beta'
 gem 'carrierwave'
 gem 'mini_magick'
-
+gem 'json'
 gem 'spork'
 gem 'capistrano'
-
 gem 'rdiscount'
 gem 'sanitize'
-
 gem 'hoptoad_notifier'
-
 gem 'sprockets'
 gem 'sprocketizer'
 

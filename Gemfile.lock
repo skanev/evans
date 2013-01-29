@@ -186,6 +186,7 @@ DEPENDENCIES
   faker
   haml
   hoptoad_notifier
+  json
   launchy
   mini_magick
   pg
