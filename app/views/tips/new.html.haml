@@ -1,0 +1,8 @@
+%h1 Създай хитринка
+
+= simple_form_for @tip do |form|
+  = form.input :title
+  = form.input :body
+  = form.input :published_at, as: :date_time
+
+  = form.submit 'Създай'
