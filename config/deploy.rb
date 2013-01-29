@@ -67,6 +67,7 @@ namespace :sync do
     END
   end
 
+  desc 'Fetch the secret keys that production uses'
   task :secrets, :roles => :app do
     system "scp pyfmi@fmi.py-bg.net:#{shared_path}/pepper.txt config/pepper.txt"
     system "scp pyfmi@fmi.py-bg.net:#{shared_path}/secret_token.txt config/secret_token.txt"
