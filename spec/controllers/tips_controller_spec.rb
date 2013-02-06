@@ -10,10 +10,16 @@ describe TipsController do
   end
 
   describe "GET new" do
+    let(:tip) { double }
+
+    before do
+      Tip.stub new: tip
+    end
+
     it "assigns a new tip" do
-      Tip.stub new: 'tip'
+      tip.should_receive(:published_at=)
       get :new
-      controller.should assign_to(:tip).with('tip')
+      controller.should assign_to(:tip).with(tip)
     end
   end
 
