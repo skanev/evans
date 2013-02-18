@@ -3,7 +3,7 @@ class TipsController < ApplicationController
   before_filter :require_admin, except: [:index, :show]
 
   def index
-    @tips = Tip.all
+    @tips = Tip.order('published_at desc').all
   end
 
   def new
