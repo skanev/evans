@@ -1,9 +1,9 @@
 #tips
   %h1 Хитринки
-
-  - admin_only do
+  = admin_only do
     = link_to 'Създай нова', new_tip_path, class: :action
 
   %ul
     - @tips.each do |tip|
-      %li #{tip.title} (непубликувана)
+      %li
+        = link_to tip.title, tip
