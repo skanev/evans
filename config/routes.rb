@@ -41,7 +41,7 @@ Trane::Application.routes.draw do
     resource :my_answer, only: %w(show update)
   end
 
-  resources :tips, only: %w(index new create)
+  resources :tips, except: %w(destroy)
 
   devise_for :users
   resources :users, only: %w(index show)
