@@ -10,6 +10,8 @@ describe TipsController do
   end
 
   describe "GET new" do
+    log_in_as :admin
+
     let(:tip) { double }
 
     before do
@@ -24,6 +26,8 @@ describe TipsController do
   end
 
   describe "POST create" do
+    log_in_as :admin
+
     let(:tip) { double }
 
     before do
@@ -56,6 +60,50 @@ describe TipsController do
       tip.stub save: false
       post :create
       controller.should render_template :new
+    end
+  end
+
+  describe "PUT update" do
+    log_in_as :admin
+
+    let(:tip) { double }
+
+    before do
+      Tip.stub find: tip
+      tip.stub :update_attributes
+    end
+
+    it "denies access to non-admins" do
+      current_user.stub admin?: false
+      put :update, id: '42'
+      response.should deny_access
+    end
+
+    it "looks up the tip by id" do
+      Tip.should_receive(:find).with('42')
+      put :update, id: '42'
+    end
+
+    it "assigns the tip to @tip" do
+      put :update, id: '42'
+      assigns(:tip).should eq tip
+    end
+
+    it "attempts to update the tip" do
+      tip.should_receive(:update_attributes).with('attributes')
+      put :update, id: '42', tip: 'attributes'
+    end
+
+    it "redirects to the tip on success" do
+      tip.stub update_attributes: true
+      put :update, id: '42'
+      response.should redirect_to(tip_path)
+    end
+
+    it "redisplays the form on failure" do
+      tip.stub update_attributes: false
+      put :update, id: '42'
+      response.should render_template(:edit)
     end
   end
 end

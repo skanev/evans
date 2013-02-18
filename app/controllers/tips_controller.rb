@@ -1,5 +1,7 @@
 # encoding: utf-8
 class TipsController < ApplicationController
+  before_filter :require_admin, except: [:index, :show]
+
   def index
     @tips = Tip.all
   end
@@ -18,4 +20,24 @@ class TipsController < ApplicationController
       render :new
     end
   end
+
+  def show
+    @tip = Tip.find params[:id]
+  end
+
+  def edit
+    @tip = Tip.find params[:id]
+  end
+
+  def update
+    @tip = Tip.find params[:id]
+
+    if @tip.update_attributes params[:tip]
+      redirect_to tip_path, notice: 'Хитринката е обновена успешно'
+    else
+      render :edit
+    end
+  end
+
+
 end
