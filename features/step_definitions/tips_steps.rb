@@ -10,7 +10,7 @@
   click_on 'Създай'
 end
 
-То 'трябва да има съществува хитринка "$name"' do |name|
+То 'трябва да съществува хитринка "$name"' do |name|
   visit tips_path
 
   page.should have_content "#{name}"
