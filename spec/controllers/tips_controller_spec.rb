@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TipsController do
   describe "GET index" do
     it "assigns all the tips" do
-      Tip.stub all: 'tips'
+      Tip.stub in_reverse_chronological_order: 'tips'
       get :index
       controller.should assign_to(:tips).with('tips')
     end
