@@ -27,6 +27,10 @@ module ApplicationHelper
     render 'common/markdown'
   end
 
+  def tip_of_the_day
+    render 'common/tip_of_the_day', tip: Tip.current
+  end
+
   # A *very* ugly way to get CodeRay to display formatted code in the way we
   # want it. Naturally, using the table format in CodeRay is good enough for
   # just showing it, but commenting on specific lines add a bunch of
