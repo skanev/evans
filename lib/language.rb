@@ -3,6 +3,10 @@
 module Language
   extend self
 
+  def language
+    :ruby
+  end
+
   def course_name
     "Програмиране с Ruby"
   end
