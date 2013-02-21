@@ -1,11 +1,11 @@
 class Tip < ActiveRecord::Base
   class << self
     def current
-      order("published_at").last
+      where('published_at < :now', now: Time.now).last
     end
 
     def default_new_pushlied_at
-      current.published_at + 1.day rescue Date.today
+      last.published_at + 1.day rescue Time.now
     end
 
     def in_reverse_chronological_order
