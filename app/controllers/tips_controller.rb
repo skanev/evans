@@ -4,6 +4,9 @@ class TipsController < ApplicationController
 
   def index
     @tips = Tip.in_reverse_chronological_order
+    unless admin?
+      @tips = @tips.published
+    end
   end
 
   def new
@@ -38,6 +41,4 @@ class TipsController < ApplicationController
       render :edit
     end
   end
-
-
 end

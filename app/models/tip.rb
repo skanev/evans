@@ -1,7 +1,11 @@
 class Tip < ActiveRecord::Base
   class << self
     def current
-      where('published_at < :now', now: Time.now).last
+      published.last
+    end
+
+    def published
+      where('published_at < :now', now: Time.now)
     end
 
     def default_new_pushlied_at
