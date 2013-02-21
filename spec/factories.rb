@@ -140,4 +140,10 @@ FactoryGirl.define do
     user
     code 'Code'
   end
+
+  factory :tip do
+    title 'Tip'
+    body 'Lamma Lamma Duck'
+    published_at DateTime.now
+  end
 end
