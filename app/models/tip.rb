@@ -15,5 +15,9 @@ class Tip < ActiveRecord::Base
     def in_reverse_chronological_order
       order('published_at DESC')
     end
+
+    def published_in_reverse_chronological_order
+      published.in_reverse_chronological_order
+    end
   end
 end

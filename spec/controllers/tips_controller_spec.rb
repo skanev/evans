@@ -2,8 +2,17 @@ require 'spec_helper'
 
 describe TipsController do
   describe "GET index" do
+    log_in_as :admin
+
     it "assigns all the tips" do
       Tip.stub in_reverse_chronological_order: 'tips'
+      get :index
+      controller.should assign_to(:tips).with('tips')
+    end
+
+    it "assings only published tips" do
+      current_user.stub admin?: false
+      Tip.stub published_in_reverse_chronological_order: 'tips'
       get :index
       controller.should assign_to(:tips).with('tips')
     end
