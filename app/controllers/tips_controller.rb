@@ -3,9 +3,10 @@ class TipsController < ApplicationController
   before_filter :require_admin, except: [:index, :show]
 
   def index
-    @tips = Tip.in_reverse_chronological_order
-    unless admin?
-      @tips = @tips.published
+    if admin?
+      @tips = Tip.in_reverse_chronological_order
+    else
+      @tips = Tip.published_in_reverse_chronological_order
     end
   end
 
