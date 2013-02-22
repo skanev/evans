@@ -1,13 +1,11 @@
-language_file = Rails.root.join('config/language.txt')
+file = Rails.root.join('config/language.txt')
 
-if not language_file.exist? and Rails.env.production?
-  raise "#{language_file} must contain a language"
-end
-
-language = if language_file.exist? and not Rails.env.test?
-  language_file.read.strip
+case Rails.env
+when "production"
+  raise 'There needs to be a config/language.txt file.' unless file.exist?
+  Language.language_name = file.read.strip
+when "test"
+  Language.language_name = 'ruby'
 else
-  'Ruby'
+  Language.language_name = file.exist? ? file.read.strip : 'ruby'
 end
-
-Trane::Application.config.language = language.to_sym
