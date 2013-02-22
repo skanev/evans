@@ -11,6 +11,7 @@
   %body
     %header
       = link_to image_tag('logo.png'), root_path, class: :logo
+      = tip_of_the_day
       %h1 Програмиране с Ruby
       %h2
         Курс във Факултета по Математика и Информатика към
@@ -32,6 +33,7 @@
         %li= link_to 'Материали', lectures_path
         %li= link_to 'Задачи', tasks_path
         %li= link_to 'Предизвикателства', challenges_path
+        %li= link_to 'Хитринки', tips_path
         %li= link_to 'Форуми', topics_path
         %li= link_to 'Потребители', users_path
         - if admin?

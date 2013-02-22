@@ -37,6 +37,22 @@ body > nav {
   ul li a:hover { background-color: #3371a3; color: white; text-decoration: none; }
 }
 
+.tip-of-the-day {
+    a {
+        background-color: #f0f0f0;
+        border-radius: 0 0 6px 6px;
+        color: black;
+        display: block;
+        font-family: $font-navigation;
+        padding: 10px 15px 12px;
+        text-decoration: none;
+        width: 400px;
+        float: right; //border-radius: 0px 0px 6px 6px; padding-left: 8px;
+    }
+
+    a:hover { background-color: #3371a3; color: white; text-decoration: none; }
+}
+
 #container { position: absolute; top: 170px; left: 250px; right: 60px; }
 #container > footer {
   border-top: 1px dotted #ccc;

@@ -1,0 +1,18 @@
+#tips
+  %h1 Хитринки
+  = admin_only do
+    = link_to 'Създай нова', new_tip_path, class: :action
+
+  %table
+    %thead
+      %tr
+        %th Заглавие
+        %th Дата
+    %tbody
+      - @tips.each do |tip|
+        %tr
+          %td= link_to tip.title, tip
+          %td
+            %time{:datetime => tip.published_at.iso8601}
+              = relative_time_in_words tip.published_at
+

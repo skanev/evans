@@ -1,0 +1,6 @@
+#tips
+  %h1= @tip.title
+  = markup @tip.body
+
+  = admin_only do
+    = link_to 'Редактирай', edit_tip_path(@tip), class: :action
