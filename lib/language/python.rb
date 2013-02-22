@@ -10,6 +10,6 @@ module Language::Python
     "Програмиране с Python"
   end
 
-  def run
+  def run_tests(test, solution)
   end
 end

@@ -10,7 +10,7 @@ module Language::Clojure
     "Практическо функционално програмиране с Clojure"
   end
 
-  def run
+  def run_tests(test, solution)
   end
 end
 

@@ -10,20 +10,23 @@ module Language::Ruby
     "Програмиране с Ruby"
   end
 
-  def run
+  def run_tests(test, solution)
     Dir.mktmpdir do |dir|
       spec_path     = Pathname(dir).join('spec.rb')
       solution_path = Pathname(dir).join('solution.rb')
 
-      open(spec_path, 'w') { |file| file.write @test.encode('utf-8') }
-      open(solution_path, 'w') { |file| file.write @solution }
+      open(spec_path, 'w') { |file| file.write test.encode('utf-8') }
+      open(solution_path, 'w') { |file| file.write solution }
 
       output = `ruby lib/homework/runner.rb #{spec_path} #{solution_path}`
       json, log = output.split("\nLOG:\n", 2)
+      results = JSON.parse json
 
-      passed_count = results['passed'].try(:count) || 0
-      failed_count = results['failed'].try(:count) || 0
-      [passed_count, failed_count, log]
+      {
+        log: log,
+        passed: results['passed'].try(:count) || 0,
+        failed: results['failed'].try(:count) || 0,
+      }
     end
   end
 end
