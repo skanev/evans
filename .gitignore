@@ -5,6 +5,7 @@ log/*.log
 tmp/**/*
 config/database.yml
 config/secret_token.txt
+config/language.txt
 config/pepper.txt
 db/structure.sql
 public/stylesheets/trane.css
