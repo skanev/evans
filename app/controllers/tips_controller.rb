@@ -12,7 +12,7 @@ class TipsController < ApplicationController
 
   def new
     @tip = Tip.new
-    @tip.published_at = Tip.default_new_pushlied_at
+    @tip.published_at = Tip.default_new_published_at
   end
 
   def create
