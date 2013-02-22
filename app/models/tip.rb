@@ -8,7 +8,7 @@ class Tip < ActiveRecord::Base
       where('published_at < :now', now: Time.now)
     end
 
-    def default_new_pushlied_at
+    def default_new_published_at
       last.published_at + 1.day rescue Time.now
     end
 
