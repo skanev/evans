@@ -13,4 +13,3 @@ module Language::Clojure
   def run_tests(test, solution)
   end
 end
-
