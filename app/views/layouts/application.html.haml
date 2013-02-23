@@ -3,14 +3,14 @@
   %head
     %title= Language.course_name
     %meta(charset="utf-8")
-    %link(rel="icon" type="image/png" href="/favicon_#{Language.language}.png")
+    %link(rel="icon" type="image/png" href="#{asset_path("language/#{Language.language}/favicon.png")}")
 
     = stylesheet_link_tag :application
     = javascript_include_tag :application
     = csrf_meta_tag
   %body
     %header
-      = link_to image_tag("#{Language.language}.png"), root_path, class: :logo
+      = link_to image_tag("language/#{Language.language}/logo.png"), root_path, class: :logo
       %h1= Language.course_name
       %h2
         Курс във Факултета по Математика и Информатика към
