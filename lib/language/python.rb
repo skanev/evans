@@ -11,5 +11,6 @@ module Language::Python
   end
 
   def run_tests(test, solution)
+    raise NotImplementedError
   end
 end

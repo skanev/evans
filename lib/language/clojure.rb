@@ -11,5 +11,6 @@ module Language::Clojure
   end
 
   def run_tests(test, solution)
+    raise NotImplementedError
   end
 end
