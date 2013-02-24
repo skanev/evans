@@ -1,13 +1,13 @@
+set :stages, %w(evans2012 python2013)
+set :default_stage, "evans2012"
+require 'capistrano/ext/multistage'
+
 set :application, 'Trane Revisited'
 set :scm,         :git
 set :repository,  'git://github.com/skanev/evans.git'
-set :deploy_to,   '/data/rails/evans-2012'
+set :branch,      'multiple-languages'
 set :user,        'pyfmi'
 set :use_sudo,    false
-
-role :web, 'fmi.ruby.bg'
-role :app, 'fmi.ruby.bg'
-role :db,  'fmi.ruby.bg', :primary => true
 
 set :normalize_asset_timestamps, false
 
