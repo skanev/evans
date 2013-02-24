@@ -1,5 +1,4 @@
 set :stages, %w(evans2012 python2013)
-set :default_stage, "evans2012"
 require 'capistrano/ext/multistage'
 
 set :application, 'Trane Revisited'
