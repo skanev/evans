@@ -66,7 +66,7 @@ Trane::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Set a default host that will be used in all mailers
-  config.action_mailer.default_url_options = {:host => 'fmi.ruby.bg'}
+  config.action_mailer.default_url_options = {:host =>  ENV['SITE_HOSTNAME']}
 
   # Tell Action Mailer to use SMTP for e-mail delivery
   config.action_mailer.delivery_method = :smtp

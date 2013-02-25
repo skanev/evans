@@ -2,7 +2,7 @@
 class SolutionMailer < ActionMailer::Base
   include CustomPaths
 
-  default from: '"Ruby ФМИ" <evans@ruby.bg>', reply_to: '"Ruby ФМИ" <fmi@ruby.bg>'
+  default from: ENV['MAILER_FROM'], reply_to: ENV['MAILER_REPLY_TO']
 
   def new_comment(comment)
     @task_name      = comment.task_name
