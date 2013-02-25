@@ -1,6 +1,6 @@
 # encoding: utf-8
 class RegistrationMailer < ActionMailer::Base
-  default from: ENV['MAILER_FROM'], reply_to: ENV['MAILER_REPLY_TO']
+  default from: "evans@py-bg.net", reply_to: "evans@py-bg.net"
 
   def confirmation(sign_up)
     @activation_url = activation_url(sign_up.token, only_path: false)
