@@ -1,9 +1,9 @@
 xml.instruct! :xml, version: "1.0", encoding: 'UTF-8'
 xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'xmlns:content' => 'http://purl.org/rss/1.0/modules/content' do
   xml.channel do
-    xml.title       'Програмиране с Ruby :: Новини'
+    xml.title       "#{Language.course_name} :: Новини"
     xml.link        'http://fmi.ruby.bg/'
-    xml.description 'Новини за курса "Програмиране с Ruby"'
+    xml.description "Новини за курса \"#{Language.course_name}\""
     xml.language    'bg-BG'
 
     @announcements.each do |announcement|
