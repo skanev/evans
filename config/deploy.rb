@@ -25,7 +25,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/language.txt     #{release_path}/config/language.txt"
     run "ln -nfs #{shared_path}/secret_token.txt #{release_path}/config/secret_token.txt"
     run "ln -nfs #{shared_path}/pepper.txt       #{release_path}/config/pepper.txt"
-    run "ln -nfs #{shared_path}/mail_settings    #{release_path}/config/mail_settings"
+    run "ln -nfs #{shared_path}/mail_settings    #{release_path}/config/mail_settings.yml"
     run "ln -nfs #{shared_path}/lectures         #{release_path}/public/lectures"
     run "ln -nfs #{shared_path}/uploads          #{release_path}/public/uploads"
   end

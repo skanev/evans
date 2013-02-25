@@ -65,12 +65,13 @@ Trane::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Set a default host that will be used in all mailers
-  config.action_mailer.default_url_options = {:host =>  ENV['SITE_HOSTNAME']}
-
   # Tell Action Mailer to use SMTP for e-mail delivery
   config.action_mailer.delivery_method = :smtp
 
   raise "There needs to be a config/mail_settings file" unless Rails.root.join('config/mail_settings').exist?
-  config.action_mailer.smtp_settings = eval(Rails.root.join('config/mail_settings').read)
+  mail_settings = YAML.load_file(Rails.root.join('config/mail_settings'))
+
+  config.action_mailer.smtp_settings = mail_settings['smtp_settings']
+  # Set a default host that will be used in all mailers
+  config.action_mailer.default_url_options = {:host => mail_settings['host']}
 end
