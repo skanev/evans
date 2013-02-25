@@ -1,5 +1,4 @@
-set :stages, %w(evans2012 python2013)
-set :default_stage, "evans2012"
+set :stages, %w(ruby_2012 python_2013)
 require 'capistrano/ext/multistage'
 
 set :application, 'Trane Revisited'
@@ -23,6 +22,7 @@ namespace :deploy do
 
   task :symlink_shared, :roles => :app do
     run "ln -nfs #{shared_path}/database.yml     #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/language.txt     #{release_path}/config/language.txt"
     run "ln -nfs #{shared_path}/secret_token.txt #{release_path}/config/secret_token.txt"
     run "ln -nfs #{shared_path}/pepper.txt       #{release_path}/config/pepper.txt"
     run "ln -nfs #{shared_path}/mail_settings    #{release_path}/config/mail_settings"
