@@ -4,6 +4,7 @@ db/schema.rb
 log/*.log
 tmp/**/*
 config/database.yml
+config/site.yml
 config/secret_token.txt
 config/language.txt
 config/pepper.txt

@@ -1,13 +1,21 @@
 module Language
   extend self
 
-  delegate :language, :course_name, :email, :domain, :run_tests, to: :current_language
-
-  def language_name=(name)
-    @current_language = const_get name.to_s.camelize
-  end
+  delegate :language, :run_tests, to: :current_language
 
   def current_language
-    @current_language or raise 'Language.language_name is not defined by config/initializers/language.rb'
+    @current_language ||= const_get Rails.application.config.language.to_s.camelize
+  end
+
+  def course_name
+    Rails.application.config.course_name
+  end
+
+  def email
+    Rails.application.config.course_email
+  end
+
+  def domain
+    Rails.application.config.course_domain
   end
 end

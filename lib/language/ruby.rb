@@ -6,18 +6,6 @@ module Language::Ruby
     :ruby
   end
 
-  def course_name
-    "Програмиране с Ruby"
-  end
-
-  def email
-    'fmi@ruby.bg'
-  end
-
-  def domain
-    'fmi.ruby.bg'
-  end
-
   def run_tests(test, solution)
     Dir.mktmpdir do |dir|
       spec_path     = Pathname(dir).join('spec.rb')

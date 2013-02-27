@@ -1,0 +1,9 @@
+language: ruby
+course_email: fmi@ruby.bg
+course_name: Програмиране с Ruby
+course_domain: fmi.ruby.bg
+previous_instances:
+  - name: За учебната 2011/2012 година
+    url: 2011.fmi.ruby.bg
+  - name: За учебната 2010/2011 година
+    url: 2010.fmi.ruby.bg
