@@ -1,4 +1,4 @@
-set :stages, %w(ruby12 python13)
+set :stages, %w(ruby12 python13 clojure13)
 require 'capistrano/ext/multistage'
 
 set :application, 'Trane Revisited'
