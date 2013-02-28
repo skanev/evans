@@ -18,7 +18,7 @@ namespace :deploy do
 
   task :setup_gems, :except => {:no_release => true} do
     run "ln -nfs #{shared_path}/bundle #{release_path}/vendor/bundle"
-    run "cd '#{release_path}' && bundle install --deployment && cd -"
+    run "cd '#{release_path}' && bundle install --deployment"
   end
 
   task :symlink_shared, :roles => :app do
