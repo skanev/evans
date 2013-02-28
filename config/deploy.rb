@@ -17,7 +17,7 @@ namespace :deploy do
   end
 
   task :setup_gems, :except => {:no_release => true} do
-    run "mkdir -p '#{shared_path}/bundled_gems'; ln -nfs '#{shared_path}/bundled_gems' #{release_path}/vendor/bundle"
+    run "ln -nfs #{shared_path}/bundle #{release_path}/vendor/bundle"
     run "cd '#{release_path}' && bundle install --deployment && cd -"
   end
 
