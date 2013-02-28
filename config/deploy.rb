@@ -30,7 +30,7 @@ namespace :deploy do
 
   namespace :assets do
     task :precompile do
-      run "cd #{release_path} && RAILS_ENV=production RAILS_GROUPS=assets bundle exec rake assets:precompile"
+      run "cd #{release_path} && bundle exec rake assets:precompile"
     end
   end
 end
