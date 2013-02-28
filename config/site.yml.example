@@ -11,6 +11,7 @@ previous_instances:
 # Production only:
 # pepper: ''
 # secret_token: ''
+# google_analytics_key: ''
 # smtp_settings:
 #   address:
 #   port:
