@@ -36,6 +36,7 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
+  gem 'turbo-sprockets-rails3'
 end
 
 group :development, :test do
