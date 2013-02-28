@@ -38,4 +38,8 @@ class TasksController < ApplicationController
       render :edit
     end
   end
+
+  def guide
+    render "tasks/guides/#{Language.language}"
+  end
 end

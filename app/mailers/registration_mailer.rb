@@ -1,6 +1,6 @@
 # encoding: utf-8
 class RegistrationMailer < ActionMailer::Base
-  default from: '"Ruby ФМИ" <evans@ruby.bg>', reply_to: '"Ruby ФМИ" <fmi@ruby.bg>'
+  default from: Language.email_sender, reply_to: Language.email
 
   def confirmation(sign_up)
     @activation_url = activation_url(sign_up.token, only_path: false)

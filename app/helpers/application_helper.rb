@@ -33,7 +33,7 @@ module ApplicationHelper
   # requirements on what we want to show.
   def format_code(code)
     content_tag :table, class: 'CodeRay' do
-      lines = CodeRay.scan(code, :ruby).html(line_numbers: :inline, bold_every: false, line_number_anchors: false, css: :class).lines
+      lines = CodeRay.scan(code, Language.language).html(line_numbers: :inline, bold_every: false, line_number_anchors: false, css: :class).lines
       rows  = lines.map { |line| line.sub %r{\A<span class="line-numbers">(\s*\d+)</span>(.*)\Z}, '<tr><td>\1</td><td>\2</td></tr>' }
       rows.join("\n").html_safe
     end

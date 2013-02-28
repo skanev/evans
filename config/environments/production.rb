@@ -20,6 +20,9 @@ Trane::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Initialize on precompile
+  #config.assets.initialize_on_precompile = false
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
@@ -65,12 +68,15 @@ Trane::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Set a default host that will be used in all mailers
-  config.action_mailer.default_url_options = {:host => 'fmi.ruby.bg'}
-
   # Tell Action Mailer to use SMTP for e-mail delivery
   config.action_mailer.delivery_method = :smtp
 
-  raise "There needs to be a config/mail_settings file" unless Rails.root.join('config/mail_settings').exist?
-  config.action_mailer.smtp_settings = eval(Rails.root.join('config/mail_settings').read)
+  # Set a default host that will be used in all mailers
+  config.action_mailer.smtp_settings       = config.smtp_settings.symbolize_keys
+  config.action_mailer.default_url_options = {host: config.course_domain}
+
+  config.middleware.use ExceptionNotifier,
+    email_prefix: '[ERROR]',
+    sender_address: "Exception Notifier <#{config.course_email}>",
+    exception_recipients: [config.course_email]
 end

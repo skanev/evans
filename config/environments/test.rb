@@ -37,4 +37,8 @@ Trane::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Site configuration
+  config.pepper = 'cc1a01a066c8130b357fb77069dcae04b459a4ec8950f6245bcab82487832b4a4ec0c093be4c84aa6cfd934c41fd217cfb55c4af19704ca95b29e8140e9dfbb9'
+  config.secret_token = '7a3a2bfc22da8bb0cdb62800d63afdff107ac85c53724d5e953d19171f89270f3da861793621c29cb2fab1d627d59d89cb08a1b69db7564a542812ad12734290'
 end

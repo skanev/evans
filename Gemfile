@@ -21,10 +21,8 @@ gem 'rdiscount'
 gem 'sanitize'
 gem 'coderay'
 
-gem 'hoptoad_notifier'
-
+gem 'exception_notification'
 gem 'jquery-rails'
-gem 'airbrake'
 
 # Sidekiq and its dependencies
 gem 'sidekiq'
@@ -36,6 +34,7 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
+  gem 'turbo-sprockets-rails3'
 end
 
 group :development, :test do
