@@ -11,3 +11,9 @@ previous_instances:
 # Production only:
 # pepper: ''
 # secret_token: ''
+# smtp_settings:
+#   address:
+#   port:
+#   authentication:
+#   user_name:
+#   password:

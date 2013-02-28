@@ -21,11 +21,10 @@ namespace :deploy do
   end
 
   task :symlink_shared, :roles => :app do
-    run "ln -nfs #{shared_path}/database.yml     #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/site.yml         #{release_path}/config/site.yml"
-    run "ln -nfs #{shared_path}/mail_settings    #{release_path}/config/mail_settings.yml"
-    run "ln -nfs #{shared_path}/lectures         #{release_path}/public/lectures"
-    run "ln -nfs #{shared_path}/uploads          #{release_path}/public/uploads"
+    run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/site.yml     #{release_path}/config/site.yml"
+    run "ln -nfs #{shared_path}/lectures     #{release_path}/public/lectures"
+    run "ln -nfs #{shared_path}/uploads      #{release_path}/public/uploads"
   end
 
   namespace :assets do

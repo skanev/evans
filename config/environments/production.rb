@@ -68,10 +68,7 @@ Trane::Application.configure do
   # Tell Action Mailer to use SMTP for e-mail delivery
   config.action_mailer.delivery_method = :smtp
 
-  raise "There needs to be a config/mail_settings file" unless Rails.root.join('config/mail_settings.yml').exist?
-  mail_settings = YAML.load_file(Rails.root.join('config/mail_settings.yml'))
-
-  config.action_mailer.smtp_settings = mail_settings['smtp_settings']
   # Set a default host that will be used in all mailers
-  config.action_mailer.default_url_options = {:host => mail_settings['host']}
+  config.action_mailer.smtp_settings       = config.smtp_settings
+  config.action_mailer.default_url_options = config.course_domain
 end
