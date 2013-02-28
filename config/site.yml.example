@@ -7,3 +7,6 @@ previous_instances:
     url: 2011.fmi.ruby.bg
   - name: За учебната 2010/2011 година
     url: 2010.fmi.ruby.bg
+
+# Production only:
+# pepper: ''
