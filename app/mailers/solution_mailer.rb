@@ -2,7 +2,7 @@
 class SolutionMailer < ActionMailer::Base
   include CustomPaths
 
-  default from: Language.email, reply_to: Language.email
+  default from: Language.email_sender, reply_to: Language.email
 
   def new_comment(comment)
     @task_name      = comment.task_name

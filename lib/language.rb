@@ -15,6 +15,10 @@ module Language
     Rails.application.config.course_email
   end
 
+  def email_sender
+    "#{course_name} <#{email}>"
+  end
+
   def domain
     Rails.application.config.course_domain
   end
