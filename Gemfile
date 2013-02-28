@@ -21,10 +21,8 @@ gem 'rdiscount'
 gem 'sanitize'
 gem 'coderay'
 
-gem 'hoptoad_notifier'
-
+gem 'exception_notification'
 gem 'jquery-rails'
-gem 'airbrake'
 
 # Sidekiq and its dependencies
 gem 'sidekiq'
