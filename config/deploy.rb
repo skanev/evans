@@ -68,5 +68,4 @@ namespace :sync do
 end
 
 require './config/boot'
-require 'airbrake/capistrano'
 require 'sidekiq/capistrano'
