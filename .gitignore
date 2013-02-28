@@ -8,6 +8,7 @@ config/site.yml
 config/secret_token.txt
 config/language.txt
 config/pepper.txt
+config/default_stage
 db/structure.sql
 public/stylesheets/trane.css
 public/uploads
