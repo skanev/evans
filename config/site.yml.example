@@ -18,3 +18,5 @@ previous_instances:
 #   authentication:
 #   user_name:
 #   password:
+#   domain:
+#   enable_starttls_auto:
