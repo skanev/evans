@@ -70,5 +70,5 @@ Trane::Application.configure do
 
   # Set a default host that will be used in all mailers
   config.action_mailer.smtp_settings       = config.smtp_settings
-  config.action_mailer.default_url_options = config.course_domain
+  config.action_mailer.default_url_options = {host: config.course_domain}
 end
