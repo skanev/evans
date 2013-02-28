@@ -10,3 +10,4 @@ previous_instances:
 
 # Production only:
 # pepper: ''
+# secret_token: ''
