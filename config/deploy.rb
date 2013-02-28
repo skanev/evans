@@ -1,12 +1,13 @@
 set :stages, %w(ruby12 python13 clojure13)
 require 'capistrano/ext/multistage'
 
-set :application, 'Trane Revisited'
-set :scm,         :git
-set :repository,  'git://github.com/skanev/evans.git'
-set :branch,      'multiple-languages'
-set :user,        'pyfmi'
-set :use_sudo,    false
+set :application,   'Trane Revisited'
+set :scm,           :git
+set :repository,    'git://github.com/skanev/evans.git'
+set :branch,        'multiple-languages'
+set :user,          'pyfmi'
+set :user_and_host, 'pyfmi@deedee.hno3.org'
+set :use_sudo,      false
 
 set :normalize_asset_timestamps, false
 
@@ -49,7 +50,7 @@ namespace :sync do
   desc 'Fetch the production database'
   task :db, :roles => :app do
     system <<-END
-      ssh pyfmi@fmi.ruby.bg "pg_dump --clean evans_2012 | gzip -c" |
+      ssh #{user_and_host} "pg_dump --clean #{database_name} | gzip -c" |
         gunzip -c |
         bundle exec rails dbconsole
     END
@@ -59,7 +60,7 @@ namespace :sync do
   task :uploads, :roles => :app do
     system <<-END
       rsync --exclude tmp -av --delete \
-        pyfmi@fmi.ruby.bg:#{shared_path}/uploads/ \
+        #{user_and_host}:#{shared_path}/uploads/ \
         public/uploads/
     END
   end
