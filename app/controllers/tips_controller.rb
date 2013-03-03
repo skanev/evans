@@ -17,6 +17,7 @@ class TipsController < ApplicationController
 
   def create
     @tip = Tip.new params[:tip]
+    @tip.user = current_user
 
     if @tip.save
       redirect_to tips_path, notice: 'Хитринката е създадена успешно'

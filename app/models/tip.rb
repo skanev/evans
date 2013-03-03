@@ -1,4 +1,7 @@
 class Tip < ActiveRecord::Base
+  validates_presence_of :user
+  belongs_to :user
+
   class << self
     def current
       published.last
