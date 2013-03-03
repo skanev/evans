@@ -1,6 +1,7 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
   has_many :solutions
+  has_many :tips
 
   attr_protected :full_name, :faculty_number, :email, :admin
 
