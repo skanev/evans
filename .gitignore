@@ -4,8 +4,8 @@ db/schema.rb
 log/*.log
 tmp/**/*
 config/database.yml
-config/secret_token.txt
-config/pepper.txt
+config/site.yml
+config/default_stage
 db/structure.sql
 public/stylesheets/trane.css
 public/uploads

@@ -1,7 +1,7 @@
-- if Rails.env.production?
+- if Rails.application.config.respond_to?(:google_analytics_key)
   :javascript
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-26351889-1']);
+    _gaq.push(['_setAccount', '#{Rails.application.config.google_analytics_key}']);
     _gaq.push(['_trackPageview']);
 
     (function() {

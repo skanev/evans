@@ -59,5 +59,14 @@ module Trane
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.previous_instances = []
+
+    site_config = Rails.root.join('config/site.yml')
+    raise "You need to have a config/site.yml" unless site_config.exist?
+
+    YAML.load_file(site_config).each do |key, value|
+      config.send "#{key}=", value
+    end
   end
 end
