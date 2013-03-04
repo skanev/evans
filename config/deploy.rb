@@ -29,6 +29,11 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/uploads      #{release_path}/public/uploads"
   end
 
+  task :setup_shared, :roles => :app do
+    run "mkdir #{shared_path}/lectures"
+    run "mkdir #{shared_path}/uploads"
+  end
+
   namespace :assets do
     task :precompile do
       run "cd #{release_path} && bundle exec rake assets:precompile"
@@ -36,6 +41,7 @@ namespace :deploy do
   end
 end
 
+after 'deploy:setup',       'deploy:setup_shared'
 after 'deploy:update_code', 'deploy:setup_gems'
 after 'deploy:update_code', 'deploy:symlink_shared'
 after 'deploy:update_code', 'deploy:assets:precompile'
