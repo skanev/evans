@@ -5,7 +5,7 @@ require 'capistrano/ext/multistage'
 set :application,   'Trane Revisited'
 set :scm,           :git
 set :repository,    'git://github.com/skanev/evans.git'
-set :branch,        'multiple-languages'
+set :branch,        'master'
 set :user,          'pyfmi'
 set :user_and_host, 'pyfmi@deedee.hno3.org'
 set :use_sudo,      false
