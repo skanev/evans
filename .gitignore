@@ -21,7 +21,7 @@ gems.tags
 .rbenv-version
 .powrc
 public/lectures
-tmp/ruby-lectures
+tmp/lectures-repo
 tmp/restart.txt
 tmp/*.sql
 tmp/rspec_output/*

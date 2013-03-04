@@ -1,18 +1,31 @@
 #!/bin/sh
 
-if [ ! -d tmp/ruby-lectures ]; then
-  git clone https://github.com/fmi/ruby-lectures.git tmp/ruby-lectures
+if [ -z "$REPOSITORY" -o -z "$BRANCH" ]; then
+  echo "REPOSITORY and BRANCH should be set to a Git repository and a branch name"
+  exit 1
 fi
 
-cd tmp/ruby-lectures
+STAGE="tmp/lectures-repo"
+TARGET="$STAGE/compiled-lectures"
 
+if [ ! -d $STAGE ]; then
+  git clone $REPOSITORY $STAGE
+fi
+
+pushd $STAGE
+
+git checkout $BRANCH
 git pull
-bundle install
-bundle exec thor rebuild
+make
 
-cd ../..
+popd
 
-echo "Copying public/lectures..."
+if [ ! -d $TARGET ]; then
+  echo "Expected the lectures to be compiled in $OUTPUT, but nothing found"
+  exit 1
+fi
+
+echo "Copying to public/lectures..."
 mkdir -p public/lectures
 rm -rf public/lectures/*
-cp -r tmp/ruby-lectures/compiled/* public/lectures
+cp -r $TARGET/* public/lectures

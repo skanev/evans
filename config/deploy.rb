@@ -43,7 +43,7 @@ after 'deploy:update_code', 'deploy:assets:precompile'
 namespace :lectures do
   desc 'Regenerate the lectures from the GitHub repo'
   task :update, roles: :app do
-    run "cd #{current_path} && script/lectures"
+    run "cd #{current_path} && bundle exec rake lectures:compile"
   end
 end
 

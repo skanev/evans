@@ -7,6 +7,8 @@ previous_instances:
     url: 2011.fmi.ruby.bg
   - name: За учебната 2010/2011 година
     url: 2010.fmi.ruby.bg
+lectures_repository: http://github.com/fmi/ruby-lectures
+lectures_branch: master
 
 # Production only:
 # pepper: ''
