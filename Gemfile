@@ -23,6 +23,8 @@ gem 'coderay'
 
 gem 'exception_notification'
 gem 'jquery-rails'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 # Sidekiq and its dependencies
 gem 'sidekiq'
