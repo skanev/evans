@@ -46,27 +46,32 @@ describe TipsController do
 
     it "builds a new tip with the given attributes" do
       Tip.should_receive(:new).with('tip attributes')
+      tip.should_receive(:user=).with(current_user)
       post :create, tip: 'tip attributes'
     end
 
     it "attempts to save the new tip" do
       tip.should_receive(:save)
+      tip.should_receive(:user=).with(current_user)
       post :create
     end
 
     it "assigns the new tip" do
+      tip.should_receive(:user=).with(current_user)
       post :create
       controller.should assign_to(:tip).with(tip)
     end
 
     it "redirects to the tips on success" do
       tip.stub save: true
+      tip.should_receive(:user=).with(current_user)
       post :create
       controller.should redirect_to tips_path
     end
 
     it "rerenders the form on failure" do
       tip.stub save: false
+      tip.should_receive(:user=).with(current_user)
       post :create
       controller.should render_template :new
     end
