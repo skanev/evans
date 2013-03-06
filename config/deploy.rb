@@ -67,10 +67,11 @@ namespace :sync do
   task :uploads, :roles => :app do
     system <<-END
       rsync --exclude tmp -av --delete \
-        #{user_and_host}:#{shared_path}/uploads/ \
+    #{user_and_host}:#{shared_path}/uploads/ \
         public/uploads/
     END
   end
+end
 
 require './config/boot'
 require 'sidekiq/capistrano'
