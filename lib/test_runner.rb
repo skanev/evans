@@ -10,7 +10,11 @@ class TestRunner
     def run(test, solution)
       runner = new(test, solution)
       runner.run
-      [runner.passed_count, runner.failures_count, runner.log]
+      {
+        passed: runner.passed_count,
+        failed: runner.failures_count,
+        log: runner.log,
+      }
     end
   end
 

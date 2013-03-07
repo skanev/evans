@@ -20,8 +20,8 @@ module Language::Ruby
 
       {
         log: log,
-        passed: results['passed'].try(:count) || 0,
-        failed: results['failed'].try(:count) || 0,
+        passed: results['passed'] || 0,
+        failed: results['failed'] || 0,
       }
     end
   end

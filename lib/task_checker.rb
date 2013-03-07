@@ -6,7 +6,10 @@ class TaskChecker
 
   def run
     @task.solutions.each do |solution|
-      passed, failed, log = TestRunner.run @task.test_case, solution.code
+      result = TestRunner.run @task.test_case, solution.code
+      passed = result[:passed]
+      failed = result[:failed]
+      log = result[:log]
       points = Solution.calculate_points passed, failed, @task.max_points
 
       solution.update_attributes! passed_tests: passed, failed_tests: failed, points: points, log: log
