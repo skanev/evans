@@ -22,6 +22,7 @@ gems.tags
 .powrc
 public/lectures
 tmp/lectures-repo
+tmp/homework-repo
 tmp/restart.txt
 tmp/*.sql
 tmp/rspec_output/*

@@ -51,6 +51,10 @@ Trane::Application.routes.draw do
 
   get '/backdoor-login', to: 'backdoor_login#login' if Rails.env.test?
 
+  get   '/hooks',                      to: 'hooks#index',           as: :hooks
+  match '/hooks/homework/:key',        to: 'hooks#homework',        as: :homework_hook
+  match '/hooks/public_homework/:key', to: 'hooks#public_homework', as: :public_homework_hook
+
   mount Sidekiq::Web => '/queue', :constraints => AdminConstraint.new
 
   root to: "home#index"

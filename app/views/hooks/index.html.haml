@@ -1,0 +1,14 @@
+%h1 Github hook-ове
+
+%table
+  %thead
+    %tr
+      %th Тип
+      %th Адрес
+  %tbody
+    %tr
+      %td Скрити домашни
+      %td= link_to homework_hook_url(@secret_key), homework_hook_url(@secret_key)
+    %tr
+      %td Публични домашни
+      %td= link_to public_homework_hook_url(@secret_key), public_homework_hook_url(@secret_key)
