@@ -1,4 +1,5 @@
 language: ruby
+course_id: ruby-local
 course_email: fmi@ruby.bg
 course_name: Програмиране с Ruby
 course_domain: fmi.ruby.bg
