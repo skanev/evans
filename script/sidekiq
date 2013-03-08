@@ -1,6 +1,6 @@
 #!/bin/sh
 
-project_root=`dirname "$0"`
+project_root=`dirname "$0"`/..
 pid_file="$project_root/tmp/pids/sidekiq.pid"
 pid=`cat "$pid_file" 2>/dev/null`
 sidekiq_is_running=""
