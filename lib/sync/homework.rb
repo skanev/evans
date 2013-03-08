@@ -30,7 +30,7 @@ module Sync
     end
 
     def clone_repository
-      system "git clone #{Rails.application.config.homework_repository} #{REPOSITORY_DIR}"
+      system "git clone --recursive #{Rails.application.config.homework_repository} #{REPOSITORY_DIR}"
       system "git checkout #{Rails.application.config.homework_branch}"
     end
 
