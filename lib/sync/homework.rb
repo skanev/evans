@@ -31,7 +31,9 @@ module Sync
 
     def clone_repository
       system "git clone --recursive #{Rails.application.config.homework_repository} #{REPOSITORY_DIR}"
-      system "git checkout #{Rails.application.config.homework_branch}"
+      Dir.chdir(REPOSITORY_DIR) do
+        system "git checkout #{Rails.application.config.homework_branch}"
+      end
     end
 
     def pull_repository
