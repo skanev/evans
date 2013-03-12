@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :photo, PhotoUploader
 
-  devise :database_authenticatable, :rememberable, :trackable
+  devise :database_authenticatable, :rememberable, :trackable, :recoverable
 
   validates_confirmation_of :password, unless: -> { password.blank? }
 

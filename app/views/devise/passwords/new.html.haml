@@ -1,0 +1,12 @@
+%h1 Забравена парола
+
+%p
+  Забравили сте си паролата? Няма проблем! Или поне за нас. За вас не говори
+  добре. Просто въведете email адреса, с който сте се регистрирали и очаквайте
+  инструкции:
+
+= simple_form_for resource, as: resource_name, url: password_path(resource_name), html: {method: :post} do |f|
+  = f.error_notification
+
+  = f.input :email, required: true, autofocus: true
+  = f.button :submit, 'Изпрати'

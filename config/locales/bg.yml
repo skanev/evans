@@ -34,15 +34,20 @@ bg:
         update: Запази
   devise:
     failure:
+      invalid: Невалидна е-поща или парола.
+      already_authenticated: Не може да искате нова парола докато сте логнати.
       unauthenticated: 'You need to sign in or sign up before continuing.'
       unconfirmed: 'You have to confirm your account before continuing.'
-      invalid: Невалидна е-поща или парола.
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'Your account was not activated yet.'
     sessions:
       signed_in: Влязохте успешно. Дерзайте.
       signed_out: Излязохте успешно от система. Ще ни липсвате :'(
+    passwords:
+      user:
+        send_instructions: Изпратихме ви инструкции. Проверете си пощата.
+        updated: Паролата е сменена. Не я забравяй пак. Сериозно.
   activemodel:
     attributes:
       registration:
