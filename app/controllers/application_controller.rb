@@ -42,4 +42,8 @@ class ApplicationController < ActionController::Base
   def set_time_zone
     Time.zone = 'Sofia'
   end
+
+  def skip_trackable
+    request.env['devise.skip_trackable'] = true
+  end
 end

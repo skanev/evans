@@ -1,6 +1,6 @@
 # encoding: utf-8
 class MyAnswersController < ApplicationController
-  before_filter :require_user
+  before_filter :require_user, :skip_trackable
 
   def show
     @poll       = Poll.find params[:poll_id]
