@@ -29,4 +29,13 @@ describe SignUp do
       sign_up.token.should =~ /^[a-z0-9]{40}$/
     end
   end
+
+  it "validates faculty number isn't taken by an existing user" do
+    user = create(:user)
+    sign_up = SignUp.new
+    sign_up.faculty_number = user.faculty_number
+
+    sign_up.should_not be_valid
+    sign_up.errors[:faculty_number].should be_present
+  end
 end

@@ -1,7 +1,9 @@
+# encoding: utf-8
 class SignUp < ActiveRecord::Base
   validates_presence_of :full_name
   validates_presence_of :faculty_number
   validates_uniqueness_of :faculty_number
+  validate :faculty_number_must_be_unique_across_users_too
 
   class << self
     def with_token(token)
@@ -12,6 +14,12 @@ class SignUp < ActiveRecord::Base
 
   def assign_to(email)
     update_attributes! email: email, token: random_string(40)
+  end
+
+  def faculty_number_must_be_unique_across_users_too
+    if User.where(:faculty_number => faculty_number).exists?
+      errors.add(:faculty_number, 'Вече има потребител с този факултетен номер')
+    end
   end
 
   private
