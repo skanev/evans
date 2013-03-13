@@ -5,7 +5,9 @@ describe TaskChecker do
     task = create :task, test_case: 'test case', max_points: 6
     solution = create :solution_with_revisions, task: task, code: 'solution code'
 
-    TestRunner.should_receive(:run).with('test case', 'solution code').and_return([2, 1, 'log'])
+    runner_result = {passed: 2, failed: 1, log: 'log'}
+
+    TestRunner.should_receive(:run).with('test case', 'solution code').and_return(runner_result)
     Solution.should_receive(:calculate_points).with(2, 1, 6).and_return(3)
     TaskChecker.new(task).run
 

@@ -10,6 +10,7 @@ class TestRunner
     def run(test, solution)
       runner = new(test, solution)
       runner.run
+
       {
         passed: runner.passed_count,
         failed: runner.failures_count,
@@ -20,8 +21,9 @@ class TestRunner
 
   def run
     result = Language.run_tests(@test, @solution)
+
     @log            = result[:log]
-    @passed_count   = result[:passed]
-    @failures_count = result[:failed]
+    @passed_count   = result[:passed].count
+    @failures_count = result[:failed].count
   end
 end
