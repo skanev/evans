@@ -17,8 +17,8 @@ class SignUp < ActiveRecord::Base
   end
 
   def faculty_number_must_be_unique_across_users_too
-    if User.where(:faculty_number => faculty_number).exists?
-      errors.add(:faculty_number, 'Вече има потребител с този факултетен номер')
+    if User.exists? faculty_number: faculty_number
+      errors.add :faculty_number, 'Вече има потребител с този факултетен номер'
     end
   end
 

@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe SignUp do
+  it "validates faculty number isn't taken by an existing user" do
+    create :user, faculty_number: 'taken'
+    sign_up = SignUp.new faculty_number: 'taken'
+
+    sign_up.should have_error_on :faculty_number
+  end
+
   describe ".with_token" do
     it "looks up by token" do
       sign_up = create :sign_up, token: 'token'
@@ -28,14 +35,5 @@ describe SignUp do
       sign_up.assign_to('peter@example.org')
       sign_up.token.should =~ /^[a-z0-9]{40}$/
     end
-  end
-
-  it "validates faculty number isn't taken by an existing user" do
-    user = create(:user)
-    sign_up = SignUp.new
-    sign_up.faculty_number = user.faculty_number
-
-    sign_up.should_not be_valid
-    sign_up.errors[:faculty_number].should be_present
   end
 end
