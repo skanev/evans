@@ -12,7 +12,13 @@ class Tip < ActiveRecord::Base
     end
 
     def default_new_published_at
-      last.published_at + 1.day rescue Time.now
+      chronologically_last = order('published_at ASC').last
+
+      if chronologically_last
+        chronologically_last.published_at + 1.day
+      else
+        Time.now
+      end
     end
 
     def in_reverse_chronological_order
