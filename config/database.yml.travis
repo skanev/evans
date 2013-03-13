@@ -1,0 +1,20 @@
+development:
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  database: evans_development
+  username: postgres
+  password:
+  min_messages: warning
+
+test: &test
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  database: evans_test
+  username: postgres
+  password:
+  min_messages: warning
+
+cucumber:
+  <<: *test
