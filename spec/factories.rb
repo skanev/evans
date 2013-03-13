@@ -143,7 +143,7 @@ FactoryGirl.define do
 
   factory :tip do
     title 'Tip'
-    body 'Lamma Lamma Duck'
+    body 'Tip body'
     user
     published_at DateTime.now
   end
