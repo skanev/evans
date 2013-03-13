@@ -1,7 +1,8 @@
 # Step helpers, confusingly named after something awesome
 module AnotherWorld
   def last_sent_email
-    ActionMailer::Base.deliveries.last.body.to_s
+    ActionMailer::Base.deliveries.last.try(:body).try(:to_s) or
+      raise "Expected to have sent an email"
   end
 
   def backdoor_login(user)
