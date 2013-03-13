@@ -145,6 +145,6 @@ FactoryGirl.define do
     title 'Tip'
     body 'Tip body'
     user
-    published_at DateTime.now
+    published_at 1.day.ago
   end
 end
