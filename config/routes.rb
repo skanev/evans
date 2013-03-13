@@ -49,7 +49,10 @@ Trane::Application.routes.draw do
   resources :activities, only: :index
   resources :points_breakdowns, only: :index
 
-  get '/backdoor-login', to: 'backdoor_login#login' if Rails.env.test?
+  if Rails.env.test?
+    get '/backdoor/login',  to: 'backdoor#login'
+    get '/backdoor/logout', to: 'backdoor#logout'
+  end
 
   get   '/hooks',                      to: 'hooks#index',           as: :hooks
   match '/hooks/homework/:key',        to: 'hooks#homework',        as: :homework_hook

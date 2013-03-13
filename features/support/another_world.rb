@@ -5,8 +5,13 @@ module AnotherWorld
   end
 
   def backdoor_login(user)
-    visit "/backdoor-login?email=#{CGI.escape(user.email)}"
+    visit "/backdoor/login?email=#{CGI.escape(user.email)}"
     @current_user = user
+  end
+
+  def backdoor_logout
+    visit '/backdoor/logout'
+    @current_user = nil
   end
 
   def log_in_as_admin
