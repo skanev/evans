@@ -8,6 +8,7 @@ Devise.setup do |config|
 
   config.password_length = 6..20
   config.email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
+  config.token_authentication_key = :auth_token
 
   config.mailer_sender = Language.email_sender
 end
