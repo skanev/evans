@@ -8,7 +8,7 @@ class Tip < ActiveRecord::Base
     end
 
     def published
-      where('published_at < :now', now: Time.now)
+      where('published_at < ?', Time.now)
     end
 
     def default_new_published_at
