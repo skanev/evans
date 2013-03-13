@@ -12,8 +12,7 @@ end
 end
 
 Когато 'проследя активационната връзка в полученото писмо' do
-  activation_link = last_sent_email[%r{http://trane.example.org(/\S+)}, 1]
-  visit activation_link
+  visit_link_in_last_email
 end
 
 Когато 'въведа парола' do
