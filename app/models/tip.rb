@@ -7,10 +7,6 @@ class Tip < ActiveRecord::Base
       published.last
     end
 
-    def published
-      where('published_at < ?', Time.now)
-    end
-
     def default_new_published_at
       chronologically_last = order('published_at ASC').last
 
@@ -27,6 +23,12 @@ class Tip < ActiveRecord::Base
 
     def published_in_reverse_chronological_order
       published.in_reverse_chronological_order
+    end
+
+    private
+
+    def published
+      where('published_at < ?', Time.now)
     end
   end
 end
