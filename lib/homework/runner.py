@@ -21,10 +21,22 @@ class StdBuffer:
 
 
 class EmptyTestResult:
+    all_tests = []
     failures = []
     errors = []
-    testsRun = 0
     log = ''
+
+
+class DiligentTextTestRunner(unittest.TextTestRunner):
+    all_tests = []
+
+    def run(self, test):
+        result = super().run(test)
+        for test_suite in test._tests:
+            for test in test_suite._tests:
+                self.all_tests.append(test.__str__())
+        result.all_tests = self.all_tests
+        return result
 
 
 def main(test_module):
@@ -34,19 +46,25 @@ def main(test_module):
     with StdBuffer(buffer):
         try:
             test = imp.load_source('test', test_module)
-            result = unittest.main(module=test, buffer=buffer, exit=False).result
+            result = unittest.main(
+                module=test,
+                buffer=buffer,
+                exit=False,
+                testRunner=DiligentTextTestRunner
+            ).result
         except Exception as e:
             result = EmptyTestResult()
             result.log = e
 
-    output = {
-        'failed': len(result.failures) + len(result.errors),
+    failed = [test[0].__str__() for test in result.failures + result.errors]
+    passed = [test for test in result.all_tests if test not in failed]
+
+    return {
+        'passed': passed,
+        'failed': failed,
         'log': buffer.getvalue(),
     }
-    output['passed'] = result.testsRun - output['failed']
-
-    print(json.dumps(output))
 
 
 if __name__ == '__main__':
-    main(sys.argv.pop())
+    print(json.dumps(main(sys.argv.pop())))

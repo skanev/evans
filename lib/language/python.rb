@@ -18,8 +18,8 @@ module Language::Python
 
       {
         log: results['log'] || '',
-        passed: results['passed'] || 0,
-        failed: results['failed'] || 0,
+        passed: results['passed'] || [],
+        failed: results['failed'] || [],
       }
     end
   end
