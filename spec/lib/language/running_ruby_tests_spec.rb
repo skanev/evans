@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TestRunner do
+describe "Running Ruby tests" do
   let(:test_case_code) do
     <<END.strip
 describe "Homework" do
