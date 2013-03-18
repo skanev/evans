@@ -1,5 +1,5 @@
 class TestRunner
-  attr_reader :passed_count, :failures_count, :log
+  attr_reader :passed_count, :failed_count, :log
 
   class Results
     attr_accessor :passed, :failed, :log
@@ -31,7 +31,7 @@ class TestRunner
 
       TestResults.new({
         passed: runner.passed_count,
-        failed: runner.failures_count,
+        failed: runner.failed_count,
         log: runner.log,
       })
     end
@@ -53,8 +53,8 @@ class TestRunner
   def run
     result = Language.run_tests(@test, @solution)
 
-    @log            = result.log
-    @passed_count   = result.passed_count
-    @failures_count = result.failed_count
+    @log          = result.log
+    @passed_count = result.passed_count
+    @failed_count = result.failed_count
   end
 end
