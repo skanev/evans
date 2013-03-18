@@ -14,7 +14,7 @@
   [{event-type :type test-name :message :as event}]
   (original-report event)
   (when (and results (events-map event-type))
-    (swap! results update-in [(events-map event-type)] #(conj % test-name))))
+    (swap! results update-in [(events-map event-type)] #(conj % (or test-name "<Unnamed>")))))
 
 (def empty-results {:passed [] :failed []})
 
