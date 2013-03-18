@@ -7,20 +7,16 @@ module Language::Python
   end
 
   def run_tests(test, solution)
-    Dir.mktmpdir do |dir|
-      test_path     = Pathname(dir).join('test.py')
-      solution_path = Pathname(dir).join('solution.py')
+    TestRunner.with_tmpdir('test.py' => test, 'solution.py' => solution) do |dir|
+      test_path = dir.join('test.py')
 
-      open(test_path, 'w') { |file| file.write test.encode('utf-8') }
-      open(solution_path, 'w') { |file| file.write solution.encode('utf-8') }
+      results = JSON.parse `python3.3 lib/language/python/runner.py #{test_path}`
 
-      results = JSON.parse `python3.3 lib/homework/runner.py #{test_path}`
-
-      {
+      TestRunner::Results.new({
         log: results['log'] || '',
-        passed: results['passed'] || 0,
-        failed: results['failed'] || 0,
-      }
+        passed: results['passed'] || [],
+        failed: results['failed'] || [],
+      })
     end
   end
 end
