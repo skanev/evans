@@ -1,5 +1,5 @@
-class TestRunner
-  attr_reader :passed_count, :failed_count, :log
+module TestRunner
+  extend self
 
   class Results
     attr_accessor :passed, :failed, :log
@@ -19,42 +19,16 @@ class TestRunner
     end
   end
 
-  def initialize(test, solution)
-    @test     = test
-    @solution = solution
-  end
+  def with_tmpdir(files)
+    Dir.mktmpdir do |dir|
+      dir_path = Pathname(dir)
 
-  class << self
-    def run(test, solution)
-      runner = new(test, solution)
-      runner.run
-
-      TestResults.new({
-        passed: runner.passed_count,
-        failed: runner.failed_count,
-        log: runner.log,
-      })
-    end
-
-    def with_tmpdir(files)
-      Dir.mktmpdir do |dir|
-        dir_path = Pathname(dir)
-
-        files.each do |name, contents|
-          file_path = dir_path.join(name)
-          open(file_path, 'w') { |file| file.write contents.encode('utf-8') }
-        end
-
-        yield dir_path
+      files.each do |name, contents|
+        file_path = dir_path.join(name)
+        open(file_path, 'w') { |file| file.write contents.encode('utf-8') }
       end
+
+      yield dir_path
     end
-  end
-
-  def run
-    result = Language.run_tests(@test, @solution)
-
-    @log          = result.log
-    @passed_count = result.passed_count
-    @failed_count = result.failed_count
   end
 end

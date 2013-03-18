@@ -6,10 +6,15 @@ class ChallengeChecker
 
   def run
     @challenge.solutions.each do |solution|
-      passed, failed, log = TestRunner.run @challenge.test_case, solution.code
-      correct = ChallengeSolution.score passed, failed
+      results = Language.run_tests @challenge.test_case, solution.code
+      correct = ChallengeSolution.score results.passed_count, results.failed_count
 
-      solution.update_attributes! passed_tests: passed, failed_tests: failed, log: log, correct: correct
+      solution.update_attributes!({
+        passed_tests: results.passed_count,
+        failed_tests: results.failed_count,
+        log: results.log,
+        correct: correct,
+      })
 
       @on_each_solution.call solution
     end

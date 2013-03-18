@@ -6,13 +6,15 @@ class TaskChecker
 
   def run
     @task.solutions.each do |solution|
-      result = TestRunner.run @task.test_case, solution.code
-      passed = result[:passed]
-      failed = result[:failed]
-      log = result[:log]
-      points = Solution.calculate_points passed, failed, @task.max_points
+      results = Language.run_tests @task.test_case, solution.code
+      points  = Solution.calculate_points results.passed_count, results.failed_count, @task.max_points
 
-      solution.update_attributes! passed_tests: passed, failed_tests: failed, points: points, log: log
+      solution.update_attributes!({
+        passed_tests: results.passed_count,
+        failed_tests: results.failed_count,
+        points: points,
+        log: results.log,
+      })
 
       @on_each_solution.call solution
     end
