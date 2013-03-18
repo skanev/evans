@@ -29,7 +29,7 @@ Spork.each_run do
   RSpec.configure do |config|
     config.mock_with :rspec
     config.use_transactional_fixtures = true
-    config.filter_run_excluding python: true
+    config.filter_run_excluding python: true, clojure: true
 
     config.include FactoryGirl::Syntax::Methods
     config.include Support::GeneralHelpers
