@@ -16,12 +16,10 @@ END
 
   it "handles solutions that raise a runtime error" do
     solution = 'require "intertools"'
-    runner = TestRunner.new(test_case_code, solution)
+    results = Language::Ruby.run_tests(test_case_code, solution)
 
-    runner.run
-
-    runner.passed_count.should eq 0
-    runner.failed_count.should eq 0
+    results.passed_count.should eq 0
+    results.failed_count.should eq 0
   end
 
   describe "on successful run" do
@@ -32,21 +30,19 @@ END
           puts "Another puts"
         end
       EOF
-      @runner = TestRunner.new(test_case_code, solution)
-
-      @runner.run
+      @results = Language::Ruby.run_tests(test_case_code, solution)
     end
 
     it "calculates the number of passed tests" do
-      @runner.passed_count.should eq 3
+      @results.passed_count.should eq 3
     end
 
     it "calculates the number of failed tests" do
-      @runner.failed_count.should eq 3
+      @results.failed_count.should eq 3
     end
 
     it "collects the execution log" do
-      @runner.log.should include("6 examples, 3 failures")
+      @results.log.should include("6 examples, 3 failures")
     end
   end
 end
