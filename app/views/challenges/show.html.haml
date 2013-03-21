@@ -31,6 +31,6 @@
           = link_to solution.user.name, solution.user
           .code{class: challenge_solution_status(solution)}= format_code solution.code
 
-          - if solution.log.present?
+          - if solution.log.present? and (@challenge.checked? or admin?)
             .log
               %pre.test-log(data-test-log)= solution.log

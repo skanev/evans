@@ -1,13 +1,10 @@
 # encoding: utf-8
 module ChallengesHelper
   def challenge_solution_status(solution)
-    if not solution.challenge.checked?
-      :unchecked
-    elsif solution.correct?
-      :correct
-    else
-      :incorrect
-    end
+    return :unchecked if not admin? and not solution.challenge.checked?
+    return :unchecked if admin? and solution.log.blank?
+
+    solution.correct? ? :correct : :incorrect
   end
 
   def challenge_solution_status_text(solution)
