@@ -22,6 +22,7 @@ Trane::Application.routes.draw do
 
   resources :challenges, except: :destroy do
     resource :my_solution, only: %w(show update), controller: :my_challenge_solutions
+    resource :check, controller: :challenge_checks, only: :create
   end
 
   resources :revisions, only: [] do

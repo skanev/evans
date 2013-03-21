@@ -7,7 +7,7 @@ class ChallengeChecker
   def run
     @challenge.solutions.each do |solution|
       results = Language.run_tests @challenge.test_case, solution.code
-      correct = ChallengeSolution.score results.passed_count, results.failed_count
+      correct = ChallengeSolution.correct? results.passed_count, results.failed_count
 
       solution.update_attributes!({
         passed_tests: results.passed_count,

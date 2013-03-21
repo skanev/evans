@@ -7,7 +7,7 @@ describe ChallengeChecker do
     test_results = double passed_count: 2, failed_count: 1, log: 'log'
 
     Language.should_receive(:run_tests).with('test case', 'solution code').and_return(test_results)
-    ChallengeSolution.should_receive(:score).with(2, 1).and_return(true)
+    ChallengeSolution.should_receive(:correct?).with(2, 1).and_return(true)
     ChallengeChecker.new(challenge).run
 
     solution.reload
