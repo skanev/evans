@@ -1,37 +1,36 @@
 module QueueMonitoring
-  def queued?(task_id)
-    running?(task_id) or scheduled?(task_id)
+  def queued?(*args)
+    string_args = args.map(&:to_s)
+    running?(string_args) or scheduled?(string_args)
   end
 
   private
 
-  def running?(task_id)
+  def running?(args)
     Sidekiq.redis do |redis|
       jobs     = redis.smembers('workers').map { |worker| job redis.get("worker:#{worker}") }
-      task_ids = task_ids_in jobs
-      puts "Running: #{task_ids.inspect}"
-      task_ids.include? task_id.to_i
+      job_args = job_arguments_in jobs
+      job_args.include? args
     end
   end
 
-  def scheduled?(task_id)
+  def scheduled?(args)
     Sidekiq.redis do |redis|
-      task_ids = []
+      job_args = []
 
       redis.smembers('queues').map do |queue_name|
         items_count = redis.llen "queue:#{queue_name}"
         jobs        = 0.upto(items_count - 1).map { |n| queue_item redis.lindex("queue:#{queue_name}", n) }
 
-        task_ids += task_ids_in(jobs)
+        job_args += job_arguments_in jobs
       end
-      puts "Scheduled: #{task_ids.inspect}"
 
-      task_ids.include? task_id.to_i
+      job_args.include? args
     end
   end
 
-  def task_ids_in(jobs)
-    jobs.select { |class_name, args| class_name == name }.map(&:second).map(&:first).map(&:to_i)
+  def job_arguments_in(jobs)
+    jobs.select { |class_name, args| class_name == name }.map(&:second)
   end
 
   def job(json)
