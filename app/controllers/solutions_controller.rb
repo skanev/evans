@@ -4,7 +4,7 @@ class SolutionsController < ApplicationController
   def index
     @task = Task.find params[:task_id]
 
-    unless @task.closed? or admin?
+    unless @task.has_visible_solutions? or admin?
       deny_access
       return
     end
@@ -18,7 +18,7 @@ class SolutionsController < ApplicationController
     @history       = SolutionHistory.new @solution
     @last_revision = @solution.last_revision
 
-    deny_access unless @task.closed? or @solution.commentable_by?(current_user)
+    deny_access unless @solution.visible_to?(current_user)
   end
 
   def update

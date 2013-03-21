@@ -23,7 +23,11 @@ table.solutions {
   .penalty-point { @include replace-with-image('icons/stop.png', 16px, 16px); display: inline-block; }
 }
 
-#tasks { @include content; }
+#tasks {
+  @include content;
+
+  li.hidden { color: $disabled; }
+}
 
 .solution {
   @include content;

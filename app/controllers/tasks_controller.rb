@@ -3,7 +3,11 @@ class TasksController < ApplicationController
   before_filter :require_admin, except: [:index, :show, :guide]
 
   def index
-    @tasks = Task.all order: 'created_at ASC'
+    @tasks = if admin?
+      Task.in_chronological_order
+    else
+      Task.visible
+    end
   end
 
   def new
@@ -23,6 +27,8 @@ class TasksController < ApplicationController
   def show
     @task = Task.find params[:id]
     @current_user_solution = Solution.for current_user, @task if current_user
+
+    deny_access if @task.hidden? and not admin?
   end
 
   def edit

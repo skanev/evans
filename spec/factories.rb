@@ -60,11 +60,17 @@ FactoryGirl.define do
     description 'Description'
     closes_at 1.week.ago
     checked true
+    hidden false
 
     factory :closed_task
+
     factory :open_task do
       closes_at 1.week.from_now
       checked false
+    end
+
+    factory :hidden_task do
+      hidden true
     end
   end
 

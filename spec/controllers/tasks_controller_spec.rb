@@ -2,9 +2,23 @@ require 'spec_helper'
 
 describe TasksController do
   describe "GET index" do
-    it "assigns all tasks to @tasks" do
-      Task.stub all: 'tasks'
+    log_in_as :student
+
+    it "assigns all tasks if admin" do
+      current_user.stub admin?: true
+      Task.stub in_chronological_order: 'tasks'
+
       get :index
+
+      assigns(:tasks).should eq 'tasks'
+    end
+
+    it "assigns visible tasks if not admin" do
+      current_user.stub admin?: false
+      Task.stub visible: 'tasks'
+
+      get :index
+
       assigns(:tasks).should eq 'tasks'
     end
   end
@@ -77,12 +91,30 @@ describe TasksController do
       controller.stub current_user: nil
       Task.stub find: task
       Solution.stub for: solution
+      task.stub hidden?: false
     end
 
     it "assigns the task to @task" do
       Task.should_receive(:find).with('42')
       get :show, id: '42'
       assigns(:task).should eq task
+    end
+
+    context "when task is hidden" do
+      log_in_as :student
+
+      it "denies access to non-admins" do
+        task.stub hidden?: true
+        get :show, id: '42'
+        response.should deny_access
+      end
+
+      it "allows non-admins to see the task" do
+        task.stub hidden?: true
+        current_user.stub admin?: true
+        get :show, id: '42'
+        response.should be_success
+      end
     end
 
     context "when user is logged in" do

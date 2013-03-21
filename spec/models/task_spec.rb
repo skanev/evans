@@ -17,11 +17,43 @@ describe Task do
     create(:task).max_points.should eq 6
   end
 
-  it "can retrieve only checed tasks" do
+  it "can retrieve only checked tasks" do
     checked = create :task, checked: true
     create :task, checked: false
 
     Task.checked.should eq [checked]
+  end
+
+  it "can retrieve only visible tasks" do
+    visible = create :task, hidden: false
+    create :task, hidden: true
+
+    Task.visible.should eq [visible]
+  end
+
+  it "can retrieve tasks in chronological order" do
+    second = create :task, created_at: 1.day.ago
+    first  = create :task, created_at: 2.days.ago
+
+    Task.in_chronological_order.should eq [first, second]
+  end
+
+  describe "(solutions visiblity)" do
+    it "does not have visible solutions if open" do
+      build(:open_task).should_not have_visible_solutions
+    end
+
+    it "does not have visible solutions if hidden" do
+      build(:hidden_task).should_not have_visible_solutions
+    end
+
+    it "does not have visible solutions if closed, but hidden" do
+      build(:closed_task, hidden: true).should_not have_visible_solutions
+    end
+
+    it "has visible solutions if closed and not hidden" do
+      build(:closed_task).should have_visible_solutions
+    end
   end
 
   describe "restrictions" do
