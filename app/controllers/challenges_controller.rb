@@ -21,7 +21,7 @@ class ChallengesController < ApplicationController
   end
 
   def show
-    @challenge = Challenge.find params[:id]
+    @challenge = Challenge.find_with_solutions_and_users params[:id]
   end
 
   def edit

@@ -87,7 +87,7 @@ describe ChallengesController do
     let(:challenge) { double }
 
     before do
-      Challenge.stub find: challenge
+      Challenge.stub find_with_solutions_and_users: challenge
     end
 
     it "does not requrie a logged in user" do
@@ -97,7 +97,7 @@ describe ChallengesController do
     end
 
     it "looks up the challenge by id" do
-      Challenge.should_receive(:find).with('42')
+      Challenge.should_receive(:find_with_solutions_and_users).with('42')
       get :show, id: '42'
     end
 
