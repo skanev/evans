@@ -16,6 +16,11 @@ class HooksController < ApplicationController
     render text: 'OK'
   end
 
+  def lectures
+    LecturesWorker.perform_async
+    render text: 'OK'
+  end
+
   private
 
   def validate_secret_key
