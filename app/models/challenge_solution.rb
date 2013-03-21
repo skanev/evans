@@ -8,7 +8,7 @@ class ChallengeSolution < ActiveRecord::Base
     end
 
     def correct?(passed_tests, failed_tests)
-      passed_tests.nonzero? and failed_tests.zero?
+      !!(passed_tests.nonzero? and failed_tests.zero?)
     end
   end
 end
