@@ -7,10 +7,12 @@
       %th Фак. №
       %th Звезди
       %th Ваучъри
+      %th Предиз.
       - if Task.checked.exists?
         %th{:colspan => Task.checked.count} Задачи
       - if Quiz.exists?
         %th{:colspan => Quiz.count} Тестове
+      %th Други
       %th Общо
   %tbody
     - @points_breakdowns.each do |breakdown|
@@ -19,8 +21,10 @@
         %td= breakdown.faculty_number
         %td= breakdown.stars
         %td= breakdown.vouchers
+        %td= breakdown.challenges
         - breakdown.tasks_breakdown.each do |points|
           %td= points
         - breakdown.quizzes_breakdown.each do |points|
           %td= points
+        %td= breakdown.photo
         %td= breakdown.total
