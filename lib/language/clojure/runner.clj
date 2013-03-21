@@ -1,4 +1,4 @@
-(use 'clojure.test)
+(use '[clojure.test :exclude (is)])
 (require '[clojure.string :as str])
 (require '[clojure.stacktrace :as st])
 
@@ -9,6 +9,16 @@
   {:pass :passed
    :fail :failed
    :error :failed})
+
+(defmacro with-timeout [& body]
+  `(let [f# (future ~@body)]
+     (when (= (deref f# 1000 :not-finished) :not-finished)
+       (future-cancel f#)
+       (throw (RuntimeException. "Execution timed out")))
+     @f#))
+
+(defmacro is [check name]
+  `(clojure.test/is (with-timeout ~check) ~name))
 
 (defn accumulating-report
   [{event-type :type test-name :message :as event}]
@@ -39,4 +49,6 @@
   (->> passed (str/join ";") println)
   (print "Failed: ")
   (->> failed (str/join ";") println)
-  (print log))
+  (println log))
+
+(System/exit 0) ; We call this, because there might be futures that are still running
