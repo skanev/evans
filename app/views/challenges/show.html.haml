@@ -21,8 +21,16 @@
     .solutions
       - @challenge.solutions.each do |solution|
         %article
-          .author
-            = link_to user_thumbnail(solution.user), solution.user
-            = link_to solution.user.name, solution.user
-          .code= format_code solution.code
+          %header
+            .thumbnail= link_to user_thumbnail(solution.user, :size80), solution.user
+            %ul.results
+              %li{class: challenge_solution_status(solution)}
+                = challenge_solution_status_text solution
+              %li.passed-tests #{solution.passed_tests} успешни тест(а)
+              %li.failed-tests #{solution.failed_tests} неуспешни тест(а)
+          = link_to solution.user.name, solution.user
+          .code{class: challenge_solution_status(solution)}= format_code solution.code
 
+          - if solution.log.present?
+            .log
+              %pre.test-log(data-test-log)= solution.log

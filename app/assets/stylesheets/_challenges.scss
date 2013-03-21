@@ -10,7 +10,11 @@
 
 .challenge .solutions {
   article { border-bottom: 1px solid $light-border; margin-bottom: 30px; overflow: hidden; padding-bottom: 30px; }
-  article .author { float: right; width: 150px; }
-  article .author a { display: block; }
-  article .code { margin-right: 170px; }
+  article .code { margin-top: 20px; }
+  article header { @include test-results; overflow: hidden; }
+  article header .thumbnail { float: left; width: 80px; }
+  article header .results { float: left; }
+  article .correct table { border: 1px solid #8d8; }
+  article .incorrect table { border: 1px solid #d88; }
+  article .log { margin: 20px 0 -10px 0; }
 }

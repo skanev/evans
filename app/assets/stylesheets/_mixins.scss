@@ -47,3 +47,16 @@
     background-color: $action-hover;
   }
 }
+
+@mixin test-results {
+  ul li { background: { position: 0 0; repeat: no-repeat; } list-style: none; padding-left: 25px; }
+  ul li.test-points { background-image: image-url('icons/emoticon_grin.png'); }
+  ul li.bonus { background-image: image-url('icons/star.png'); }
+  ul li.penalty { background-image: image-url('icons/stop.png'); }
+  ul li.total-points { background-image: image-url('icons/bullet_go.png'); }
+  ul li.passed-tests { background-image: image-url('icons/flag_green.png'); }
+  ul li.failed-tests { background-image: image-url('icons/flag_red.png'); }
+  ul li.unchecked { background-image: image-url('icons/time.png'); }
+  ul li.correct { background-image: image-url('icons/tick.png'); }
+  ul li.incorrect { background-image: image-url('icons/cross.png'); }
+}

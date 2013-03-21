@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def user_thumbnail(user)
-    image = user.photo.try(:url, :thumb) || image_path('photoless-user.png')
+  def user_thumbnail(user, version = :size150)
+    image = user.photo.try(:url, version) || image_path("photoless-user/#{version}.png")
     image_tag image, alt: user.name
   end
 
