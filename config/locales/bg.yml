@@ -99,6 +99,7 @@ bg:
       challenge:
         name: Име
         description: Описание
+        checked: Проверено
         closes_at: Краен срок
       tip:
         title: Заглавие
