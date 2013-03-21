@@ -6,6 +6,24 @@ module Language::Clojure
     :clojure
   end
 
+  def extension
+    'clj'
+  end
+
+  def solution_dump(attributes)
+    <<-END
+;;; #{attributes[:name]}
+;;; #{attributes[:faculty_number]}
+;;; #{attributes[:url]}
+
+#{attributes[:code]}
+
+;; Log output
+;; ----------
+#{attributes[:log].lines.map { |line| ";; #{line}".strip }.join("\n")}
+    END
+  end
+
   def run_tests(test, solution)
     runner = Rails.root.join('lib/language/clojure/runner.clj').read
 

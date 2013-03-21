@@ -6,6 +6,25 @@ module Language::Ruby
     :ruby
   end
 
+  def extension
+    'rb'
+  end
+
+  def solution_dump(attributes)
+    <<-END
+# #{attributes[:name]}
+# #{attributes[:faculty_number]}
+# #{attributes[:url]}
+
+#{attributes[:code]}
+
+__END__
+Log output
+----------
+#{attributes[:log]}
+    END
+  end
+
   def run_tests(test, solution)
     TestRunner.with_tmpdir('spec.rb' => test, 'solution.rb' => solution) do |dir|
       spec_path     = dir.join('spec.rb')

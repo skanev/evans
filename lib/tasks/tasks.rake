@@ -21,24 +21,18 @@ namespace :task do
         FileUtils.mkdir_p directory
 
         task.solutions.each do |solution|
-          user_name      = solution.user.name
-          faculty_number = solution.user.faculty_number
-          code           = solution.code
-          log            = solution.log
-          file           = directory.join("#{faculty_number}.rb")
+          file = directory.join("#{solution.user.faculty_number}.#{Language.extension}")
 
           puts "Dumping #{file}"
 
           open(file.to_s, 'w') do |output|
-            output.puts "# #{user_name}"
-            output.puts "# #{faculty_number}"
-            output.puts "# http://fmi.ruby.bg/tasks/#{task.id}/solutions/#{solution.id}"
-            output.puts ""
-            output.puts code.gsub(/\t/, '    ').gsub(/\r/, '').strip
-            output.puts ""
-            output.puts ""
-            output.puts "__END__"
-            output.puts log
+            output.puts Language.solution_dump({
+              name: solution.user.name,
+              faculty_number: solution.user.faculty_number,
+              url: "http://#{Language.domain}/tasks/#{solution.task_id}/solutions/#{solution.id}",
+              code: solution.code.gsub(/\t/, '    ').gsub(/\r/, '').strip,
+              log: solution.log || "",
+            })
           end
         end
       end
