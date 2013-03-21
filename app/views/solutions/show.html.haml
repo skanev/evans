@@ -23,7 +23,7 @@
   %h2 Код
   = format_code @solution.code
 
-  - if @solution.log.present?
+  - if show_results?(@solution.task) and @solution.log.present?
     %h2 Лог от изпълнението
     %pre.test-log(data-test-log)= @solution.log
 
