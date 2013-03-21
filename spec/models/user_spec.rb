@@ -20,6 +20,10 @@ describe User do
     build(:user, name: 'Петър Петров Иванов').first_name.should eq 'Петър'
   end
 
+  it "has 0 points if admin" do
+    create(:admin).points.should eq 0
+  end
+
   describe "pagination" do
     it "sorts by creation time, older users first" do
       second = create :user, created_at: 2.days.ago

@@ -86,6 +86,33 @@ describe PointsBreakdown do
     breakdown.quizzes_breakdown.should eq [0]
   end
 
+  it "assigns points for all correct challenges" do
+    challenge = create :challenge, checked: true
+    create :challenge_solution, challenge: challenge, user: user, correct: true
+    breakdown.challenges.should eq 1
+  end
+
+  it "does not assign points to incorrect challenge solutions" do
+    challenge = create :challenge, checked: true
+    create :challenge_solution, challenge: challenge, user: user, correct: false
+    breakdown.challenges.should eq 0
+  end
+
+  it "does not assign points to correct solutions of unchecked challenges" do
+    challenge = create :challenge, checked: false
+    create :challenge_solution, challenge: challenge, user: user, correct: true
+    breakdown.challenges.should eq 0
+  end
+
+  it "assigns a point to users with photos" do
+    user = create :user_with_photo
+    PointsBreakdown.find(user.id).photo.should eq 1
+  end
+
+  it "does not assign photo points to users without photos" do
+    breakdown.photo.should eq 0
+  end
+
   it "has reasonable defaults when the user has no points" do
     breakdown.vouchers.should eq 0
     breakdown.stars.should eq 0

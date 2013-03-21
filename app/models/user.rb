@@ -12,13 +12,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, unless: -> { password.blank? }
 
   def points
-    points = 0
-    points += 1 if photo.present?
-    points += Voucher.where(user_id: id).count
-    points += solutions.map(&:total_points).sum
-    points += Post.where(user_id: id, starred: true).count
-    points += QuizResult.where(user_id: id).map(&:points).sum
-    points
+    return 0 if admin?
+    PointsBreakdown.find(id).total
   end
 
   def first_name

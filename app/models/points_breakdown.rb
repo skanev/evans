@@ -18,8 +18,11 @@ class PointsBreakdown
 
   field :id, Integer
   field :rank, Integer
+  field :challenges, Integer
   field :vouchers, Integer
   field :stars, Integer
+  field :photo, Integer
+  field :total, Integer
   field :name, String
   field :faculty_number, String
   field :tasks_breakdown, Array
@@ -29,10 +32,6 @@ class PointsBreakdown
     hash.each do |key, value|
       send "#{key}=", value
     end
-  end
-
-  def total
-    vouchers + stars + tasks_breakdown.sum + quizzes_breakdown.sum
   end
 
   class << self
