@@ -98,9 +98,10 @@ bg:
         blueprint_yaml: YAML
       challenge:
         name: Име
-        description: Описание
-        checked: Проверено
         closes_at: Краен срок
+        checked: Проверено
+        description: Описание
+        test_case: Тест
       tip:
         title: Заглавие
         body: Тяло
