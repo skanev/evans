@@ -5,18 +5,27 @@ describe ChallengesController do
     log_in_as :student
 
     before do
-      Challenge.stub :in_reverse_chronological_order
+      Challenge.stub :visible
     end
 
-    it "does not requrie a logged in user" do
+    it "does not require a logged in user" do
       controller.stub current_user: nil
       get :index
       response.should_not deny_access
     end
 
-    it "assigns the challenges" do
-      Challenge.stub in_reverse_chronological_order: 'challenges'
+    it "assigns the visible challenges for non-admins" do
+      Challenge.stub visible: 'challenges'
       get :index
+      controller.should assign_to(:challenges).with('challenges')
+    end
+
+    it "assigns all challenges for admins" do
+      current_user.stub admin?: true
+      Challenge.stub in_reverse_chronological_order: 'challenges'
+
+      get :index
+
       controller.should assign_to(:challenges).with('challenges')
     end
   end
@@ -88,6 +97,7 @@ describe ChallengesController do
 
     before do
       Challenge.stub find_with_solutions_and_users: challenge
+      challenge.stub hidden?: false
     end
 
     it "does not requrie a logged in user" do
@@ -104,6 +114,25 @@ describe ChallengesController do
     it "assigns the challenge" do
       get :show, id: '1'
       controller.should assign_to(:challenge).with(challenge)
+    end
+
+    context "when hidden" do
+      log_in_as :student
+
+      before do
+        challenge.stub hidden?: true
+      end
+
+      it "denies access to non-admins" do
+        get :show, id: '1'
+        response.should deny_access
+      end
+
+      it "allows admins to see the challenge" do
+        current_user.stub admin?: true
+        get :show, id: '1'
+        response.should be_success
+      end
     end
   end
 

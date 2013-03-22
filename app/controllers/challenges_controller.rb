@@ -3,7 +3,11 @@ class ChallengesController < ApplicationController
   before_filter :require_admin, except: %w[index show]
 
   def index
-    @challenges = Challenge.in_reverse_chronological_order
+    @challenges = if admin?
+      Challenge.in_reverse_chronological_order
+    else
+      Challenge.visible
+    end
   end
 
   def new
@@ -22,6 +26,8 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find_with_solutions_and_users params[:id]
+
+    deny_access if @challenge.hidden? and not admin?
   end
 
   def edit
