@@ -20,7 +20,7 @@
 
     - if @user.site.present?
       %dt Сайт
-      %dd= link_to @user.site, @user.site
+      %dd= link_to @user.site, @user.site, data: { no_turbolink: true }
 
     - if admin?
       %dt Поща
