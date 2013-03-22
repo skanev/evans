@@ -16,7 +16,7 @@ describe Challenge do
     Challenge.in_reverse_chronological_order.should eq [first, second]
   end
 
-  it "can fetch all visible records, sorted in reverse chronologicla order" do
+  it "can fetch all visible records, sorted in reverse chronological order" do
     second = create :visible_challenge, created_at: 3.days.ago
     create :hidden_challenge, created_at: 2.days.ago
     first  = create :visible_challenge, created_at: 1.day.ago
