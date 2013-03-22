@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
     PointsBreakdown.find(id).total
   end
 
+  def rank
+    return 0 if admin?
+    PointsBreakdown.find(id).rank
+  end
+
   def first_name
     name.split(' ').first
   end

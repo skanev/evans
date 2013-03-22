@@ -24,6 +24,10 @@ describe User do
     create(:admin).points.should eq 0
   end
 
+  it "has rank 0 if admin" do
+    create(:admin).rank.should eq 0
+  end
+
   describe "pagination" do
     it "sorts by creation time, older users first" do
       second = create :user, created_at: 2.days.ago

@@ -41,6 +41,11 @@ class PointsBreakdown
       new hash
     end
 
+    def count
+      result = execute "SELECT COUNT(*) AS count FROM points_breakdowns"
+      result.to_a.first['count'].to_i
+    end
+
     def all
       query.to_a.map { |hash| new hash }
     end
@@ -50,6 +55,10 @@ class PointsBreakdown
     def query(conditions = nil)
       sql = "SELECT #{@fields.join(', ')} FROM points_breakdowns"
       sql << " WHERE #{conditions}" if conditions
+      execute sql
+    end
+
+    def execute(sql)
       ActiveRecord::Base.connection.execute sql
     end
   end

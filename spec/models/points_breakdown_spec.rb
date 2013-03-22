@@ -143,4 +143,34 @@ describe PointsBreakdown do
     user_ids.should include user.id
     user_ids.should_not include admin.id
   end
+
+  it "can tell how many users have ranking" do
+    create :user
+    create :admin
+
+    PointsBreakdown.count.should eq 1
+  end
+
+  describe "(medals)" do
+    it "assigns a gold medal to the first place" do
+      PointsBreakdown.new(rank: 1).medal.should eq :gold
+    end
+
+    it "assigns a silver medal to the second and third place" do
+      PointsBreakdown.new(rank: 2).medal.should eq :silver
+      PointsBreakdown.new(rank: 3).medal.should eq :silver
+    end
+
+    it "assigns a bronze medal to places four to ten" do
+      PointsBreakdown.new(rank: 4).medal.should eq :bronze
+      PointsBreakdown.new(rank: 5).medal.should eq :bronze
+      PointsBreakdown.new(rank: 9).medal.should eq :bronze
+      PointsBreakdown.new(rank: 10).medal.should eq :bronze
+    end
+
+    it "does not assign a medal to places eleventh or higher" do
+      PointsBreakdown.new(rank: 11).medal.should be_nil
+      PointsBreakdown.new(rank: 19).medal.should be_nil
+    end
+  end
 end
