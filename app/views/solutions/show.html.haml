@@ -21,7 +21,7 @@
         %li.failed-tests #{@solution.failed_tests} неуспешни тест(а)
 
   %h2 Код
-  = format_code @solution.code
+  %div(data-current-solution)= format_code @solution.code
 
   - if show_results?(@solution.task) and @solution.log.present?
     %h2 Лог от изпълнението
