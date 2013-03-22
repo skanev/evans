@@ -5,7 +5,7 @@
     %ol(start="0")
       - @lectures.each do |lecture|
         %li
-          = link_to lecture_title(lecture), lecture_url(lecture)
+          = link_to lecture_title(lecture), lecture_url(lecture), data: { no_turbolink: true }
           (#{lecture[:date]})
   - else
     %p.missing Няма качени лекции
