@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ChallengesController do
-  describe "GET show" do
+  describe "GET index" do
     log_in_as :student
 
     before do
