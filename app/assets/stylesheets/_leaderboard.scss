@@ -1,0 +1,25 @@
+#leaderboard {
+  $name-width: 500px;
+
+  table { border: { collapse: separate; spacing: 2px; } }
+  td, th { padding: 5px 10px; vertical-align: middle; }
+  td img { display: block; margin-bottom: -1px; }
+
+  thead th { background-color: #3371a3; color: white; font-weight: bold; text-align: left; }
+
+  .photo { padding: 5px; }
+  .rank { text-align: center; }
+  .name { width: $name-width; }
+  .points { text-align: center; }
+
+  tr.gold td { background-color: #f8f2c4; }
+  tr.silver td { background-color: #e6ebee; }
+  tr.bronze td { background-color: #f8e9df; }
+  tr td { background-color: #f0f0f0; }
+
+  td.name { background: { position: $name-width - 5px center; repeat: no-repeat; } }
+  tr.gold td.name { background-image: image_url('icons/medal_gold_3.png'); }
+  tr.silver td.name { background-image: image_url('icons/medal_silver_3.png'); }
+  tr.bronze td.name { background-image: image_url('icons/medal_bronze_3.png'); }
+  td.name a { display: block; margin: -5px -10px; padding: 5px 10px; }
+}

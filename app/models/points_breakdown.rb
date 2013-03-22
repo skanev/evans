@@ -34,6 +34,14 @@ class PointsBreakdown
     end
   end
 
+  def medal
+    case rank
+      when 1     then :gold
+      when 2, 3  then :silver
+      when 4..10 then :bronze
+    end
+  end
+
   class << self
     def find(user_id)
       hash = query("id = #{user_id.to_i}").first

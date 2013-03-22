@@ -8,6 +8,7 @@ Trane::Application.routes.draw do
 
   resources :announcements, except: %w(show destroy)
   resource :profile, only: %w(edit update)
+  resource :leaderboard, only: :show
   resource :dashboard, only: :show
   resources :voucher_claims, only: %w(new create)
   resources :quizzes, only: :show

@@ -1,0 +1,22 @@
+#leaderboard
+  %h1 Класация
+
+  %table
+    %thead
+      %tr
+        %th.rank №
+        %th.photo
+        %th.name Име
+        %th.points Точки
+    %tbody
+      - @points_breakdowns.each do |breakdown|
+        %tr{class: breakdown.medal}
+          %td.rank= breakdown.rank
+          %td.photo
+            = link_to user_path(breakdown.id) do
+              - if breakdown.photo.zero?
+                = image_tag 'photoless-user/size30.png'
+              - else
+                = image_tag "/uploads/photos/#{breakdown.id}/size30_photo.jpg"
+          %td.name= link_to breakdown.name, user_path(breakdown.id)
+          %td.points= breakdown.total
