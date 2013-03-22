@@ -31,15 +31,7 @@ module ApplicationHelper
     render 'common/tip_of_the_day', tip: Tip.current
   end
 
-  # A *very* ugly way to get CodeRay to display formatted code in the way we
-  # want it. Naturally, using the table format in CodeRay is good enough for
-  # just showing it, but commenting on specific lines add a bunch of
-  # requirements on what we want to show.
   def format_code(code)
-    content_tag :table, class: 'CodeRay' do
-      lines = CodeRay.scan(code, Language.language).html(line_numbers: :inline, bold_every: false, line_number_anchors: false, css: :class).lines
-      rows  = lines.map { |line| line.sub %r{\A<span class="line-numbers">(\s*\d+)</span>(.*)\Z}, '<tr><td>\1</td><td>\2</td></tr>' }
-      rows.join("\n").html_safe
-    end
+    CodeRay.scan(code, Language.language).html(line_numbers: :table, bold_every: false, line_number_anchors: false, css: :class).html_safe
   end
 end

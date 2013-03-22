@@ -25,9 +25,7 @@ span.CodeRay { white-space: pre; border: 0px; padding: 2px }
 
 table.CodeRay { border-collapse: collapse; width: 100%; padding: 2px }
 table.CodeRay td { vertical-align: top; }
-table.CodeRay td:first-child { width: 30px; padding-right: 10px; text-align: right; }
-table.CodeRay tr:first-child td { padding-top: 1ex; }
-table.CodeRay tr:last-child td { padding-bottom: 1ex; }
+table.CodeRay td:first-child { width: 30px; text-align: right; }
 
 .CodeRay .line-numbers, .CodeRay .no {
   background-color: #ECECEC;
