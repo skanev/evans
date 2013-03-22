@@ -2,11 +2,12 @@ body { font-family: $font-text; font-size: $font-normal; line-height: 19px; }
 a { color: $color-link; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-table:not([class=CodeRay]) { @include data-table; }
 p { margin: 1.5em 0; }
 strong { font-weight: bold; }
 em { font-style: italic; }
 abbr { border-bottom: 1px dotted $dark-border; }
+
+table.data-table { @include data-table; }
 
 .main h1 { @include heading-1; margin-bottom: 1em; }
 .action { @include action; }

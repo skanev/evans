@@ -7,6 +7,8 @@
 }
 
 table.solutions {
+  @include data-table;
+
   .points { width: 150px; }
   .results { width: 180px; }
 

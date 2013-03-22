@@ -17,4 +17,6 @@
   blockquote { font-style: italic; padding-left: 20px; }
 
   img.emoji { width: 20px; height: 20px; vertical-align: middle; }
+
+  table { @include data-table; }
 }

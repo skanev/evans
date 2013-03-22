@@ -4,6 +4,8 @@ ol.topic {
 }
 
 table.topics {
+  @include data-table;
+
   time { display: block; }
   td.last-reply { font-size: $font-small; }
 }
