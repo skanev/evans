@@ -6,6 +6,13 @@ class Task < ActiveRecord::Base
   has_many :solutions
 
   scope :checked, conditions: {checked: true}
+  scope :in_chronological_order, order: 'created_at ASC'
+
+  class << self
+    def visible
+      in_chronological_order.where(hidden: false)
+    end
+  end
 
   def closed?
     closes_at.past?
@@ -21,6 +28,10 @@ class Task < ActiveRecord::Base
 
   def restrictions_hash=(hash)
     self.restrictions = hash.to_yaml
+  end
+
+  def has_visible_solutions?
+    closed? and not hidden?
   end
 
   private

@@ -63,6 +63,94 @@ describe Solution do
     end
   end
 
+  describe "visibility" do
+    let(:task) { raise NotImplemented }
+    let(:solution) { create :solution, task: task }
+    let(:a_student) { create :user }
+    let(:author) { solution.user }
+    let(:admin) { create :admin }
+
+    context "when task is hidden" do
+      let(:task) { create :hidden_task }
+
+      it "is not visible to unauthenticated users" do
+        solution.should_not be_visible_to nil
+      end
+
+      it "is not visible to students" do
+        solution.should_not be_visible_to a_student
+      end
+
+      it "is not visible to its owner" do
+        solution.should_not be_visible_to author
+      end
+
+      it "is visible to admins" do
+        solution.should be_visible_to admin
+      end
+    end
+
+    context "when task is open" do
+      let(:task) { create :open_task }
+
+      it "is not visible to unauthenticated users" do
+        solution.should_not be_visible_to nil
+      end
+
+      it "is not visible to students" do
+        solution.should_not be_visible_to a_student
+      end
+
+      it "is visible to its author" do
+        solution.should be_visible_to author
+      end
+
+      it "is visible to admins" do
+        solution.should be_visible_to admin
+      end
+    end
+
+    context "when task is closed" do
+      let(:task) { create :closed_task }
+
+      it "is visible to unauthenticated users" do
+        solution.should be_visible_to nil
+      end
+
+      it "is visible to students" do
+        solution.should be_visible_to a_student
+      end
+
+      it "is visible to its author" do
+        solution.should be_visible_to author
+      end
+
+      it "is visible to admins" do
+        solution.should be_visible_to admin
+      end
+    end
+
+    context "when task is closed, but hidden" do
+      let(:task) { create :closed_task, hidden: true }
+
+      it "is not visible to unauthenticated users" do
+        solution.should_not be_visible_to nil
+      end
+
+      it "is not visible to students" do
+        solution.should_not be_visible_to a_student
+      end
+
+      it "is not visible to its author" do
+        solution.should_not be_visible_to author
+      end
+
+      it "is visible to admins" do
+        solution.should be_visible_to admin
+      end
+    end
+  end
+
   describe "commenting" do
     context "when task is open" do
       let(:solution) { build :solution, task: build(:open_task) }

@@ -5,6 +5,8 @@
 
   %ul
     - @tasks.each do |task|
-      %li
+      %li{class: (:hidden if task.hidden?)}
         = link_to task.name, task
+        - if task.hidden?
+          (скрита)
         (краен срок: #{l(task.closes_at)})

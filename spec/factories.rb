@@ -60,11 +60,17 @@ FactoryGirl.define do
     description 'Description'
     closes_at 1.week.ago
     checked true
+    hidden false
 
     factory :closed_task
+
     factory :open_task do
       closes_at 1.week.from_now
       checked false
+    end
+
+    factory :hidden_task do
+      hidden true
     end
   end
 
@@ -125,6 +131,13 @@ FactoryGirl.define do
     name 'Name'
     description 'Description'
     closes_at 1.day.from_now
+    hidden false
+
+    factory :visible_challenge
+
+    factory :hidden_challenge do
+      hidden true
+    end
 
     factory :open_challenge do
       closes_at 1.day.from_now
