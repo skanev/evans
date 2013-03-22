@@ -10,8 +10,8 @@ Trane::Application.routes.draw do
   resource :profile, only: %w(edit update)
   resource :dashboard, only: :show
   resources :voucher_claims, only: %w(new create)
-  resources :quizzes, only: %w(show)
-  resources :lectures, only: %w(index)
+  resources :quizzes, only: :show
+  resources :lectures, only: :index
 
   resources :tasks, except: :destroy do
     get :guide, on: :collection
@@ -42,7 +42,7 @@ Trane::Application.routes.draw do
     resource :my_answer, only: %w(show update)
   end
 
-  resources :tips, except: %w(destroy)
+  resources :tips, except: :destroy
 
   devise_for :users
   resources :users, only: %w(index show)
