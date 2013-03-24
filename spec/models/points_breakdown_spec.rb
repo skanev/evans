@@ -21,6 +21,11 @@ describe PointsBreakdown do
     breakdown.vouchers.should eq 1
   end
 
+  it "knows how many points a user has from attributions" do
+    create :attribution, user: user
+    breakdown.attributions.should eq 1
+  end
+
   it "knows how many points a user has from stars" do
     create :starred_post, user: user
     breakdown.stars.should eq 1
