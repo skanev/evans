@@ -4,7 +4,7 @@ class CreateAttributions < ActiveRecord::Migration
   def change
     create_table :attributions do |t|
       t.string :reason, null: false
-      t.integer :user_id
+      t.references :user
 
       t.timestamps
     end
