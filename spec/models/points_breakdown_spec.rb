@@ -48,10 +48,11 @@ describe PointsBreakdown do
   it "knows the total points of the user" do
     create :voucher, user: user
     create :starred_post, user: user
+    create :attribution, user: user
     create :solution, user: user, points: 1
     create :quiz_result, user: user, points: 1
 
-    breakdown.total.should eq 4
+    breakdown.total.should eq 5
   end
 
   it "knows the rank of the user" do
