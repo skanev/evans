@@ -5,6 +5,8 @@
 
   %ul
     - @challenges.each do |challenge|
-      %li
+      %li{class: (:hidden if challenge.hidden?)}
         = link_to challenge.name, challenge
+        - if challenge.hidden?
+          (скрито)
         (краен срок: #{l(challenge.closes_at)})

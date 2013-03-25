@@ -4,7 +4,7 @@ describe SolutionsController do
   describe "GET index" do
     log_in_as :student
 
-    let(:task) { double(closed?: true) }
+    let(:task) { double has_visible_solutions?: true }
 
     before do
       Task.stub find: task
@@ -12,14 +12,14 @@ describe SolutionsController do
     end
 
     it "denies access to students if the task is still open" do
-      task.stub closed?: false
+      task.stub has_visible_solutions?: false
       get :index, task_id: '42'
       response.should deny_access
     end
 
     it "allows admins to see solutions for open tasks" do
       current_user.stub admin?: true
-      task.stub closed?: false
+      task.stub has_visible_solutions?: false
 
       get :index, task_id: '42'
 
@@ -42,29 +42,27 @@ describe SolutionsController do
   describe "GET show" do
     log_in_as :student
 
-    let(:task) { double closed?: true }
+    let(:task) { double }
     let(:solution) { double 'solution' }
 
     before do
       Task.stub find: task
       SolutionHistory.stub :new
       task.stub_chain :solutions, find: solution
-      solution.stub :commentable_by?
+      solution.stub :visible_to?
       solution.stub :last_revision
     end
 
-    it "allows access to people, who can comment on the solution, while the task is still open" do
-      task.stub closed?: false
-      solution.should_receive(:commentable_by?).with(current_user).and_return(true)
+    it "allows access to people, who can view the solution" do
+      solution.should_receive(:visible_to?).with(current_user).and_return(true)
 
       get :show, task_id: '42', id: '42'
 
       response.should render_template :show
     end
 
-    it "denies access to students if the task is still open" do
-      task.stub closed?: false
-      solution.stub commentable_by?: false
+    it "denies access to people, who cannot view the solution" do
+      solution.stub visible_to?: false
 
       get :show, task_id: '42', id: '42'
 

@@ -58,4 +58,12 @@ class Solution < ActiveRecord::Base
     return false if user.nil?
     task.closed? or user.admin? or self.user == user
   end
+
+  def visible_to?(user)
+    return true if user.try(:admin?)
+    return false if task.hidden?
+    return true if task.closed?
+
+    self.user == user
+  end
 end
