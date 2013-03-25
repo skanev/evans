@@ -147,4 +147,9 @@ FactoryGirl.define do
     user
     published_at 1.day.ago
   end
+
+  factory :attribution do
+    reason 'Reason'
+    user_id 1
+  end
 end
