@@ -105,6 +105,8 @@ bg:
       tip:
         title: Заглавие
         body: Тяло
+      attribution:
+        reason: Причина
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"
