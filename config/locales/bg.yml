@@ -87,6 +87,7 @@ bg:
         name: Име
         description: Условие
         checked: Проверена
+        hidden: Скрита
         test_case: Тест
         closes_at: Краен срок
       solution:
