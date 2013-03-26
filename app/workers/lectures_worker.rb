@@ -2,6 +2,6 @@ class LecturesWorker
   include Sidekiq::Worker
 
   def perform
-    system 'rake lectures:compile'
+    system 'bundle exec rake lectures:compile'
   end
 end
