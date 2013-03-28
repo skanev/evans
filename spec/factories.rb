@@ -150,6 +150,6 @@ FactoryGirl.define do
 
   factory :attribution do
     reason 'Reason'
-    user_id 1
+    link 'http://example.com'
   end
 end
