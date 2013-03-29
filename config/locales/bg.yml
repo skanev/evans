@@ -32,6 +32,9 @@ bg:
       task:
         create: Създай
         update: Запази
+      attribution:
+        create: Признай
+        update: Запази
   devise:
     failure:
       invalid: Невалидна е-поща или парола.
@@ -107,6 +110,7 @@ bg:
         body: Тяло
       attribution:
         reason: Причина
+        link: Връзка
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"
