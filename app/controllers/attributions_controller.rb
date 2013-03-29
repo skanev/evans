@@ -8,13 +8,17 @@ class AttributionsController < ApplicationController
 
   def create
     @attribution = Attribution.new params[:attribution]
-    @attribution.user = attributed_user
+    @attribution.user = User.find params[:user_id]
 
     if @attribution.save
       redirect_to user_path(params[:user_id]), notice: 'Признанието беше успешно'
     else
       render :new
     end
+  end
+
+  def edit
+    @attribution = Attribution.find params[:id]
   end
 
   private
