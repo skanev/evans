@@ -47,7 +47,7 @@ Trane::Application.routes.draw do
 
   devise_for :users
   resources :users, only: %w(index show) do
-    resource :attributions
+    resources :attributions, only: %w(new create edit update)
   end
   resources :sign_ups, only: %w(index create)
   resources :activities, only: :index
