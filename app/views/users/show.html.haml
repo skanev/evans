@@ -46,9 +46,9 @@
         - @user.attributions.each do |attribution|
           %tr
             %td(width="60%")
-              = link_to attribution.reason, edit_user_attributions_path(@user, attribution)
+              = link_to attribution.reason, edit_user_attribution_path(@user, attribution)
             %td(width="40%")
               = link_to attribution.link
 
     %p
-      = link_to 'Признай', new_user_attributions_path(@user), class: :action
+      = link_to 'Признай', new_user_attribution_path(@user), class: :action

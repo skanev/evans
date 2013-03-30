@@ -1,4 +1,4 @@
-= simple_form_for @attribution, url: user_attributions_path do |form|
+= simple_form_for [@user, @attribution] do |form|
   = form.input :reason
   = form.input :link
 
