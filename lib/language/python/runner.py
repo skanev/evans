@@ -29,44 +29,65 @@ class EmptyTestResult:
     log = ''
 
 
-class DiligentTextTestRunner(unittest.TextTestRunner):
-    all_tests = []
+def timeout(func):
+    """This decorator will spawn a thread and run the given function
+    using the args, kwargs and raise `TimeoutError` if the
+    `timeout_duration` (in seconds) is exceeded.
+    """
+    timeout_duration = 2
 
-    def run(self, test):
-        for suite_index, test_suite in enumerate(test._tests):
-            for method_index, test_method in enumerate(test_suite._tests):
-                self.all_tests.append(str(test_method))
-                # We have to find a way to decorate each test
-                # This line below does not work, because
-                # "'TestSuite' object does not support indexing"
-                # I'm thinking about creating my own TestSuite...
-                test._tests[suite_index][method_index] = self.timeout(test_method)
-        result = super().run(test)
-        result.all_tests = self.all_tests
-        return result
-
-    @staticmethod
-    def timeout(func, args=(), kwargs={}, timeout_duration=0.5):
-        """This function will spawn a thread and run the given function
-        using the args, kwargs and return the given default value if the
-        timeout_duration is exceeded.
-        """
+    def thread(*args, **kwargs):
         class InterruptableThread(threading.Thread):
             def __init__(self):
                 super().__init__()
                 self.result = None
+                self.exc_info = None
 
             def run(self):
-                self.result = func(*args, **kwargs)
+                try:
+                    self.result = func(*args, **kwargs)
+                except:
+                    self.exc_info = sys.exc_info()
 
         it = InterruptableThread()
         it.start()
         it.join(timeout_duration)
         if it.is_alive():
             it._stop()
-            raise Exception('Timed out.')
+            raise TimeoutError
         else:
+            if it.exc_info:
+                raise it.exc_info[1]
             return it.result
+    return thread
+
+
+class DiligentTestSuite(unittest.TestSuite):
+    def __init__(self, tests=[]):
+        tests = [test for test in tests]
+        for index, test in enumerate(tests):
+            try:
+                test_method = getattr(test, test._testMethodName)
+                setattr(tests[index], test._testMethodName, timeout(test_method))
+            except AttributeError:
+                pass
+        super().__init__(tests)
+
+
+class DiligentTestLoader(unittest.loader.TestLoader):
+    suiteClass = DiligentTestSuite
+
+
+class DiligentTextTestRunner(unittest.TextTestRunner):
+    all_tests = []
+
+    def run(self, test):
+        result = super().run(test)
+        for test_suite in test._tests:
+            for test in test_suite._tests:
+                self.all_tests.append(str(test))
+        result.all_tests = self.all_tests
+        return result
 
 
 def main(test_module):
@@ -80,7 +101,8 @@ def main(test_module):
                 module=test,
                 buffer=buffer,
                 exit=False,
-                testRunner=DiligentTextTestRunner
+                testRunner=DiligentTextTestRunner,
+                testLoader=DiligentTestLoader(),
             ).result
         except Exception as e:
             result = EmptyTestResult()
