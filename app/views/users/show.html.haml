@@ -45,9 +45,9 @@
       %tbody
         - @user.attributions.each do |attribution|
           %tr
-            %td(width="60%")
+            %td
               = link_to attribution.reason, edit_user_attribution_path(@user, attribution)
-            %td(width="40%")
+            %td
               = link_to attribution.link
 
     %p
