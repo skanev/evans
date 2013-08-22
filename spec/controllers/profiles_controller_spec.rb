@@ -32,6 +32,7 @@ describe ProfilesController do
     end
 
     it "redirects to the dashboard on success" do
+      controller.stub :password_updated?
       current_user.stub update_attributes: true
       put :update
       response.should redirect_to(dashboard_path)
