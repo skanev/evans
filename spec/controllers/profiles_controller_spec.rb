@@ -18,6 +18,7 @@ describe ProfilesController do
 
   describe "PUT update" do
     before do
+      controller.stub :sign_in
       current_user.stub :update_attributes
     end
 
@@ -35,6 +36,12 @@ describe ProfilesController do
       current_user.stub update_attributes: true
       put :update
       response.should redirect_to(dashboard_path)
+    end
+
+    it "refreshes the credentials in session on success" do
+      controller.should_receive(:sign_in).with(current_user, bypass: true)
+      current_user.stub update_attributes: true
+      put :update
     end
 
     it "redisplays the form on failure" do
