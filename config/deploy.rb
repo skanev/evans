@@ -1,4 +1,3 @@
-set :stages, %w(ruby12 python13 clojure13)
 set :default_stage, File.read('config/default_stage').strip if File.exist?('config/default_stage')
 require 'capistrano/ext/multistage'
 
