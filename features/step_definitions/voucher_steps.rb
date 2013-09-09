@@ -18,7 +18,7 @@ end
 То 'трябва да съществуват следните ваучъри:' do |table|
   visit vouchers_path
 
-  codes = all('table td:first-child').map { |element| [element.text] }
+  codes = all('table tr td:first-child').map { |element| [element.text] }
 
   table.diff! codes
 end
