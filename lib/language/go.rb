@@ -25,9 +25,12 @@ module Language::Go
 
   def run_tests(test, solution)
     TestRunner.with_tmpdir('solution_test.go' => test, 'solution.go' => solution) do |dir|
-      test_path = dir.join('solution_test.go')
+      runner_path = File.expand_path("lib/language/go/runner.go")
+      results     = nil
 
-      results = JSON.parse(`go run lib/language/go/runner.go -- #{test_path}`.strip)
+      FileUtils.cd(dir) do
+        results = JSON.parse(`go run #{runner_path} -- solution_test.go`.strip)
+      end
 
       TestRunner::Results.new({
         log:    results['Log'] || '',
