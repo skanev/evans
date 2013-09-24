@@ -1,4 +1,3 @@
-# encoding: utf-8
 module ChallengesHelper
   def challenge_solution_status(solution)
     return :unchecked if not admin? and not solution.challenge.checked?

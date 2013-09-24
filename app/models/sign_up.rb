@@ -1,4 +1,3 @@
-# encoding: utf-8
 class SignUp < ActiveRecord::Base
   validates_presence_of :full_name
   validates_presence_of :faculty_number

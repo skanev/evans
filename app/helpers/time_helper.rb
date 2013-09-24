@@ -1,4 +1,3 @@
-# encoding: utf-8
 module TimeHelper
   def relative_time_in_words(time)
     prefix = time.past? ? 'преди' : 'след'

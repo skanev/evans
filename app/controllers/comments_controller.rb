@@ -1,4 +1,3 @@
-# encoding: utf-8
 class CommentsController < ApplicationController
   before_filter :require_user
   before_filter :require_editable_comment, only: [:edit, :update]

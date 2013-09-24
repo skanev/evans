@@ -1,4 +1,3 @@
-# encoding: utf-8
 module KnowsHowToUseMessageBoards
   def visit_topic(title)
     visit topic_path topic_titled(title)

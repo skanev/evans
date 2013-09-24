@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че имам коментар на чуждо решение' do
   solution = create :solution_with_revisions, task: create(:closed_task)
   create :comment, user: current_user, revision: solution.revisions.last

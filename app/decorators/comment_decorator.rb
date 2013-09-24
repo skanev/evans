@@ -1,4 +1,3 @@
-# encoding: utf-8
 class CommentDecorator < ContributionDecorator
   delegate_all
 

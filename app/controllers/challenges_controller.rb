@@ -1,4 +1,3 @@
-# encoding: utf-8
 class ChallengesController < ApplicationController
   before_filter :require_admin, except: %w[index show]
 

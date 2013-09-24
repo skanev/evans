@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че имам потребител "$email"' do |email|
   create :user, email: email
 end

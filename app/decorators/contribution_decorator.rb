@@ -1,4 +1,3 @@
-# encoding: utf-8
 class ContributionDecorator < Draper::Decorator
   def dom_id
     nil

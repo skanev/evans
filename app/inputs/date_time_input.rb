@@ -1,4 +1,3 @@
-# encoding: utf-8
 class DateTimeInput < SimpleForm::Inputs::Base
   FORMAT = '%Y-%m-%d %H:%M:%S'
 

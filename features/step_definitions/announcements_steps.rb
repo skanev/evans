@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че съществува новина:' do |title|
   title, body = title.rows_hash.values_at('Заглавие', 'Тяло')
   create :announcement, title: title, body: body

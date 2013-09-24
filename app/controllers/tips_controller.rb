@@ -1,4 +1,3 @@
-# encoding: utf-8
 class TipsController < ApplicationController
   before_filter :require_admin, except: [:index, :show]
 

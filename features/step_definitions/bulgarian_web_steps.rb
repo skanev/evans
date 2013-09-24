@@ -1,4 +1,3 @@
-# encoding: utf-8
 То 'трябва да виждам "$text"' do |text|
   page.should have_content(text)
 end

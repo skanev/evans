@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че съществува задача "$name"' do |name|
   create :task, name: name
 end

@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че съществува анкета:' do |blueprint_yaml|
   @poll = create :poll, blueprint_yaml: blueprint_yaml
 end

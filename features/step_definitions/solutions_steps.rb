@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че "$name" има следните решения:' do |name, table|
   task = create :closed_task, name: name
 

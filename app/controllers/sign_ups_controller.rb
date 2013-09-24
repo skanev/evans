@@ -1,4 +1,3 @@
-# encoding: utf-8
 class SignUpsController < ApplicationController
   before_filter :require_admin
 

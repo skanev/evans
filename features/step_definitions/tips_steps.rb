@@ -1,4 +1,3 @@
-# encoding: utf-8
 Когато 'създам нова хитринка:' do |table|
   data = table.rows_hash
 

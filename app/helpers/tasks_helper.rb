@@ -1,4 +1,3 @@
-# encoding: utf-8
 module TasksHelper
   def show_results?(task)
     task.checked? or admin?

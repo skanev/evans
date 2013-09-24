@@ -1,4 +1,3 @@
-# encoding: utf-8
 class ActivationsController < ApplicationController
   def show
     @activation = Activation.for params[:id]

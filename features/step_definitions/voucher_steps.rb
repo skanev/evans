@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че съществува свободен ваучър "$code"' do |code|
   create :voucher, code: code
 end

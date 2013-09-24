@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че студент "$user" има звездичка за тема "$topic"' do |user_name, topic_title|
   user = create :user, name: user_name
   create :topic, user: user, starred: true, title: topic_title

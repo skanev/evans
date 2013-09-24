@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че съм студент' do
   backdoor_login create(:user)
 end

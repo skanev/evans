@@ -1,4 +1,3 @@
-# encoding: utf-8
 class RegistrationMailer < ActionMailer::Base
   default from: Language.email_sender, reply_to: Language.email
 

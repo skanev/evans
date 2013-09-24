@@ -1,4 +1,3 @@
-# encoding: utf-8
 class MySolutionsController < ApplicationController
   before_filter :require_user
 

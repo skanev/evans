@@ -1,4 +1,3 @@
-# encoding: utf-8
 class MyAnswersController < ApplicationController
   before_filter :require_user
 

@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че съм влязъл като администратор' do
   log_in_as_admin
 end

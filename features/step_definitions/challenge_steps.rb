@@ -1,4 +1,3 @@
-# encoding: utf-8
 Дадено 'че съществува предизвикателство "$name"' do |name|
   create :challenge, name: name
 end
