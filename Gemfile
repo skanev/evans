@@ -11,6 +11,7 @@ gem 'will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'draper'
+gem 'coveralls', require: false
 
 gem 'protected_attributes'
 gem 'rails-observers'

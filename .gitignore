@@ -6,6 +6,7 @@ tmp/**/*
 config/database.yml
 config/site.yml
 config/default_stage
+coverage/
 db/structure.sql
 public/stylesheets/trane.css
 public/uploads
