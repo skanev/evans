@@ -30,12 +30,12 @@ describe MyChallengeSolutionsController do
 
     it "assigns the submission" do
       get :show, challenge_id: '42'
-      controller.should assign_to(:submission).with(submission)
+      assigns(:submission).should eq submission
     end
 
     it "assigns the challenge" do
       get :show, challenge_id: '1'
-      controller.should assign_to(:challenge).with(challenge)
+      assigns(:challenge).should eq challenge
     end
   end
 
@@ -69,12 +69,12 @@ describe MyChallengeSolutionsController do
 
     it "assigns the submission" do
       put :update, challenge_id: '42'
-      controller.should assign_to(:submission).with(submission)
+      assigns(:submission).should eq submission
     end
 
     it "assigns the challenge" do
       put :update, challenge_id: '1'
-      controller.should assign_to(:challenge).with(challenge)
+      assigns(:challenge).should eq challenge
     end
 
     it "attempts to save the submission" do

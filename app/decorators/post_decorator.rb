@@ -1,6 +1,6 @@
 # encoding: utf-8
 class PostDecorator < ContributionDecorator
-  decorates :post
+  delegate_all
 
   def dom_id
     h.dom_id model
@@ -11,7 +11,7 @@ class PostDecorator < ContributionDecorator
   end
 
   def star_link
-    h.toggle_post_star_link post if h.admin?
+    h.toggle_post_star_link model if h.admin?
   end
 
   def starred?

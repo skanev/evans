@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "Running Ruby tests" do
-  let(:test_case_code) do
-    <<END.strip
+  before :all do
+    @test_case_code = <<END.strip
 describe "Homework" do
   it("succeeds once")   { true.should be_true }
   it("succeeds thrice") { puts "Just to mess with you" }
@@ -16,7 +16,7 @@ END
 
   it "handles solutions that raise a runtime error" do
     solution = 'require "intertools"'
-    results = Language::Ruby.run_tests(test_case_code, solution)
+    results = Language::Ruby.run_tests(@test_case_code, solution)
 
     results.passed_count.should eq 0
     results.failed_count.should eq 0
@@ -30,7 +30,7 @@ END
           puts "Another puts"
         end
       EOF
-      @results = Language::Ruby.run_tests(test_case_code, solution)
+      @results = Language::Ruby.run_tests(@test_case_code, solution)
     end
 
     it "calculates the number of passed tests" do

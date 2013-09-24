@@ -5,8 +5,8 @@
   нова през уеб интерфейса на приложението.
 
   Сценарий: Смяна на забравена парола
-    Дадено че имам потребител "absent-minded@example.org"
-    Когато попълня формата за забравена парола на "absent-minded@example.org"
+    Дадено че имам потребител "absent.minded@example.org"
+    Когато попълня формата за забравена парола на "absent.minded@example.org"
     И проследя линка в последния си мейл
     И въведа нова парола и потвърждение "never forget"
-    То мога да вляза с адрес "absent-minded@example.org" и парола "never forget"
+    То мога да вляза с адрес "absent.minded@example.org" и парола "never forget"

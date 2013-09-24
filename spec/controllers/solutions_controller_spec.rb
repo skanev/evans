@@ -80,13 +80,13 @@ describe SolutionsController do
     it "assigns the last revision" do
       solution.stub last_revision: 'last revision'
       get :show, task_id: '42', id: '10'
-      controller.should assign_to(:last_revision).with('last revision')
+      assigns(:last_revision).should eq 'last revision'
     end
 
     it "assigns the solution history" do
       SolutionHistory.should_receive(:new).with(solution).and_return('solution history')
       get :show, task_id: '42', id: '10'
-      controller.should assign_to(:history).with('solution history')
+      assigns(:history).should eq 'solution history'
     end
   end
 

@@ -17,7 +17,6 @@ Spork.prefork do
   require 'capybara/cucumber'
   require 'capybara/session'
 
-  require 'sidekiq/testing'
 
   require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
@@ -42,4 +41,5 @@ Spork.each_run do
 
   World(CustomPaths)
   require './features/support/another_world'
+  require 'sidekiq/testing'
 end

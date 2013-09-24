@@ -25,7 +25,7 @@ describe MyAnswersController do
 
     it "assigns the poll" do
       get :show, poll_id: '1'
-      controller.should assign_to(:poll).with(poll)
+      assigns(:poll).should eq poll
     end
 
     it "fetches a submission for the poll and the current user" do
@@ -35,7 +35,7 @@ describe MyAnswersController do
 
     it "assigns the submission" do
       get :show, poll_id: '1'
-      controller.should assign_to(:submission).with(submission)
+      assigns(:submission).should eq submission
     end
   end
 
@@ -62,7 +62,7 @@ describe MyAnswersController do
 
     it "assigns the poll" do
       put :update, poll_id: '1'
-      controller.should assign_to(:poll).with(poll)
+      assigns(:poll).should eq poll
     end
 
     it "fetches a submission for the poll and the current user" do
@@ -72,7 +72,7 @@ describe MyAnswersController do
 
     it "assigns the submission" do
       put :update, poll_id: '1'
-      controller.should assign_to(:submission).with(submission)
+      assigns(:submission).should eq submission
     end
 
     it "updates the submission" do

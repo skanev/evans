@@ -5,7 +5,7 @@ describe LeaderboardsController do
     it "assigns all points breakdowns" do
       PointsBreakdown.stub all: 'breakdowns'
       get :show
-      controller.should assign_to(:points_breakdowns).with('breakdowns')
+      assigns(:points_breakdowns).should eq 'breakdowns'
     end
   end
 end

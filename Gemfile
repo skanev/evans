@@ -14,7 +14,7 @@ gem 'draper'
 
 gem 'skeptic'
 
-gem 'spork', '0.9.0.rc9'
+gem 'spork'
 
 gem 'rails_autolink'
 gem 'rdiscount'
@@ -52,6 +52,7 @@ group :development do
 end
 
 group :test do
+  gem 'cucumber', '1.2.5'
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'shoulda-matchers'

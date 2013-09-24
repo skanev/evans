@@ -34,12 +34,12 @@ describe CommentsController do
 
     it "assigns the solution to @solution" do
       post :create, revision_id: '1'
-      controller.should assign_to(:revision).with(revision)
+      assigns(:revision).should eq revision
     end
 
     it "assigns the comment to @comment" do
       post :create, revision_id: '1'
-      controller.should assign_to(:comment).with(comment)
+      assigns(:comment).should eq comment
     end
 
     it "creates a new comment with the given attributes" do
@@ -89,7 +89,7 @@ describe CommentsController do
 
     it "assigns the comment to @comment" do
       get :edit, revision_id: '1', id: '2'
-      controller.should assign_to(:comment).with(comment)
+      assigns(:comment).should eq comment
     end
 
     it "looks up the comment by id" do
@@ -111,7 +111,7 @@ describe CommentsController do
 
     it "assigns the comment to @comment" do
       put :update, revision_id: '1', id: '2'
-      controller.should assign_to(:comment).with(comment)
+      assigns(:comment).should eq comment
     end
 
     it "denies access to users who cannot edit the comment" do

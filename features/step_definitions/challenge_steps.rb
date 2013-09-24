@@ -51,17 +51,17 @@ end
 То 'студентите трябва да могат да предават решения на "$name"' do |name|
   log_in_as_student
   visit challenge_my_solution_path find_challenge(name)
-  page.should have_selector :field, 'textarea', 'Код'
+  page.should have_field 'Код'
 end
 
 То 'трябва да мога да редактирам решението си' do
   visit_my_challenge_solution challenge
-  page.should have_selector :field, 'textarea', content: submitted_code
+  page.should have_field 'Код', with: submitted_code
 end
 
 То 'решението ми трябва да съдържа новия код' do
   visit_my_challenge_solution challenge
-  page.should have_selector :field, 'textarea', content: submitted_code
+  page.should have_field 'Код', with: submitted_code
 end
 
 То 'други хора не трябва да виждат моето решение' do

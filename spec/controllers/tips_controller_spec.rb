@@ -7,14 +7,14 @@ describe TipsController do
     it "assigns all the tips" do
       Tip.stub in_reverse_chronological_order: 'tips'
       get :index
-      controller.should assign_to(:tips).with('tips')
+      assigns(:tips).should eq 'tips'
     end
 
     it "assings only published tips" do
       current_user.stub admin?: false
       Tip.stub published_in_reverse_chronological_order: 'tips'
       get :index
-      controller.should assign_to(:tips).with('tips')
+      assigns(:tips).should eq 'tips'
     end
   end
 
@@ -30,7 +30,7 @@ describe TipsController do
     it "assigns a new tip" do
       tip.should_receive(:published_at=)
       get :new
-      controller.should assign_to(:tip).with(tip)
+      assigns(:tip).should eq tip
     end
   end
 
@@ -59,7 +59,7 @@ describe TipsController do
     it "assigns the new tip" do
       tip.should_receive(:user=).with(current_user)
       post :create
-      controller.should assign_to(:tip).with(tip)
+      assigns(:tip).should eq tip
     end
 
     it "redirects to the tips on success" do

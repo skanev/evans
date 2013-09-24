@@ -63,7 +63,7 @@ describe MySolutionsController do
 
     it "assigns the submission to @submission" do
       put :update, task_id: '42'
-      controller.should assign_to(:submission).with(submission)
+      assigns(:submission).should eq submission
     end
 
     it "constructs a submission with the current user and the task" do

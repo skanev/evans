@@ -13,7 +13,7 @@ describe PointsBreakdownsController do
     it "assigns all breakdowns" do
       PointsBreakdown.stub all: 'breakdowns'
       get :index
-      controller.should assign_to(:points_breakdowns).with('breakdowns')
+      assigns(:points_breakdowns).should eq 'breakdowns'
     end
   end
 end

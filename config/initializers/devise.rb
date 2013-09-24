@@ -3,7 +3,7 @@ Devise.setup do |config|
 
   config.stretches = 10
   config.encryptor = :bcrypt
-  config.pepper = Rails.application.config.pepper
+  config.secret_key = Rails.application.config.pepper
   config.remember_for = 2.weeks
 
   config.password_length = 6..20

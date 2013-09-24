@@ -5,7 +5,7 @@ describe PollsController do
     it "assigns all the polls" do
       Poll.stub all: 'polls'
       get :index
-      controller.should assign_to(:polls).with('polls')
+      assigns(:polls).should eq 'polls'
     end
   end
 
@@ -26,7 +26,7 @@ describe PollsController do
 
     it "assigns a new poll" do
       get :new
-      controller.should assign_to(:poll).with(poll)
+      assigns(:poll).should eq poll
     end
   end
 
@@ -47,7 +47,7 @@ describe PollsController do
 
     it "assigns the poll" do
       post :create
-      controller.should assign_to(:poll).with(poll)
+      assigns(:poll).should eq poll
     end
 
     it "denies access to non-admins" do
@@ -96,7 +96,7 @@ describe PollsController do
 
     it "assigns the poll" do
       get :edit, id: '1'
-      controller.should assign_to(:poll).with(poll)
+      assigns(:poll).should eq poll
     end
   end
 
@@ -123,7 +123,7 @@ describe PollsController do
 
     it "assigns the poll" do
       put :update, id: '1'
-      controller.should assign_to(:poll).with(poll)
+      assigns(:poll).should eq poll
     end
 
     it "attempts to update the poll" do

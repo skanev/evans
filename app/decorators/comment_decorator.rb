@@ -1,6 +1,6 @@
 # encoding: utf-8
 class CommentDecorator < ContributionDecorator
-  decorates :comment
+  delegate_all
 
   def dom_id
     "comment-#{model.id}"

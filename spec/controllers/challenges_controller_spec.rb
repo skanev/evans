@@ -17,7 +17,7 @@ describe ChallengesController do
     it "assigns the visible challenges for non-admins" do
       Challenge.stub visible: 'challenges'
       get :index
-      controller.should assign_to(:challenges).with('challenges')
+      assigns(:challenges).should eq 'challenges'
     end
 
     it "assigns all challenges for admins" do
@@ -26,7 +26,7 @@ describe ChallengesController do
 
       get :index
 
-      controller.should assign_to(:challenges).with('challenges')
+      assigns(:challenges).should eq 'challenges'
     end
   end
 
@@ -42,7 +42,7 @@ describe ChallengesController do
     it "assigns a new challenge" do
       Challenge.stub new: 'challenge'
       get :new
-      controller.should assign_to(:challenge).with('challenge')
+      assigns(:challenge).should eq 'challenge'
     end
   end
 
@@ -69,7 +69,7 @@ describe ChallengesController do
 
     it "assigns the new challenge" do
       post :create
-      controller.should assign_to(:challenge).with(challenge)
+      assigns(:challenge).should eq challenge
     end
 
     it "attempts to save the challenge" do
@@ -113,7 +113,7 @@ describe ChallengesController do
 
     it "assigns the challenge" do
       get :show, id: '1'
-      controller.should assign_to(:challenge).with(challenge)
+      assigns(:challenge).should eq challenge
     end
 
     context "when hidden" do
@@ -148,7 +148,7 @@ describe ChallengesController do
     it "finds the challenge by id and assigns it" do
       Challenge.should_receive(:find).with('42').and_return('challenge')
       get :edit, id: '42'
-      controller.should assign_to(:challenge).with('challenge')
+      assigns(:challenge).should eq 'challenge'
     end
   end
 
@@ -175,7 +175,7 @@ describe ChallengesController do
 
     it "assigns the challenge" do
       put :update, id: '1'
-      controller.should assign_to(:challenge).with(challenge)
+      assigns(:challenge).should eq challenge
     end
 
     it "attempts to update the challenge" do

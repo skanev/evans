@@ -127,7 +127,7 @@ describe TasksController do
 
       it "assigns the solution to @current_user_solution" do
         get :show, id: '1'
-        controller.should assign_to(:current_user_solution).with(solution)
+        assigns(:current_user_solution).should eq solution
       end
     end
 
