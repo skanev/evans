@@ -1,5 +1,5 @@
 class Topic < Post
-  has_many :replies, order: 'created_at ASC'
+  has_many :replies, -> { order 'created_at ASC' }
 
   validates_presence_of :title
 

@@ -65,10 +65,6 @@ Trane::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  # config.active_record.auto_explain_threshold_in_seconds = 0.5
-
   # Tell Action Mailer to use SMTP for e-mail delivery
   config.action_mailer.delivery_method = :smtp
 
@@ -80,4 +76,7 @@ Trane::Application.configure do
     email_prefix: '[ERROR]',
     sender_address: "Exception Notifier <#{config.course_email}>",
     exception_recipients: [config.course_email]
+
+  # Eager load
+  config.eager_load = true
 end

@@ -5,8 +5,8 @@ class Task < ActiveRecord::Base
 
   has_many :solutions
 
-  scope :checked, conditions: {checked: true}
-  scope :in_chronological_order, order: 'created_at ASC'
+  scope :checked, -> { where checked: true }
+  scope :in_chronological_order, -> { order 'created_at ASC' }
 
   class << self
     def visible

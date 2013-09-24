@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Activation do
   it "can be constructed with a SignUp token" do
-    sign_up = create :sign_up, token: 'token'
+    create :sign_up, token: 'token'
 
     Activation.for('token').should be_present
     Activation.for('unexisting').should be_nil
@@ -15,7 +15,7 @@ describe Activation do
     activation.password_confirmation = 'wrong'
 
     activation.should_not be_valid
-    activation.errors[:password].should be_present
+    activation.errors[:password_confirmation].should be_present
   end
 
   describe "on submission" do

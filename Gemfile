@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.12'
+gem 'rails', '~> 4.0.0'
 gem 'pg'
 
 gem 'devise'
@@ -12,9 +12,12 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'draper'
 
+gem 'protected_attributes'
+gem 'rails-observers'
+
 gem 'skeptic'
 
-gem 'spork'
+gem 'spork-rails'
 
 gem 'rails_autolink'
 gem 'rdiscount'

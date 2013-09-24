@@ -56,10 +56,10 @@ Trane::Application.routes.draw do
     get '/backdoor/logout', to: 'backdoor#logout'
   end
 
-  get   '/hooks',                      to: 'hooks#index',           as: :hooks
-  match '/hooks/homework/:key',        to: 'hooks#homework',        as: :homework_hook
-  match '/hooks/public_homework/:key', to: 'hooks#public_homework', as: :public_homework_hook
-  match '/hooks/lectures/:key',        to: 'hooks#lectures',        as: :lectures_hook
+  get '/hooks',                      to: 'hooks#index',           as: :hooks
+  get '/hooks/homework/:key',        to: 'hooks#homework',        as: :homework_hook
+  get '/hooks/public_homework/:key', to: 'hooks#public_homework', as: :public_homework_hook
+  get '/hooks/lectures/:key',        to: 'hooks#lectures',        as: :lectures_hook
 
   mount Sidekiq::Web => '/queue', :constraints => AdminConstraint.new
 

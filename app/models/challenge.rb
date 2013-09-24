@@ -14,7 +14,7 @@ class Challenge < ActiveRecord::Base
     end
 
     def find_with_solutions_and_users(challenge_id)
-      find challenge_id, include: {solutions: :user}
+      includes(solutions: :user).find(challenge_id)
     end
   end
 
