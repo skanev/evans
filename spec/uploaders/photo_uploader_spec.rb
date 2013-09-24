@@ -4,13 +4,13 @@ require 'carrierwave/test/matchers'
 describe PhotoUploader do
   include CarrierWave::Test::Matchers
 
-  before do
+  before :all do
     PhotoUploader.enable_processing = true
-    @uploader = PhotoUploader.new create(:user), :photo
+    @uploader = PhotoUploader.new build(:user), :photo
     @uploader.store! File.open(fixture_file('beholder.jpg'))
   end
 
-  after do
+  after :all do
     PhotoUploader.enable_processing = false
   end
 

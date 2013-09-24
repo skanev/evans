@@ -18,7 +18,9 @@ FactoryGirl.define do
     faculty_number
     name { Faker::Name.name }
     full_name { Faker::Name.name }
-    photo { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/fakes', %w[1.jpg 2.jpg 3.jpg 4.jpg].sample)) }
+    unless Rails.env.test?
+      photo { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/fakes', %w[1.jpg 2.jpg 3.jpg 4.jpg].sample)) }
+    end
   end
 
   factory :fake_admin, parent: :fake_user do
