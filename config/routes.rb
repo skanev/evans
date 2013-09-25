@@ -16,7 +16,9 @@ Trane::Application.routes.draw do
 
   resources :tasks, except: :destroy do
     get :guide, on: :collection
-    resources :solutions, only: %w(index show update)
+    resources :solutions, only: %w(index show update) do
+      get :unscored, on: :collection
+    end
     resource :my_solution, only: %w(show update)
     resource :check, controller: :task_checks, only: :create
   end

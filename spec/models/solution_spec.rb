@@ -27,6 +27,11 @@ describe Solution do
     solution.max_points.should eq solution.task.max_points
   end
 
+  it "can tell whether it is manually scored" do
+    solution = build :solution, task: build(:manually_scored_task)
+    solution.should be_manually_scored
+  end
+
   it "can calculate the total points for a task" do
     build(:solution, points: nil, adjustment: 0).total_points.should eq 0
     build(:solution, points: 6, adjustment: 3).total_points.should eq 9

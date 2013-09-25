@@ -4,7 +4,7 @@
 = admin_only do
   - if @task.manually_scored?
     %p
-      %em Тази задача се оценява ръчно.
+      %em Тази задача се оценява ръчно. #{link_to 'Започни проверяване', unscored_task_solutions_path(@task)}.
   - elsif TaskCheckWorker.queued? @task.id
     %p
       %em

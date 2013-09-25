@@ -8,7 +8,7 @@ class Solution < ActiveRecord::Base
   has_many :revisions, -> { order 'revisions.id ASC' }
   has_many :comments, -> { order 'comments.created_at ASC' }, through: :revisions
 
-  delegate :max_points, to: :task
+  delegate :max_points, :manually_scored?, to: :task
 
   class << self
     def code_for(user, task)
