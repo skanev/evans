@@ -204,4 +204,35 @@ describe Solution do
       Solution.calculate_points(0, 0, 6).should eq 0
     end
   end
+
+  describe "scoring" do
+    let(:solution) { create :solution, task: task }
+    context "when automatically scored" do
+      let(:task) { create :automatically_scored_task }
+
+      it "allows setting an adjustment" do
+        solution.update_score adjustment: 2
+        solution.adjustment.should eq 2
+      end
+
+      it "disallows setting points directly" do
+        solution.update_score points: 5
+        solution.points.should eq 0
+      end
+    end
+
+    context "when manually scored" do
+      let(:task) { create :manually_scored_task }
+
+      it "allows setting an adjustment" do
+        solution.update_score adjustment: 2
+        solution.adjustment.should eq 2
+      end
+
+      it "allows setting points directly" do
+        solution.update_score points: 5
+        solution.points.should eq 5
+      end
+    end
+  end
 end

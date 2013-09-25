@@ -23,7 +23,7 @@ class SolutionsController < ApplicationController
 
   def update
     solution = Solution.find params[:id]
-    solution.update_attributes! params[:solution]
+    solution.update_score params[:solution]
     redirect_to solution
   end
 end

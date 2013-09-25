@@ -2,14 +2,17 @@
 %p= link_to 'Към задачата', @task, class: :back
 
 = admin_only do
-  - unless TaskCheckWorker.queued? @task.id
-    = link_to 'Пусни тестовете', task_check_path(@task), method: :create, class: :action
-  - else
+  - if @task.manually_scored?
+    %p
+      %em Тази задача се оценява ръчно.
+  - elsif TaskCheckWorker.queued? @task.id
     %p
       %em
         В момента тази задача се проверява. В случай, че твърде дълго не
         се случи нищо, погледни #{link_to 'опашката', sidekiq_web_path}
         за повече информация.
+  - else
+    = link_to 'Пусни тестовете', task_check_path(@task), method: :create, class: :action
 
 %p
   %strong= @solutions.count

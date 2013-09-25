@@ -66,4 +66,10 @@ class Solution < ActiveRecord::Base
 
     self.user == user
   end
+
+  def update_score(score)
+    self.adjustment = score[:adjustment] if score[:adjustment]
+    self.points     = score[:points]     if score[:points] and task.manually_scored?
+    save!
+  end
 end

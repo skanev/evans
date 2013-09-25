@@ -97,7 +97,7 @@ describe SolutionsController do
 
     before do
       Solution.stub find: solution
-      solution.stub :update_attributes!
+      solution.stub :update_score
     end
 
     it "denies access to non-admins" do
@@ -112,7 +112,7 @@ describe SolutionsController do
     end
 
     it "updates the solution with params[:solution]" do
-      solution.should_receive(:update_attributes!).with('attributes')
+      solution.should_receive(:update_score).with('attributes')
       put :update, task_id: '1', id: '2', solution: 'attributes'
     end
 
