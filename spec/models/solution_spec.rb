@@ -28,6 +28,7 @@ describe Solution do
   end
 
   it "can calculate the total points for a task" do
+    build(:solution, points: nil, adjustment: 0).total_points.should eq 0
     build(:solution, points: 6, adjustment: 3).total_points.should eq 9
     build(:solution, points: 6, adjustment: -2).total_points.should eq 4
     build(:solution, points: 1, adjustment: -2).total_points.should eq 0
@@ -217,7 +218,7 @@ describe Solution do
 
       it "disallows setting points directly" do
         solution.update_score points: 5
-        solution.points.should eq 0
+        solution.points.should_not eq 5
       end
     end
 

@@ -51,7 +51,7 @@ class Solution < ActiveRecord::Base
   end
 
   def total_points
-    [points + adjustment, 0].max
+    [(points || 0) + adjustment, 0].max
   end
 
   def commentable_by?(user)
