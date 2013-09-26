@@ -111,6 +111,12 @@ bg:
       attribution:
         reason: Причина
         link: Връзка
+    errors:
+      models:
+        attribution:
+          attributes:
+            link:
+              invalid: не изглежда като URL адрес
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"
