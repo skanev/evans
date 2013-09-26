@@ -3,41 +3,35 @@ class AttributionsController < ApplicationController
   before_filter :require_admin
 
   def new
-    @user = attributed_user
+    @user = User.find params[:user_id]
     @attribution = Attribution.new
   end
 
   def create
-    @user = attributed_user
+    @user = User.find params[:user_id]
     @attribution = Attribution.new params[:attribution]
     @attribution.user = @user
 
     if @attribution.save
-      redirect_to user_path(params[:user_id]), notice: 'Признанието е създадено успешно'
+      redirect_to @user, notice: 'Признанието е създадено успешно'
     else
       render :new
     end
   end
 
   def update
-    @user = attributed_user
     @attribution = Attribution.find params[:id]
+    @user = @attribution.user
 
     if @attribution.update_attributes params[:attribution]
-      redirect_to user_path(params[:user_id]), notice: 'Признанието е обновено успешно'
+      redirect_to @user, notice: 'Признанието е обновено успешно'
     else
-      render :new
+      render :edit
     end
   end
 
   def edit
-    @user = attributed_user
     @attribution = Attribution.find params[:id]
-  end
-
-  private
-
-  def attributed_user
-    User.find params[:user_id]
+    @user = @attribution.user
   end
 end
