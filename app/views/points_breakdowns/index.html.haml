@@ -12,6 +12,7 @@
         %th{:colspan => Task.checked.count} Задачи
       - if Quiz.exists?
         %th{:colspan => Quiz.count} Тестове
+      %th Признания
       %th Други
       %th Общо
   %tbody
@@ -26,5 +27,6 @@
           %td= points
         - breakdown.quizzes_breakdown.each do |points|
           %td= points
+        %td= breakdown.attributions
         %td= breakdown.photo
         %td= breakdown.total
