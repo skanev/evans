@@ -1,4 +1,3 @@
-# encoding: utf-8
 class AttributionsController < ApplicationController
   before_filter :require_admin
 

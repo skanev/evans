@@ -1,4 +1,3 @@
-# encoding: utf-8
 class Attribution < ActiveRecord::Base
   belongs_to :user
 
