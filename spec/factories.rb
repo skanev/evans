@@ -160,4 +160,10 @@ FactoryGirl.define do
     user
     published_at 1.day.ago
   end
+
+  factory :attribution do
+    reason 'Reason'
+    link 'http://example.com'
+    user
+  end
 end

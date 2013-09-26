@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :solutions
   has_many :tips
+  has_many :attributions
 
   attr_protected :full_name, :faculty_number, :email, :admin
 
