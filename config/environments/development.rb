@@ -15,6 +15,10 @@ Trane::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
+  # Use https://github.com/ryanb/letter_opener to open
+  # emails locally in the browser instead of sending them
+  config.action_mailer.delivery_method = :letter_opener
+
   # Set a default host that will be used in all mailers
   config.action_mailer.default_url_options = {:host => 'trane.example.org'}
 
