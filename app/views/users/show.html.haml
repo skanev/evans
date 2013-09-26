@@ -32,3 +32,23 @@
   - if logged_in? && @user == current_user
     %p
       = link_to 'Редактирай', edit_profile_path, class: :action
+
+  - if admin? && !@user.admin
+
+    %table.data-table
+      %caption Текущи признания
+      %thead
+        %tr
+          %th Причина
+          %th Връзка
+
+      %tbody
+        - @user.attributions.each do |attribution|
+          %tr
+            %td
+              = link_to attribution.reason, edit_user_attribution_path(@user, attribution)
+            %td
+              = link_to attribution.link
+
+    %p
+      = link_to 'Признай', new_user_attribution_path(@user), class: :action

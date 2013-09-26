@@ -20,6 +20,7 @@ class PointsBreakdown
   field :rank, Integer
   field :challenges, Integer
   field :vouchers, Integer
+  field :attributions, Integer
   field :stars, Integer
   field :photo, Integer
   field :total, Integer
