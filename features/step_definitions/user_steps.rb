@@ -2,6 +2,10 @@
   create :user, email: email
 end
 
+Дадено 'че съществува студент "$name"' do |name|
+  create :user, name: name
+end
+
 Когато 'попълня формата за забравена парола на "$email"' do |email|
   visit new_user_password_path
   fill_in 'Електронна поща', with: email
