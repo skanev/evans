@@ -8,7 +8,7 @@ class Solution < ActiveRecord::Base
   has_many :revisions, -> { order 'revisions.id ASC' }
   has_many :comments, -> { order 'comments.created_at ASC' }, through: :revisions
 
-  delegate :max_points, to: :task
+  delegate :max_points, :manually_scored?, to: :task
 
   class << self
     def code_for(user, task)
@@ -51,7 +51,7 @@ class Solution < ActiveRecord::Base
   end
 
   def total_points
-    [points + adjustment, 0].max
+    [(points || 0) + adjustment, 0].max
   end
 
   def commentable_by?(user)
@@ -65,5 +65,11 @@ class Solution < ActiveRecord::Base
     return true if task.closed?
 
     self.user == user
+  end
+
+  def update_score(score)
+    self.adjustment = score[:adjustment] if score[:adjustment]
+    self.points     = score[:points]     if score[:points] and task.manually_scored?
+    save!
   end
 end

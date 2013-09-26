@@ -1,4 +1,6 @@
 %h2 Корекция на точки
 = simple_form_for [solution.task, solution] do |form|
+  - if solution.manually_scored?
+    = form.input :points, as: :radio_buttons, collection: 0.upto(solution.max_points).map(&:to_s)
   = form.input :adjustment, as: :radio_buttons, collection: -6.upto(3).map { |n| ["%+d" % n, n] }
-  = form.button :submit, 'Промени'
+  = form.button :submit, 'Оцени'

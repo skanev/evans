@@ -25,6 +25,10 @@ end
   create :reply, topic: topic, user: last_reply_author
 end
 
+Дадено 'съществува задача с ръчна проверка "$name"' do |name|
+  create :manually_scored_task, name: name
+end
+
 Когато 'създам задача:' do |table|
   visit new_task_path
   fill_in_fields table

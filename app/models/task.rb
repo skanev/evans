@@ -12,6 +12,10 @@ class Task < ActiveRecord::Base
     def visible
       in_chronological_order.where(hidden: false)
     end
+
+    def next_unscored_solution(task_id)
+      Solution.where(task_id: task_id, points: nil).order('id ASC').first
+    end
   end
 
   def closed?
