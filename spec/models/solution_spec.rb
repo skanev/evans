@@ -201,7 +201,7 @@ describe Solution do
       [12, 6, 6, 4],
       [10, 0, 8, 8],
     ].each do |passed, failed, max_points, points|
-      it "assings #{points} points for #{passed} passed and #{failed} failed tests in a task that ammounts to #{max_points} points" do
+      it "assigns #{points} points for #{passed} passed and #{failed} failed tests in a task that ammounts to #{max_points} points" do
         Solution.calculate_points(passed, failed, max_points).should eq points
       end
     end
