@@ -123,6 +123,11 @@ bg:
           attributes:
             link:
               invalid: не изглежда като URL адрес
+        user:
+          attributes:
+            email:
+              not_found: не съществува в нашата потребителска база
+
   datetime:
     distance_in_words:
       half_a_minute: "по-малко от минута"
