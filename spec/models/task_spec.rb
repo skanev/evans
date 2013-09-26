@@ -72,4 +72,22 @@ describe Task do
       Task.new(restrictions_hash: {'no_semicolons' => true}).should have_restrictions
     end
   end
+
+  describe "finding the next unscored solution" do
+    it "returns the first unchecked solution" do
+      task = create :manually_scored_task
+
+      scored = create :solution, task: task, points: 0
+      first  = create :solution, task: task
+      second = create :solution, task: task
+
+      Task.next_unscored_solution(task.id).should eq first
+    end
+
+    it "returns nil when there are no unchecked solutions" do
+      task = create :manually_scored_task
+
+      Task.next_unscored_solution(task.id).should be_nil
+    end
+  end
 end

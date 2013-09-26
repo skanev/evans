@@ -97,7 +97,8 @@ describe SolutionsController do
 
     before do
       Solution.stub find: solution
-      solution.stub :update_attributes!
+      solution.stub :update_score
+      solution.stub :manually_scored?
     end
 
     it "denies access to non-admins" do
@@ -112,13 +113,66 @@ describe SolutionsController do
     end
 
     it "updates the solution with params[:solution]" do
-      solution.should_receive(:update_attributes!).with('attributes')
+      solution.should_receive(:update_score).with('attributes')
       put :update, task_id: '1', id: '2', solution: 'attributes'
     end
 
-    it "redirects to the solution" do
-      put :update, task_id: '1', id: '42'
-      response.should redirect_to solution
+    context "on automatically scored solutions" do
+      before do
+        solution.stub manually_scored?: false
+      end
+
+      it "redirects to the solution" do
+        put :update, task_id: '1', id: '42'
+        response.should redirect_to solution
+      end
+    end
+
+    context "on manually scored solutions" do
+      before do
+        solution.stub manually_scored?: true
+      end
+
+      it "redirects to the next unscored solution" do
+        put :update, task_id: '1', id: '42'
+        response.should redirect_to unscored_task_solutions_path(solution.task)
+      end
+    end
+  end
+
+  describe "GET unscored" do
+    it "looks up the unscored solutions by task id" do
+      Task.should_receive(:next_unscored_solution).with('1')
+      get :unscored, task_id: '1'
+    end
+
+    context "when there are more unscored solutions" do
+      let(:solution) { build_stubbed :solution }
+
+      before do
+        Task.stub next_unscored_solution: solution
+      end
+
+      it "redirects to the next solution" do
+        get :unscored, task_id: '1'
+        controller.should redirect_to task_solution_path(solution.task, solution)
+      end
+    end
+
+    context "when there are no more unscored solutions" do
+      before do
+        Task.stub next_unscored_solution: nil
+      end
+
+      it "redirects to the solutions index" do
+        get :unscored, task_id: '1'
+        controller.should redirect_to task_solutions_path('1')
+      end
+
+      it "notifies the admin that there are no more unchecked solutions" do
+        get :unscored, task_id: '1'
+        controller.should set_the_flash
+      end
     end
   end
 end

@@ -27,7 +27,13 @@ describe Solution do
     solution.max_points.should eq solution.task.max_points
   end
 
+  it "can tell whether it is manually scored" do
+    solution = build :solution, task: build(:manually_scored_task)
+    solution.should be_manually_scored
+  end
+
   it "can calculate the total points for a task" do
+    build(:solution, points: nil, adjustment: 0).total_points.should eq 0
     build(:solution, points: 6, adjustment: 3).total_points.should eq 9
     build(:solution, points: 6, adjustment: -2).total_points.should eq 4
     build(:solution, points: 1, adjustment: -2).total_points.should eq 0
@@ -187,7 +193,7 @@ describe Solution do
     end
   end
 
-  describe "calculating points" do
+  describe "automatic scoring" do
     [
       [18, 0, 6, 6],
       [17, 1, 6, 6],
@@ -195,13 +201,44 @@ describe Solution do
       [12, 6, 6, 4],
       [10, 0, 8, 8],
     ].each do |passed, failed, max_points, points|
-      it "scores #{points} points for #{passed} passed and #{failed} failed tests in a task that ammounts to #{max_points} points" do
+      it "assings #{points} points for #{passed} passed and #{failed} failed tests in a task that ammounts to #{max_points} points" do
         Solution.calculate_points(passed, failed, max_points).should eq points
       end
     end
 
-    it "scores 0 points if the solution is not checked" do
+    it "assigns 0 points if the solution is not checked" do
       Solution.calculate_points(0, 0, 6).should eq 0
+    end
+  end
+
+  describe "scoring" do
+    let(:solution) { create :solution, task: task }
+    context "when automatically scored" do
+      let(:task) { create :automatically_scored_task }
+
+      it "allows setting an adjustment" do
+        solution.update_score adjustment: 2
+        solution.adjustment.should eq 2
+      end
+
+      it "disallows setting points directly" do
+        solution.update_score points: 5
+        solution.points.should_not eq 5
+      end
+    end
+
+    context "when manually scored" do
+      let(:task) { create :manually_scored_task }
+
+      it "allows setting an adjustment" do
+        solution.update_score adjustment: 2
+        solution.adjustment.should eq 2
+      end
+
+      it "allows setting points directly" do
+        solution.update_score points: 5
+        solution.points.should eq 5
+      end
     end
   end
 end

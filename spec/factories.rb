@@ -61,8 +61,10 @@ FactoryGirl.define do
     closes_at 1.week.ago
     checked true
     hidden false
+    manually_scored false
 
     factory :closed_task
+    factory :automatically_scored_task
 
     factory :open_task do
       closes_at 1.week.from_now
@@ -71,6 +73,10 @@ FactoryGirl.define do
 
     factory :hidden_task do
       hidden true
+    end
+
+    factory :manually_scored_task do
+      manually_scored true
     end
   end
 

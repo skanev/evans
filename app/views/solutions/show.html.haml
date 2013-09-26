@@ -28,7 +28,7 @@
     %pre.test-log(data-test-log)= @solution.log
 
   - if admin?
-    = render 'solutions/adjustment', solution: @solution
+    = render 'solutions/scoring', solution: @solution
 
   %h2 История (#{@history.revisions_count} версии и #{@history.comments_count} коментара)
   - @history.revisions.each do |revision|

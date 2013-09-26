@@ -91,12 +91,14 @@ bg:
       task:
         name: Име
         description: Условие
+        manually_scored: Ръчно оценяване
         checked: Проверена
         hidden: Скрита
         test_case: Тест
         closes_at: Краен срок
       solution:
         adjustment: Корекция
+        points: Точки
       comment:
         body: Коментар
       poll:

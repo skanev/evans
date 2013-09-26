@@ -23,7 +23,23 @@ class SolutionsController < ApplicationController
 
   def update
     solution = Solution.find params[:id]
-    solution.update_attributes! params[:solution]
-    redirect_to solution
+    solution.update_score params[:solution]
+
+    if solution.manually_scored?
+      redirect_to unscored_task_solutions_path(solution.task)
+    else
+      redirect_to solution
+    end
+  end
+
+  def unscored
+    solution = Task.next_unscored_solution params[:task_id]
+
+    if solution
+      redirect_to solution
+    else
+      flash[:notice] = 'Всички решения на тази задача са проверени!'
+      redirect_to task_solutions_path(params[:task_id])
+    end
   end
 end
