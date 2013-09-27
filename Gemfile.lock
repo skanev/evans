@@ -344,6 +344,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   simple_form
+  simplecov
   sinatra
   skeptic
   slim

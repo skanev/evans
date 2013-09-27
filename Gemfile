@@ -49,6 +49,7 @@ group :development, :test do
   gem 'guard-livereload'
   gem 'guard-sass', require: false
   gem 'capistrano', '~> 2.8'
+  gem 'simplecov'
 end
 
 group :development do

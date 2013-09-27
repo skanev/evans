@@ -1,7 +1,10 @@
 require 'rubygems'
 require 'spork'
+require 'simplecov'
 require 'coveralls'
+
 Coveralls.wear!
+SimpleCov.start 'rails' if ENV['COVERAGE']
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
