@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'spork'
 require 'coveralls'
-Coveralls.wear!
+Coveralls.wear! 'rails'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= "test"
