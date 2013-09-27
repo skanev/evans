@@ -48,12 +48,15 @@ FactoryGirl.define do
     name { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraphs.join("\n\n") }
     closes_at 1.year.from_now
+    hidden false
   end
 
   factory :fake_closed_task, class: :task do
     name { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraphs.join("\n\n") }
     closes_at 1.year.ago
+    hidden false
+    checked true
   end
 
   factory :fake_checked_solution, class: :solution do
