@@ -1,5 +1,5 @@
 class MySolutionsController < ApplicationController
-  before_filter :require_user
+  before_filter :require_user, :skip_trackable
 
   def show
     @task = Task.find params[:task_id]

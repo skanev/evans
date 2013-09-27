@@ -70,6 +70,7 @@ bg:
         email: Електронна поща
         password: Парола
         password_confirmation: Въведете паролата повторно
+        authentication_token: Билетче
         remember_me: Запомни ме на този компютър
         photo: Снимка
         github: 'Потребителско име в <a href="http://github.com/">GitHub</a>'

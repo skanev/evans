@@ -38,4 +38,11 @@
     = form.input :password
     = form.input :password_confirmation
 
+  %fieldset
+    %legend Програмистичен достъп
+    %p
+      Страниците за предаване на домашни и предизвикателства може да се достъпват програмастично. За да се оторизирате
+      пред тях, използвайте това билетче в `auth_token` полето:
+    = form.input :authentication_token, readonly: true
+
   = form.button :submit, 'Запази'
