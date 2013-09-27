@@ -28,7 +28,7 @@ module Language::Clojure
 
     TestRunner.with_tmpdir('test.clj' => test, 'solution.clj' => solution, 'runner.clj' => runner) do |dir|
       Dir.chdir(dir) do
-        result = `clj runner.clj`
+        result = `clojure runner.clj`
         passed_line, failed_line, log = result.split("\n", 3)
 
         passed = passed_line[/^Passed: (.*)$/, 1].split(';')
