@@ -20,7 +20,7 @@ previous_instances:
 # pepper: ''
 # secret_token: ''
 # google_analytics_key: ''
-# secret_key_base: '2b7037bbbcdcc81b51504033ff612333147b4cb1701b86cb0f2fe619dd048823fc607e53c391d7605eb726bd112434e06fd2985c021fdcb4aa2b5e04385f1dd11'
+# secret_key_base: ''
 # smtp_settings:
 #   address:
 #   port:
