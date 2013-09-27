@@ -72,10 +72,11 @@ Trane::Application.configure do
   config.action_mailer.smtp_settings       = config.smtp_settings.symbolize_keys
   config.action_mailer.default_url_options = {host: config.course_domain}
 
-  config.middleware.use ExceptionNotifier,
-    email_prefix: '[ERROR]',
+  config.middleware.use ExceptionNotification::Rack, email: {
+    email_prefix: '[ERROR] ',
     sender_address: "Exception Notifier <#{config.course_email}>",
     exception_recipients: [config.course_email]
+  }
 
   # Eager load
   config.eager_load = true
