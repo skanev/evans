@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "Running Python tests", python: true do
-  let(:test_case_code) do
-    <<END.strip
+describe 'Running Python tests', python: true do
+  before :all do
+    @test_case_code = <<END.strip
 import unittest
 import solution
 
@@ -29,19 +29,19 @@ END
 
   it "handles solutions that raise a runtime error" do
     solution = 'import intertools'
-    results = Language::Python.run_tests(test_case_code, solution)
+    results = Language::Python.run_tests(@test_case_code, solution)
 
     results.passed_count.should eq 0
     results.failed_count.should eq 0
   end
 
   describe "on successful run" do
-    before(:all) do
+    before :all do
       solution = <<-EOF
 answer = 42
 print("This prints something")
       EOF
-      @results = Language::Python.run_tests(test_case_code, solution)
+      @results = Language::Python.run_tests(@test_case_code, solution)
     end
 
     it "calculates the number of passed tests" do
