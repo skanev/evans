@@ -38,5 +38,5 @@ long way to say "university stuff, all in Bulgarian".
 
 ## Running the tests
 
-* Make sure you've executed `bundle exec rake db:migrate RAILS_ENV=test`.
-* Run `bundle exec rspec spec && bundle exec rake cucumber`.
+* Make sure you've executed `bundle exec rake db:test:prepare`.
+* Run `bundle exec rake`.
