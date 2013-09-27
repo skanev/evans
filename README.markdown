@@ -29,3 +29,14 @@ long way to say "university stuff, all in Bulgarian".
 		}, without_protection: true)
 
 	And now you should be able to login with `charlie@example.org` and `foobar` as a password.
+
+## External dependencies
+
+* ImageMagick or a compatible package such as GraphicsMagic needs to be installed on the system. Its binaries `convert` and `identify` must be reachable via `$PATH`.
+* A PostgreSQL database.
+* An instance of `redis-server` (used by the queue system, [Sidekiq](https://github.com/mperham/sidekiq)).
+
+## Running the tests
+
+* Make sure you've executed `bundle exec rake db:migrate RAILS_ENV=test`.
+* Run `bundle exec rspec spec && bundle exec rake cucumber`.
