@@ -3,7 +3,7 @@ require 'spork'
 require 'simplecov'
 require 'coveralls'
 
-Coveralls.wear!
+Coveralls.wear! 'rails' if ENV['TRAVIS']
 SimpleCov.start 'rails' if ENV['COVERAGE']
 
 Spork.prefork do
