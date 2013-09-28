@@ -12,5 +12,4 @@
         - when :solution
           предаде
           = link_to "решение на #{activity.subject}", task_solution_path(activity.secondary_id, activity.target_id)
-        %time{datetime: activity.happened_at.iso8601}= l activity.happened_at
-          
+        %time{datetime: activity.happened_at.iso8601}= l activity.happened_at.in_time_zone(Time.zone)
