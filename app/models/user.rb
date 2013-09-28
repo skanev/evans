@@ -41,5 +41,18 @@ class User < ActiveRecord::Base
       END
       order(sort_order).paginate page: page_number, per_page: 32
     end
+
+    def next_fake_faculty_number
+      last_number = User.
+        where("faculty_number LIKE 'x%'").
+        pluck(:faculty_number).
+        map { |n| n[/^x(\d+)$/, 1] }.
+        compact.
+        map(&:to_i).
+        sort.
+        last || 0
+
+      sprintf 'x%05d', last_number + 1
+    end
   end
 end

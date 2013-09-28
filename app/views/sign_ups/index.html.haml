@@ -7,7 +7,7 @@
     = form.error_notification
 
     = form.input :full_name
-    = form.input :faculty_number
+    = form.input :faculty_number, hint: "#{User.next_fake_faculty_number} за човек извън ФМИ"
 
     = form.submit 'Запиши'
 
