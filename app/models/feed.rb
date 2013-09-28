@@ -53,7 +53,7 @@ class Feed
     end
 
     private
-    
+
     def set(name, value)
       converted = case name
         when :kind      then value.to_sym
