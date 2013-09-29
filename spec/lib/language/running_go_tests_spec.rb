@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Running Go tests" do
+describe "Running Go tests", go: true do
   before(:all) do
     @test_case_code = <<END.strip
 package main
