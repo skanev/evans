@@ -2,5 +2,5 @@
   %h1= @tip.title
   = markup @tip.body
 
-  = admin_only do
+  - if can_edit?(@tip)
     = link_to 'Редактирай', edit_tip_path(@tip), class: :action

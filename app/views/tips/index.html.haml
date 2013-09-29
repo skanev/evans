@@ -1,7 +1,9 @@
 #tips
   %h1 Хитринки
-  = admin_only do
+  - if admin?
     = link_to 'Създай нова', new_tip_path, class: :action
+  - elsif logged_in?
+    = link_to 'Предложи нова', new_tip_path, class: :action
 
   %table
     %thead
@@ -13,6 +15,8 @@
         %tr
           %td= link_to tip.title, tip
           %td
-            %time{:datetime => tip.published_at.iso8601}
-              = relative_time_in_words tip.published_at
-
+            - if tip.published_at?
+              %time{:datetime => tip.published_at.iso8601}
+                = relative_time_in_words tip.published_at
+            - else
+              Непубликувана

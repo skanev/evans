@@ -2,95 +2,73 @@ require 'spec_helper'
 
 describe TipsController do
   describe "GET index" do
-    log_in_as :admin
+    log_in_as :student
 
-    it "assigns all the tips" do
-      Tip.stub in_reverse_chronological_order: 'tips'
-      get :index
-      assigns(:tips).should eq 'tips'
-    end
-
-    it "assings only published tips" do
-      current_user.stub admin?: false
-      Tip.stub published_in_reverse_chronological_order: 'tips'
+    it "assigns tips for the given user" do
+      Tip.should_receive(:list_as).with(current_user).and_return('tips')
       get :index
       assigns(:tips).should eq 'tips'
     end
   end
 
   describe "GET new" do
-    log_in_as :admin
+    log_in_as :student
 
     let(:tip) { double }
 
-    before do
-      Tip.stub new: tip
-    end
-
     it "assigns a new tip" do
-      tip.should_receive(:published_at=)
+      Tip.should_receive(:build_as).with(current_user).and_return(tip)
       get :new
       assigns(:tip).should eq tip
     end
   end
 
   describe "POST create" do
-    log_in_as :admin
+    log_in_as :student
 
     let(:tip) { double }
 
     before do
-      Tip.stub new: tip
+      Tip.stub build_as: tip
       tip.stub :save
     end
 
     it "builds a new tip with the given attributes" do
-      Tip.should_receive(:new).with('tip attributes')
-      tip.should_receive(:user=).with(current_user)
+      Tip.should_receive(:build_as).with(current_user, 'tip attributes')
       post :create, tip: 'tip attributes'
     end
 
     it "attempts to save the new tip" do
       tip.should_receive(:save)
-      tip.should_receive(:user=).with(current_user)
       post :create
     end
 
     it "assigns the new tip" do
-      tip.should_receive(:user=).with(current_user)
       post :create
       assigns(:tip).should eq tip
     end
 
     it "redirects to the tips on success" do
       tip.stub save: true
-      tip.should_receive(:user=).with(current_user)
       post :create
       controller.should redirect_to tips_path
     end
 
     it "rerenders the form on failure" do
       tip.stub save: false
-      tip.should_receive(:user=).with(current_user)
       post :create
       controller.should render_template :new
     end
   end
 
   describe "PUT update" do
-    log_in_as :admin
+    log_in_as :student
 
     let(:tip) { double }
 
     before do
       Tip.stub find: tip
-      tip.stub :update_attributes
-    end
-
-    it "denies access to non-admins" do
-      current_user.stub admin?: false
-      put :update, id: '42'
-      response.should deny_access
+      tip.stub :update_as
     end
 
     it "looks up the tip by id" do
@@ -104,18 +82,18 @@ describe TipsController do
     end
 
     it "attempts to update the tip" do
-      tip.should_receive(:update_attributes).with('attributes')
+      tip.should_receive(:update_as).with(current_user, 'attributes')
       put :update, id: '42', tip: 'attributes'
     end
 
     it "redirects to the tip on success" do
-      tip.stub update_attributes: true
+      tip.stub update_as: true
       put :update, id: '42'
       response.should redirect_to(tip_path)
     end
 
     it "redisplays the form on failure" do
-      tip.stub update_attributes: false
+      tip.stub update_as: false
       put :update, id: '42'
       response.should render_template(:edit)
     end

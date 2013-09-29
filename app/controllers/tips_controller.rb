@@ -1,22 +1,14 @@
 class TipsController < ApplicationController
-  before_filter :require_admin, except: [:index, :show]
-
   def index
-    if admin?
-      @tips = Tip.in_reverse_chronological_order
-    else
-      @tips = Tip.published_in_reverse_chronological_order
-    end
+    @tips = Tip.list_as(current_user)
   end
 
   def new
-    @tip = Tip.new
-    @tip.published_at = Tip.default_new_published_at
+    @tip = Tip.build_as(current_user)
   end
 
   def create
-    @tip = Tip.new params[:tip]
-    @tip.user = current_user
+    @tip = Tip.build_as(current_user, params[:tip])
 
     if @tip.save
       redirect_to tips_path, notice: 'Хитринката е създадена успешно'
@@ -36,7 +28,7 @@ class TipsController < ApplicationController
   def update
     @tip = Tip.find params[:id]
 
-    if @tip.update_attributes params[:tip]
+    if @tip.update_as(current_user, params[:tip])
       redirect_to tip_path, notice: 'Хитринката е обновена успешно'
     else
       render :edit

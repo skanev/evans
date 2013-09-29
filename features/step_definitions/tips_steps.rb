@@ -14,3 +14,8 @@ end
 
   page.should have_content "#{name}"
 end
+
+То 'хитринката "$name" трябва да не е публикувана' do |name|
+  tip = Tip.find_by_title(name)
+  tip.published_at.should be_nil
+end
