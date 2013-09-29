@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "Running Go tests" do
-  let(:test_case_code) do
-    <<END.strip
+  before(:all) do
+    @test_case_code = <<END.strip
 package main
 
 import (
@@ -34,7 +34,7 @@ END
       solution = <<-EOF
 package main
       EOF
-      @results = Language::Go.run_tests(test_case_code, solution)
+      @results = Language::Go.run_tests(@test_case_code, solution)
     end
 
     it "calculates the number of passed tests" do
