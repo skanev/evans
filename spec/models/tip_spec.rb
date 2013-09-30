@@ -11,7 +11,7 @@ describe Tip do
         second = create :tip, published_at: nil
         third  = create :tip, published_at: 1.day.from_now
 
-        Tip.list_as(nil).should =~ [first]
+        Tip.list_as(nil).should == [first]
       end
     end
   end

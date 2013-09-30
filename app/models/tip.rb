@@ -2,19 +2,6 @@ class Tip < ActiveRecord::Base
   validates_presence_of :user
   belongs_to :user
 
-  def editable_by?(user)
-    self.user == user or user.try(:admin?)
-  end
-
-  def update_as(user, params = {})
-    if not user.admin?
-      params.delete(:published_at)
-    end
-    update_attributes(params)
-  end
-
-  private
-
   class << self
     def list_as(user)
       if not user
@@ -51,8 +38,6 @@ class Tip < ActiveRecord::Base
       order('published_at DESC')
     end
 
-    private
-
     def default_new_published_at
       chronologically_last = order('published_at ASC').last
 
@@ -62,5 +47,16 @@ class Tip < ActiveRecord::Base
         Time.now
       end
     end
+  end
+
+  def editable_by?(user)
+    self.user == user or user.try(:admin?)
+  end
+
+  def update_as(user, params = {})
+    unless user.admin?
+      params = params.except(:published_at)
+    end
+    update_attributes(params)
   end
 end
