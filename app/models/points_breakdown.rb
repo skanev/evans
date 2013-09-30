@@ -9,7 +9,6 @@ class PointsBreakdown
         when 'Integer' then value.to_i
         when 'String'  then value
         when 'Array'   then value.tr('{}', '').split(',').map(&:to_i)
-        else                raise "Don't know how to convert type #{type}"
       end
 
       instance_variable_set "@#{name}", converted
