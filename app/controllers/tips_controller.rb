@@ -5,7 +5,7 @@ class TipsController < ApplicationController
     if admin?
       @tips = Tip.in_reverse_chronological_order
     else
-      @tips = Tip.published_in_reverse_chronological_order
+      @tips = Tip.in_reverse_chronological_order.published
     end
   end
 

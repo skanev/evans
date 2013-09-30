@@ -12,7 +12,7 @@ describe TipsController do
 
     it "assings only published tips" do
       current_user.stub admin?: false
-      Tip.stub published_in_reverse_chronological_order: 'tips'
+      Tip.stub_chain :in_reverse_chronological_order, published: 'tips'
       get :index
       assigns(:tips).should eq 'tips'
     end
@@ -74,6 +74,30 @@ describe TipsController do
       tip.should_receive(:user=).with(current_user)
       post :create
       controller.should render_template :new
+    end
+  end
+
+  describe "GET show" do
+    it "assigns the tip" do
+      Tip.should_receive(:find).with('42').and_return('tip')
+      get :show, id: '42'
+      assigns(:tip).should eq 'tip'
+    end
+  end
+
+  describe "GET edit" do
+    log_in_as :admin
+
+    it "denies access to non-admins" do
+      current_user.stub admin?: false
+      get :edit, id: '1'
+      response.should deny_access
+    end
+
+    it "assigns the tip" do
+      Tip.should_receive(:find).with('42').and_return('tip')
+      get :edit, id: '42'
+      assigns(:tip).should eq 'tip'
     end
   end
 

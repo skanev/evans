@@ -21,12 +21,6 @@ class Tip < ActiveRecord::Base
       order('published_at DESC')
     end
 
-    def published_in_reverse_chronological_order
-      published.in_reverse_chronological_order
-    end
-
-    private
-
     def published
       where('published_at < ?', Time.now)
     end
