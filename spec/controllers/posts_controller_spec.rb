@@ -16,5 +16,10 @@ describe PostsController do
       get :show, id: '42'
       response.should redirect_to(topic_reply_path(topic, reply))
     end
+
+    it "raises an error if it matches a non-topic or a non-reply" do
+      Post.should_receive(:find).with('42').and_return Object.new
+      expect { get :show, id: '42' }.to raise_error
+    end
   end
 end
