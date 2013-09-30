@@ -4,7 +4,7 @@
 
 %ul
   = list_of(restrictions) do |rule, option|
-    = restriction_name rule, option
+    = SkepticExplainer.restriction_name rule, option
 
 %p
   Ако искате да проверите дали задачата ви спазва ограниченията, качете си skeptic
@@ -12,7 +12,7 @@
   е вашето решение:
 
 %p
-  %code= skeptic_command_line restrictions
+  %code= SkepticExplainer.command_line restrictions
 
 %p
   Няма да приемаме решения, които не спазват ограниченията. Изпълнявайте <code>skeptic</code>
