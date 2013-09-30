@@ -1,4 +1,5 @@
 require 'spec_helper'
+require './lib/extensions/array'
 
 describe Array do
   it "#to_h converts an array of pairs to a hash" do
