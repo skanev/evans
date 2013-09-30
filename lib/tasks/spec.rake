@@ -1,7 +1,7 @@
 unless Rails.env.production?
   namespace :spec do
     namespace :languages do
-      languages = %w(Python Clojure Go)
+      languages = %w(Python Clojure Go Ruby)
 
       languages.each do |language|
         desc "Runs the specs that integrate with #{language}"

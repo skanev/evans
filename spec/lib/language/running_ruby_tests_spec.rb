@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Running Ruby tests" do
+describe "Running Ruby tests", ruby: true do
   before :all do
     @test_case_code = <<END.strip
 describe "Homework" do
