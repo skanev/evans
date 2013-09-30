@@ -3,8 +3,12 @@ require 'spork'
 require 'simplecov'
 require 'coveralls'
 
+if ENV['COVERAGE']
+  SimpleCov.start 'rails' do
+    command_name 'Cucumber Features'
+  end
+end
 Coveralls.wear! 'rails' if ENV['TRAVIS']
-SimpleCov.start 'rails' if ENV['COVERAGE']
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= "test"
