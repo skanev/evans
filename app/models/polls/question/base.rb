@@ -28,10 +28,6 @@ module Polls
         {}
       end
 
-      def input_type
-        raise NotImplementedError
-      end
-
       def required?
         @required
       end

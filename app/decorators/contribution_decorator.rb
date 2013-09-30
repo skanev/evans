@@ -34,12 +34,4 @@ class ContributionDecorator < Draper::Decorator
   def starred?
     false
   end
-
-  def edit_path
-    raise NotImplementedError
-  end
-
-  def permalink_path
-    raise NotImplementedError
-  end
 end
