@@ -3,11 +3,7 @@ require 'spork'
 require 'simplecov'
 require 'coveralls'
 
-if ENV['COVERAGE']
-  SimpleCov.start 'rails' do
-    command_name 'RSpec'
-  end
-end
+SimpleCov.command_name 'RSpec' if ENV['COVERAGE']
 Coveralls.wear! 'rails' if ENV['TRAVIS']
 
 Spork.prefork do
