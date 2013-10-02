@@ -1,9 +1,11 @@
 namespace :lectures do
   desc "Generates the lectures form config and copies them to public/lectures"
   task :compile => :environment do
-    ENV['REPOSITORY'] = Rails.application.config.lectures_repository
-    ENV['BRANCH']     = Rails.application.config.lectures_branch
+    Bundler.with_clean_env do
+      ENV['REPOSITORY'] = Rails.application.config.lectures_repository
+      ENV['BRANCH']     = Rails.application.config.lectures_branch
 
-    exec 'script/lectures'
+      exec 'script/lectures'
+    end
   end
 end
