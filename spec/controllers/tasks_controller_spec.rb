@@ -198,4 +198,12 @@ describe TasksController do
       response.should render_template(:edit)
     end
   end
+
+  describe "GET guide" do
+    it "renders the guide for the current language" do
+      Language.stub language: 'clojure'
+      get :guide
+      response.should render_template 'tasks/guides/clojure'
+    end
+  end
 end
