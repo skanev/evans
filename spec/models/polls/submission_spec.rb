@@ -31,6 +31,10 @@ module Polls
       submission.age.should eq '42'
     end
 
+    it "overrides #method_missing correctly" do
+      expect { build_submission([]).unexisting }.to raise_error NoMethodError
+    end
+
     it "populates the answers if a user has already taken the poll" do
       poll = create :poll, blueprint: [{type: 'single-line', name: 'age', text: 'Your age:'}]
       user = create :user
