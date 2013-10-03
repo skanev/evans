@@ -38,8 +38,8 @@ module Polls
       end
     end
 
-    def respond_to?(name, include_private = false)
-      super or @questions.any? { |q| q.name == name.to_s }
+    def respond_to_missing?(name, include_private = false)
+      @questions.any? { |q| q.name == name.to_s } || super
     end
 
     def method_missing(name, *args, &block)
