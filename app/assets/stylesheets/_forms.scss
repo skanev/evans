@@ -10,7 +10,7 @@
 
   input.string,
   input.password { border: 1px solid $light-border; font-size: $font-large; padding: 5px; margin: 2px 0; }
-  textarea { border: 1px solid $light-border; font-size: $font-normal; padding: 5px; margin: 2px 0; }
+  textarea { border: 1px solid $light-border; font-size: $font-normal; padding: 5px; margin: 2px 0; width: 600px; height: 200px; }
 
   input.string,
   input.string,
