@@ -1,6 +1,7 @@
 class HooksController < ApplicationController
   before_filter :require_admin, only: :index
   before_filter :validate_secret_key, except: :index
+  skip_before_action :verify_authenticity_token
 
   def index
     @secret_key = Rails.application.config.hooks_secret_key
