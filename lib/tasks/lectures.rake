@@ -4,6 +4,7 @@ namespace :lectures do
     Bundler.with_clean_env do
       ENV['REPOSITORY'] = Rails.application.config.lectures_repository
       ENV['BRANCH']     = Rails.application.config.lectures_branch
+      ENV['GEM_HOME']   = nil
 
       exec 'script/lectures'
     end
