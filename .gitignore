@@ -20,6 +20,7 @@ gems.tags
 .sass-cache
 .rvmrc
 .rbenv-version
+.ruby-version
 .ruby-gemset
 .powrc
 public/lectures
