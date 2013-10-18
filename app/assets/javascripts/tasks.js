@@ -27,24 +27,46 @@ $(function() {
   $('[data-test-log]').each(function() {
     var testLog = $(this);
 
+    function visible() {
+        $(this).html('▾ Скрий лога');
+        testLog.show();
+        $(this).click(hidden);
+        return false;
+    }
+
+    function hidden() {
+        $(this).html('▸ Покажи лога');
+        testLog.hide();
+        $(this).click(visible);
+        return false;
+    }
+
     $('<a href="#"></a>')
-      .toggle(
-        function() { $(this).html('▸ Покажи лога'); testLog.hide(); },
-        function() { $(this).html('▾ Скрий лога'); testLog.show(); }
-      )
-      .click()
-      .insertBefore(testLog);
+      .click(visible)
+      .insertBefore(testLog)
+      .click();
   });
 
   $('[data-revision-code]').each(function() {
     var codeBlock = $(this);
 
+    function visible() {
+        $(this).html('▾ Скрий кода');
+        codeBlock.show();
+        $(this).click(hidden);
+        return false;
+    }
+
+    function hidden() {
+        $(this).html('▸ Покажи кода');
+        codeBlock.hide();
+        $(this).click(visible);
+        return false;
+    }
+
     $('<a href="#" class="show-code"></a>')
-      .toggle(
-        function() { $(this).html('▸ Покажи кода'); codeBlock.hide(); },
-        function() { $(this).html('▾ Скрий кода'); codeBlock.show(); }
-      )
-      .click()
-      .insertBefore(codeBlock);
+      .click(visible)
+      .insertBefore(codeBlock)
+      .click();
   });
 });
