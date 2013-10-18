@@ -23,6 +23,10 @@ module Language::Clojure
     END
   end
 
+  def compiles?(code)
+    true
+  end
+
   def run_tests(test, solution)
     runner = Rails.root.join('lib/language/clojure/runner.clj').read
 

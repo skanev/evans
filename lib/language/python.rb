@@ -23,6 +23,10 @@ module Language::Python
     END
   end
 
+  def compiles?(code)
+    true
+  end
+
   def run_tests(test, solution)
     TestRunner.with_tmpdir('test.py' => test, 'solution.py' => solution) do |dir|
       test_path = dir.join('test.py')

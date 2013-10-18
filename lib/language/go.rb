@@ -23,6 +23,10 @@ module Language::Go
     END
   end
 
+  def compiles?(code)
+    true
+  end
+
   def run_tests(test, solution)
     TestRunner.with_tmpdir('solution_test.go' => test, 'solution.go' => solution) do |dir|
       runner_path = File.expand_path("lib/language/go/runner.go")
