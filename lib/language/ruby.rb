@@ -24,6 +24,17 @@ Log output
     END
   end
 
+  def compiles?(code)
+    stderr = $stderr
+    $stderr.reopen(IO::NULL)
+    RubyVM::InstructionSequence.compile(code)
+    $stderr.reopen(stderr)
+    true
+  rescue Exception
+    $stderr.reopen(stderr)
+    false
+  end
+
   def run_tests(test, solution)
     TestRunner.with_tmpdir('spec.rb' => test, 'solution.rb' => solution) do |dir|
       spec_path     = dir.join('spec.rb')
