@@ -23,8 +23,13 @@ module Language::Clojure
     END
   end
 
-  def compiles?(code)
-    true
+  def parses?(code)
+    TestRunner.with_tmpdir('code.clj' => code) do |dir|
+      Dir.chdir(dir) do
+        code_path = dir.join('code.clj')
+        system "clojure -i #{code_path} > /dev/null 2>&1"
+      end
+    end
   end
 
   def run_tests(test, solution)
