@@ -29,8 +29,13 @@ describe Submission do
     submission.submit.should be_true
   end
 
-  it "indicates if the submission is unsuccessful" do
+  it "indicates if the submission is unsuccessful due to no code" do
     submission = Submission.new(user, task, '')
+    submission.submit.should be_false
+  end
+
+  it "indicates if the submission is unsuccessful due to invalid code" do
+    submission = Submission.new(user, task, 'def foo() "bar"')
     submission.submit.should be_false
   end
 
