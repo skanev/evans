@@ -8,7 +8,7 @@ class Submission
   def submit
     return false if @task.closed?
     return false if @code.blank?
-    return false unless Language.compiles? @code
+    return false unless Language.parses? @code
     return false if violating_restrictions?
 
     solution = Solution.for(@user, @task)

@@ -24,7 +24,7 @@ Log output
     END
   end
 
-  def compiles?(code)
+  def parses?(code)
     stderr = $stderr
     $stderr.reopen(IO::NULL)
     RubyVM::InstructionSequence.compile(code)
