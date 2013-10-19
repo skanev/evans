@@ -23,8 +23,18 @@ module Language::Go
     END
   end
 
-  def compiles?(code)
-    true
+  def parses?(code)
+    return true if code.empty?
+    TestRunner.with_tmpdir('code.go' => code) do |dir|
+      code_path = dir.join('code.go')
+      result = nil
+
+      FileUtils.cd(dir) do
+        result = system "go build #{code_path} > /dev/null 2>&1"
+      end
+
+      result
+    end
   end
 
   def run_tests(test, solution)
