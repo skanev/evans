@@ -25,14 +25,12 @@ Log output
   end
 
   def parses?(code)
-    stderr = $stderr
-    $stderr.reopen(IO::NULL)
-    RubyVM::InstructionSequence.compile(code)
-    $stderr.reopen(stderr)
-    true
-  rescue Exception
-    $stderr.reopen(stderr)
-    false
+    TestRunner.with_tmpdir('code.rb' => code) do |dir|
+      code_path = dir.join('code.rb')
+
+      output = `ruby -c #{code_path}`
+      output.include? 'Syntax OK'
+    end
   end
 
   def run_tests(test, solution)
