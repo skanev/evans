@@ -35,7 +35,9 @@ describe Submission do
   end
 
   it "indicates if the submission is unsuccessful due to invalid code" do
-    submission = Submission.new(user, task, 'def foo() "bar"')
+    Language.stub parses?: false
+
+    submission = Submission.new(user, task, 'unparsable code')
     submission.submit.should be_false
   end
 
