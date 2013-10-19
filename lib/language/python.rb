@@ -26,7 +26,7 @@ module Language::Python
   def parses?(code)
     TestRunner.with_tmpdir('code.py' => code) do |dir|
       code_path = dir.join('code.py')
-      system "python3.3 -m py_compile #{code_path}"
+      system "python3.3 -m py_compile #{code_path} > /dev/null 2>&1"
     end
   end
 

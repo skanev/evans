@@ -27,9 +27,7 @@ Log output
   def parses?(code)
     TestRunner.with_tmpdir('code.rb' => code) do |dir|
       code_path = dir.join('code.rb')
-
-      output = `ruby -c #{code_path}`
-      output.include? 'Syntax OK'
+      system "ruby -c #{code_path} > /dev/null 2>&1"
     end
   end
 
