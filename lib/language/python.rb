@@ -23,8 +23,14 @@ module Language::Python
     END
   end
 
-  def compiles?(code)
-    true
+  def parses?(code)
+    TestRunner.with_tmpdir('code.py' => code) do |dir|
+      code_path = dir.join('code.py')
+      puts code_path
+
+      errors = `python3.3 -m py_compile #{code_path} 2>&1`
+      errors.empty?
+    end
   end
 
   def run_tests(test, solution)
