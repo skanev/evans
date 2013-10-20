@@ -6,16 +6,15 @@ $ ->
 
     td.html ''
 
+    appendPoint = (type) ->
+      $('<span class="' + type + '"></span>').appendTo td
+
     if adjustment >= 0
-      for i in [0...points-adjustment]
-        $('<span class="point"></span>').appendTo td
-      for i in [0...adjustment]
-        $('<span class="bonus-point"></span>').appendTo td
+      [0...points-adjustment].forEach -> appendPoint 'point'
+      [0...adjustment].forEach -> appendPoint 'bonus-point'
     else
-      for i in [0...points]
-        $('<span class="point"></span>').appendTo td
-      for i in [0...-adjustment]
-        $('<span class="penalty-point"></span>').appendTo td
+      [0...points].forEach -> appendPoint 'point'
+      [0...-adjustment].forEach -> appendPoint 'penalty-point'
 
 
   $('[data-toggleable]').each ->
