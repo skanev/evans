@@ -20,7 +20,7 @@ gem 'skeptic'
 
 gem 'spork-rails'
 
-gem 'rails_autolink'
+gem 'rails_autolink', '= 1.1.0'
 gem 'rdiscount'
 gem 'sanitize'
 gem 'coderay'
