@@ -1,0 +1,18 @@
+#!/bin/sh
+
+project_root=`dirname "$0"`/..
+stage_configs=`ls ${project_root}/config/deploy/*.rb`
+
+for stage_config in $stage_configs
+do
+	stage_name=`basename $stage_config|cut -d'.' -f1`
+	echo "> Deploying $stage_name..."
+
+	if bundle exec cap $stage_name deploy:migrations
+	then
+		echo "Successfully deployed $stage_name"
+	else
+		echo "Failed to deploy $stage_name"
+		exit 1
+	fi
+done
