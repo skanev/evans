@@ -41,7 +41,7 @@ describe MySolutionsController do
     before do
       Task.stub find: task
       Submission.stub new: submission
-      submission.stub :submit
+      submission.stub submit: true
     end
 
     it "denies access if user not logged in" do
@@ -84,6 +84,8 @@ describe MySolutionsController do
 
     it "redisplays the form on error" do
       submission.stub submit: false
+      submission.should_receive(:error)
+
       put :update, task_id: '42'
       response.should render_template(:show)
     end

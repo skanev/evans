@@ -1,4 +1,6 @@
 class Submission
+  attr_reader :error
+
   def initialize(user, task, code)
     @user = user
     @task = task
@@ -6,10 +8,12 @@ class Submission
   end
 
   def submit
-    return false if @task.closed?
-    return false if @code.blank?
-    return false unless Language.parses? @code
-    return false if violating_restrictions?
+    @error = "Задачата е затворена." if @task.closed?
+    @error = "Не си предал код." if @code.blank?
+    @error = "Имаш синтактична грешка." unless Language.parses? @code
+    @error = "Нарушаваш изискванията на Skeptic." if violating_restrictions?
+
+    return false if @error
 
     solution = Solution.for(@user, @task)
 
