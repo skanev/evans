@@ -1,4 +1,6 @@
 begin
+  require 'rspec-rails'
+
   namespace :spec do
     namespace :languages do
       languages = %w(Python Clojure Go Ruby)
