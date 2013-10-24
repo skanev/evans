@@ -4,6 +4,10 @@ describe Submission do
   let(:user) { create :user }
   let(:task) { create :open_task }
 
+  before do
+    Language.stub parses?: true
+  end
+
   it "creates a new solution and revision for the given user and task" do
     submit user, task, 'code'
 
@@ -25,17 +29,22 @@ describe Submission do
   end
 
   it "indicates if the submission is successful" do
-    Language.stub parses?: true
-
     submission = Submission.new(user, task, 'new code')
     submission.submit.should be_true
   end
 
-  it "indicates if the submission is unsuccessful due to no code" do
-    Language.stub parses?: true
+  it "indicates if the submission is unsuccessful due to closed task" do
+    task = create :closed_task
 
+    submission = Submission.new(user, task, 'code')
+    submission.submit.should be_false
+    submission.should have_error_on :base
+  end
+
+  it "indicates if the submission is unsuccessful due to no code" do
     submission = Submission.new(user, task, '')
     submission.submit.should be_false
+    submission.should have_error_on :code
   end
 
   it "indicates if the submission is unsuccessful due to invalid code" do
@@ -43,6 +52,7 @@ describe Submission do
 
     submission = Submission.new(user, task, 'unparsable code')
     submission.submit.should be_false
+    submission.should have_error_on :code
   end
 
   it "does not update the solution after the task is closed" do
@@ -70,6 +80,7 @@ describe Submission do
       submission = Submission.new user, task, code
 
       submission.submit.should be_false
+      submission.should have_error_on :code
       submission.should be_violating_restrictions
       submission.violations.should include('You have a semicolon')
     end

@@ -48,7 +48,7 @@ class ChallengeSubmission
   private
 
   def challenge_must_be_open
-    errors.add :base, 'Крайния срок на задачата вече е изтекъл' if @challenge.closed?
+    errors.add :base, 'крайният срок на задачата вече е изтекъл' if @challenge.closed?
   end
 
   def code_is_parsable

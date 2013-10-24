@@ -40,6 +40,13 @@ describe ChallengeSubmission do
       submission.should have_error_on :base
     end
 
+    it "verifies that the code submitted is parsable" do
+      Language.stub parses?: false
+
+      submission.update(code: 'unparsable code').should be_false
+      submission.should have_error_on :code
+    end
+
     it "creates a solution if one is not present" do
       expect do
         submission.update(code: 'ruby code').should be_true
