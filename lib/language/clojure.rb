@@ -24,7 +24,7 @@ module Language::Clojure
   end
 
   def parses?(code)
-    TestRunner.with_tmpdir('code.clj' => code) do |dir|
+    TempDir.for('code.clj' => code) do |dir|
       Dir.chdir(dir) do
         code_path = dir.join('code.clj')
         system "clojure -i #{code_path} > /dev/null 2>&1"
@@ -35,7 +35,7 @@ module Language::Clojure
   def run_tests(test, solution)
     runner = Rails.root.join('lib/language/clojure/runner.clj').read
 
-    TestRunner.with_tmpdir('test.clj' => test, 'solution.clj' => solution, 'runner.clj' => runner) do |dir|
+    TempDir.for('test.clj' => test, 'solution.clj' => solution, 'runner.clj' => runner) do |dir|
       Dir.chdir(dir) do
         result = `clojure runner.clj`
         passed_line, failed_line, log = result.split("\n", 3)
@@ -43,7 +43,7 @@ module Language::Clojure
         passed = passed_line[/^Passed: (.*)$/, 1].split(';')
         failed = failed_line[/^Failed: (.*)$/, 1].split(';')
 
-        TestRunner::Results.new({
+        TestResults.new({
           passed: passed,
           failed: failed,
           log: log,

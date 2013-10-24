@@ -25,7 +25,7 @@ module Language::Go
 
   def parses?(code)
     return true if code.empty?
-    TestRunner.with_tmpdir('code.go' => code) do |dir|
+    TempDir.for('code.go' => code) do |dir|
       code_path = dir.join('code.go')
       result = nil
 
@@ -38,7 +38,7 @@ module Language::Go
   end
 
   def run_tests(test, solution)
-    TestRunner.with_tmpdir('solution_test.go' => test, 'solution.go' => solution) do |dir|
+    TempDir.for('solution_test.go' => test, 'solution.go' => solution) do |dir|
       runner_path = File.expand_path("lib/language/go/runner.go")
       results     = nil
 
@@ -46,7 +46,7 @@ module Language::Go
         results = JSON.parse(`go run #{runner_path} -- solution_test.go`.strip)
       end
 
-      TestRunner::Results.new({
+      TestResults.new({
         log:    results['Log'] || '',
         passed: results['Passed'] || [],
         failed: results['Failed'] || [],

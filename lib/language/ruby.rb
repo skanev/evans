@@ -25,14 +25,14 @@ Log output
   end
 
   def parses?(code)
-    TestRunner.with_tmpdir('code.rb' => code) do |dir|
+    TempDir.for('code.rb' => code) do |dir|
       code_path = dir.join('code.rb')
       system "ruby -c #{code_path} > /dev/null 2>&1"
     end
   end
 
   def run_tests(test, solution)
-    TestRunner.with_tmpdir('spec.rb' => test, 'solution.rb' => solution) do |dir|
+    TempDir.for('spec.rb' => test, 'solution.rb' => solution) do |dir|
       spec_path     = dir.join('spec.rb')
       solution_path = dir.join('solution.rb')
 
@@ -40,7 +40,7 @@ Log output
       json, log = output.split("\nLOG:\n", 2)
       results = JSON.parse json
 
-      TestRunner::Results.new({
+      TestResults.new({
         log: log,
         passed: results['passed'] || [],
         failed: results['failed'] || [],
