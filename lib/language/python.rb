@@ -23,7 +23,7 @@ module Language::Python
     END
   end
 
-  def parses?(code)
+  def parsing?(code)
     TempDir.for('code.py' => code) do |dir|
       code_path = dir.join('code.py')
       system "python3.3 -m py_compile #{code_path} > /dev/null 2>&1"

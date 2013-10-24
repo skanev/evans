@@ -23,7 +23,7 @@ module Language::Clojure
     END
   end
 
-  def parses?(code)
+  def parsing?(code)
     TempDir.for('code.clj' => code) do |dir|
       Dir.chdir(dir) do
         code_path = dir.join('code.clj')

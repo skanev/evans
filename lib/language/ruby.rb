@@ -24,7 +24,7 @@ Log output
     END
   end
 
-  def parses?(code)
+  def parsing?(code)
     TempDir.for('code.rb' => code) do |dir|
       code_path = dir.join('code.rb')
       system "ruby -c #{code_path} > /dev/null 2>&1"

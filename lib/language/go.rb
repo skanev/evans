@@ -23,7 +23,7 @@ module Language::Go
     END
   end
 
-  def parses?(code)
+  def parsing?(code)
     return true if code.empty?
     TempDir.for('code.go' => code) do |dir|
       code_path = dir.join('code.go')

@@ -5,7 +5,7 @@ describe Submission do
   let(:task) { create :open_task }
 
   before do
-    Language.stub parses?: true
+    Language.stub parsing?: true
   end
 
   it "creates a new solution and revision for the given user and task" do
@@ -48,7 +48,7 @@ describe Submission do
   end
 
   it "indicates if the submission is unsuccessful due to invalid code" do
-    Language.stub parses?: false
+    Language.stub parsing?: false
 
     submission = Submission.new(user, task, 'unparsable code')
     submission.submit.should be_false
