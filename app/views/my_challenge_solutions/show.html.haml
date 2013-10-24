@@ -7,6 +7,8 @@
     %p Крайният срок е отминал. Вече не можете да предавате решения.
 
   = simple_form_for @submission, as: :submission, url: challenge_my_solution_path(@challenge), method: :put do |form|
+    = form.error_notification
+
     = form.input :code, as: :text, disabled: @challenge.closed?
     - unless @challenge.closed?
       = form.submit 'Изпрати'

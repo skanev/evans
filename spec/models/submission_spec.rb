@@ -25,11 +25,15 @@ describe Submission do
   end
 
   it "indicates if the submission is successful" do
+    Language.stub parses?: true
+
     submission = Submission.new(user, task, 'new code')
     submission.submit.should be_true
   end
 
   it "indicates if the submission is unsuccessful due to no code" do
+    Language.stub parses?: true
+
     submission = Submission.new(user, task, '')
     submission.submit.should be_false
   end

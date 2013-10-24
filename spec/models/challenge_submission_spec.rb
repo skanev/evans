@@ -28,6 +28,10 @@ describe ChallengeSubmission do
     let(:challenge) { create :challenge }
     let(:submission) { ChallengeSubmission.for challenge, user }
 
+    before do
+      Language.stub parses?: true
+    end
+
     it "verifies that the challenge is open" do
       challenge  = create :closed_challenge
       submission = ChallengeSubmission.for challenge, user

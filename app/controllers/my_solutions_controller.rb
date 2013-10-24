@@ -4,17 +4,17 @@ class MySolutionsController < ApplicationController
   def show
     @task = Task.find params[:task_id]
     @code = Solution.code_for(current_user, @task)
+    @submission = Submission.new current_user, @task, @code
   end
 
   def update
     @task = Task.find params[:task_id]
-    @code = params[:code]
+    @code = params[:submission][:code]
     @submission = Submission.new current_user, @task, @code
 
     if @submission.submit
       redirect_to @task, notice: 'Задачата е предадена успешно!'
     else
-      flash.now[:error] = "Решението ти не бе прието. #{@submission.error}"
       render :show
     end
   end

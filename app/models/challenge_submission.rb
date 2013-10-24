@@ -7,6 +7,8 @@ class ChallengeSubmission
   attr_accessor :code
 
   validate :challenge_must_be_open
+  validates_presence_of :code, message: 'не сте предали код'
+  validate :code_is_parsable
 
   def initialize(challenge, user, code)
     @challenge = challenge
@@ -28,10 +30,11 @@ class ChallengeSubmission
   end
 
   def update(attributes)
+    @code = attributes[:code]
+
     return false unless valid?
 
     solution = ChallengeSolution.for(@challenge, @user)
-    code     = attributes[:code]
 
     if solution
       solution.update_attributes! code: code
@@ -46,5 +49,11 @@ class ChallengeSubmission
 
   def challenge_must_be_open
     errors.add :base, 'Крайния срок на задачата вече е изтекъл' if @challenge.closed?
+  end
+
+  def code_is_parsable
+    unless Language.parses? code
+      errors.add :code, 'имате синтактична грешка'
+    end
   end
 end
