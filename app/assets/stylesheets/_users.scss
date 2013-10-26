@@ -16,3 +16,8 @@ ul.users {
 
   .attributions { @include content; }
 }
+
+.avatar {
+  border: 4px solid transparent;
+  &.admin { border-color: #fffa83; }
+}
