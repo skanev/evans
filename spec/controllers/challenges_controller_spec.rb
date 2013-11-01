@@ -22,7 +22,7 @@ describe ChallengesController do
 
     it "assigns all challenges for admins" do
       current_user.stub admin?: true
-      Challenge.stub in_reverse_chronological_order: 'challenges'
+      Challenge.stub in_chronological_order: 'challenges'
 
       get :index
 
