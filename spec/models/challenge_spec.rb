@@ -9,13 +9,6 @@ describe Challenge do
     create(:challenge, closes_at: 1.day.ago).should be_closed
   end
 
-  it "can fetch all records, sorted in reverse chronological order" do
-    older = create :challenge, created_at: 2.days.ago
-    newer  = create :challenge, created_at: 1.day.ago
-
-    Challenge.in_reverse_chronological_order.should eq [newer, older]
-  end
-
   it "can fetch all records, sorted in chronological order" do
     older = create :challenge, created_at: 2.days.ago
     newer  = create :challenge, created_at: 1.day.ago
