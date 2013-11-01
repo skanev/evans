@@ -3,7 +3,7 @@ class ChallengesController < ApplicationController
 
   def index
     @challenges = if admin?
-      Challenge.in_reverse_chronological_order
+      Challenge.in_chronological_order
     else
       Challenge.visible
     end
