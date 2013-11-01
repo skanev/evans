@@ -10,24 +10,24 @@ describe Challenge do
   end
 
   it "can fetch all records, sorted in reverse chronological order" do
-    second = create :challenge, created_at: 2.days.ago
-    first  = create :challenge, created_at: 1.day.ago
+    older = create :challenge, created_at: 2.days.ago
+    newer  = create :challenge, created_at: 1.day.ago
 
-    Challenge.in_reverse_chronological_order.should eq [first, second]
+    Challenge.in_reverse_chronological_order.should eq [newer, older]
   end
 
   it "can fetch all records, sorted in chronological order" do
-    second = create :challenge, created_at: 2.days.ago
-    first  = create :challenge, created_at: 1.day.ago
+    older = create :challenge, created_at: 2.days.ago
+    newer  = create :challenge, created_at: 1.day.ago
 
-    Challenge.in_chronological_order.should eq [second, first]
+    Challenge.in_chronological_order.should eq [older, newer]
   end
 
   it "can fetch all visible records, sorted in chronological order" do
-    second = create :visible_challenge, created_at: 3.days.ago
+    older = create :visible_challenge, created_at: 3.days.ago
     create :hidden_challenge, created_at: 2.days.ago
-    first  = create :visible_challenge, created_at: 1.day.ago
+    newer  = create :visible_challenge, created_at: 1.day.ago
 
-    Challenge.visible.should eq [second, first]
+    Challenge.visible.should eq [older, newer]
   end
 end
