@@ -7,13 +7,7 @@
     %li= contribution @topic
   - @replies.each do |reply|
     %li= contribution reply
+  - if logged_in?
+    %li= render @reply, topic: @topic, contribution: decorate_contribution(@reply)
 
 = will_paginate @replies
-
-- if logged_in?
-  .new-reply
-    %h2 Отговорете на темата
-    = render @reply, topic: @topic
-- else
-  %p.requires-authentication
-    Трябва да сте влезли в системата, за да може да отговаряте на теми.

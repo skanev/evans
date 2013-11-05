@@ -70,12 +70,16 @@ describe TopicsController do
   end
 
   describe "GET show" do
+    log_in_as :student
+
     let(:topic) { double }
+    let(:reply) { double }
 
     before do
       Topic.stub find: topic
       topic.stub :replies_on_page
-      Reply.stub :new
+      Reply.stub new: reply
+      reply.stub :user=
     end
 
     it "assigns the topic to @topic" do
@@ -91,9 +95,8 @@ describe TopicsController do
     end
 
     it "assigns an empty reply to @reply" do
-      Reply.stub new: 'reply'
       get :show, id: '42'
-      assigns(:reply).should eq 'reply'
+      assigns(:reply).should eq reply
     end
   end
 

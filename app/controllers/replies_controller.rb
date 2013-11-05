@@ -1,4 +1,6 @@
 class RepliesController < ApplicationController
+  include ContributionsHelper
+
   before_filter :require_user, only: [:create]
   before_filter :authorize, only: [:edit, :update]
 
@@ -18,6 +20,13 @@ class RepliesController < ApplicationController
     reply = Reply.find params[:id]
 
     redirect_to topic_path(reply.topic_id, page: reply.page_in_topic, anchor: "reply_#{reply.id}")
+  end
+
+  def preview
+    @reply = Reply.new :body => params[:body]
+    @reply.user = current_user
+
+    render partial: 'common/contribution_body', locals: {contribution: decorate_contribution(@reply)}
   end
 
   def edit

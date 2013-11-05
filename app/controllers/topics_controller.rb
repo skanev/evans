@@ -26,6 +26,7 @@ class TopicsController < ApplicationController
 
     @replies = @topic.replies_on_page params[:page]
     @reply = Reply.new
+    @reply.user = current_user
   end
 
   def edit

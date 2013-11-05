@@ -3,7 +3,7 @@
     = contribution.user_avatar
     = contribution.user_name
   .body
-    = markup contribution.body
+    = render 'common/contribution_body', contribution: contribution
   .published-at
     = contribution.permalink
     = contribution.edit_link
