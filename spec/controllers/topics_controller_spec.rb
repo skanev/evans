@@ -70,8 +70,6 @@ describe TopicsController do
   end
 
   describe "GET show" do
-    log_in_as :student
-
     let(:topic) { double }
     let(:reply) { double }
 
@@ -80,6 +78,7 @@ describe TopicsController do
       topic.stub :replies_on_page
       Reply.stub new: reply
       reply.stub :user=
+      controller.stub :current_user
     end
 
     it "assigns the topic to @topic" do
