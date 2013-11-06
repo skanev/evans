@@ -23,13 +23,20 @@ module Language::Python
     END
   end
 
+  def parsing?(code)
+    TempDir.for('code.py' => code) do |dir|
+      code_path = dir.join('code.py')
+      system "python3.3 -m py_compile #{code_path} > /dev/null 2>&1"
+    end
+  end
+
   def run_tests(test, solution)
-    TestRunner.with_tmpdir('test.py' => test, 'solution.py' => solution) do |dir|
+    TempDir.for('test.py' => test, 'solution.py' => solution) do |dir|
       test_path = dir.join('test.py')
 
       results = JSON.parse `python3.3 lib/language/python/runner.py #{test_path}`
 
-      TestRunner::Results.new({
+      TestResults.new({
         log: results['log'] || '',
         passed: results['passed'] || [],
         failed: results['failed'] || [],

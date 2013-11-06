@@ -103,7 +103,7 @@ end
 end
 
 То 'трябва да видя, че метода "$method_name" е твърде дълъг' do |method_name|
-  page.should have_content('Решението ви не минава някои стилистически изисквания')
+  page.should have_content('Намерихме няколко грешки. Погледнете и пробвайте пак:')
   page.should have_content('Number of lines per method')
   page.should have_content(method_name)
 end

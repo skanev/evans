@@ -1,4 +1,14 @@
 class Submission
+  include ActiveModel::Validations
+  include ActiveModel::Naming
+
+  attr_reader :code
+
+  validate :task_must_be_open
+  validates_presence_of :code, message: 'не сте предали код'
+  validate :code_is_parsable
+  validate :code_is_compliant_with_skeptic_requirements
+
   def initialize(user, task, code)
     @user = user
     @task = task
@@ -6,9 +16,7 @@ class Submission
   end
 
   def submit
-    return false if @task.closed?
-    return false if @code.blank?
-    return false if violating_restrictions?
+    return false unless valid?
 
     solution = Solution.for(@user, @task)
 
@@ -42,7 +50,23 @@ class Submission
         critic.send "#{rule}=", option
       end
 
-      critic.criticize @code
+      critic.criticize code
+    end
+  end
+
+  def task_must_be_open
+    errors.add :base, 'задачата е затворена' if @task.closed?
+  end
+
+  def code_is_parsable
+    unless Language.parsing? code
+      errors.add :code, 'имате синтактична грешка'
+    end
+  end
+
+  def code_is_compliant_with_skeptic_requirements
+    if violating_restrictions?
+      errors.add :code, violations
     end
   end
 end

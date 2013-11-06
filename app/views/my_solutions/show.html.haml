@@ -7,15 +7,10 @@
     %p Крайният срок на тази задача е отминал. Вече не може да предавате решение.
   = render 'tasks/guide_notice'
 
-  - if @submission.try(:violating_restrictions?)
-    .violations
-      %p Решението ви не минава някои стилистически изисквания:
-      %pre.restrictions-violations= @submission.violations
+  = simple_form_for @submission, as: :submission, url: task_my_solution_path(@task), method: 'put' do |form|
+    = form.error_notification
 
-  = form_tag task_my_solution_path(@task), method: :put, class: 'simple_form' do
-    %div
-      = label_tag :code, 'Код'
-      = text_area_tag :code, @code, disabled: @task.closed?
+    = form.input :code, as: 'text', label: 'Код'
     - unless @task.closed?
       %div
-        = submit_tag 'Изпрати'
+        = form.submit 'Изпрати'

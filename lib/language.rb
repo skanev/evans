@@ -1,7 +1,7 @@
 module Language
   extend self
 
-  delegate :language, :run_tests, :extension, :solution_dump, to: :current_language
+  delegate :language, :parsing?, :run_tests, :extension, :solution_dump, to: :current_language
 
   def current_language
     @current_language ||= const_get Rails.application.config.language.to_s.camelize

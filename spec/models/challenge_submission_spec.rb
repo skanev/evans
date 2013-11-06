@@ -28,12 +28,23 @@ describe ChallengeSubmission do
     let(:challenge) { create :challenge }
     let(:submission) { ChallengeSubmission.for challenge, user }
 
+    before do
+      Language.stub parsing?: true
+    end
+
     it "verifies that the challenge is open" do
       challenge  = create :closed_challenge
       submission = ChallengeSubmission.for challenge, user
 
       submission.update(code: 'code').should be_false
       submission.should have_error_on :base
+    end
+
+    it "verifies that the code submitted is parsable" do
+      Language.stub parsing?: false
+
+      submission.update(code: 'unparsable code').should be_false
+      submission.should have_error_on :code
     end
 
     it "creates a solution if one is not present" do

@@ -40,6 +40,10 @@
     .hint { display: none; }
   }
 
+  .text {
+    .error { display: block; }
+  }
+
   input[name*=faculty_number] { width: 80px; }
   textarea[name*=body] { width: 600px; height: 200px; }
 
