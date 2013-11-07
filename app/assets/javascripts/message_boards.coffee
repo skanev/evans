@@ -16,7 +16,7 @@ $ ->
     .trigger 'updateStarStatus'
 
 
-  $(this).delegate '[data-toggle-star]', 'ajax:success', (e, data) ->
+  $('[data-toggle-star]').on 'ajax:success', (e, data) ->
     link = $ this
     post = link.closest '[data-starred]'
 
