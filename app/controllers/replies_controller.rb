@@ -1,6 +1,4 @@
 class RepliesController < ApplicationController
-  include ContributionsHelper
-
   before_filter :require_user, only: [:create]
   before_filter :authorize, only: [:edit, :update]
 
