@@ -27,6 +27,7 @@ gem 'coderay'
 
 gem 'exception_notification'
 gem 'jquery-rails'
+gem 'underscore-rails'
 
 # Sidekiq and its dependencies
 gem 'sidekiq'
