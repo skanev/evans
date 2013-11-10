@@ -9,8 +9,8 @@
 table.solutions {
   @include data-table;
 
-  .points { width: 150px; }
-  .results { width: 195px; }
+  .points { width: 150px; white-space: nowrap; }
+  .results { width: 180px; white-space: nowrap; }
 
   .results span { display: inline-block; margin-left: 10px; }
   .results span:first-child { margin-left: 0; }
