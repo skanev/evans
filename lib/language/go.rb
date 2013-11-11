@@ -30,7 +30,7 @@ module Language::Go
       result = nil
 
       FileUtils.cd(dir) do
-        result = system "go build #{code_path} > /dev/null 2>&1"
+        result = system "go fix #{code_path} > /dev/null 2>&1"
       end
 
       result
