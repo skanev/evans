@@ -23,3 +23,20 @@ $ ->
     post
       .data('starred', data.starred)
       .trigger 'updateStarStatus'
+
+
+  $('.contribution_input').parent().prepend '<div class="contribution_preview"></div>'
+
+  throttledPreview = _.throttle ->
+    replyBox = $ this
+    previewArea = replyBox.siblings '.contribution_preview'
+
+    $.ajax '/preview',
+      type: 'POST',
+      data: { body: replyBox.val() },
+      dataType: 'html',
+      success: (data) ->
+        previewArea.html data
+  , 1000
+
+  $('.contribution_input').on('input', throttledPreview).trigger 'input'
