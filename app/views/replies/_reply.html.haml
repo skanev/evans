@@ -1,10 +1,6 @@
-%article{:id => contribution.dom_id, :class => contribution.css_class, 'data-starred' => contribution.starred?.to_s}
-  %aside
-    = contribution.user_avatar
-    = contribution.user_name
-  .body
-    = simple_form_for [topic, reply] do |form|
-      = form.error_notification
-      = form.input :body, input_html: { class: 'contribution_input' }
-      = markdown_explanation
-      = form.button :submit
+= simple_form_for [topic, reply] do |form|
+ = form.error_notification
+ = form.input :body, input_html: { class: 'contribution_input' }
+ = markdown_explanation
+ = form.button :submit
+ 
