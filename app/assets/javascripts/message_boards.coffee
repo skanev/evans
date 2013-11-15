@@ -31,6 +31,11 @@ $ ->
     replyBox = $ this
     previewArea = replyBox.siblings '.contribution_preview'
 
+    if not replyBox.val()
+      previewArea.hide()
+    else
+      previewArea.show()
+
     $.ajax '/preview',
       type: 'POST',
       data: { body: replyBox.val() },
