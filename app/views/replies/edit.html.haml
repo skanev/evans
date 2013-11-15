@@ -1,5 +1,3 @@
 %h1 Редактиране на отговор на "#{@reply.topic.title}"
 
-%ol.topic
-  %li
-    = render @reply, topic: @reply.topic, contribution: decorate_contribution(@reply)
+= render @reply, topic: @reply.topic
