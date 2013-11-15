@@ -60,3 +60,8 @@
   ul li.correct { background-image: image-url('icons/tick.png'); }
   ul li.incorrect { background-image: image-url('icons/cross.png'); }
 }
+
+@mixin contribution-code-style {
+  code { background-color: #f8f8ff; color: #444; padding: 1px 3px; border: 1px solid #dedede; border-radius: 2px; font-size: 12px !important; }
+  pre code { display: block; }
+}

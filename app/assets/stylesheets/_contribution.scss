@@ -16,8 +16,7 @@
     &:hover { color: $color-link; }
   }
 
-  code { background-color: #f8f8ff; color: #444; padding: 1px 3px; border: 1px solid #dedede; border-radius: 2px; font-size: 12px !important; }
-  pre code { display: block; }
+  @include contribution-code-style;
 
   a[data-toggle-star=star],
   a[data-toggle-star=unstar] { background: { position: top left; repeat: no-repeat; }; padding-left: 20px; }

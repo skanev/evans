@@ -1,6 +1,6 @@
 module ContributionsHelper
   def decorate_contribution(model)
-    contribution = case model
+    case model
       when Comment then CommentDecorator.decorate model
       when Post    then PostDecorator.decorate model
     end
