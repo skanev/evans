@@ -52,5 +52,11 @@
     @include button;
     color: $dark-text;
   }
+
+  .contribution_preview {
+    width: 600px;
+    padding: 5px;
+    border: 1px solid #dfdfdf;
+  }
 }
 

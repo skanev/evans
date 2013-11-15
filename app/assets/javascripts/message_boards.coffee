@@ -25,7 +25,7 @@ $ ->
       .trigger 'updateStarStatus'
 
 
-  $('.contribution_input').parent().append '<div class="contribution_preview"></div>'
+  $('.contribution_input').parent().append '<label>Изглед</label><div class="contribution_preview"></div>'
 
   throttledPreview = _.throttle ->
     replyBox = $ this
