@@ -30,10 +30,10 @@ module Language::Go
       result = nil
 
       FileUtils.cd(dir) do
-        result = system "go fix #{code_path} > /dev/null 2>&1"
+        result = `gofmt -d #{code_path} 2>&1`
       end
 
-      result
+      result.strip.empty?
     end
   end
 
