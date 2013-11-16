@@ -25,16 +25,9 @@ $ ->
       .trigger 'updateStarStatus'
 
 
-  $('.contribution_input').parent().append '<div class="contribution_preview"></div>'
-
-  throttledPreview = _.throttle ->
+  $('[data-contribution-input]').on 'input', _.throttle ->
     replyBox = $ this
-    previewArea = replyBox.siblings '.contribution_preview'
-
-    if not replyBox.val()
-      previewArea.hide()
-    else
-      previewArea.show()
+    previewArea = $ '[data-contribution-preview]'
 
     $.ajax '/preview',
       type: 'POST',
@@ -43,5 +36,3 @@ $ ->
       success: (data) ->
         previewArea.html data
   , 1000
-
-  $('.contribution_input').on('input', throttledPreview).trigger 'input'

@@ -53,9 +53,13 @@
     color: $dark-text;
   }
 
-  .contribution_preview {
-    @include contribution-code-style;
+  .contribution-preview {
+    @include markdown;
     @include content;
+
+    &:empty {
+      display: none;
+    }
 
     p:first-child { margin-top: 0; }
     p:last-child { margin-bottom: 0; }
