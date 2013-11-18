@@ -27,13 +27,15 @@ module Language::Go
     return true if code.empty?
     TempDir.for('code.go' => code) do |dir|
       code_path = dir.join('code.go')
-      result = nil
+      build_result = nil
+      gofmt_result = nil
 
       FileUtils.cd(dir) do
-        result = `gofmt -d #{code_path} 2>&1`
+        build_result = `go build #{code_path} 2>&1`
+        gofmt_result = `gofmt -d #{code_path} 2>&1`
       end
 
-      result.strip.empty?
+      build_result.strip.empty? and gofmt_result.strip.empty?
     end
   end
 
