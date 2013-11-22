@@ -1,5 +1,5 @@
 = simple_form_for [topic, reply] do |form|
   = form.error_notification
-  = form.input :body
+  = form.input :body, as: :markdown
   = markdown_explanation
   = form.button :submit

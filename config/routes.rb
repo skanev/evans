@@ -55,6 +55,8 @@ Trane::Application.routes.draw do
   resources :activities, only: :index
   resources :points_breakdowns, only: :index
 
+  resource :preview, only: :create
+
   if Rails.env.test?
     get '/backdoor/login',  to: 'backdoor#login'
     get '/backdoor/logout', to: 'backdoor#logout'
