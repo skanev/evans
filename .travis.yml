@@ -5,3 +5,5 @@ script:
   - RAILS_ENV=test bundle exec rake --trace db:create db:migrate db:test:prepare spec cucumber
 before_script:
   - cp config/database.yml.travis config/database.yml
+services:
+  - redis-server
