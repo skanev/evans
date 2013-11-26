@@ -12,6 +12,6 @@
 = form_tag voucher_claims_path, method: :post, class: 'simple_form' do
   %div
     = label_tag :code, 'Код'
-    = text_field_tag :code, '', class: 'string'
+    = text_field_tag :code, '', class: 'string', autofocus: true
   %div
     = submit_tag 'Въведи'
