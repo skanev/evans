@@ -1,12 +1,10 @@
 module ApplicationHelper
   def user_thumbnail(user, version = :size150)
-    title = "Екип" if user.admin?
     image = user.photo.try(:url, version) || image_path("photoless-user/#{version}.png")
-
     css_classes = %w(avatar)
     css_classes << "admin" if user.admin?
 
-    image_tag image, alt: user.name, class: css_classes, title: title
+    image_tag image, alt: user.name, class: css_classes
   end
 
   def markup(text, options = {})
