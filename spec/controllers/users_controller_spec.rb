@@ -2,8 +2,12 @@ require 'spec_helper'
 
 describe UsersController do
   describe "GET index" do
-    it "paginates all users to @user" do
-      User.should_receive(:page).with('3').and_return('users')
+    before do
+      User.stub students: []
+    end
+
+    it "paginates all non-admin users to @user" do
+      User.students.should_receive(:page).with('3').and_return('users')
       get :index, page: '3'
       assigns(:users).should eq 'users'
     end

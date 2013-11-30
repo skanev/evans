@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  scope :admins,   -> { where(admin: true) }
+  scope :students, -> { where(admin: false) }
+
   has_many :solutions
   has_many :tips
   has_many :attributions
