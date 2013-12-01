@@ -24,18 +24,11 @@ module Language::Go
   end
 
   def parsing?(code)
-    return true if code.empty?
     TempDir.for('code.go' => code) do |dir|
-      code_path = dir.join('code.go')
-      build_result = nil
-      gofmt_result = nil
+      script_path = Rails.root.join('lib/language/go/syntax_check.rb')
+      code_path   = dir.join('code.go')
 
-      FileUtils.cd(dir) do
-        build_result = `go build #{code_path} 2>&1`
-        gofmt_result = `gofmt -d #{code_path} 2>&1`
-      end
-
-      build_result.strip.empty? and gofmt_result.strip.empty?
+      system script_path.to_s, code_path.to_s
     end
   end
 
