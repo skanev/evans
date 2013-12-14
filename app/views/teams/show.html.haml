@@ -1,0 +1,12 @@
+%h1 Екип
+
+%p
+  Това е екипът зад курса #{@course_name}. За да се свържете с нас, може да ни
+  пишете на #{mail_to @course_email}.
+
+%ul.users
+  - @team_members.each do |team_member|
+    %li
+      = link_to team_member do
+        = user_thumbnail team_member
+        = team_member.name
