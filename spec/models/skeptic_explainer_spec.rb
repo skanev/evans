@@ -6,6 +6,11 @@ describe SkepticExplainer do
     line.should eq 'skeptic --no-semicolon --line-length 80 solution.rb'
   end
 
+  it "generates properly formatted command line options for values with whitespace in them" do
+    line = SkepticExplainer.command_line english_words_for_names: 'some words as exceptions', line_length: 30
+    line.should eq "skeptic --english-words-for-names='some words as exceptions' --line-length 30 solution.rb"
+  end
+
   it "can describe each restriction" do
     SkepticExplainer.restriction_name(:lines_per_method, 3).should eq 'Най-много 3 реда на метод'
     SkepticExplainer.restriction_name('no_trailing_whitespace', true).should eq 'Без whitespace на края на реда'

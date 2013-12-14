@@ -34,6 +34,13 @@ module SkepticExplainer
   private
 
   def restriction_paremeter(rule, option)
-    "--#{rule.to_s.dasherize} #{option}".gsub(/ true$/, '')
+    rule_name = "--#{rule.to_s.dasherize}"
+
+    case option
+      when false    then nil
+      when true     then rule_name
+      when Integer  then "#{rule_name} #{option}"
+      else               "#{rule_name}='#{option}'"
+    end
   end
 end
