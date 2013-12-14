@@ -2,12 +2,17 @@ module SkepticExplainer
   extend self
 
   RESTRICTIONS = {
-    no_semicolons:          'Не ползвайте ; за да разделяте изрази',
-    max_nesting_depth:      'Най-много %d нива на влагане',
-    lines_per_method:       'Най-много %d реда на метод',
-    methods_per_class:      'Най-много %d метода в клас',
-    line_length:            'Най-много %d символа на ред',
-    no_trailing_whitespace: 'Без whitespace на края на реда',
+    no_semicolons:            'Не ползвайте ; за да разделяте изрази',
+    max_nesting_depth:        'Най-много %d нива на влагане',
+    lines_per_method:         'Най-много %d реда на метод',
+    methods_per_class:        'Най-много %d метода в клас',
+    line_length:              'Най-много %d символа на ред',
+    no_trailing_whitespace:   'Без whitespace на края на реда',
+    check_syntax:             'Изисква валиден синтаксис',
+    no_global_variables:      'Забранява използването на глобални променливи',
+    english_words_for_names:  'Изисква да ползвате само комбинации валидни английски думи за именуване, със следните изключения: %s',
+    naming_conventions:       'Налага спазване на конвенциите за именуване',
+    spaces_around_operators:  'Налага спазване на конвенциите за поставяне на интервали около оператори',
   }.with_indifferent_access
 
   def restriction_name(rule, option)
