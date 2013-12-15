@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
       name.gsub(/^(\S+) .* (\S+)$/, '\1 \2')
     end
 
-    def page(page_number)
-      sort_order = <<-END
+    def sorted
+      order <<-END
         (CASE
           WHEN photo = '' THEN 1
           WHEN photo IS NULL THEN 1
@@ -42,7 +42,10 @@ class User < ActiveRecord::Base
         END) ASC,
         created_at ASC
       END
-      order(sort_order).paginate page: page_number, per_page: 32
+    end
+
+    def at_page(page_number)
+      paginate page: page_number, per_page: 32
     end
 
     def next_fake_faculty_number

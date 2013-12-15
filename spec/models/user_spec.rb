@@ -27,20 +27,34 @@ describe User do
     create(:admin).rank.should eq 0
   end
 
-  describe "pagination" do
+  describe "sorting" do
     it "sorts by creation time, older users first" do
       second = create :user, created_at: 2.days.ago
       third  = create :user, created_at: 1.day.ago
       first  = create :user, created_at: 3.days.ago
 
-      User.page(1).should eq [first, second, third]
+      User.sorted.should eq [first, second, third]
     end
 
     it "puts users with photos before users without photos" do
       second = create :user
       first  = create :user_with_photo
 
-      User.page(1).should eq [first, second]
+      User.sorted.should eq [first, second]
+    end
+  end
+
+  describe "pagination" do
+    before do
+      User.should_receive(:paginate).with(page: 'foo', per_page: 32)
+    end
+
+    it "delegates to paginate with 32 users per page" do
+      User.at_page('foo')
+    end
+
+    it "works with scopes" do
+      User.students.at_page('foo')
     end
   end
 
