@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UsersController do
   describe "GET index" do
-    it "paginates all non-admin users to @user" do
+    it "paginates all non-admin users to @users" do
       students        = double
       sorted_students = double
 
