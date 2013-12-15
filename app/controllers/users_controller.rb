@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = User.students.page params[:page]
+    @users = User.students.sorted.at_page params[:page]
   end
 
   def show
