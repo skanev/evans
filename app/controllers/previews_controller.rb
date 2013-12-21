@@ -1,5 +1,6 @@
 class PreviewsController < ApplicationController
   def create
-    render text: Markup.format(params[:body])
+    @body = params[:body]
+    render layout: false
   end
 end
