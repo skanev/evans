@@ -11,7 +11,7 @@ module ApplicationHelper
     options = options.reverse_merge auto_link: true
 
     formatted = Markup.format(text)
-    formatted = auto_link(formatted) if options[:auto_link]
+    formatted = auto_link(formatted, sanitize: false) if options[:auto_link]
 
     find_and_preserve(formatted)
   end
