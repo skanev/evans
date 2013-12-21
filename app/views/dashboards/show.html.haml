@@ -14,35 +14,47 @@
   .group
     .left
       %h2 Задачи
-      %table.data-table
-        %thead
-          %tr
-            %th Име
-            %th Точки
-        %tbody
-          - @tasks.each do |name, points|
+      - if @tasks.empty?
+        Към момента няма задачи.
+      - else
+        Имате
+        %strong= pluralize @tasks_points, 'точка', 'точки'
+        от задачи:
+        %table.data-table
+          %thead
             %tr
-              %td= name
-              %td{style: "width:20px"}= points
+              %th Име
+              %th Точки
+          %tbody
+            - @tasks.each do |name, points|
+              %tr
+                %td= name
+                %td{style: "width:20px"}= points
     .right
       %h2 Предизвикателства
-      %table.data-table
-        %thead
-          %tr
-            %th Име
-            %th{style: "width:20px"} Статус
-        %tbody
-          - @challenges.each do |name, status|
+      - if @challenges.empty?
+        Към момента няма предизвикателства.
+      - else
+        Имате
+        %strong= pluralize @challenges_points, 'точка', 'точки'
+        от предизвикателства:
+        %table.data-table
+          %thead
             %tr
-              %td= name
-              %td
-                - case status
-                - when :unchecked
-                  Непроверено
-                - when :incorrect
-                  Неуспешно
-                - when :correct
-                  Успешно
+              %th Име
+              %th{style: "width:20px"} Статус
+          %tbody
+            - @challenges.each do |name, status|
+              %tr
+                %td= name
+                %td
+                  - case status
+                  - when :unchecked
+                    Непроверено
+                  - when :incorrect
+                    Неуспешно
+                  - when :correct
+                    Успешно
 
   .group
     .left
