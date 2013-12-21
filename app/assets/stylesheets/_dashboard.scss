@@ -6,4 +6,14 @@
   .points p { text-align: center; }
   .points p strong { color: #008833; display: block; font-size: 50px; line-height: 50px; margin-top: 5px; }
   .points p em { display: block; margin-top: 5px; text-align: center; }
+
+  .group {
+    border-top: 1px dotted #ccc;
+    overflow: auto;
+    width: 100%;
+    padding-bottom: 10px;
+
+    .left { float: left; width: 50%; }
+    .right { float: right; width: 50%; }
+  }
 }
