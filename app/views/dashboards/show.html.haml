@@ -13,6 +13,39 @@
 
   .group
     .left
+      %h2 Задачи
+      %table.data-table
+        %thead
+          %tr
+            %th Име
+            %th Точки
+        %tbody
+          - @tasks.each do |name, points|
+            %tr
+              %td= name
+              %td{style: "width:20px"}= points
+    .right
+      %h2 Предизвикателства
+      %table.data-table
+        %thead
+          %tr
+            %th Име
+            %th{style: "width:20px"} Статус
+        %tbody
+          - @challenges.each do |name, status|
+            %tr
+              %td= name
+              %td
+                - case status
+                - when :unchecked
+                  Непроверено
+                - when :incorrect
+                  Неуспешно
+                - when :correct
+                  Успешно
+
+  .group
+    .left
       %h2 Профил
       %p
         Вашият профил е това, което преподавателите и другите студенти виждат за вас.
