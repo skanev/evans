@@ -28,5 +28,7 @@ class DashboardsController < ApplicationController
                         end
       [challenge.name, solution_status]
     end
+
+    @starred_posts = Post.where user: current_user, starred: true
   end
 end

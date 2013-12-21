@@ -46,6 +46,39 @@
 
   .group
     .left
+      %h2 Признания
+      %p
+        Ако направите Pull Request в GitHub, с който допринасяте към сайта на курса,
+        лекциите или задачите, ще получите признание, което ви носи <strong>1 точка</strong>.
+      - if @current_user.attributions.empty?
+        Към момента нямате признания.
+      - else
+        Имате
+        %strong= pluralize @current_user.attributions.size, 'точка', 'точки'
+        от признания:
+        %ul
+          - @current_user.attributions.each do |attribution|
+            %li
+              = link_to attribution.reason, attribution.link
+              - if admin?
+                (#{link_to 'Редактирай', [:edit, @user, attribution]})
+    .right
+      %h2 Звезди
+      %p
+        Ако отговорите на въпрос или публикувате нещо, което би могло да бъде полезно на
+        останалите във форума ще получите <strong>1 точка</strong>.
+      - if @starred_posts.empty?
+        Към момента нямате звезди във форума.
+      - else
+        Имате
+        %strong= pluralize @starred_posts.size, 'точка', 'точки'
+        от звезди:
+        %ul
+          - @starred_posts.each do |post|
+            %li= link_to post.topic.title, post_path(post)
+
+  .group
+    .left
       %h2 Профил
       %p
         Вашият профил е това, което преподавателите и другите студенти виждат за вас.

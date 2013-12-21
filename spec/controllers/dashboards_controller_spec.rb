@@ -46,5 +46,12 @@ describe DashboardsController do
       get :show
       assigns(:challenges).should eq [[challenge.name, :unchecked]]
     end
+
+    it "assigns the starred posts of the current user to @starred_posts" do
+      starred_post = Post.new
+      Post.should_receive(:where).with(user: current_user, starred: true).and_return [starred_post]
+      get :show
+      assigns(:starred_posts).should eq [starred_post]
+    end
   end
 end
