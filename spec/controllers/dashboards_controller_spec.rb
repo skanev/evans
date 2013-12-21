@@ -5,7 +5,7 @@ describe DashboardsController do
 
   describe "GET show" do
     before do
-      current_user.stub :points
+      current_user.stub points: 20
       current_user.stub :rank
       current_user.stub id: 42
       PointsBreakdown.stub :count

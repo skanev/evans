@@ -1,10 +1,16 @@
 class DashboardsController < ApplicationController
   include ChallengesHelper
+  include GradesHelper
 
   before_filter :require_user
 
   def show
     @points = current_user.points
+    @points_with_project = @points + Rails.configuration.project_score
+
+    @grade_percentage = grade_barrier(@points).to_f / max_grade_barrier
+    @grade_with_project_percentage = grade_barrier(@points_with_project).to_f / max_grade_barrier
+
     @rank   = current_user.rank
     @total  = PointsBreakdown.count
 

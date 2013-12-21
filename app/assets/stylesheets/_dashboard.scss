@@ -8,12 +8,60 @@
   .points p em { display: block; margin-top: 5px; text-align: center; }
 
   .group {
-    border-top: 1px dotted #ccc;
     overflow: auto;
     width: 100%;
-    padding-bottom: 10px;
 
     .left { float: left; width: 50%; }
     .right { float: right; width: 50%; }
+  }
+
+  #grade-progress-bar-legend {
+    position: absolute;
+    margin-top: -12px;
+    color: #bbb;
+
+    span {
+      position: absolute;
+    }
+  }
+
+  #grade-progress-bar {
+    height: 25px;
+    padding: 5px;
+    padding-right: 4px;
+    width: 500px;
+    margin: 15px 0;
+    border-radius: 5px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    overflow: auto;
+    overflow-y:hidden;
+    overflow-x:hidden;
+
+    span {
+      background-color: #34c2e3;
+      display: inline-block;
+      height: 100%;
+      border-radius: 3px;
+      border: 1px solid #24b0d1;
+      margin-top: -1px;
+      margin-left: -1px;
+      float: left;
+      text-align: center;
+      vertical-align:middle;
+      font-weight: bold;
+      color: #84E0F5;
+      line-height: 25px;
+      min-width: 20px;
+    }
+
+    .project {
+      background-color: #7adef5;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-left: 0px;
+      margin-left: -2px;
+      color: #24b0d1;
+    }
   }
 }

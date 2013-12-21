@@ -1,15 +1,32 @@
 #dashboard
-  .points
-    %h2 Точки
-    %p
-      Вие имате
-      %strong= @points
-      = @points == 1 ? 'точка' : 'точки'
-      %em Място: #{@rank}/#{@total}
-
   %h1 Табло
 
-  %p Здрасти. Тук можете да намерите всевъзможна информация.
+  %p Здрасти. Тук може да намерите всевъзможна информация за представянето ви в курса.
+
+  .group
+    .left
+      %h2 Точки
+      Към момента имате
+      %strong= pluralize @points, 'точка', 'точки'
+      и сте на
+      %strong= @rank
+      място от общо
+      %strong= @total
+      %p
+        В секциите по-долу може да разберете по какви начини сте събрали тези точки както и от къде може
+        да спечелите нови.
+
+    .right
+      %h2 Оценка
+      Тук може да намерите статус на оценката ви към момента. Тъмния цвят показва това, което
+      сте постигнали, а светлия - какво би могло да бъде, ако проектът ви е оценен с пълен
+      брой точки.
+      #grade-progress-bar
+        %span{style: "width: #{@grade_percentage * 500}px;"}= grade_name @points
+        %span.project{style: "width: #{[@grade_with_project_percentage * 500, 500 - @grade_percentage * 500].min}px;"}= grade_name @points_with_project
+      #grade-progress-bar-legend
+        - grades.each do |name, barrier|
+          %span{style: "left: #{barrier * 500 / max_grade_barrier}px;"}= name
 
   .group
     .left
