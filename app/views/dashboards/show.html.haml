@@ -6,121 +6,133 @@
   .group
     .left
       %h2 Точки
-      Към момента имате
-      %strong= pluralize @points, 'точка', 'точки'
-      и сте на
-      %strong= @rank
-      място от общо
-      %strong= @total
-      %p
-        В секциите по-долу може да разберете по какви начини сте събрали тези точки както и от къде може
-        да спечелите нови.
+      .content
+        Към момента имате
+        %strong= pluralize @points, 'точка', 'точки'
+        и сте на
+        %strong= @rank
+        място от общо
+        %strong= @total
+        %p
+          В секциите по-долу може да разберете по какви начини сте събрали тези точки както и от къде може
+          да спечелите нови.
 
     .right
       %h2 Оценка
-      Тук може да намерите статус на оценката ви към момента. Тъмния цвят показва това, което
-      сте постигнали, а светлия - какво би могло да бъде, ако проектът ви е оценен с пълен
-      брой точки.
-      #grade-progress-bar
-        %span{style: "width: #{@grade_percentage * 500}px;"}= grade_name @points
-        %span.project{style: "width: #{[@grade_with_project_percentage * 500, 500 - @grade_percentage * 500].min}px;"}= grade_name @points_with_project
-      #grade-progress-bar-legend
-        - grades.each do |name, barrier|
-          %span{style: "left: #{barrier * 500 / max_grade_barrier}px;"}= name
+      .content
+        Тук може да намерите статус на оценката ви към момента. Тъмния цвят показва това, което
+        сте постигнали, а светлия - какво би могло да бъде, ако проектът ви е оценен с пълен
+        брой точки.
+        #grade-progress-bar
+          %span{style: "width: #{@grade_percentage * 500}px;"}= grade_name @points
+          %span.project{style: "width: #{[@grade_with_project_percentage * 500, 500 - @grade_percentage * 500].min}px;"}= grade_name @points_with_project
+        #grade-progress-bar-legend
+          - grades.each do |name, barrier|
+            %span{style: "left: #{barrier * 500 / max_grade_barrier}px;"}= name
 
   .group
     .left
       %h2 Задачи
-      - if @tasks.empty?
-        Към момента няма задачи.
-      - else
-        Имате
-        %strong= pluralize @tasks_points, 'точка', 'точки'
-        от задачи:
-        %table.data-table
-          %thead
-            %tr
-              %th Име
-              %th Точки
-          %tbody
-            - @tasks.each do |name, points|
+      .content
+        - if @tasks.empty?
+          Към момента няма задачи.
+        - else
+          Имате
+          %strong= pluralize @tasks_points, 'точка', 'точки'
+          от задачи:
+          %table.data-table
+            %thead
               %tr
-                %td= name
-                %td{style: "width:20px"}= points
+                %th Име
+                %th Точки
+            %tbody
+              - @tasks.each do |name, points|
+                %tr
+                  %td= name
+                  %td{style: "width:20px"}= points
     .right
       %h2 Предизвикателства
-      - if @challenges.empty?
-        Към момента няма предизвикателства.
-      - else
-        Имате
-        %strong= pluralize @challenges_points, 'точка', 'точки'
-        от предизвикателства:
-        %table.data-table
-          %thead
-            %tr
-              %th Име
-              %th{style: "width:20px"} Статус
-          %tbody
-            - @challenges.each do |name, status|
+      .content
+        - if @challenges.empty?
+          Към момента няма предизвикателства.
+        - else
+          Имате
+          %strong= pluralize @challenges_points, 'точка', 'точки'
+          от предизвикателства:
+          %table.data-table
+            %thead
               %tr
-                %td= name
-                %td
-                  - case status
-                  - when :unchecked
-                    Непроверено
-                  - when :incorrect
-                    Неуспешно
-                  - when :correct
-                    Успешно
+                %th Име
+                %th{style: "width:20px"} Статус
+            %tbody
+              - @challenges.each do |name, status|
+                %tr
+                  %td= name
+                  %td
+                    - case status
+                    - when :unchecked
+                      Непроверено
+                    - when :incorrect
+                      Неуспешно
+                    - when :correct
+                      Успешно
 
   .group
     .left
       %h2 Признания
-      %p
-        Ако направите Pull Request в GitHub, с който допринасяте към сайта на курса,
-        лекциите или задачите, ще получите признание, което ви носи <strong>1 точка</strong>.
-      - if @current_user.attributions.empty?
-        Към момента нямате признания.
-      - else
-        Имате
-        %strong= pluralize @current_user.attributions.size, 'точка', 'точки'
-        от признания:
-        %ul
-          - @current_user.attributions.each do |attribution|
-            %li
-              = link_to attribution.reason, attribution.link
-              - if admin?
-                (#{link_to 'Редактирай', [:edit, @user, attribution]})
+      .content
+        %p
+          Ако направите Pull Request в GitHub, с който допринасяте към сайта на курса,
+          лекциите или задачите, ще получите признание, което ви носи <strong>1 точка</strong>.
+        - if @current_user.attributions.empty?
+          Към момента нямате признания.
+        - else
+          Имате
+          %strong= pluralize @current_user.attributions.size, 'точка', 'точки'
+          от признания:
+          %ul
+            - @current_user.attributions.each do |attribution|
+              %li
+                = link_to attribution.reason, attribution.link
+                - if admin?
+                  (#{link_to 'Редактирай', [:edit, @user, attribution]})
     .right
       %h2 Звезди
-      %p
-        Ако отговорите на въпрос или публикувате нещо, което би могло да бъде полезно на
-        останалите във форума ще получите <strong>1 точка</strong>.
-      - if @starred_posts.empty?
-        Към момента нямате звезди във форума.
-      - else
-        Имате
-        %strong= pluralize @starred_posts.size, 'точка', 'точки'
-        от звезди:
-        %ul
-          - @starred_posts.each do |post|
-            %li= link_to post.topic.title, post_path(post)
+      .content
+        %p
+          Ако отговорите на въпрос или публикувате нещо, което би могло да бъде полезно на
+          останалите във форума ще получите <strong>1 точка</strong>.
+        - if @starred_posts.empty?
+          Към момента нямате звезди във форума.
+        - else
+          Имате
+          %strong= pluralize @starred_posts.size, 'точка', 'точки'
+          от звезди:
+          %ul
+            - @starred_posts.each do |post|
+              %li= link_to post.topic.title, post_path(post)
 
   .group
     .left
       %h2 Профил
-      %p
-        Вашият профил е това, което преподавателите и другите студенти виждат за вас.
-        Вярваме, че ако го поддържате актуален ще създавате по-добро впечатление и ще
-        е по-лесно за другите участници в курса да се запознаят с вас.
-      %p
-        = link_to 'Редактиране', edit_profile_path, class: :action
+      .content
+        %p
+          Вашият профил е това, което преподавателите и другите студенти виждат за вас.
+          Вярваме, че ако го поддържате актуален ще създавате по-добро впечатление и ще
+          е по-лесно за другите участници в курса да се запознаят с вас.
+        %p
+          = link_to 'Редактиране', edit_profile_path, class: :action
 
     .right
       %h2 Точки за участие в час
-      %p
-        Ако участвате в час, получавате лакомство, комбинирано с ваучър код. Кодът
-        ви дава <strong>1 точка</strong>. Ако имате такъв, побързайте да го въведете —
-        времето им на съществуване е ограничено.
-      %p
-        = link_to 'Въвеждане на код', new_voucher_claim_path, class: :action
+      .content
+        %p
+          Ако участвате в час, получавате лакомство, комбинирано с ваучър код. Кодът
+          ви дава <strong>1 точка</strong>. Ако имате такъв, побързайте да го въведете —
+          времето им на съществуване е ограничено.
+        %p
+          Към момента имате
+          %strong= pluralize @vouchers, 'точка', 'точки'
+          от участие в час.
+        %p
+          = link_to 'Въвеждане на код', new_voucher_claim_path, class: :action

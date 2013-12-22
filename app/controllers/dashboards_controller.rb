@@ -14,8 +14,10 @@ class DashboardsController < ApplicationController
     @rank   = current_user.rank
     @total  = PointsBreakdown.count
 
+    points_breakdown = PointsBreakdown.find current_user.id
+
     task_names = Task.all.map &:name
-    task_points = PointsBreakdown.find(current_user.id).tasks_breakdown
+    task_points = points_breakdown.tasks_breakdown
     @tasks = task_names.zip task_points
     @tasks_points = @tasks.map(&:second).reject(&:nil?).reduce(0, :+)
 
@@ -38,5 +40,6 @@ class DashboardsController < ApplicationController
     @challenges_points = @challenges.select { |_, status| status == :correct }.size
 
     @starred_posts = Post.where user: current_user, starred: true
+    @vouchers_points = points_breakdown.vouchers
   end
 end
