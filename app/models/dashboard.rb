@@ -1,8 +1,6 @@
 class Dashboard
   include ChallengesHelper
 
-  attr_reader :points
-
   def self.for(user)
     Dashboard.new user
   end
