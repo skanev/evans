@@ -8,11 +8,11 @@
       %h2 Точки
       .content
         Към момента имате
-        %strong= pluralize @points, 'точка', 'точки'
+        %strong= pluralize @dashboard.points, 'точка', 'точки'
         и сте на
-        %strong= @rank
+        %strong= @dashboard.rank
         място от общо
-        %strong= @total
+        %strong= @dashboard.total_ranks
         %p
           В секциите по-долу може да разберете по какви начини сте събрали тези точки както и от къде може
           да спечелите нови.
@@ -24,21 +24,21 @@
         сте постигнали, а светлия - какво би могло да бъде, ако проектът ви е оценен с пълен
         брой точки.
         #grade-progress-bar
-          %span{style: "width: #{@grade_percentage * 500}px;"}= grade_name @points
-          %span.project{style: "width: #{[@grade_with_project_percentage * 500, 500 - @grade_percentage * 500].min}px;"}= grade_name @points_with_project
+          %span{style: "width: #{@grade_progress * 500}px;"}= @dashboard.grade.name
+          %span.project{style: "width: #{[@grade_with_project_progress * 500, 500 - @grade_progress * 500].min}px;"}= @dashboard.grade_with_project.name
         #grade-progress-bar-legend
-          - grades.each do |name, barrier|
-            %span{style: "left: #{barrier * 500 / max_grade_barrier}px;"}= name
+          - @grades.each do |name, progress|
+            %span{style: "left: #{progress * 500}px;"}= name
 
   .group
     .left
       %h2 Задачи
       .content
-        - if @tasks.empty?
+        - if @dashboard.tasks.empty?
           Към момента няма задачи.
         - else
           Имате
-          %strong= pluralize @tasks_points, 'точка', 'точки'
+          %strong= pluralize @points_from_tasks, 'точка', 'точки'
           от задачи:
           %table.data-table
             %thead
@@ -46,18 +46,18 @@
                 %th Име
                 %th Точки
             %tbody
-              - @tasks.each do |name, points|
+              - @dashboard.tasks.each do |name, points|
                 %tr
                   %td= name
                   %td{style: "width:20px"}= points
     .right
       %h2 Предизвикателства
       .content
-        - if @challenges.empty?
+        - if @dashboard.challenges.empty?
           Към момента няма предизвикателства.
         - else
           Имате
-          %strong= pluralize @challenges_points, 'точка', 'точки'
+          %strong= pluralize @points_from_challenges, 'точка', 'точки'
           от предизвикателства:
           %table.data-table
             %thead
@@ -65,7 +65,7 @@
                 %th Име
                 %th{style: "width:20px"} Статус
             %tbody
-              - @challenges.each do |name, status|
+              - @dashboard.challenges.each do |name, status|
                 %tr
                   %td= name
                   %td
@@ -84,14 +84,14 @@
         %p
           Ако направите Pull Request в GitHub, с който допринасяте към сайта на курса,
           лекциите или задачите, ще получите признание, което ви носи <strong>1 точка</strong>.
-        - if @current_user.attributions.empty?
+        - if @dashboard.attributions.empty?
           Към момента нямате признания.
         - else
           Имате
-          %strong= pluralize @current_user.attributions.size, 'точка', 'точки'
+          %strong= pluralize @dashboard.attributions.size, 'точка', 'точки'
           от признания:
           %ul
-            - @current_user.attributions.each do |attribution|
+            - @dashboard.attributions.each do |attribution|
               %li
                 = link_to attribution.reason, attribution.link
                 - if admin?
@@ -102,14 +102,14 @@
         %p
           Ако отговорите на въпрос или публикувате нещо, което би могло да бъде полезно на
           останалите във форума ще получите <strong>1 точка</strong>.
-        - if @starred_posts.empty?
+        - if @dashboard.stars.empty?
           Към момента нямате звезди във форума.
         - else
           Имате
-          %strong= pluralize @starred_posts.size, 'точка', 'точки'
+          %strong= pluralize @dashboard.stars.size, 'точка', 'точки'
           от звезди:
           %ul
-            - @starred_posts.each do |post|
+            - @dashboard.stars.each do |post|
               %li= link_to post.topic.title, post_path(post)
 
   .group
@@ -132,7 +132,7 @@
           времето им на съществуване е ограничено.
         %p
           Към момента имате
-          %strong= pluralize @vouchers, 'точка', 'точки'
+          %strong= pluralize @dashboard.vouchers, 'точка', 'точки'
           от участие в час.
         %p
           = link_to 'Въвеждане на код', new_voucher_claim_path, class: :action
