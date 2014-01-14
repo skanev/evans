@@ -21,7 +21,7 @@
         %li.failed-tests #{@solution.failed_tests} неуспешни тест(а)
 
   %h2 Код
-  = format_code @solution.code
+  .CodeRay= format_code @solution.code
 
   - if show_results?(@solution.task) and @solution.log.present?
     %h2 Лог от изпълнението
@@ -35,7 +35,7 @@
     %article.revision
       %h3 #{@solution.user.first_name} обнови решението на #{l revision.created_at} (преди #{time_ago_in_words revision.created_at})
 
-      %div(data-toggleable data-show-text="Покажи кода" data-hide-text="Скрий кода")= format_code @history.code_for revision
+      .CodeRay(data-toggleable data-show-text="Покажи кода" data-hide-text="Скрий кода")= format_code @history.code_for revision
 
       - @history.comments(revision).each do |comment|
         = contribution comment

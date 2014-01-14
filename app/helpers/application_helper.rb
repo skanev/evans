@@ -35,6 +35,6 @@ module ApplicationHelper
   end
 
   def format_code(code)
-    CodeRay.scan(code, Language.language).html(line_numbers: :table, bold_every: false, line_number_anchors: false, css: :class).html_safe
+    CodeFormatter.format code
   end
 end

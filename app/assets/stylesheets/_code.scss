@@ -1,0 +1,19 @@
+.inline-comments {
+  background-color: #e9e9e9;
+  padding: 10px;
+}
+
+.inline-comment {
+  $m: 22px;
+
+  border: 1px solid #d2d2d2;
+  font-size: 14px;
+
+  p:last-child { margin-bottom: 0; }
+
+  .author { background-color: #d2d2d2; overflow: hidden; padding: 5px; line-height: $m; }
+  .author img { display: block; float: left; margin-right: 10px; width: $m; height: $m; }
+  .body { background: #f9f9f9; padding: 10px; }
+
+  & + .inline-comment { margin-top: 10px; }
+}
