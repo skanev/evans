@@ -6,8 +6,7 @@ class Submission
 
   validate :task_must_be_open
   validates_presence_of :code, message: 'не сте предали код'
-  validate :code_is_parsable
-  validate :code_is_compliant_with_skeptic_requirements
+  validate :code_is_parsable_and_compliant_with_skeptic_requirements
 
   def initialize(user, task, code)
     @user = user
@@ -58,13 +57,12 @@ class Submission
     errors.add :base, 'задачата е затворена' if @task.closed?
   end
 
-  def code_is_parsable
+  def code_is_parsable_and_compliant_with_skeptic_requirements
     unless Language.parsing? code
       errors.add :code, 'имате синтактична грешка'
+      return
     end
-  end
 
-  def code_is_compliant_with_skeptic_requirements
     if violating_restrictions?
       errors.add :code, violations
     end

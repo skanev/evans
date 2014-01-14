@@ -74,15 +74,34 @@ describe Submission do
   end
 
   describe "task with restrictions" do
-    it "can run with skeptic" do
+    it "adds restrictions as violations" do
       code       = 'foo;bar'
-      task       = create :task, restrictions_hash: {'no_semicolons' => true}
+      task       = create :open_task, restrictions_hash: {'no_semicolons' => true}
       submission = Submission.new user, task, code
 
       submission.submit.should be_false
       submission.should have_error_on :code
       submission.should be_violating_restrictions
       submission.violations.should include('You have a semicolon')
+    end
+  end
+
+  describe "(skeptic)" do
+    let(:critic) { double.as_null_object }
+
+    before do
+      Skeptic::Critic.stub new: critic
+    end
+
+    it "invokes skeptic on the code" do
+      critic.should_receive(:criticize).with('code')
+      submit user, task, 'code'
+    end
+
+    it "doesn't invoke skeptic on code with syntax errors" do
+      Language.stub parsing?: false
+      critic.should_not_receive(:criticize)
+      submit user, task, 'code'
     end
   end
 
