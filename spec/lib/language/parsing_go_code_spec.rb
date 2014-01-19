@@ -26,7 +26,14 @@ CODE
     Language::Go.should_not be_parsing <<CODE
 package main
 
+func one_line_function_call() {
+  return
+}
+
 func main() {
+  one := 1
+  two := 2
+
   if (one != two) { one_line_function_call() }
 }
 CODE
