@@ -11,7 +11,6 @@ if code !~ /^\s*func\s+main\(\s*\)/
 end
 
 build_result = nil
-gofmt_result = nil
 
 Dir.mktmpdir do |dir|
   FileUtils.cd(dir) do
@@ -20,11 +19,10 @@ Dir.mktmpdir do |dir|
     end
 
     build_result = `go build code.go 2>&1`
-    gofmt_result = `gofmt -d code.go 2>&1`
   end
 end
 
-if build_result.strip.empty? and gofmt_result.strip.empty?
+if build_result.strip.empty?
   exit 0
 else
   exit 1
