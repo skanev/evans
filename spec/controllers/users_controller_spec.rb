@@ -20,10 +20,6 @@ describe UsersController do
 
     before do
       User.stub find: user
-      Topic.stub where: user
-      Reply.stub where: user
-      user.stub :group_by
-      user.stub(:solutions).and_return([])
     end
 
     it "looks up the user by id" do
@@ -31,9 +27,9 @@ describe UsersController do
       get :show, id: '42'
     end
 
-    it "assigns the user to @user" do
+    it "assigns an UserOverview of the user to @user" do
       get :show, id: '42'
-      assigns(:user).should eq user
+      assigns(:user).should be_decorated_with UserOverview
     end
   end
 end

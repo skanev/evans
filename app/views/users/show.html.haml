@@ -47,23 +47,34 @@
     %p
       = link_to 'Признай', new_user_attribution_path(@user), class: :action
 
+  %section.solutions
+    - if @user.visible_solutions_by(current_user).present?
+      %h2
+        Решения
+      %table.solutions
+        %thead
+          %tr
+            %th.name Задача
+            %th.points Точки
+            %th.results Изпълнение
+        %tbody
+          - @user.visible_solutions_by(current_user).each do |solution|
+            = render 'solutions/solution_preview', solution: solution, link_text: solution.task.name
+
   %section.posts
-    - if @topics.present?
+    - if @user.topics.present?
       %h2 Теми
-      %ul
-      - @topics.each do |topic|
-        %li
-          = link_to topic.title, topic
-    - if @topic_replies.present?
+      %ul.topics
+        - @user.topics.each do |topic|
+          %li{:class => ('starred' if topic.starred?)}
+            = link_to topic.title, topic
+    - if @user.topic_replies.present?
       %h2 Отговори
-      - @topic_replies.each do |topic, replies|
+      - @user.topic_replies.each do |topic, replies|
         %h3
           = link_to topic.title, topic
-        %ul
+        %ul.replies
           - replies.each do |reply|
-            %li
-              = link_to reply.body_preview(77), post_path(reply)
-
-
-
+            %li{:class => ('starred' if reply.starred?)}
+              = link_to reply.body.truncate(77), post_path(reply)
 
