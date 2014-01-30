@@ -5,5 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
+    @topics = Topic.where(user: @user)
+    @topic_replies = Reply.where(user: @user).group_by &:topic
   end
 end

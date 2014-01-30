@@ -20,6 +20,9 @@ describe UsersController do
 
     before do
       User.stub find: user
+      Topic.stub where: user
+      Reply.stub where: user
+      user.stub :group_by
     end
 
     it "looks up the user by id" do
