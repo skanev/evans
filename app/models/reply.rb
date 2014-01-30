@@ -13,12 +13,4 @@ class Reply < Post
     replies_before_this = topic.replies.where('id < ?', id).count
     replies_before_this / Reply.per_page + 1
   end
-
-  def body_preview(limit)
-    if body.length <= limit
-      body
-    else
-      "#{body[0...limit]}..."
-    end
-  end
 end

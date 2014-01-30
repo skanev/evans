@@ -62,8 +62,4 @@
         %ul
           - replies.each do |reply|
             %li
-              = link_to reply.body_preview(77), post_path(reply)
-
-
-
-
+              = link_to reply.body.truncate(77), post_path(reply)

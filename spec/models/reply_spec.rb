@@ -35,14 +35,6 @@ describe Reply do
     reply.topic_title.should eq 'Topic title'
   end
 
-  it "gives a short preview of its body with limited length when asked for a body preview" do
-    topic = create :topic, title: 'Topic title'
-    reply = create :reply, topic: topic, body: 'Nяnяnяя'
-
-    reply.body_preview(1).should eq 'N...'
-    reply.body_preview(8).should eq 'Nяnяnяя'
-  end
-
   it_behaves_like 'Post' do
     let(:post) { create :reply }
     let(:starred_post) { create :reply, starred: true }
