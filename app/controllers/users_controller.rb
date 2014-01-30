@@ -7,5 +7,8 @@ class UsersController < ApplicationController
     @user = User.find params[:id]
     @topics = Topic.where(user: @user)
     @topic_replies = Reply.where(user: @user).group_by &:topic
+    @visible_solutions = @user.solutions.select do |solution|
+      solution.visible_to? current_user
+    end
   end
 end

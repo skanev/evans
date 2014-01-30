@@ -1,7 +1,7 @@
 .solution
   %h1 Решение на #{@solution.task_name} от #{@solution.user_name}
 
-  %p= link_to 'Обратно към всички решения', task_solutions_path(@solution.task)
+  %p= link_to 'Към всички решения', task_solutions_path(@solution.task)
   %p= link_to "Към профила на #{@solution.user_name}", @solution.user
 
   - if show_results? @solution.task

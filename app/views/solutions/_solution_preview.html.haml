@@ -1,0 +1,6 @@
+%tr
+  %td.name= link_to link_text, [solution.task, solution]
+  %td.points
+    - if show_results? solution.task
+      Точки: <span data-points>#{solution.total_points}</span> (<span data-adjustment>#{solution. adjustment}</span> добавка)
+  %td.results <span class="passed">Успешни тестове:</span> #{solution.passed_tests}<span class="failed">, Неуспешни тестове:</span> #{solution.failed_tests}<span class="lines">, Редове:</span> #{solution.rows}<span class="comments">, Коментари:</span> #{solution.comments.count}

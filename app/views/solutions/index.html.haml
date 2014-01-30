@@ -24,11 +24,7 @@
       %th.name Име
       %th.points Точки
       %th.results Изпълнение
+
   %tbody
     - @solutions.each do |solution|
-      %tr
-        %td.name= link_to solution.user_name, [@task, solution]
-        %td.points
-          - if show_results? @task
-            Точки: <span data-points>#{solution.total_points}</span> (<span data-adjustment>#{solution.adjustment}</span> добавка)
-        %td.results <span class="passed">Успешни тестове:</span> #{solution.passed_tests}<span class="failed">, Неуспешни тестове:</span> #{solution.failed_tests}<span class="lines">, Редове:</span> #{solution.rows}<span class="comments">, Коментари:</span> #{solution.comments.count}
+      = render 'solutions/solution_preview', solution: solution, link_text: solution.user_name

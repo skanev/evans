@@ -23,6 +23,7 @@ describe UsersController do
       Topic.stub where: user
       Reply.stub where: user
       user.stub :group_by
+      user.stub(:solutions).and_return([])
     end
 
     it "looks up the user by id" do
