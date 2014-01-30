@@ -47,20 +47,6 @@
     %p
       = link_to 'Признай', new_user_attribution_path(@user), class: :action
 
-  %section.solutions
-    - if @visible_solutions.present?
-      %h2
-        Решения
-      %table.solutions
-        %thead
-          %tr
-            %th.name Задача
-            %th.points Точки
-            %th.results Изпълнение
-        %tbody
-          - @visible_solutions.each do |solution|
-            = render 'solutions/solution_preview', solution: solution, link_text: solution.task.name
-
   %section.posts
     - if @topics.present?
       %h2 Теми
@@ -76,4 +62,8 @@
         %ul
           - replies.each do |reply|
             %li
-              = link_to reply.body.truncate(77), post_path(reply)
+              = link_to reply.body_preview(77), post_path(reply)
+
+
+
+

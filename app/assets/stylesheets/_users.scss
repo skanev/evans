@@ -16,6 +16,9 @@ ul.users {
   dl dd { clear: right; margin: 5px 0; }
 
   .attributions, .posts, .solutions { @include content; }
+  .topics li { font-size: 22px; margin-top: 10px; }
+  .posts li.starred { background-color: #fffdd0; }
+
 }
 
 .avatar {
