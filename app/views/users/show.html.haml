@@ -46,3 +46,20 @@
   - if admin?
     %p
       = link_to 'Признай', new_user_attribution_path(@user), class: :action
+
+  %section.posts
+    - if @topics.present?
+      %h2 Теми
+      %ul
+      - @topics.each do |topic|
+        %li
+          = link_to topic.title, topic
+    - if @topic_replies.present?
+      %h2 Отговори
+      - @topic_replies.each do |topic, replies|
+        %h3
+          = link_to topic.title, topic
+        %ul
+          - replies.each do |reply|
+            %li
+              = link_to reply.body.truncate(77), post_path(reply)
