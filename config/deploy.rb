@@ -8,6 +8,7 @@ set :branch,        'master'
 set :user,          'pyfmi'
 set :user_and_host, 'pyfmi@deedee.hno3.org'
 set :use_sudo,      false
+set :sidekiq_role,  :sidekiq
 
 set :normalize_asset_timestamps, false
 

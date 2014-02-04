@@ -4,4 +4,3 @@ set :database_name, 'pyfmi_2012'
 role :web,     '2012.fmi.py-bg.net'
 role :app,     '2012.fmi.py-bg.net'
 role :db,      '2012.fmi.py-bg.net', primary: true
-role :sidekiq, '2012.fmi.py-bg.net'
