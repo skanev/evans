@@ -3,6 +3,9 @@ source 'http://rubygems.org'
 gem 'rails', '~> 4.0.0'
 gem 'pg'
 
+# Keep this until we upgrade to the latest Ruby version.
+gem 'json', '1.8.0'
+
 gem 'devise'
 gem 'devise-encryptable'
 gem 'simple_form'
