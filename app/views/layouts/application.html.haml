@@ -4,6 +4,7 @@
     %title= Language.course_name
     %meta(charset="utf-8")
     %link(rel="icon" type="image/png" href="#{asset_path("language/#{Language.language}/favicon.png")}")
+    %script{type: "text/javascript", src: "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"}
 
     = stylesheet_link_tag :application
     = javascript_include_tag :application
