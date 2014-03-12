@@ -21,7 +21,7 @@ make
 popd
 
 if [ ! -d $TARGET ]; then
-  echo "Expected the lectures to be compiled in $OUTPUT, but nothing found"
+  echo "Expected the lectures to be compiled in $TARGET, but nothing found"
   exit 1
 fi
 
