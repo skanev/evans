@@ -57,17 +57,4 @@ describe User do
       User.students.at_page('foo')
     end
   end
-
-  describe "generating fake faculty numbers" do
-    it "returns 'x00001' if no fakes in the database" do
-      User.next_fake_faculty_number.should eq 'x00001'
-    end
-
-    it "increments the largest fake faculty number if one exists" do
-      create :user, faculty_number: 'x00041'
-      create :user, faculty_number: 'x00004'
-
-      User.next_fake_faculty_number.should eq 'x00042'
-    end
-  end
 end

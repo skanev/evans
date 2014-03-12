@@ -9,6 +9,23 @@ class SignUp < ActiveRecord::Base
       return nil if token.blank?
       find_by_token(token)
     end
+
+    def next_fake_faculty_number
+      numbers = [User, SignUp].flat_map do |model|
+        model.
+          where("faculty_number LIKE 'x%'").
+          pluck(:faculty_number)
+      end
+
+      last_number = numbers.
+        map { |n| n[/^x(\d+)$/, 1] }.
+        compact.
+        map(&:to_i).
+        sort.
+        last || 0
+
+      sprintf 'x%05d', last_number + 1
+    end
   end
 
   def assign_to(email)

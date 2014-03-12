@@ -36,4 +36,24 @@ describe SignUp do
       sign_up.token.should =~ /^[a-z0-9]{40}$/
     end
   end
+
+  describe "generating fake faculty numbers" do
+    it "returns 'x00001' if no fakes in the database" do
+      SignUp.next_fake_faculty_number.should eq 'x00001'
+    end
+
+    it "increments the largest fake faculty number if one exists" do
+      create :user, faculty_number: 'x00041'
+      create :user, faculty_number: 'x00004'
+
+      SignUp.next_fake_faculty_number.should eq 'x00042'
+    end
+
+    it "checks the faculty numbers in sign-ups" do
+      create :user,    faculty_number: 'x00001'
+      create :sign_up, faculty_number: 'x00002'
+
+      SignUp.next_fake_faculty_number.should eq 'x00003'
+    end
+  end
 end
