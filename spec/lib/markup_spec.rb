@@ -30,10 +30,6 @@ describe Markup do
     Markup.format('').should be_html_safe
   end
 
-  it "does not generate superscripts" do
-    Markup.format('2^3').should eq '<p>2^3</p>'
-  end
-
   it "preserves embedded LaTeX" do
     Markup.format("$$ _foo_ \n _bar_ $$").should eq "<p>$$ _foo_ \n _bar_ $$</p>"
   end
