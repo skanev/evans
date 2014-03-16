@@ -30,6 +30,10 @@ describe Markup do
     Markup.format('').should be_html_safe
   end
 
+  it "does not generate superscripts" do
+    Markup.format('2^3').should eq '<p>2^3</p>'
+  end
+
   it "allows setting class on <pre>" do
     format('<pre class="baba"></pre>').should include('<pre class="baba"></pre>')
   end

@@ -5,7 +5,7 @@ module Markup
   SANITIZE_CONFIG[:attributes]['pre'] = ['class']
 
   def format(text)
-    result = RDiscount.new(text).to_html
+    result = compile_markdown(text)
     result = Sanitize.clean(result, SANITIZE_CONFIG)
     result, placeholders = extract_placeholders result
     result = result.gsub(EMOJI_PATTERN) { %(<img src="#{emoji_url($1)}" alt=":#$1:" class="emoji" />) }
@@ -33,6 +33,10 @@ module Markup
 
   def expand_placeholders(text, placeholders)
     text.gsub(%r[{{{(\d+)}}}]) { placeholders[$1.to_i] }
+  end
+
+  def compile_markdown(text)
+    RDiscount.new(text, :no_superscript).to_html
   end
 
   EMOJI = %w[-1 100 109 1234 8ball a ab abc abcd accept aerial_tramway airplane
