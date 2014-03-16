@@ -34,6 +34,10 @@ describe Markup do
     Markup.format('2^3').should eq '<p>2^3</p>'
   end
 
+  it "preserves embedded LaTeX" do
+    Markup.format("$$ _foo_ \n _bar_ $$").should eq "<p>$$ _foo_ \n _bar_ $$</p>"
+  end
+
   it "allows setting class on <pre>" do
     format('<pre class="baba"></pre>').should include('<pre class="baba"></pre>')
   end

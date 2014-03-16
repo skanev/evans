@@ -36,7 +36,16 @@ module Markup
   end
 
   def compile_markdown(text)
-    RDiscount.new(text, :no_superscript).to_html
+    placeholders = {}
+
+    text = text.gsub(/\$\$.*?\$\$/m) do |match|
+      number = placeholders.size
+      placeholders[number] = match
+      "{{{#{number}}}}"
+    end
+
+    text = RDiscount.new(text).to_html
+    text.gsub(%r[{{{(\d+)}}}]) { placeholders[$1.to_i] }
   end
 
   EMOJI = %w[-1 100 109 1234 8ball a ab abc abcd accept aerial_tramway airplane
