@@ -28,7 +28,6 @@ gem 'rdiscount'
 gem 'sanitize'
 gem 'coderay'
 
-gem 'exception_notification'
 gem 'jquery-rails'
 gem 'underscore-rails'
 
@@ -36,6 +35,10 @@ gem 'underscore-rails'
 gem 'sidekiq'
 gem 'slim'
 gem 'sinatra', require: false
+
+group :production do
+  gem 'exception_notification'
+end
 
 group :assets do
   gem 'sass-rails'
