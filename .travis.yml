@@ -8,5 +8,6 @@ before_install:
   - sudo apt-get install -qq aspell aspell-en libaspell-dev
 before_script:
   - cp config/database.yml.travis config/database.yml
+bundler_args: -j4 --without development production --quiet
 services:
   - redis-server
