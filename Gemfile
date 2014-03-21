@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'http://production.s3.rubygems.org'
 
 gem 'rails', '~> 4.0.0'
 gem 'pg'
