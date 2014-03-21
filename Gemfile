@@ -52,11 +52,11 @@ group :development, :test do
   gem 'guard'
   gem 'guard-livereload'
   gem 'guard-sass', require: false
-  gem 'capistrano', '~> 2.8'
   gem 'simplecov'
 end
 
 group :development do
+  gem 'capistrano', '~> 2.8'
   gem 'pry'
   gem 'letter_opener'
 end
