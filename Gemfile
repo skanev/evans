@@ -14,7 +14,6 @@ gem 'will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'draper'
-gem 'coveralls', require: false
 
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -52,7 +51,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'simplecov'
 end
 
 group :development do
@@ -74,6 +72,8 @@ group :test do
   gem 'timecop'
   gem 'webrat'
   gem 'email_spec'
+  gem 'simplecov'
+  gem 'coveralls', require: false
 end
 
 group :tasks do
