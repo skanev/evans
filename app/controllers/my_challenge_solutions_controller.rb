@@ -1,5 +1,5 @@
 class MyChallengeSolutionsController < ApplicationController
-  before_filter :require_user
+  before_action :require_user
 
   def show
     @challenge  = Challenge.find params[:challenge_id]

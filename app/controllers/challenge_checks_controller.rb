@@ -1,5 +1,5 @@
 class ChallengeChecksController < ApplicationController
-  before_filter :require_admin
+  before_action :require_admin
 
   def create
     challenge_id = params[:challenge_id]

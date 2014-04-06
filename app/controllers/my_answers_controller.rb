@@ -1,5 +1,5 @@
 class MyAnswersController < ApplicationController
-  before_filter :require_user
+  before_action :require_user
 
   def show
     @poll       = Poll.find params[:poll_id]
