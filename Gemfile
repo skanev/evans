@@ -14,7 +14,6 @@ gem 'will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'draper'
-gem 'coveralls', require: false
 
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -28,7 +27,6 @@ gem 'rdiscount'
 gem 'sanitize'
 gem 'coderay'
 
-gem 'exception_notification'
 gem 'jquery-rails'
 gem 'underscore-rails'
 
@@ -36,6 +34,10 @@ gem 'underscore-rails'
 gem 'sidekiq'
 gem 'slim'
 gem 'sinatra', require: false
+
+group :production do
+  gem 'exception_notification'
+end
 
 group :assets do
   gem 'sass-rails'
@@ -49,16 +51,15 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'guard'
-  gem 'guard-livereload'
-  gem 'guard-sass', require: false
-  gem 'capistrano', '~> 2.8'
-  gem 'simplecov'
 end
 
 group :development do
+  gem 'capistrano', '~> 2.8'
   gem 'pry'
   gem 'letter_opener'
+  gem 'guard'
+  gem 'guard-livereload'
+  gem 'guard-sass', require: false
 end
 
 group :test do
@@ -71,6 +72,8 @@ group :test do
   gem 'timecop'
   gem 'webrat'
   gem 'email_spec'
+  gem 'simplecov'
+  gem 'coveralls', require: false
 end
 
 group :tasks do
