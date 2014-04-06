@@ -1,5 +1,5 @@
 class ChallengesController < ApplicationController
-  before_filter :require_admin, except: %w[index show]
+  before_action :require_admin, except: %w(index show)
 
   def index
     @challenges = if admin?

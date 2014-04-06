@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_filter :require_admin, except: [:index, :show, :guide]
+  before_action :require_admin, except: %w(index show guide)
 
   def index
     @tasks = if admin?

@@ -1,5 +1,5 @@
 class SolutionsController < ApplicationController
-  before_filter :require_admin, only: :update
+  before_action :require_admin, only: :update
 
   def index
     @task = Task.find params[:task_id]

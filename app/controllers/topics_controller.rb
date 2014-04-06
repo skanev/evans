@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
-  before_filter :require_user, except: [:index, :show, :last_reply]
-  before_filter :authorize, only: [:edit, :update]
+  before_action :require_user, except: %w(index show last_reply)
+  before_action :authorize,    only: %w(edit update)
 
   def index
     @topics = Topic.boards_page params[:page] || 1
