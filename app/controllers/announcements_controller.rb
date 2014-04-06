@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  before_filter :require_admin, except: :index
+  before_action :require_admin, except: :index
 
   def index
     @announcements = Announcement.page params[:page]
