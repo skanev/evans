@@ -10,7 +10,6 @@ coverage/
 db/structure.sql
 public/stylesheets/trane.css
 public/uploads
-Sporkfile.rb
 BECK
 .DS_Store
 __pycache__

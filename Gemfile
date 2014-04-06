@@ -20,8 +20,6 @@ gem 'rails-observers'
 
 gem 'skeptic'
 
-gem 'spork-rails'
-
 gem 'rails_autolink', '>= 1.1.5'
 gem 'rdiscount'
 gem 'sanitize'
