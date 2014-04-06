@@ -59,8 +59,6 @@ class Activation
   end
 
   def attributes=(attributes)
-    attributes.each do |key, value|
-      send "#{key}=", value
-    end
+    attributes.each { |key, value| send "#{key}=", value }
   end
 end
