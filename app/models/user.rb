@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :rememberable, :trackable, :recoverable
 
-  validates_confirmation_of :password, unless: -> { password.blank? }
+  validates :password, confirmation: true, unless: -> { password.blank? }
 
   def points
     return 0 if admin?
