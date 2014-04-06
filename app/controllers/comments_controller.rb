@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :require_user
-  before_action :require_editable_comment, only: %w( edit update )
+  before_action :require_editable_comment, only: %w(edit update)
 
   def create
     @revision = Revision.find params[:revision_id]

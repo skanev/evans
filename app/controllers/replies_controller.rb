@@ -1,6 +1,6 @@
 class RepliesController < ApplicationController
   before_action :require_user, only: :create
-  before_action :authorize,    only: %w( edit update )
+  before_action :authorize,    only: %w(edit update)
 
   def create
     @topic = Topic.find params[:topic_id]
