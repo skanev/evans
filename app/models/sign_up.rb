@@ -1,7 +1,6 @@
 class SignUp < ActiveRecord::Base
-  validates_presence_of :full_name
-  validates_presence_of :faculty_number
-  validates_uniqueness_of :faculty_number
+  validates :full_name, presence: true
+  validates :faculty_number, presence: true, uniqueness: true
   validate :faculty_number_must_be_unique_across_users_too
 
   class << self

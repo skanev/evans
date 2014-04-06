@@ -5,8 +5,7 @@ class Activation
 
   attr_accessor :password, :password_confirmation
 
-  validates_presence_of :password
-  validates_confirmation_of :password
+  validates :password, presence: true, confirmation: true
 
   def initialize(sign_up)
     @sign_up = sign_up
