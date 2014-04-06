@@ -8,12 +8,10 @@ class Post < ActiveRecord::Base
   end
 
   def star
-    self.starred = true
-    save!
+    update_column(:starred, true)
   end
 
   def unstar
-    self.starred = false
-    save!
+    update_column(:starred, false)
   end
 end
