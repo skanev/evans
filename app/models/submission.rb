@@ -4,8 +4,9 @@ class Submission
 
   attr_reader :code
 
+  validates :code, presence: { message: 'не сте предали код' }
+
   validate :task_must_be_open
-  validates_presence_of :code, message: 'не сте предали код'
   validate :code_is_parsable_and_compliant_with_skeptic_requirements
 
   def initialize(user, task, code)

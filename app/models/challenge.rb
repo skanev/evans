@@ -1,8 +1,7 @@
 class Challenge < ActiveRecord::Base
-  validates :name, presence: true
-  validates :description, presence: true
-
   has_many :solutions, class_name: 'ChallengeSolution'
+
+  validates :name, :description, presence: true
 
   class << self
     def in_chronological_order

@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   belongs_to :user
 
-  validates_presence_of :body, :user_id
+  validates :body, :user_id, presence: true
 
   def editable_by?(user)
     user.present? and (user == self.user or user.admin?)

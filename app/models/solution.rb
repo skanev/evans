@@ -1,12 +1,12 @@
 class Solution < ActiveRecord::Base
-  validates_presence_of :user_id, :task_id
-  validates_uniqueness_of :user_id, scope: :task_id
-
   belongs_to :user
   belongs_to :task
 
   has_many :revisions, -> { order 'revisions.id ASC' }
   has_many :comments, -> { order 'comments.created_at ASC' }, through: :revisions
+
+  validates :user_id, :task_id, presence: true
+  validates :user_id, uniqueness: { scope: :task_id }
 
   delegate :max_points, :manually_scored?, to: :task
 
