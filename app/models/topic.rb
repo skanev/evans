@@ -1,9 +1,9 @@
 class Topic < Post
   has_many :replies, -> { order 'created_at ASC' }
 
-  validates_presence_of :title
-
   attr_accessible :title, :body
+
+  validates :title, presence: true
 
   def topic_title
     title

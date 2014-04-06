@@ -1,8 +1,8 @@
 class Announcement < ActiveRecord::Base
   self.per_page = 10
 
-  validates_presence_of :title
-  validates_presence_of :body
+  validates :title, presence: true
+  validates :body,  presence: true
 
   class << self
     def reverse_chronological

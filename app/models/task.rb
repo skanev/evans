@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
-  validates_presence_of :name, :description, :max_points
+  validates :name, :description, presence: true
+  validates :max_points, numericality: true, presence: true
   validate :restrictions_must_be_valid_yaml
-  validates_numericality_of :max_points
 
   has_many :solutions
 

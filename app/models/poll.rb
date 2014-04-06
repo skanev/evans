@@ -1,7 +1,7 @@
 class Poll < ActiveRecord::Base
-  attr_accessible :blueprint_yaml, :name
-
   has_many :answers, class_name: 'PollAnswer'
+
+  attr_accessible :blueprint_yaml, :name
 
   def blueprint
     YAML.load blueprint_yaml

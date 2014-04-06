@@ -6,8 +6,9 @@ class ChallengeSubmission
   attr_reader :user, :challenge
   attr_accessor :code
 
+  validates :code, presence: { message: 'не сте предали код' }
+
   validate :challenge_must_be_open
-  validates_presence_of :code, message: 'не сте предали код'
   validate :code_is_parsable
 
   def initialize(challenge, user, code)
