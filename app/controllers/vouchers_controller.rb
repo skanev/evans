@@ -1,5 +1,5 @@
 class VouchersController < ApplicationController
-  before_filter :require_admin
+  before_action :require_admin
 
   def index
     @vouchers = Voucher.all

@@ -1,5 +1,5 @@
 class TaskChecksController < ApplicationController
-  before_filter :require_admin
+  before_action :require_admin
 
   def create
     task_id = params[:task_id]
