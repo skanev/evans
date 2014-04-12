@@ -1,5 +1,5 @@
 class BackdoorController < ApplicationController
-  before_filter :prevent_from_execution_outside_test_environment
+  before_action :prevent_from_execution_outside_test_environment
 
   def login
     sign_in User.find_by_email!(params[:email])
