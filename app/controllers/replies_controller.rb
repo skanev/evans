@@ -4,7 +4,7 @@ class RepliesController < ApplicationController
 
   def create
     @topic = Topic.find params[:topic_id]
-    @reply = @topic.replies.build params[:reply]
+    @reply = @topic.replies.build reply_params
     @reply.user = current_user
 
     if @reply.save
@@ -27,7 +27,7 @@ class RepliesController < ApplicationController
   def update
     @reply = Reply.find params[:id]
 
-    if @reply.update_attributes params[:reply]
+    if @reply.update reply_params
       redirect_to [@reply.topic, @reply]
     else
       render :edit
@@ -35,6 +35,10 @@ class RepliesController < ApplicationController
   end
 
   private
+
+  def reply_params
+    params.require(:reply).permit(%w(body user_id post_id))
+  end
 
   def authorize
     deny_access unless can_edit? Reply.find(params[:id])

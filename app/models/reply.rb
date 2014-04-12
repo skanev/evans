@@ -1,8 +1,6 @@
 class Reply < Post
   belongs_to :topic
 
-  attr_accessible :body
-
   validates :topic_id, presence: true
 
   def topic_title
