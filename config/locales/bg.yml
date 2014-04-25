@@ -72,7 +72,8 @@ bg:
         password_confirmation: Въведете паролата повторно
         remember_me: Запомни ме на този компютър
         photo: Снимка
-        github: 'Потребителско име в <a href="http://github.com/">GitHub</a>'
+        github: Потребителско име в GitHub
+        github_html: 'Потребителско име в <a href="http://github.com/">GitHub</a>'
         phone: Мобилен телефон
         site: Сайт
         about: Разкажете ни за себе си
