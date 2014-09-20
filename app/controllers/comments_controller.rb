@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  include AwardsContributions
+
   before_action :require_user
   before_action :require_editable_comment, only: %w(edit update)
   before_action :require_admin, only: %w(star unstar)
@@ -37,22 +39,12 @@ class CommentsController < ApplicationController
 
   def star
     comment = Comment.find params[:comment_id]
-    comment.star
-
-    respond_to do |wants|
-      wants.html { redirect_to comment_path(comment) }
-      wants.js { render json: {starred: true} }
-    end
+    star_contribution comment, and_redirect_to: comment_path(comment)
   end
 
   def unstar
     comment = Comment.find params[:comment_id]
-    comment.unstar
-
-    respond_to do |wants|
-      wants.html { redirect_to comment_path(comment) }
-      wants.js { render json: {starred: false} }
-    end
+    unstar_contribution comment, and_redirect_to: comment_path(comment)
   end
 
   private

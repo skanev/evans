@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  include Starrable
+
   belongs_to :user
   belongs_to :revision
 
@@ -15,15 +17,5 @@ class Comment < ActiveRecord::Base
 
   def user_name
     user.name
-  end
-
-  def star
-    self.starred = true
-    save!
-  end
-
-  def unstar
-    self.starred = false
-    save!
   end
 end

@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  include AwardsContributions
+
   before_action :require_admin, only: %w(star unstar)
 
   def show
@@ -13,21 +15,11 @@ class PostsController < ApplicationController
 
   def star
     post = Post.find params[:post_id]
-    post.star
-
-    respond_to do |wants|
-      wants.html { redirect_to post_path(post.id) }
-      wants.js { render json: {starred: true} }
-    end
+    star_contribution post, and_redirect_to: post_path(post.id)
   end
 
   def unstar
     post = Post.find params[:post_id]
-    post.unstar
-
-    respond_to do |wants|
-      wants.html { redirect_to post_path(post.id) }
-      wants.js { render json: {starred: false} }
-    end
+    unstar_contribution post, and_redirect_to: post_path(post.id)
   end
 end
