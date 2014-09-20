@@ -6,7 +6,7 @@ module ApplicationHelper
     css_classes << "admin" if user.admin?
 
     css_styles = []
-    css_styles += grayscale_filters_for(user) unless user.admin?
+    css_styles += grayscale_filters_for(user) if grayscale_user_thumbnails? and not user.admin?
 
     image_tag image, alt: user.name, class: css_classes, style: css_styles.join
   end
@@ -43,6 +43,11 @@ module ApplicationHelper
   end
 
   private
+
+  def grayscale_user_thumbnails?
+    Rails.application.config.respond_to? :grayscale_user_thumbnails and
+    Rails.application.config.grayscale_user_thumbnails
+  end
 
   def grayscale_filters_for(user)
     image_saturation = [user.points * 2, 100].min
