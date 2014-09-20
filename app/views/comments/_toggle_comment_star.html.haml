@@ -1,3 +1,0 @@
-%div
-  = link_to 'Махни звездичката', revision_comment_unstar_path(comment.revision, comment), :method => :delete, :remote => true, 'data-toggle-star' => 'unstar'
-  = link_to 'Дай звездичка', revision_comment_star_path(comment.revision, comment), :method => :post, :remote => true, 'data-toggle-star' => 'star'
