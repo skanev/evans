@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :require_user
   before_action :require_editable_comment, only: %w(edit update)
+  before_action :require_admin, only: %w(star unstar)
 
   def create
     @revision = Revision.find params[:revision_id]
@@ -31,6 +32,26 @@ class CommentsController < ApplicationController
       redirect_to @comment, notice: 'Коментарът е обновен успешно'
     else
       render :edit
+    end
+  end
+
+  def star
+    comment = Comment.find params[:comment_id]
+    comment.star
+
+    respond_to do |wants|
+      wants.html { redirect_to comment_path(comment) }
+      wants.js { render json: {starred: true} }
+    end
+  end
+
+  def unstar
+    comment = Comment.find params[:comment_id]
+    comment.unstar
+
+    respond_to do |wants|
+      wants.html { redirect_to comment_path(comment) }
+      wants.js { render json: {starred: false} }
     end
   end
 

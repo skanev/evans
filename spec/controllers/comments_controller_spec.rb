@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe CommentsController do
+  include CustomPaths
+
   describe "POST create" do
     log_in_as :student
 
@@ -140,6 +142,83 @@ describe CommentsController do
       comment.stub update_attributes: false
       put :update, revision_id: '1', id: '2'
       controller.should render_template :edit
+    end
+  end
+
+  describe "stars" do
+    log_in_as :admin
+
+    describe "POST create" do
+      let(:a_task) { mock_model(Task) }
+      let(:a_solution) { mock_model(Solution) }
+      let(:a_comment) { mock_model(Comment) }
+
+      before do
+        Comment.stub find: a_comment
+        a_comment.stub :star
+        a_comment.stub solution: a_solution
+        a_solution.stub task: a_task
+      end
+
+      it "denies access to non-admins" do
+        current_user.stub admin?: false
+        post :star, comment_id: '42', revision_id: '1'
+        response.should deny_access
+      end
+
+      it "looks up the comment by id" do
+        Comment.should_receive(:find).with('42')
+        post :star, comment_id: '42', revision_id: '1'
+      end
+
+      it "stars the comment" do
+        a_comment.should_receive(:star)
+        post :star, comment_id: '42', revision_id: '1'
+      end
+
+      it "redirects to the comment" do
+        post :star, comment_id: '42', revision_id: '1'
+        response.should redirect_to(comment_path(a_comment))
+      end
+    end
+
+    describe "DELETE destroy" do
+      let(:a_task) { mock_model(Task) }
+      let(:a_solution) { mock_model(Solution) }
+      let(:a_comment) { mock_model(Comment) }
+
+      before do
+        Comment.stub find: a_comment
+        a_comment.stub :star
+        a_comment.stub solution: a_solution
+        a_solution.stub task: a_task
+      end
+
+      before do
+        Comment.stub find: a_comment
+        a_comment.stub :unstar
+      end
+
+      it "denies access to non-admins" do
+        current_user.stub admin?: false
+        delete :unstar, comment_id: '42', revision_id: '1'
+        response.should deny_access
+      end
+
+      it "looks up the comment by id" do
+        Comment.should_receive(:find).with('42')
+        delete :unstar, comment_id: '42', revision_id: '1'
+      end
+
+      it "unstars the comment" do
+        a_comment.should_receive(:unstar)
+        delete :unstar, comment_id: '42', revision_id: '1'
+      end
+
+      it "redirects to the comment" do
+        delete :unstar, comment_id: '42', revision_id: '1'
+        response.should redirect_to(comment_path(a_comment))
+      end
     end
   end
 end

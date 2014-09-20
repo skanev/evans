@@ -1,5 +1,7 @@
 ol.topic {
-  > li { @include contribution; }
+  > li {
+    > article { @include contribution; }
+  }
   .body p:first-child { margin-top: 0; }
   pre code { overflow-x: auto; }
 }

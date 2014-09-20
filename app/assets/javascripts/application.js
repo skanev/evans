@@ -6,7 +6,7 @@
  *
  *= require_self
  *
- *= require message_boards
+ *= require contribution
  *= require tasks
  */
 

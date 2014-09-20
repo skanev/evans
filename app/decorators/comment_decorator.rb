@@ -13,6 +13,14 @@ class CommentDecorator < ContributionDecorator
     model
   end
 
+  def star_link
+    h.toggle_comment_star_link model if h.admin?
+  end
+
+  def starred?
+    model.starred?
+  end
+
   def edit_path
     [:edit, model.revision, model]
   end
