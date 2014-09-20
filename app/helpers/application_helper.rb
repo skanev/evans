@@ -1,16 +1,4 @@
 module ApplicationHelper
-  def user_thumbnail(user, version = :size150)
-    image = user.photo.try(:url, version) || image_path("photoless-user/#{version}.png")
-
-    css_classes = %w(avatar)
-    css_classes << "admin" if user.admin?
-
-    css_styles = []
-    css_styles += grayscale_filters_for(user) if grayscale_user_thumbnails? and not user.admin?
-
-    image_tag image, alt: user.name, class: css_classes, style: css_styles.join
-  end
-
   def markup(text, options = {})
     options = options.reverse_merge auto_link: true
 
@@ -40,21 +28,5 @@ module ApplicationHelper
 
   def format_code(code)
     CodeRay.scan(code, Language.language).html(line_numbers: :table, bold_every: false, line_number_anchors: false, css: :class).html_safe
-  end
-
-  private
-
-  def grayscale_user_thumbnails?
-    Rails.application.config.respond_to? :grayscale_user_thumbnails and
-    Rails.application.config.grayscale_user_thumbnails
-  end
-
-  def grayscale_filters_for(user)
-    image_saturation = [user.points * 2, 100].min
-    grayscale_level = 100 - image_saturation
-
-    ["-webkit-filter", "-moz-filter", "filter"].map do |filter_type|
-      "#{filter_type}: grayscale(#{grayscale_level}%);"
-    end
   end
 end
