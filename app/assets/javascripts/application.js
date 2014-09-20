@@ -6,7 +6,7 @@
  *
  *= require_self
  *
- *= require contribution
+ *= require contributions
  *= require tasks
  */
 
