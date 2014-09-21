@@ -162,22 +162,22 @@ describe CommentsController do
 
       it "denies access to non-admins" do
         current_user.stub admin?: false
-        post :star, comment_id: '42', revision_id: '1'
+        post :star, id: '42', revision_id: '1'
         response.should deny_access
       end
 
       it "looks up the comment by id" do
         Comment.should_receive(:find).with('42')
-        post :star, comment_id: '42', revision_id: '1'
+        post :star, id: '42', revision_id: '1'
       end
 
       it "stars the comment" do
         a_comment.should_receive(:star)
-        post :star, comment_id: '42', revision_id: '1'
+        post :star, id: '42', revision_id: '1'
       end
 
       it "redirects to the comment" do
-        post :star, comment_id: '42', revision_id: '1'
+        post :star, id: '42', revision_id: '1'
         response.should redirect_to(comment_path(a_comment))
       end
     end
@@ -201,22 +201,22 @@ describe CommentsController do
 
       it "denies access to non-admins" do
         current_user.stub admin?: false
-        delete :unstar, comment_id: '42', revision_id: '1'
+        delete :unstar, id: '42', revision_id: '1'
         response.should deny_access
       end
 
       it "looks up the comment by id" do
         Comment.should_receive(:find).with('42')
-        delete :unstar, comment_id: '42', revision_id: '1'
+        delete :unstar, id: '42', revision_id: '1'
       end
 
       it "unstars the comment" do
         a_comment.should_receive(:unstar)
-        delete :unstar, comment_id: '42', revision_id: '1'
+        delete :unstar, id: '42', revision_id: '1'
       end
 
       it "redirects to the comment" do
-        delete :unstar, comment_id: '42', revision_id: '1'
+        delete :unstar, id: '42', revision_id: '1'
         response.should redirect_to(comment_path(a_comment))
       end
     end

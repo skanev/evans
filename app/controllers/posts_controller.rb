@@ -14,12 +14,14 @@ class PostsController < ApplicationController
   end
 
   def star
-    post = Post.find params[:post_id]
+    post = Post.find params[:id]
+
     star_contribution post, and_redirect_to: post_path(post.id)
   end
 
   def unstar
-    post = Post.find params[:post_id]
+    post = Post.find params[:id]
+
     unstar_contribution post, and_redirect_to: post_path(post.id)
   end
 end

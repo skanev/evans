@@ -30,10 +30,11 @@ Trane::Application.routes.draw do
 
   resources :revisions, only: [] do
     resources :comments, only: %w(create edit update) do
-     # resource :star, only: %w(create destroy)
+      member do
+        post :star
+        delete :unstar
+      end
     end
-    post 'comments/:comment_id/star' => 'comments#star', :as => :comment_star
-    delete 'comments/:comment_id/unstar' => 'comments#unstar', :as => :comment_unstar
   end
 
   resources :topics, except: :destroy do
@@ -41,9 +42,12 @@ Trane::Application.routes.draw do
     resources :replies, except: %w(index new destroy)
   end
 
-  resources :posts, only: :show
-  post 'posts/:post_id/star' => 'posts#star', :as => :post_star
-  delete 'posts/:post_id/unstar' => 'posts#unstar', :as => :post_unstar
+  resources :posts, only: :show do
+    member do
+      post :star
+      delete :unstar
+    end
+  end
 
   resources :polls, except: %w(show destroy) do
     resource :my_answer, only: %w(show update)
