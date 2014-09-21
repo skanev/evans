@@ -39,11 +39,13 @@ class CommentsController < ApplicationController
 
   def star
     comment = Comment.find params[:id]
+
     star_contribution comment, and_redirect_to: comment_path(comment)
   end
 
   def unstar
     comment = Comment.find params[:id]
+
     unstar_contribution comment, and_redirect_to: comment_path(comment)
   end
 
