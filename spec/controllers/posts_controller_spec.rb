@@ -26,11 +26,14 @@ describe PostsController do
   describe "stars" do
     log_in_as :admin
 
-    describe "POST create" do
-      let(:a_post) { mock_model(Post) }
+    let(:a_post) { mock_model(Post) }
 
+    before do
+      Post.stub find: a_post
+    end
+
+    describe "POST create" do
       before do
-        Post.stub find: a_post
         a_post.stub :star
       end
 
@@ -57,10 +60,7 @@ describe PostsController do
     end
 
     describe "DELETE destroy" do
-      let(:a_post) { mock_model(Post) }
-
       before do
-        Post.stub find: a_post
         a_post.stub :unstar
       end
 

@@ -148,16 +148,18 @@ describe CommentsController do
   describe "stars" do
     log_in_as :admin
 
-    describe "POST create" do
-      let(:a_task) { mock_model(Task) }
-      let(:a_solution) { mock_model(Solution) }
-      let(:a_comment) { mock_model(Comment) }
+    let(:a_comment) { mock_model(Comment) }
 
+    before do
+      Comment.stub find: a_comment
+      solution = mock_model(Solution)
+      solution.stub task: mock_model(Task)
+      a_comment.stub solution: solution
+    end
+
+    describe "POST create" do
       before do
-        Comment.stub find: a_comment
         a_comment.stub :star
-        a_comment.stub solution: a_solution
-        a_solution.stub task: a_task
       end
 
       it "denies access to non-admins" do
@@ -183,19 +185,7 @@ describe CommentsController do
     end
 
     describe "DELETE destroy" do
-      let(:a_task) { mock_model(Task) }
-      let(:a_solution) { mock_model(Solution) }
-      let(:a_comment) { mock_model(Comment) }
-
       before do
-        Comment.stub find: a_comment
-        a_comment.stub :star
-        a_comment.stub solution: a_solution
-        a_solution.stub task: a_task
-      end
-
-      before do
-        Comment.stub find: a_comment
         a_comment.stub :unstar
       end
 
