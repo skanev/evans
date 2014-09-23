@@ -4,7 +4,7 @@
   - @users.each do |user|
     %li
       = link_to user do
-        = user_thumbnail user
+        = user_photo_for_avatar user
         = user.name
 
 = will_paginate @users

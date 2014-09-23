@@ -14,6 +14,6 @@
           %td.rank= breakdown.rank
           %td.photo
             = link_to user_path(breakdown.id) do
-              - breakdown_thumbnail breakdown
+              - user_photo_for_breakdown breakdown
           %td.name= link_to breakdown.name, user_path(breakdown.id)
           %td.points= breakdown.total

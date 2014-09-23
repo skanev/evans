@@ -32,7 +32,7 @@
       - @challenge.solutions.each do |solution|
         %article
           %header
-            .thumbnail= link_to user_thumbnail(solution.user, :size80), solution.user
+            .thumbnail= link_to user_photo_for_avatar(solution.user, :size80), solution.user
             %ul.results
               %li{class: challenge_solution_status(solution)}
                 = challenge_solution_status_text solution

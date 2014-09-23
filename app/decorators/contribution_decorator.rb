@@ -8,7 +8,7 @@ class ContributionDecorator < Draper::Decorator
   end
 
   def user_avatar
-    h.link_to h.user_thumbnail(model.user), model.user
+    h.link_to h.user_photo_for_avatar(model.user), model.user
   end
 
   def user_name

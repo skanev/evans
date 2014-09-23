@@ -3,7 +3,7 @@
   - if admin? or @user == current_user
     %p.faculty-number (№#{@user.faculty_number})
 
-  = user_thumbnail @user
+  = user_photo_for_avatar @user
 
   %dl
     - if @user.github.present?
