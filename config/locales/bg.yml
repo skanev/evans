@@ -78,6 +78,8 @@ bg:
         site: Сайт
         about: Разкажете ни за себе си
         comment_notification: Искам да получавам писма за коментари по решенията ми
+        task_notification: Искам да получавам писма за нови задачи
+        challenge_notification: Искам да получавам писма за нови предизвикателства
       sign_up:
         full_name: Три имена
         faculty_number: Факултетен номер
