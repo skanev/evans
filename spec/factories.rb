@@ -20,10 +20,6 @@ FactoryGirl.define do
     faculty_number
     full_name 'John D. Doe'
     name 'John Doe'
-
-    after(:stub) do |user|
-      user.stub(:points).and_return 0
-    end
   end
 
   factory :user_with_photo, parent: :user do

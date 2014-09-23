@@ -6,6 +6,7 @@ describe "users/show.html.haml" do
   before do
     view.stub admin?: false
     assign :user, user
+    user.stub(:points).and_return 0
   end
 
   context 'when a visitor is viewing a user profile' do
