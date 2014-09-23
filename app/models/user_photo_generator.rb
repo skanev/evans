@@ -1,4 +1,14 @@
-class GrayscaleStylist
+class UserPhotoGenerator
+  include ActionView::Helpers::AssetTagHelper
+
+  def generate_photo(image_path: image_path, user_points: points, css_classes: [], css_styles: [])
+    css_styles += css_filters_for_points(user_points)
+
+    image_tag image_path, class: css_classes, style: css_styles.join
+  end
+
+  private
+
   def css_filters_for_points(points)
     return [] unless grayscale_user_thumbnails?
 
@@ -9,8 +19,6 @@ class GrayscaleStylist
       "#{filter_type}: grayscale(#{grayscale_level}%);"
     end
   end
-
-  private
 
   def grayscale_user_thumbnails?
     Rails.application.config.try(:grayscale_user_thumbnails, false)
