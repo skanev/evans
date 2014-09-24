@@ -7,6 +7,7 @@ describe UsersController do
       sorted_students = double
 
       User.should_receive(:students).and_return(students)
+      students.should_receive(:includes).with(:points_breakdown).and_return(students)
       students.should_receive(:sorted).and_return(sorted_students)
       sorted_students.should_receive(:at_page).with('3').and_return('users')
 
