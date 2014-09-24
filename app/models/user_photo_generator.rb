@@ -1,8 +1,12 @@
 class UserPhotoGenerator
   include ActionView::Helpers::AssetTagHelper
 
-  def generate_photo(image_path: image_path, user_points: points, grayscale_photo: false, css_classes: [], css_styles: [])
-    css_styles += css_filters_for_points(user_points) if grayscale_user_thumbnails? and grayscale_photo
+  def generate_photo(image_path: image_path, user_points: points,
+                     grayscale_photo: false, css_classes: [], css_styles: [])
+
+    if grayscale_user_thumbnails? and grayscale_photo
+      css_styles += css_filters_for_points(user_points)
+    end
 
     image_tag image_path, class: css_classes, style: css_styles.join
   end
