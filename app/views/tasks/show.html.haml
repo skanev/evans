@@ -10,7 +10,11 @@
         = link_to 'Коментари към моето решение', @current_user_solution, class: :action
     = admin_only do
       - unless @task.hidden
-        = link_to 'Изпрати мейли', send_emails_task_path(@task), method: :create, class: :action, data: {confirm: 'Сигурен ли си, че искаш да изпратиш писма до всички за тази задача?'}
+        = link_to 'Изпрати мейли',
+                  send_emails_task_path(@task),
+                  method: :create,
+                  class: :action,
+                  data: {confirm: 'Сигурен ли си, че искаш да изпратиш писма до всички за тази задача?'}
 
   - if admin? or @task.closed?
     %p= link_to 'Предадени решения', task_solutions_path(@task)
