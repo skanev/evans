@@ -57,6 +57,6 @@ describe ChallengeMailer do
     it { should have_body_text 'John' }
     it { should have_body_text 'Challenge name' }
     it { should have_body_text challenge_url(challenge) }
-    it { should have_body_text time.strftime('%d.%m.%Y %H:%M') }
+    it { should have_body_text I18n.l(time) }
   end
 end

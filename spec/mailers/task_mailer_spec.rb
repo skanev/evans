@@ -57,6 +57,6 @@ describe TaskMailer do
     it { should have_body_text 'John' }
     it { should have_body_text 'Task name' }
     it { should have_body_text task_url(task) }
-    it { should have_body_text time.strftime('%d.%m.%Y %H:%M') }
+    it { should have_body_text I18n.l(time) }
   end
 end
