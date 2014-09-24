@@ -21,11 +21,15 @@ Trane::Application.routes.draw do
     end
     resource :my_solution, only: %w(show update)
     resource :check, controller: :task_checks, only: :create
+
+    post :send_emails, on: :member, to: 'email_notifications#new_task'
   end
 
   resources :challenges, except: :destroy do
     resource :my_solution, only: %w(show update), controller: :my_challenge_solutions
     resource :check, controller: :challenge_checks, only: :create
+
+    post :send_emails, on: :member, to: 'email_notifications#new_challenge'
   end
 
   resources :revisions, only: [] do
