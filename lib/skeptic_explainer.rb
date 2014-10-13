@@ -7,6 +7,7 @@ module SkepticExplainer
     lines_per_method:         'Най-много %d реда на метод',
     methods_per_class:        'Най-много %d метода в клас',
     line_length:              'Най-много %d символа на ред',
+    max_method_arity:         'Най-много %d аргумента на метод',
     no_trailing_whitespace:   'Без whitespace на края на реда',
     check_syntax:             'Изисква валиден синтаксис',
     no_global_variables:      'Забранява използването на глобални променливи',
