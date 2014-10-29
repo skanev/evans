@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Challenge do
   it { should validate_presence_of :name }
   it { should validate_presence_of :description }
+  it { should have_many(:solutions).order('created_at ASC') }
 
   it "challenge can tell if it is open" do
     create(:challenge, closes_at: 1.day.from_now).should_not be_closed
