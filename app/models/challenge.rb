@@ -11,10 +11,6 @@ class Challenge < ActiveRecord::Base
     def visible
       where(hidden: false).in_chronological_order
     end
-
-    def find_with_solutions_and_users(challenge_id)
-      includes(solutions: :user).find(challenge_id)
-    end
   end
 
   def closed?

@@ -26,10 +26,10 @@
 
   = markup @challenge.description, auto_link: false
 
-  - if @challenge.closed? or admin?
+  - if @solutions
     %h2 Решения
     .solutions
-      - @challenge.solutions.each do |solution|
+      - @solutions.each do |solution|
         %article
           %header
             .thumbnail= link_to user_thumbnail(solution.user, :size80), solution.user
