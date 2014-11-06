@@ -24,9 +24,16 @@ class ChallengesController < ApplicationController
   end
 
   def show
-    @challenge = Challenge.find_with_solutions_and_users params[:id]
+    @challenge = Challenge.find params[:id]
 
-    deny_access if @challenge.hidden? and not admin?
+    if @challenge.hidden? and not admin?
+      deny_access
+      return
+    end
+
+    if @challenge.closed? or admin?
+      @solutions = ChallengeSolution.for_challenge_with_users params[:id]
+    end
   end
 
   def edit

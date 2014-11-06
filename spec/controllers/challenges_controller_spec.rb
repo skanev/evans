@@ -94,10 +94,12 @@ describe ChallengesController do
     log_in_as :student
 
     let(:challenge) { double }
+    let(:solutions) { [double, double] }
 
     before do
-      Challenge.stub find_with_solutions_and_users: challenge
-      challenge.stub hidden?: false
+      Challenge.stub find: challenge
+      ChallengeSolution.stub for_challenge_with_users: solutions
+      challenge.stub hidden?: false, closed?: false
     end
 
     it "does not requrie a logged in user" do
@@ -107,13 +109,40 @@ describe ChallengesController do
     end
 
     it "looks up the challenge by id" do
-      Challenge.should_receive(:find_with_solutions_and_users).with('42')
+      Challenge.should_receive(:find).with('42')
       get :show, id: '42'
     end
 
     it "assigns the challenge" do
       get :show, id: '1'
       assigns(:challenge).should eq challenge
+    end
+
+    it "does not assign the solutions" do
+      get :show, id: '1'
+      assigns(:solutions).should be_nil
+    end
+
+    context "when closed" do
+      log_in_as :student
+
+      before do
+        challenge.stub closed?: true
+      end
+
+      it "assigns the solutions" do
+        get :show, id: '1'
+        assigns(:solutions).should eq solutions
+      end
+    end
+
+    context "when the user is admin" do
+      log_in_as :admin
+
+      it "assigns the solutions" do
+        get :show, id: '1'
+        assigns(:solutions).should eq solutions
+      end
     end
 
     context "when hidden" do
