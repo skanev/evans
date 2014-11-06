@@ -19,35 +19,20 @@ describe ChallengeSolution do
   end
 
   describe '#for_challenge_with_users' do
-    let(:second_solution) do
-      create :challenge_solution,
-             challenge_id: 1,
-             user_id:      1,
-             created_at:   1.day.ago
-    end
-
-    let(:first_solution) do
-      create :challenge_solution,
-             challenge_id: 1,
-             user_id:      2,
-             created_at:   2.days.ago
-    end
-
-    let(:unrelated_solution) do
-      create :challenge_solution,
-             challenge_id: 2,
-             user_id:      3,
-             created_at:   1.day.ago
+    before do
+      @second_solution    = create :challenge_solution, challenge_id: 1, user_id: 1, created_at: 1.day.ago
+      @first_solution     = create :challenge_solution, challenge_id: 1, user_id: 2, created_at: 2.day.ago
+      @unrelated_solution = create :challenge_solution, challenge_id: 2, user_id: 3, created_at: 1.day.ago
     end
 
     subject(:solutions) { ChallengeSolution.for_challenge_with_users(1) }
 
     it "retrieves all solutions by challenge id" do
-      solutions.should match_array [first_solution, second_solution]
+      solutions.should match_array [@first_solution, @second_solution]
     end
 
     it "retrieves solutions chronologically" do
-      solutions.should eq [first_solution, second_solution]
+      solutions.should eq [@first_solution, @second_solution]
     end
   end
 
