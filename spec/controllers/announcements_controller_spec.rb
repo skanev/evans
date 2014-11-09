@@ -28,7 +28,7 @@ describe AnnouncementsController do
   describe "POST create" do
     log_in_as :admin
 
-    let(:announcement) { double }
+    let(:announcement) { mock_model Announcement }
 
     before do
       Announcement.stub new: announcement
@@ -56,16 +56,30 @@ describe AnnouncementsController do
       post :create
     end
 
-    it "redirects to the list of announcements on success" do
+    it "redirects to the show page of the created announcement on success" do
       announcement.stub save: true
       post :create
-      response.should redirect_to(announcements_path)
+      response.should redirect_to(announcement)
     end
 
     it "redisplays the form on an error" do
       announcement.stub save: false
       post :create
       response.should render_template(:new)
+    end
+  end
+
+  describe "GET show" do
+    let(:announcement) { double }
+
+    before do
+      Announcement.stub find: announcement
+    end
+
+    it "assigns the announcement to @announcement" do
+      Announcement.should_receive(:find).with('42').and_return(announcement)
+      get :show, id: '42'
+      assigns(:announcement).should eq announcement
     end
   end
 
@@ -88,7 +102,7 @@ describe AnnouncementsController do
   describe "PUT update" do
     log_in_as :admin
 
-    let(:announcement) { double }
+    let(:announcement) { mock_model Announcement }
 
     before do
       Announcement.stub find: announcement
@@ -116,10 +130,10 @@ describe AnnouncementsController do
       put :update, id: '42', announcement: 'attributes'
     end
 
-    it "redirects to the announcements on success" do
+    it "redirects to the announcement show page on success" do
       announcement.stub update_attributes: true
       put :update, id: '42'
-      response.should redirect_to(announcements_path)
+      response.should redirect_to(announcement)
     end
 
     it "redisplays the form on failure" do

@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  before_action :require_admin, except: :index
+  before_action :require_admin, except: [:index, :show]
 
   def index
     @announcements = Announcement.page params[:page]
@@ -18,10 +18,14 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new params[:announcement]
 
     if @announcement.save
-      redirect_to announcements_path, notice: 'Новината е създадена. Браво'
+      redirect_to @announcement, notice: 'Новината е създадена. Браво'
     else
       render :new
     end
+  end
+
+  def show
+    @announcement = Announcement.find params[:id]
   end
 
   def edit
@@ -32,7 +36,7 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.find params[:id]
 
     if @announcement.update_attributes params[:announcement]
-      redirect_to announcements_path, notice: 'Новината е обновена. Честито'
+      redirect_to @announcement, notice: 'Новината е обновена. Честито'
     else
       render :edit
     end

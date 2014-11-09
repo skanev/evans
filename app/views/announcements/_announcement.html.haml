@@ -1,5 +1,10 @@
+- single_announcement ||= false
+
 %article.announcement
-  %h2= announcement.title
+  - if single_announcement
+    %h1= announcement.title
+  - else
+    %h2= link_to announcement.title, announcement
   .published-at
     Публикувано на
     %time{:datetime => announcement.created_at.iso8601, :pubdate => :pubdate}
