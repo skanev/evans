@@ -69,6 +69,20 @@ describe AnnouncementsController do
     end
   end
 
+  describe "GET show" do
+    let(:announcement) { double }
+
+    before do
+      Announcement.stub find: announcement
+    end
+
+    it "assigns the announcement to @announcement" do
+      Announcement.should_receive(:find).with('42').and_return(announcement)
+      get :show, id: '42'
+      assigns(:announcement).should eq announcement
+    end
+  end
+
   describe "GET edit" do
     log_in_as :admin
 

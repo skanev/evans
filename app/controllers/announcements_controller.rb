@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  before_action :require_admin, except: :index
+  before_action :require_admin, except: [:index, :show]
 
   def index
     @announcements = Announcement.page params[:page]
@@ -22,6 +22,10 @@ class AnnouncementsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @announcement = Announcement.find params[:id]
   end
 
   def edit
