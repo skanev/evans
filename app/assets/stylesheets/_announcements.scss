@@ -1,3 +1,5 @@
+%publish-date { color: $hint; font-size: $font-small; margin-top: 5px; }
+
 #announcements {
   @include content;
 
@@ -5,6 +7,17 @@
     margin: 30px 0 30px 0;
 
     h2 { margin-bottom: 0; }
-    .published-at { color: $hint; font-size: $font-small; margin-top: 5px; }
+    h2 a { @include heading-2; }
+    .published-at { @extend %publish-date; }
+  }
+}
+
+#announcement {
+  @include content;
+
+  article.announcement {
+    margin: 0 0 30px 0;
+
+    .published-at { @extend %publish-date; }
   }
 }
