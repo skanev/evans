@@ -10,8 +10,8 @@
       - unless ChallengeCheckWorker.queued? @challenge.id
         = link_to 'Пусни тестовете', challenge_check_path(@challenge), method: :create, class: :action
     = admin_only do
-      - unless @challenge.hidden
-        = link_to 'Изпрати мейли',
+      - unless @challenge.hidden?
+        = link_to 'Извести студентите по имейл',
                   send_emails_challenge_path(@challenge),
                   method: :create,
                   class: :action,

@@ -13,7 +13,6 @@ class ChallengeMailer < ActionMailer::Base
     @challenge_url      = challenge_url(challenge)
     @challenge_end_date = challenge.closes_at
 
-    mail to: user.email,
-         subject: "Ново предизвикателство - #{challenge.name}"
+    mail to: user.email, subject: "Ново предизвикателство - #{challenge.name}"
   end
 end

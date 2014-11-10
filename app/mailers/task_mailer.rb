@@ -13,7 +13,6 @@ class TaskMailer < ActionMailer::Base
     @task_url      = task_url(task)
     @task_end_date = task.closes_at
 
-    mail to: user.email,
-         subject: "Нова задача - #{task.name}"
+    mail to: user.email, subject: "Нова задача - #{task.name}"
   end
 end
