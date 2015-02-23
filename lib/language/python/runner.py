@@ -73,6 +73,9 @@ class DiligentTestSuite(unittest.TestSuite):
                 pass
         super().__init__(tests)
 
+    def _removeTestAtIndex(self, index):
+        """Just to avoid our suite doing that..."""
+
 
 class DiligentTestLoader(unittest.loader.TestLoader):
     suiteClass = DiligentTestSuite
