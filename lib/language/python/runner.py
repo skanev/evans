@@ -106,6 +106,7 @@ def main(test_module):
             ).result
         except Exception as e:
             result = EmptyTestResult()
+            print(e)
             traceback.print_tb(e.__traceback__)
 
     failed = [str(test[0]) for test in result.failures + result.errors]
