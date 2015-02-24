@@ -73,6 +73,9 @@ class DiligentTestSuite(unittest.TestSuite):
                 pass
         super().__init__(tests)
 
+    def _removeTestAtIndex(self, index):
+        """Just to avoid our suite doing that..."""
+
 
 class DiligentTestLoader(unittest.loader.TestLoader):
     suiteClass = DiligentTestSuite
@@ -106,6 +109,7 @@ def main(test_module):
             ).result
         except Exception as e:
             result = EmptyTestResult()
+            print(e)
             traceback.print_tb(e.__traceback__)
 
     failed = [str(test[0]) for test in result.failures + result.errors]
