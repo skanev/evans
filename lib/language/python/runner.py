@@ -123,4 +123,6 @@ def main(test_module):
 
 
 if __name__ == '__main__':
+    initial_niceness = os.nice(0)
+    os.nice(10 - initial_niceness)
     print(json.dumps(main(sys.argv.pop())))
