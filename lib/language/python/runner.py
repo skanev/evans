@@ -3,7 +3,7 @@ import io
 import json
 import os
 import sys
-import threading
+import multiprocessing
 import unittest
 import traceback
 
@@ -37,7 +37,7 @@ def timeout(func):
     timeout_duration = 2
 
     def thread(*args, **kwargs):
-        class InterruptableThread(threading.Thread):
+        class InterruptableProcess(multiprocessing.Process):
             def __init__(self):
                 super().__init__()
                 self.result = None
@@ -49,16 +49,16 @@ def timeout(func):
                 except:
                     self.exc_info = sys.exc_info()
 
-        it = InterruptableThread()
-        it.start()
-        it.join(timeout_duration)
-        if it.is_alive():
-            it._stop()
+        test_process = InterruptableProcess()
+        test_process.start()
+        test_process.join(timeout_duration)
+        if test_process.is_alive():
+            test_process.terminate()
             raise TimeoutError
         else:
-            if it.exc_info:
-                raise it.exc_info[1]
-            return it.result
+            if test_process.exc_info:
+                raise test_process.exc_info[1]
+            return test_process.result
     return thread
 
 
