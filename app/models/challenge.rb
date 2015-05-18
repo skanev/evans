@@ -3,6 +3,8 @@ class Challenge < ActiveRecord::Base
 
   validates :name, :description, presence: true
 
+  after_create :post_notification
+
   class << self
     def in_chronological_order
       order('created_at ASC')
@@ -15,5 +17,12 @@ class Challenge < ActiveRecord::Base
 
   def closed?
     closes_at.past?
+  end
+
+  def post_notification
+    notification = Notification.new
+    notification.title = "Новo предизвикателство: #{name}"
+    notification.source = self
+    notification.save
   end
 end

@@ -8,6 +8,8 @@ class Task < ActiveRecord::Base
   scope :checked, -> { where checked: true }
   scope :in_chronological_order, -> { order 'created_at ASC' }
 
+  after_create :post_notification
+
   class << self
     def visible
       in_chronological_order.where(hidden: false)
@@ -44,5 +46,12 @@ class Task < ActiveRecord::Base
     YAML.load(restrictions)
   rescue Psych::SyntaxError
     errors.add :restrictions, :invalid
+  end
+
+  def post_notification
+    notification = Notification.new
+    notification.title = "Нова задача: #{name}"
+    notification.source = self
+    notification.save
   end
 end

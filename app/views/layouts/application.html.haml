@@ -21,6 +21,7 @@
         %ul
           - if user_signed_in?
             %li Здрасти, #{link_to current_user.name, edit_profile_path}
+            %li #{link_to 'Съобщения', notifications_path} (#{@notifications.count})
             %li= link_to 'Изход', destroy_user_session_path
           - else
             %li= link_to 'Вход', new_user_session_path

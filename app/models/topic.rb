@@ -1,5 +1,7 @@
 class Topic < Post
   has_many :replies, -> { order 'created_at ASC' }
+  
+  has_many :users, :through => :replies
 
   attr_accessible :title, :body
 
@@ -27,6 +29,10 @@ class Topic < Post
 
   def last_poster
     User.find(last_poster_id)
+  end
+
+  def participating_users
+    User
   end
 
   def last_post_at
