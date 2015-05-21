@@ -9,7 +9,9 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer :source_id
       t.string  :source_type
 
-      t.references  :user,      null: true
+      t.boolean :is_read, default: false
+
+      t.references  :user
 
       t.timestamps
     end

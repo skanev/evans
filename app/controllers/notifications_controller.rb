@@ -6,7 +6,8 @@ class NotificationsController < ApplicationController
 
   def show
     notification = Notification.find params[:id]
-    Notification.mark_read notification.id, current_user.id
+    notification.is_read = true
+    notification.save
     redirect_to notification.source
   end
 end

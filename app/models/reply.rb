@@ -1,4 +1,7 @@
 class Reply < Post
+
+  include GeneratesNotifications
+
   belongs_to :topic
   belongs_to :user
 
@@ -20,12 +23,6 @@ class Reply < Post
   private
 
   def post_notification
-    topic.users.each do |user|
-      notification = Notification.new
-      notification.title = "Новo отговор в тема: #{topic_title}"
-      notification.source = topic
-      notification.user = user
-      notification.save
-    end
+    generate_notifications_for topic.users, title: "Нов отговор в тема: #{topic_title}"
   end
 end

@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  include GeneratesNotifications
+
   validates :name, :description, presence: true
   validates :max_points, numericality: true, presence: true
   validate :restrictions_must_be_valid_yaml
@@ -49,9 +51,7 @@ class Task < ActiveRecord::Base
   end
 
   def post_notification
-    notification = Notification.new
-    notification.title = "Нова задача: #{name}"
-    notification.source = self
-    notification.save
+    generate_notifications_for User.all, title: "Нова задача: #{name}"
   end
+
 end
