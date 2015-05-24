@@ -3,7 +3,7 @@ class CreateNotifications < ActiveRecord::Migration
   
   def self.up
     create_table(:notifications) do |t|
-      t.string  :title, :null => false
+      t.string  :title, null: false
 
       # links to object that caused the notification
       t.integer :source_id
