@@ -1,6 +1,4 @@
 class Challenge < ActiveRecord::Base
-  include GeneratesNotifications
-  
   has_many :solutions, class_name: 'ChallengeSolution'
 
   validates :name, :description, presence: true
@@ -22,6 +20,6 @@ class Challenge < ActiveRecord::Base
   end
 
   def post_notification
-    generate_notifications_for User.all, title: "Новo предизвикателство: #{name}"
+    Notification.send_notifications_for self, to: User.all, title: "Новo предизвикателство: #{name}"
   end
 end
