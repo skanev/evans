@@ -31,10 +31,6 @@ class Topic < Post
     User.find(last_poster_id)
   end
 
-  def participating_users
-    User
-  end
-
   def last_post_at
     ActiveSupport::TimeZone['UTC'].parse(last_post_at_before_type_cast).in_time_zone
   end
