@@ -1,7 +1,7 @@
 class Topic < Post
   has_many :replies, -> { order 'created_at ASC' }
   
-  has_many :users, through: :replies
+  has_many :users, through: :replies, uniq: true
 
   attr_accessible :title, :body
 
