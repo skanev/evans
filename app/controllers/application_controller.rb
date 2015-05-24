@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include CustomPaths
   helper  CustomPaths
 
-  before_action :set_time_zone, :load_notifications
+  before_action :set_time_zone, :set_notifications_for_current_user
 
   helper_method :can_edit?, :logged_in?, :admin?
 
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     Time.zone = 'Sofia'
   end
 
-  def load_notifications
-    @notifications = Notification.unread_for_user current_user.id
+  def set_notifications_for_current_user
+    @notifications = Notification.unread_for_user current_user
   end
 end
