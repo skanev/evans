@@ -1,5 +1,4 @@
 class Reply < Post
-
   include GeneratesNotifications
 
   belongs_to :topic

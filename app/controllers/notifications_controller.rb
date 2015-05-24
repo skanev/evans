@@ -1,7 +1,5 @@
 class NotificationsController < ApplicationController
-
   def index
-    # @notifications = Notification.unread_for_user current_user.id
   end
 
   def show

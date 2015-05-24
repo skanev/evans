@@ -24,5 +24,4 @@ class Challenge < ActiveRecord::Base
   def post_notification
     generate_notifications_for User.all, title: "Новo предизвикателство: #{name}"
   end
-
 end

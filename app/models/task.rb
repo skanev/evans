@@ -53,5 +53,4 @@ class Task < ActiveRecord::Base
   def post_notification
     generate_notifications_for User.all, title: "Нова задача: #{name}"
   end
-
 end
