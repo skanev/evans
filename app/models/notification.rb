@@ -6,5 +6,10 @@ class Notification < ActiveRecord::Base
     def unread_for_user(id)
       where(user_id: id, is_read: false)
     end
+
+    def mark_as_read(notification)
+      notification.is_read = true
+      notification.save!
+    end
   end
 end
