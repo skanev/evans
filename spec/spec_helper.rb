@@ -44,5 +44,10 @@ Spork.each_run do
     config.include EmailSpec::Helpers, type: :mailer
     config.include EmailSpec::Matchers, type: :mailer
     config.include CustomPaths, type: :mailer
+    config.include Devise::TestHelpers, :type => :controller
+    
+    config.before(:each, type: :controller) do
+      allow(Notification).to receive(:unread_for_user).and_return([])
+    end
   end
 end
