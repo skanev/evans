@@ -49,6 +49,6 @@ class Task < ActiveRecord::Base
   end
 
   def post_notification
-    Notification.send_notifications_for self, to: User.all, title: "Нова задача: #{name}"
+    Notification.create_notifications_for self, to: User.all, title: "Нова задача: #{name}"
   end
 end

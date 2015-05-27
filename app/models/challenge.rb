@@ -20,6 +20,6 @@ class Challenge < ActiveRecord::Base
   end
 
   def post_notification
-    Notification.send_notifications_for self, to: User.all, title: "Новo предизвикателство: #{name}"
+    Notification.create_notifications_for self, to: User.all, title: "Новo предизвикателство: #{name}"
   end
 end

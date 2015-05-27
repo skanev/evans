@@ -20,6 +20,6 @@ class Reply < Post
   private
 
   def post_notification
-    Notification.send_notifications_for topic, to: topic.users, title: "Нов отговор в тема: #{topic_title}"
+    Notification.create_notifications_for topic, to: topic.participants, title: "Нов отговор в тема: #{topic_title}"
   end
 end

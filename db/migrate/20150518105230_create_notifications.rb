@@ -4,15 +4,9 @@ class CreateNotifications < ActiveRecord::Migration
   def self.up
     create_table(:notifications) do |t|
       t.string  :title, null: false
-
-      # links to object that caused the notification
-      t.integer :source_id
-      t.string  :source_type
-
-      t.boolean :is_read, default: false
-
+      t.references :source, polymorphic: true
+      t.boolean :read, default: false
       t.references  :user
-
       t.timestamps
     end
 

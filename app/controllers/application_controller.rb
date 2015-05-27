@@ -43,6 +43,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_notifications_for_current_user
-    @notifications = Notification.unread_for_user current_user
+    @notifications = Notification.unread_for_user(current_user) if user_signed_in?
   end
 end
