@@ -12,12 +12,14 @@ class Notification < ActiveRecord::Base
       where(user_id: user.id, read: false)
     end
 
-    def create_notifications_for(source, to: [], title: nil)
-      to.find_each do |user|
-        Notification.create do |notification|
-          notification.title = title
-          notification.source = source
-          notification.user = user
+    def create_notifications_for(source, to: nil, title: nil)
+      unless to.nil?
+        to.find_each do |user|
+          Notification.create do |notification|
+            notification.title = title
+            notification.source = source
+            notification.user = user
+          end
         end
       end
     end
