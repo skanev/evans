@@ -22,28 +22,28 @@ describe RepliesController do
 
     it "looks up the topic by params[:topic_id]" do
       Topic.should_receive(:find).with('42')
-      post :create, topic_id: '42'
+      post :create, topic_id: '42', reply: attributes_for(:reply)
     end
 
     it "builds a reply with params[:reply]" do
-      topic.replies.should_receive(:build).with('reply')
-      post :create, topic_id: '42', reply: 'reply'
+      topic.replies.should_receive(:build).with(attributes_for(:reply).with_indifferent_access)
+      post :create, topic_id: '42', reply: attributes_for(:reply)
     end
 
     it "assigns the current user to the reply" do
       reply.should_receive(:user=).with(current_user)
-      post :create, topic_id: '42'
+      post :create, topic_id: '42', reply: attributes_for(:reply)
     end
 
     it "saves the reply" do
       reply.should_receive(:save)
-      post :create, topic_id: '42'
+      post :create, topic_id: '42', reply: attributes_for(:reply)
     end
 
     context "when successful" do
       it "redirects to the reply" do
         reply.stub save: true
-        post :create, topic_id: '42'
+        post :create, topic_id: '42', reply: attributes_for(:reply)
         response.should redirect_to(topic_reply_path(topic, reply))
       end
     end
@@ -51,7 +51,7 @@ describe RepliesController do
     context "when unsuccessful" do
       it "redisplays the form" do
         reply.stub save: false
-        post :create, topic_id: '42'
+        post :create, topic_id: '42', reply: attributes_for(:reply)
         response.should render_template(:new)
       end
     end
@@ -101,35 +101,39 @@ describe RepliesController do
       Reply.stub find: reply
       reply.stub :update_attributes
       reply.stub topic: topic
+      reply.stub :save
       controller.stub can_edit?: true
     end
 
     it "denies access if the user cannot edit the reply" do
       controller.stub can_edit?: false
-      put :update, topic_id: 10, id: '20'
+      put :update, topic_id: 10, id: '20', reply: attributes_for(:reply)
+
       response.should deny_access
     end
 
     it "assigns the reply to @reply" do
       Reply.should_receive(:find).with('20')
-      put :update, topic_id: 10, id: '20'
+      put :update, topic_id: 10, id: '20', reply: attributes_for(:reply)
       assigns(:reply).should eq reply
     end
 
     it "updates the reply" do
-      reply.should_receive(:update_attributes).with('attributes')
-      put :update, topic_id: 10, id: '20', reply: 'attributes'
+      reply.should_receive(:update).with(attributes_for(:reply).with_indifferent_access)
+      put :update, topic_id: 10, id: '20', reply: attributes_for(:reply)
     end
 
     it "redirects to the topic if successful" do
-      reply.stub update_attributes: true
-      put :update, topic_id: 10, id: '20'
+      reply.stub update: true
+      put :update, topic_id: 10, id: '20', reply: attributes_for(:reply)
+
       response.should redirect_to(topic_reply_path(topic, reply))
     end
 
     it "redisplays the form if unsuccessful" do
       reply.stub update_attributes: false
-      put :update, topic_id: 10, id: '20'
+      put :update, topic_id: 10, id: '20', reply: attributes_for(:reply)
+
       response.should render_template(:edit)
     end
   end
