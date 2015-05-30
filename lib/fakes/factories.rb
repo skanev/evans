@@ -1,16 +1,16 @@
 FactoryGirl.define do
-  sequence(:fake_email) { |n| "person-#{n}@example.org" }
+  sequence(:fake_email)          { |n| "person-#{n}@example.org" }
   sequence(:fake_faculty_number) { |n| "%05d" % (10000 + n) }
-  sequence(:fake_token) { |n| "%040d" % n }
+  sequence(:fake_token)          { |n| "%040d" % n }
 
   factory :fake_sign_up, class: :sign_up do
     full_name { Faker.name }
     faculty_number
-  end
 
-  factory :fake_assigned_sign_up, parent: :fake_sign_up do
-    token
-    email
+    factory :fake_assigned_sign_up do
+      token
+      email
+    end
   end
 
   factory :fake_user, class: :user do
@@ -19,10 +19,8 @@ FactoryGirl.define do
     name { Faker::Name.name }
     full_name { Faker::Name.name }
     photo { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/fakes', %w[1.jpg 2.jpg 3.jpg 4.jpg].sample)) } unless Rails.env.test?
-  end
 
-  factory :fake_admin, parent: :fake_user do
-    admin true
+    factory(:fake_admin) { admin true }
   end
 
   factory :fake_topic, class: :topic do

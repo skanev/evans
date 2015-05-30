@@ -1,18 +1,18 @@
 FactoryGirl.define do
-  sequence(:email) { |n| "person-#{n}@example.org" }
+  sequence(:email)          { |n| "person-#{n}@example.org" }
   sequence(:faculty_number) { |n| "%05d" % n }
-  sequence(:token) { |n| "%040d" % n }
-  sequence(:voucher_code) { |n| "%08d" % n }
-  sequence(:quiz_name) { |n| "Quiz #{n}" }
+  sequence(:token)          { |n| "%040d" % n }
+  sequence(:voucher_code)   { |n| "%08d" % n }
+  sequence(:quiz_name)      { |n| "Quiz #{n}" }
 
   factory :sign_up do
     full_name 'John Doe'
     faculty_number
-  end
 
-  factory :assigned_sign_up, parent: :sign_up do
-    token
-    email
+    factory :assigned_sign_up do
+      token
+      email
+    end
   end
 
   factory :user do
@@ -20,20 +20,22 @@ FactoryGirl.define do
     faculty_number
     full_name 'John D. Doe'
     name 'John Doe'
-  end
 
-  factory :user_with_photo, parent: :user do
-    photo { Rack::Test::UploadedFile.new Rails.root.join('spec/fixtures/files/mind_flayer.jpg') }
-  end
+    factory :user_with_photo do
+      photo { Rack::Test::UploadedFile.new Rails.root.join('spec/fixtures/files/mind_flayer.jpg') }
+    end
 
-  factory :admin, parent: :user do
-    admin true
+    factory :admin do
+      admin true
+    end
   end
 
   factory :topic do
     title 'Title'
     body 'Body'
     user
+
+    factory(:starred_post) { starred true }
   end
 
   factory :reply do
@@ -42,12 +44,8 @@ FactoryGirl.define do
     user
   end
 
-  factory :starred_post, parent: :topic do
-    starred true
-  end
-
   factory :voucher do
-    code { FactoryGirl.generate(:voucher_code) }
+    code { generate :voucher_code }
   end
 
   factory :announcement do
@@ -63,21 +61,17 @@ FactoryGirl.define do
     hidden false
     manually_scored false
 
-    factory :closed_task
-    factory :automatically_scored_task
-
     factory :open_task do
       closes_at 1.week.from_now
       checked false
     end
 
-    factory :hidden_task do
-      hidden true
-    end
+    factory :closed_task
 
-    factory :manually_scored_task do
-      manually_scored true
-    end
+    factory :automatically_scored_task
+    factory(:manually_scored_task) { manually_scored true }
+
+    factory(:hidden_task) { hidden true }
   end
 
   factory :solution do
@@ -94,6 +88,10 @@ FactoryGirl.define do
         create_list :revision, evaluator.revisions_count, solution: solution, code: evaluator.code
       end
     end
+
+    factory :checked_solution do
+      association :task, factory: :closed_task
+    end
   end
 
   factory :revision do
@@ -107,12 +105,8 @@ FactoryGirl.define do
     body 'Body'
   end
 
-  factory :checked_solution, parent: :solution do
-    association :task, factory: :closed_task
-  end
-
   factory :quiz do
-    name { FactoryGirl.generate(:quiz_name) }
+    name { generate :quiz_name }
   end
 
   factory :quiz_result do
@@ -140,18 +134,9 @@ FactoryGirl.define do
     hidden false
 
     factory :visible_challenge
-
-    factory :hidden_challenge do
-      hidden true
-    end
-
-    factory :open_challenge do
-      closes_at 1.day.from_now
-    end
-
-    factory :closed_challenge do
-      closes_at 1.day.ago
-    end
+    factory(:hidden_challenge) { hidden true }
+    factory(:open_challenge)   { closes_at 1.day.from_now }
+    factory(:closed_challenge) { closes_at 1.day.ago }
   end
 
   factory :challenge_solution do
