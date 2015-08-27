@@ -59,7 +59,7 @@ group :development do
 end
 
 group :test do
-  gem 'cucumber', '1.2.5'
+  gem 'cucumber', '~> 1.2'
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'shoulda-matchers'
