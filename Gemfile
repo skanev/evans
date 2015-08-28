@@ -72,6 +72,7 @@ group :test do
   gem 'simplecov'
   gem 'coveralls', require: false
   gem 'test-unit'
+  gem 'rspec-activemodel-mocks'
 end
 
 group :tasks do
