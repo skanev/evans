@@ -171,7 +171,7 @@ describe SolutionsController do
 
       it "notifies the admin that there are no more unchecked solutions" do
         get :unscored, task_id: '1'
-        controller.should set_the_flash
+        controller.should set_flash
       end
     end
   end
