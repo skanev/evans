@@ -7,5 +7,5 @@ SimpleForm.setup do |config|
     wrappers.use :hint, wrap_with: {tag: :span, class: :hint}
     wrappers.use :error, wrap_with: {tag: :span, class: :error}
   end
-  config.label_text = lambda { |label, required| "#{label} #{required}" }
+  config.label_text = lambda { |label, required, is_explicit| "#{label} #{required}" }
 end
