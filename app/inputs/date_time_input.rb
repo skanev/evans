@@ -1,7 +1,7 @@
 class DateTimeInput < SimpleForm::Inputs::Base
   FORMAT = '%Y-%m-%d %H:%M:%S'
 
-  def input
+  def input(wrapper_options)
     timestamp = @builder.object.send(attribute_name)
     formatted = timestamp.try(:strftime, FORMAT)
 
