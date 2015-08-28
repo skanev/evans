@@ -46,14 +46,14 @@ describe Voucher do
       end
 
       it "returns false" do
-        Voucher.claim(impostor, voucher.code).should be_false
+        Voucher.claim(impostor, voucher.code).should be false
       end
     end
 
     context "an unexisting voucher" do
       it "returns false" do
         user = create :user
-        Voucher.claim(user, 'unexisting code').should be_false
+        Voucher.claim(user, 'unexisting code').should be false
       end
     end
   end

@@ -37,13 +37,13 @@ describe Submission do
     task = create :closed_task
 
     submission = Submission.new(user, task, 'code')
-    submission.submit.should be_false
+    submission.submit.should be false
     submission.should have_error_on :base
   end
 
   it "indicates if the submission is unsuccessful due to no code" do
     submission = Submission.new(user, task, '')
-    submission.submit.should be_false
+    submission.submit.should be false
     submission.should have_error_on :code
   end
 
@@ -51,7 +51,7 @@ describe Submission do
     Language.stub parsing?: false
 
     submission = Submission.new(user, task, 'unparsable code')
-    submission.submit.should be_false
+    submission.submit.should be false
     submission.should have_error_on :code
   end
 
@@ -79,7 +79,7 @@ describe Submission do
       task       = create :open_task, restrictions_hash: {'no_semicolons' => true}
       submission = Submission.new user, task, code
 
-      submission.submit.should be_false
+      submission.submit.should be false
       submission.should have_error_on :code
       submission.should be_violating_restrictions
       submission.violations.should include('You have a semicolon')

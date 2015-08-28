@@ -38,7 +38,7 @@ describe Activation do
     it "destroys the SignUp" do
       activation.submit valid_attributes
 
-      SignUp.exists?(id: sign_up.id).should be_false
+      SignUp.exists?(id: sign_up.id).should be false
     end
 
     it "can indicate which user it created" do
@@ -53,7 +53,7 @@ describe Activation do
     end
 
     it "returns false when the activation is invalid" do
-      activation.submit.should be_false
+      activation.submit.should be false
     end
   end
 end

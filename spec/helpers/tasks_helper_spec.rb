@@ -20,7 +20,7 @@ describe TasksHelper do
       task.stub checked?: false
       view.stub admin?: false
 
-      helper.show_results?(task).should be_false
+      helper.show_results?(task).should be false
     end
   end
 end

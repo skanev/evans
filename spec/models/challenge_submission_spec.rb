@@ -36,14 +36,14 @@ describe ChallengeSubmission do
       challenge  = create :closed_challenge
       submission = ChallengeSubmission.for challenge, user
 
-      submission.update(code: 'code').should be_false
+      submission.update(code: 'code').should be false
       submission.should have_error_on :base
     end
 
     it "verifies that the code submitted is parsable" do
       Language.stub parsing?: false
 
-      submission.update(code: 'unparsable code').should be_false
+      submission.update(code: 'unparsable code').should be false
       submission.should have_error_on :code
     end
 

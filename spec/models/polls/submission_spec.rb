@@ -67,7 +67,7 @@ module Polls
         submission = Submission.new poll, user
 
         expect do
-          submission.update('age' => '').should be_false
+          submission.update('age' => '').should be false
         end.not_to change(PollAnswer, :count)
 
         submission.should have_error_on(:age)

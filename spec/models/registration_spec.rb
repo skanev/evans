@@ -48,7 +48,7 @@ describe Registration do
 
     context "when invalid" do
       it "returns false if the record is not valid" do
-        registration('', '', '').create.should be_false
+        registration('', '', '').create.should be false
       end
 
       it "does not send email" do
