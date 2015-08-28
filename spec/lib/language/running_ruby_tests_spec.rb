@@ -4,9 +4,9 @@ describe "Running Ruby tests", ruby: true do
   before :all do
     @test_case_code = <<END.strip
 describe "Homework" do
-  it("succeeds once")   { true.should be_true }
+  it("succeeds once")   { true.should be true }
   it("succeeds thrice") { puts "Just to mess with you" }
-  it("fails once")      { true.should be_false }
+  it("fails once")      { true.should be false }
   it("succeeds twice")  { Homework.answer.should eq 42 }
   it("fails twice")     { 1.should eq 2 }
   it("errors once")     { raise RuntimeError }

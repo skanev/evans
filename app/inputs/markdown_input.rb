@@ -1,5 +1,5 @@
 class MarkdownInput < SimpleForm::Inputs::TextInput
-  def input
+  def input(wrapper_options)
     content = @builder.object.send(attribute_name) || ''
     input_html_options['data-contribution-input'] = true
 

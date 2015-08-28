@@ -13,18 +13,18 @@ describe AdminConstraint do
 
   it "does not match unauthenticated users" do
     warden.stub authenticate?: false
-    AdminConstraint.new.matches?(request).should be_false
+    AdminConstraint.new.matches?(request).should be false
   end
 
   it "does not match non-admins" do
     warden.stub authenticate?: true
     user.stub admin?: false
-    AdminConstraint.new.matches?(request).should be_false
+    AdminConstraint.new.matches?(request).should be false
   end
 
   it "matches admins" do
     warden.stub authenticate?: true
     user.stub admin?: true
-    AdminConstraint.new.matches?(request).should be_true
+    AdminConstraint.new.matches?(request).should be true
   end
 end

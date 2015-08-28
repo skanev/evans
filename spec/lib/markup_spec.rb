@@ -31,7 +31,7 @@ describe Markup do
   end
 
   it "preserves embedded LaTeX" do
-    Markup.format("$$ _foo_ \n _bar_ $$").should eq "<p>$$ _foo_ \n _bar_ $$</p>"
+    Markup.format("$$ _foo_ \n _bar_ $$").should eq "<p>$$ _foo_ \n _bar_ $$</p>\n"
   end
 
   it "allows setting class on <pre>" do

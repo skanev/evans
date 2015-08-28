@@ -85,7 +85,7 @@ FactoryGirl.define do
     task
 
     factory :solution_with_revisions do
-      ignore do
+      transient do
         code 'Code'
         revisions_count 1
       end
