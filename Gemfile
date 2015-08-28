@@ -73,6 +73,7 @@ group :test do
   gem 'coveralls', require: false
   gem 'test-unit'
   gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
 end
 
 group :tasks do

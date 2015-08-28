@@ -371,6 +371,7 @@ DEPENDENCIES
   rdiscount
   rspec
   rspec-activemodel-mocks
+  rspec-collection_matchers
   rspec-rails (~> 2.14)
   sanitize (~> 2.0)
   sass (~> 3.2.0)
