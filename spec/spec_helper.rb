@@ -35,6 +35,7 @@ Spork.each_run do
     config.mock_with :rspec
     config.use_transactional_fixtures = true
     config.filter_run_excluding python: true, clojure: true, go: true, ruby: true
+    config.infer_spec_type_from_file_location!
 
     config.include FactoryGirl::Syntax::Methods
     config.include Support::GeneralHelpers
