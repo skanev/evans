@@ -13,7 +13,7 @@ describe ChallengeChecker do
     solution.reload
     solution.passed_tests.should eq 2
     solution.failed_tests.should eq 1
-    solution.correct.should be_true
+    solution.correct.should be true
     solution.log.should eq 'log'
   end
 end

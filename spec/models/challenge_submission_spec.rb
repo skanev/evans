@@ -49,7 +49,7 @@ describe ChallengeSubmission do
 
     it "creates a solution if one is not present" do
       expect do
-        submission.update(code: 'ruby code').should be_true
+        submission.update(code: 'ruby code').should be true
       end.to change(ChallengeSolution, :count).by(1)
 
       solution = ChallengeSolution.first
@@ -61,7 +61,7 @@ describe ChallengeSubmission do
     it "updates the existing solution if one is present" do
       solution = create :challenge_solution, challenge: challenge, user: user, code: 'old code'
 
-      submission.update(code: 'new code').should be_true
+      submission.update(code: 'new code').should be true
 
       solution.reload.code.should eq 'new code'
     end

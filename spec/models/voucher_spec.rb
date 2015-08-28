@@ -31,7 +31,7 @@ describe Voucher do
       end
 
       it "returns true" do
-        Voucher.claim(user, voucher.code).should be_true
+        Voucher.claim(user, voucher.code).should be true
       end
     end
 

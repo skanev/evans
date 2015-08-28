@@ -54,7 +54,7 @@ module Polls
         submission = Submission.new poll, user
 
         expect do
-          submission.update('age' => '10').should be_true
+          submission.update('age' => '10').should be true
         end.to change(PollAnswer, :count).by(1)
 
         answer = PollAnswer.last

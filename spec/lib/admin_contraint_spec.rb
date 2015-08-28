@@ -25,6 +25,6 @@ describe AdminConstraint do
   it "matches admins" do
     warden.stub authenticate?: true
     user.stub admin?: true
-    AdminConstraint.new.matches?(request).should be_true
+    AdminConstraint.new.matches?(request).should be true
   end
 end

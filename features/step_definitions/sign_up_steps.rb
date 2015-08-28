@@ -13,5 +13,5 @@ end
 end
 
 То 'трябва да мога да регистрирам потребител "$name" с номер "$number"' do |name, number|
-  SignUp.exists?(full_name: name, faculty_number: number).should be_true
+  SignUp.exists?(full_name: name, faculty_number: number).should be true
 end

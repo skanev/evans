@@ -30,7 +30,7 @@ describe Submission do
 
   it "indicates if the submission is successful" do
     submission = Submission.new(user, task, 'new code')
-    submission.submit.should be_true
+    submission.submit.should be true
   end
 
   it "indicates if the submission is unsuccessful due to closed task" do
