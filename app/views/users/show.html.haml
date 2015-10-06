@@ -26,6 +26,7 @@
       %dt Поща
       %dd= @user.email
 
+    - if logged_in?
       %dt За вас
       %dd= @user.about
 
@@ -63,3 +64,4 @@
           - replies.each do |reply|
             %li
               = link_to reply.body.truncate(77), post_path(reply)
+              

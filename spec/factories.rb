@@ -20,6 +20,7 @@ FactoryGirl.define do
     faculty_number
     full_name 'John D. Doe'
     name 'John Doe'
+    about 'zdr'
   end
 
   factory :user_with_photo, parent: :user do
