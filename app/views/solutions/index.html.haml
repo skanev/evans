@@ -22,12 +22,20 @@
   %thead
     %tr
       %th.name Име
+      - if admin?
+        %th.reviewer Проверяващ
       %th.points Точки
       %th.results Изпълнение
   %tbody
     - @solutions.each do |solution|
       %tr
         %td.name= link_to solution.user_name, [@task, solution]
+        - if admin?
+          %td.reviewer
+            - if solution.reviewer
+              = user_thumbnail solution.reviewer, :size30
+            - else
+              = render 'solutions/review', info: '🔎', solution: solution
         %td.points
           - if show_results? @task
             Точки: <span data-points>#{solution.total_points}</span> (<span data-adjustment>#{solution.adjustment}</span> добавка)

@@ -27,6 +27,16 @@
     %h2 Лог от изпълнението
     %pre.test-log(data-toggleable data-show-text="Покажи лога" data-hide-text="Скрий лога")= @solution.log
 
+  - if admin? and @solution.reviewer
+    %h2 Проверяващ
+    = user_thumbnail @solution.reviewer
+
+    - if current_user == @solution.reviewer
+      = render 'solutions/abandon', solution: @solution
+
+  - elsif admin?
+    = render 'solutions/review', info: 'Стани проверяващ', solution: @solution
+
   - if admin?
     = render 'solutions/scoring', solution: @solution
 

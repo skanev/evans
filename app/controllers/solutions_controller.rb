@@ -42,4 +42,24 @@ class SolutionsController < ApplicationController
       redirect_to task_solutions_path(params[:task_id])
     end
   end
+
+  def review
+    solution = Solution.find params[:id]
+    if solution.reviewer.nil?
+      solution.update! reviewer: current_user
+      flash[:notice] = 'Ти си проверяващ за тази задача'
+    else
+      flash[:error] = 'Вече има проверяващ за тази задача'
+    end
+    redirect_to solution
+  end
+
+  def abandon
+    solution = Solution.find params[:id]
+    if solution.reviewer == current_user
+      solution.update! reviewer: nil
+      flash[:notice] = 'Вече не проверяваш задачата'
+    end
+    redirect_to solution
+  end
 end

@@ -1,6 +1,7 @@
 class Solution < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
+  belongs_to :reviewer, class_name: 'User'
 
   has_many :revisions, -> { order 'revisions.id ASC' }
   has_many :comments, -> { order 'comments.created_at ASC' }, through: :revisions

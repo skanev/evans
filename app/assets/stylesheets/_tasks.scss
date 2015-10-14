@@ -11,7 +11,10 @@ table.solutions {
 
   .points { width: 150px; white-space: nowrap; }
   .results { width: 180px; white-space: nowrap; }
+  .reviewer { width: 100px; padding: 0; white-space: nowrap; }
 
+  .reviewer img { display: block; margin: 0 auto; width: 30px; height: 30px; }
+  .reviewer input { margin-left: 31px; }
   .results span { display: inline-block; margin-left: 10px; }
   .results span:first-child { margin-left: 0; }
 
