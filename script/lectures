@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ -z "$REPOSITORY" -o -z "$BRANCH" ]; then
   echo "REPOSITORY and BRANCH should be set to a Git repository and a branch name"
   exit 1
