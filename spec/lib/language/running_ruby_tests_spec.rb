@@ -22,6 +22,22 @@ END
     results.failed_count.should eq 0
   end
 
+  it "does not depend on the CWD" do
+      solution = <<-EOF
+        module Homework
+          def self.answer; 42; end
+        end
+      EOF
+
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        results = Language::Ruby.run_tests(@test_case_code, solution)
+
+        results.log.should include("6 examples, 3 failures")
+      end
+    end
+  end
+
   describe "on successful run" do
     before(:all) do
       solution = <<-EOF

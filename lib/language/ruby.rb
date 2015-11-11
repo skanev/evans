@@ -35,8 +35,9 @@ Log output
     TempDir.for('spec.rb' => test, 'solution.rb' => solution) do |dir|
       spec_path     = dir.join('spec.rb')
       solution_path = dir.join('solution.rb')
+      runner_path   = File.expand_path("ruby/runner.rb", File.dirname(__FILE__))
 
-      output = `ruby lib/language/ruby/runner.rb #{spec_path} #{solution_path}`
+      output = `ruby #{runner_path} #{spec_path} #{solution_path}`
       json, log = output.split("\nLOG:\n", 2)
       results = JSON.parse json
 

@@ -21,6 +21,21 @@ END
     results.failed_count.should eq 0
   end
 
+  it "does not depend on the CWD" do
+    solution = <<-CODE
+(def answer 42)
+(print "Printing something")
+    CODE
+
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        results = Language::Clojure.run_tests(@test_case_code, solution)
+
+        results.log.should include("Ran 1 tests containing 6 assertions")
+      end
+    end
+  end
+
   describe "on successful run" do
     before(:all) do
       solution = <<-EOF

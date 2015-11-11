@@ -27,6 +27,21 @@ class SampleTest(unittest.TestCase):
 END
   end
 
+  it "does not depend on the CWD" do
+    solution = <<-CODE
+answer = 42
+print("This prints something")
+    CODE
+
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        results = Language::Python.run_tests(@test_case_code, solution)
+
+        results.log.should include("Ran 6 tests")
+      end
+    end
+  end
+
   it "handles solutions that raise a runtime error" do
     solution = 'import intertools'
     results = Language::Python.run_tests(@test_case_code, solution)

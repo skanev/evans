@@ -32,9 +32,10 @@ module Language::Python
 
   def run_tests(test, solution)
     TempDir.for('test.py' => test, 'solution.py' => solution) do |dir|
-      test_path = dir.join('test.py')
+      test_path   = dir.join('test.py')
+      runner_path = File.expand_path("python/runner.py", File.dirname(__FILE__))
 
-      results = JSON.parse `python3.4 lib/language/python/runner.py #{test_path}`
+      results = JSON.parse `python3.4 #{runner_path} #{test_path}`
 
       TestResults.new({
         log: results['log'] || '',

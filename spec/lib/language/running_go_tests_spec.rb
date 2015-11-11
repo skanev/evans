@@ -29,6 +29,18 @@ func TestThree(t *testing.T) {
 END
   end
 
+  it "does not depend on the CWD" do
+    solution = 'package main'
+
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        results = Language::Go.run_tests(@test_case_code, solution)
+
+        results.log.should include("FAIL: TestTwo")
+      end
+    end
+  end
+
   describe "on successful run" do
     before(:all) do
       solution = <<-EOF

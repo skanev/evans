@@ -34,7 +34,7 @@ module Language::Go
 
   def run_tests(test, solution)
     TempDir.for('solution_test.go' => test, 'solution.go' => solution) do |dir|
-      runner_path = File.expand_path("lib/language/go/runner.go")
+      runner_path = File.expand_path("go/runner.go", File.dirname(__FILE__))
       results     = nil
 
       FileUtils.cd(dir) do
