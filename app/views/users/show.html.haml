@@ -26,6 +26,7 @@
       %dt Поща
       %dd= @user.email
 
+    - if logged_in?
       %dt За вас
       %dd= @user.about
 

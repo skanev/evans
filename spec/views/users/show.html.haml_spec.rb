@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "users/show.html.haml" do
-  let(:user) { build_stubbed :user }
+  let(:user) { build_stubbed :user, about: 'I am a platypus.' }
 
   before do
     view.stub admin?: false
@@ -28,6 +28,11 @@ describe "users/show.html.haml" do
       render
       rendered.should_not have_content user.email
     end
+
+    it "does not show the about info" do
+      render
+      rendered.should_not have_content user.about
+    end
   end
 
   context 'when a user is viewing their own profile' do
@@ -49,6 +54,11 @@ describe "users/show.html.haml" do
     it "does not show the email" do
       render
       rendered.should_not have_content user.email
+    end
+
+    it "shows the about info" do
+      render
+      rendered.should have_content user.about
     end
   end
 
@@ -72,6 +82,11 @@ describe "users/show.html.haml" do
       render
       rendered.should_not have_content user.email
     end
+
+    it "shows the about info" do
+      render
+      rendered.should have_content user.about
+    end
   end
 
   context 'when an admin is viewing a profile' do
@@ -89,6 +104,11 @@ describe "users/show.html.haml" do
     it "shows the email" do
       render
       rendered.should have_content user.email
+    end
+
+    it "shows the about info" do
+      render
+      rendered.should have_content user.about
     end
   end
 end
