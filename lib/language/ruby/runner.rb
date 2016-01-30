@@ -24,8 +24,7 @@ Dir.mktmpdir do |dir|
     '--format',  'JsonFormatter',
     '--out',     json_path.to_s,
     '--format',  'progress',
-    :err => log_path.to_s,
-    :out => log_path.to_s
+    [:err, :out] => log_path.to_s
 
   if json_path.exist? and not json_path.read.empty?
     puts json_path.read
