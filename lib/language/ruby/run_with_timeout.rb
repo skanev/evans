@@ -2,6 +2,8 @@ require 'timeout'
 
 RSpec.configure do |config|
   config.around(:each) do |example|
-    Timeout::timeout(1, TimeoutError) { example.run }
+    timeout = example.metadata[:timeout] || 1
+
+    Timeout::timeout(timeout, TimeoutError) { example.run }
   end
 end

@@ -61,4 +61,40 @@ END
       @results.log.should include("6 examples, 3 failures")
     end
   end
+
+  describe "timeouts" do
+    let(:solution) do
+      <<-RUBY
+        module Homework
+          def self.answer
+            sleep 1.5
+          end
+        end
+      RUBY
+    end
+
+    it "default to one second per example" do
+      test_case = <<-RUBY
+        describe "Homework" do
+          it("timeouts") { Homework.answer }
+        end
+      RUBY
+
+      results = Language::Ruby.run_tests(test_case, solution)
+      results.failed_count.should eq 1
+      results.passed_count.should eq 0
+    end
+
+    it "can be configured per example" do
+      test_case = <<-RUBY
+        describe "Homework" do
+          it("timeouts", timeout: 2) { Homework.answer }
+        end
+      RUBY
+
+      results = Language::Ruby.run_tests(test_case, solution)
+      results.failed_count.should eq 0
+      results.passed_count.should eq 1
+    end
+  end
 end
