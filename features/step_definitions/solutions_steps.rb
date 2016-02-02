@@ -1,5 +1,6 @@
 Дадено 'че "$name" има следните решения:' do |name, table|
-  task = create :closed_task, name: name
+  task = Task.find_by_name(name)
+  task = create :closed_task, name: name unless task
 
   table.hashes.each do |row|
     attributes = {
@@ -9,6 +10,7 @@
       failed_tests: row['Неуспешни'],
       code: row['Код'],
       log: row['Лог'],
+      points: row['Точки'],
     }
 
     create :solution_with_revisions, attributes
