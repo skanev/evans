@@ -6,6 +6,10 @@ end
   create :open_task, name: name
 end
 
+Дадено 'че има непроверена задача "$name"' do |name|
+  create :unchecked_task, name: name
+end
+
 Дадено 'че има затворена задача "$name"' do |name|
   create :closed_task, name: name
 end

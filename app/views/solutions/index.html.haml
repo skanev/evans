@@ -31,4 +31,13 @@
         %td.points
           - if show_results? @task
             Точки: <span data-points>#{solution.total_points}</span> (<span data-adjustment>#{solution.adjustment}</span> добавка)
-        %td.results <span class="passed">Успешни тестове:</span> #{solution.passed_tests}<span class="failed">, Неуспешни тестове:</span> #{solution.failed_tests}<span class="lines">, Редове:</span> #{solution.rows}<span class="comments">, Коментари:</span> #{solution.comments.count}
+        %td.results
+          - if show_results? @task
+            %span.passed Успешни тестове:
+            = solution.passed_tests
+            %span.failed Неуспешни тестове:
+            = solution.failed_tests
+          %span.lines Редове:
+          = solution.rows
+          %span.comments Коментари:
+          = solution.comments.count

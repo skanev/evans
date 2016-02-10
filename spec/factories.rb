@@ -75,6 +75,10 @@ FactoryGirl.define do
       hidden true
     end
 
+    factory :unchecked_task do
+      checked false
+    end
+
     factory :manually_scored_task do
       manually_scored true
     end
