@@ -26,7 +26,7 @@ module Language::Python
   def parsing?(code)
     TempDir.for('code.py' => code) do |dir|
       code_path = dir.join('code.py')
-      system "python3.4 -m py_compile #{code_path} > /dev/null 2>&1"
+      system "python3.5 -m py_compile #{code_path} > /dev/null 2>&1"
     end
   end
 
@@ -35,7 +35,7 @@ module Language::Python
       test_path   = dir.join('test.py')
       runner_path = File.expand_path("python/runner.py", File.dirname(__FILE__))
 
-      results = JSON.parse `python3.4 #{runner_path} #{test_path}`
+      results = JSON.parse `python3.5 #{runner_path} #{test_path}`
 
       TestResults.new({
         log: results['log'] || '',
