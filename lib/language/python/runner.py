@@ -63,15 +63,19 @@ def timeout(func):
 
 
 class DiligentTestSuite(unittest.TestSuite):
-    def __init__(self, tests=[]):
+    def __init__(self, tests=()):
+        super().__init__()
         tests = [test for test in tests]
         for index, test in enumerate(tests):
             try:
                 test_method = getattr(test, test._testMethodName)
-                setattr(tests[index], test._testMethodName, timeout(test_method))
+                setattr(tests[index],
+                        test._testMethodName,
+                        timeoutable(test_method))
             except AttributeError:
                 pass
-        super().__init__(tests)
+
+        self.addTests(tests)
 
     def _removeTestAtIndex(self, index):
         """Just to avoid our suite doing that..."""
@@ -99,9 +103,9 @@ def main(test_module):
 
     with StdBuffer(buffer):
         try:
-            test = imp.load_source('test', test_module)
+            loaded_test = imp.load_source('test', test_module)
             result = unittest.main(
-                module=test,
+                module=loaded_test,
                 buffer=buffer,
                 exit=False,
                 testRunner=DiligentTextTestRunner,
