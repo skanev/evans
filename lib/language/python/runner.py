@@ -3,9 +3,11 @@ import io
 import json
 import os
 import sys
-import multiprocessing
 import unittest
 import traceback
+import multiprocessing
+
+TEST_PROCESS_TIMEOUT = 2  # in seconds.
 
 
 class StdBuffer:
@@ -29,49 +31,59 @@ class EmptyTestResult:
     log = ''
 
 
-def timeout(func):
-    """This decorator will spawn a thread and run the given function
-    using the args, kwargs and raise `TimeoutError` if the
-    `timeout_duration` (in seconds) is exceeded.
+def timeoutable(func):
+    """Run a test in a process with a timeout.
+
+    This decorator will spawn a process and run the given function using
+    the args, kwargs and raise `TimeoutError` if the
+    `TEST_PROCESS_TIMEOUT` (in seconds) is exceeded.
+
+    Both the result and exceptions are being passed through a pipe.
     """
-    timeout_duration = 2
 
     def thread(*args, **kwargs):
-        class InterruptableProcess(multiprocessing.Process):
-            def __init__(self):
-                super().__init__()
-                self.result = None
-                self.exc_info = None
 
-            def run(self):
-                try:
-                    self.result = func(*args, **kwargs)
-                except:
-                    self.exc_info = sys.exc_info()
+        def runner(*args, **kwargs):
+            conn = kwargs.pop('_conn')
+            try:
+                result = func(*args, **kwargs)
+                conn.send(result)
+            except Exception as e:
+                conn.send(e)
 
-        test_process = InterruptableProcess()
+        read_conn, write_conn = multiprocessing.Pipe()
+        kwargs['_conn'] = write_conn
+        test_process = multiprocessing.Process(
+            target=runner, args=args, kwargs=kwargs)
         test_process.start()
-        test_process.join(timeout_duration)
+        test_process.join(TEST_PROCESS_TIMEOUT)
+
         if test_process.is_alive():
             test_process.terminate()
             raise TimeoutError
         else:
-            if test_process.exc_info:
-                raise test_process.exc_info[1]
-            return test_process.result
+            result = read_conn.recv()
+            if isinstance(result, Exception):
+                raise result
+
+            return result
     return thread
 
 
 class DiligentTestSuite(unittest.TestSuite):
-    def __init__(self, tests=[]):
+    def __init__(self, tests=()):
+        super().__init__()
         tests = [test for test in tests]
         for index, test in enumerate(tests):
             try:
                 test_method = getattr(test, test._testMethodName)
-                setattr(tests[index], test._testMethodName, timeout(test_method))
+                setattr(tests[index],
+                        test._testMethodName,
+                        timeoutable(test_method))
             except AttributeError:
                 pass
-        super().__init__(tests)
+
+        self.addTests(tests)
 
     def _removeTestAtIndex(self, index):
         """Just to avoid our suite doing that..."""
@@ -99,9 +111,9 @@ def main(test_module):
 
     with StdBuffer(buffer):
         try:
-            test = imp.load_source('test', test_module)
+            loaded_test = imp.load_source('test', test_module)
             result = unittest.main(
-                module=test,
+                module=loaded_test,
                 buffer=buffer,
                 exit=False,
                 testRunner=DiligentTextTestRunner,
