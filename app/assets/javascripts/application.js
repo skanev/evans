@@ -8,6 +8,7 @@
  *
  *= require message_boards
  *= require tasks
+ *= require inline_comments
  */
 
 $.ajaxSetup({

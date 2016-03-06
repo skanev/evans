@@ -12,7 +12,7 @@ class SolutionHistory
   end
 
   def comments(revision)
-    revision.comments
+    revision.comments.non_inline
   end
 
   def comments_count

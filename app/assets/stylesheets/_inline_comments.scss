@@ -1,0 +1,88 @@
+.inline-comment-form { display: none; }
+
+.code .line {
+  position: relative;
+
+  .add-comment {
+    display: none;
+
+    position: absolute;
+    top: 0;
+    left: -10px;
+    z-index: 10;
+
+    width: 20px;
+    height: 20px;
+
+    font-weight: bold;
+    line-height: 15px;
+
+    padding: 0;
+
+    cursor: pointer;
+  }
+
+  &:hover .add-comment {
+    display: block;
+  }
+
+  .code-comments {
+    background-color: #f5f5f5;
+
+    .reply.btn { margin: 10px; }
+  }
+
+  &:first-of-type .code-comments { border-top-width: 0; }
+  &:last-of-type  .code-comments { border-bottom-width: 0; }
+
+  .inline-comment-form {
+    padding: 10px;
+
+    textarea {
+      display: block;
+
+      font-size: 14px;
+
+      width: 100%;
+      height: auto;
+      min-height: 120px;
+
+      border: 1px solid $light-border;
+      border-radius: 4px;
+
+      box-sizing: border-box;
+    }
+
+    .buttons { margin-top: 10px; }
+  }
+
+  .inline-comment {
+    min-height: 60px;
+    padding: 10px;
+
+    &:nth-child(2n) { background-color: white; }
+
+    aside { float: left; }
+
+    .body, .details {
+      margin-left: 70px;
+      margin-right: 10px;
+    }
+
+    .body {
+      font-size: 14px;
+
+      p { margin-bottom: 15px; }
+    }
+
+    .details {
+      font-size: 12px;
+
+      border-top: 1px solid $light-border;
+      padding-top: 5px;
+
+      .right { float: right; }
+      .permalink { color: $dark-text; }
+    }
+  }
+}

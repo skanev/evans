@@ -44,11 +44,13 @@ describe SolutionsController do
 
     let(:task) { double }
     let(:solution) { double 'solution' }
+    let(:solutions_with_includes) { double }
 
     before do
       Task.stub find: task
       SolutionHistory.stub :new
-      task.stub_chain :solutions, find: solution
+      task.stub_chain :solutions, includes: solutions_with_includes
+      solutions_with_includes.stub find: solution
       solution.stub :visible_to?
       solution.stub :last_revision
     end
@@ -70,7 +72,7 @@ describe SolutionsController do
     end
 
     it "assigns the solution" do
-      task.solutions.should_receive(:find).with('10').and_return(solution)
+      solutions_with_includes.should_receive(:find).with('10').and_return(solution)
 
       get :show, task_id: '42', id: '10'
 
@@ -87,6 +89,14 @@ describe SolutionsController do
       SolutionHistory.should_receive(:new).with(solution).and_return('solution history')
       get :show, task_id: '42', id: '10'
       assigns(:history).should eq 'solution history'
+    end
+
+    it "eager-loads revisions, comments and their users" do
+      task.solutions.should_receive(:includes).with(revisions: [comments: [:user]]).and_return(
+        solutions_with_includes
+      )
+
+      get :show, task_id: '42', id: '10'
     end
   end
 

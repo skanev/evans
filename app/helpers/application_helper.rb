@@ -33,8 +33,4 @@ module ApplicationHelper
   def tip_of_the_day
     render 'common/tip_of_the_day', tip: Tip.current
   end
-
-  def format_code(code)
-    CodeRay.scan(code, Language.language).html(line_numbers: :table, bold_every: false, line_number_anchors: false, css: :class).html_safe
-  end
 end

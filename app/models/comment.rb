@@ -9,8 +9,15 @@ class Comment < ActiveRecord::Base
   delegate :solution, to: :revision
   delegate :task, :task_name, to: :solution
 
+  scope :inline, -> { where.not line_number: nil }
+  scope :non_inline, -> { where line_number: nil }
+
   def editable_by?(user)
     self.user == user or user.try(:admin?)
+  end
+
+  def inline?
+    not line_number
   end
 
   def user_name

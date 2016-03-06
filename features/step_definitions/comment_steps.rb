@@ -27,8 +27,10 @@ end
 
   visit solution_path(solution)
 
-  fill_in 'Коментар', with: comment
-  click_on 'Коментирай'
+  within '#new_comment' do
+    fill_in 'Коментар', with: comment
+    click_on 'Коментирай'
+  end
 end
 
 Когато 'коментирам решението си с:' do |comment|
@@ -36,8 +38,10 @@ end
 
   visit solution_path(solution)
 
-  fill_in 'Коментар', with: comment
-  click_on 'Коментирай'
+  within '#new_comment' do
+    fill_in 'Коментар', with: comment
+    click_on 'Коментирай'
+  end
 end
 
 Когато 'опитам да оставя празен коментар на решението на "$user_name"' do |user_name|
@@ -46,7 +50,9 @@ end
 
   visit solution_path(solution)
 
-  click_on 'Коментирай'
+  within '#new_comment' do
+    click_on 'Коментирай'
+  end
 end
 
 Когато 'променя коментара си на "$comment"' do |comment_body|
@@ -67,8 +73,10 @@ end
 
   visit solution_path(solution)
 
-  fill_in 'Коментар', with: 'Something'
-  click_on 'Коментирай'
+  within '#new_comment' do
+    fill_in 'Коментар', with: 'Something'
+    click_on 'Коментирай'
+  end
 end
 
 То 'трябва да виждам версия "$revision"' do |code|

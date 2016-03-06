@@ -14,7 +14,7 @@ class SolutionsController < ApplicationController
 
   def show
     @task          = Task.find params[:task_id]
-    @solution      = @task.solutions.find params[:id]
+    @solution      = @task.solutions.includes(revisions: [comments: [:user]]).find params[:id]
     @history       = SolutionHistory.new @solution
     @last_revision = @solution.last_revision
 

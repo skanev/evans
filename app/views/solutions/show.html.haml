@@ -21,7 +21,7 @@
         %li.failed-tests #{@solution.failed_tests} неуспешни тест(а)
 
   %h2 Код
-  = format_code @solution.code
+  = code_with_comments @last_revision, @solution.commentable_by?(current_user)
 
   - if show_results?(@solution.task) and @solution.log.present?
     %h2 Лог от изпълнението
@@ -35,7 +35,8 @@
     %article.revision
       %h3 #{@solution.user.first_name} обнови решението на #{l revision.created_at} (преди #{time_ago_in_words revision.created_at})
 
-      %div(data-toggleable data-show-text="Покажи кода" data-hide-text="Скрий кода")= format_code @history.code_for revision
+      %div(data-toggleable data-show-text="Покажи кода" data-hide-text="Скрий кода")
+        = code_with_comments revision, @solution.commentable_by?(current_user)
 
       - @history.comments(revision).each do |comment|
         = contribution comment

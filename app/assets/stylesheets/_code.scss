@@ -1,0 +1,32 @@
+.code {
+  border: 1px solid $light-border;
+  border-radius: 4px;
+
+  .line { float: none; }
+
+  .CodeRay {
+    border: none;
+    padding: 0;
+  }
+}
+
+.code .line {
+  .line-numbers {
+    // Inserting the numbers this way prevents selecting and copying them with the code
+    &::before { content: attr(data-line-number); }
+
+    display: inline-block;
+
+    margin-right: 10px;
+    text-align: right;
+    min-width: 30px;
+    padding-right: 10px;
+
+    background-color: #f5f5f5;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
