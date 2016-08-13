@@ -17,7 +17,7 @@ class Comment < ActiveRecord::Base
   end
 
   def inline?
-    not line_number
+    line_number != nil
   end
 
   def user_name

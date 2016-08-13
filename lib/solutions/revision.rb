@@ -26,11 +26,11 @@ module Solutions
     end
 
     def comments
-      @model.comments.non_inline
+      @model.comments.reject(&:inline?)
     end
 
     def inline_comments_on_self
-      @model.comments.inline.group_by(&:line_number)
+      @model.comments.select(&:inline?).group_by(&:line_number)
     end
 
     def inline_comments

@@ -21,4 +21,18 @@ describe Comment do
       comment.should_not be_editable_by build(:user)
     end
   end
+
+  describe '#inline?' do
+    it 'is true for inline comments' do
+      comment = build :inline_comment
+
+      expect(comment).to be_inline
+    end
+
+    it 'is false for non-inline comments' do
+      comment = build :comment
+
+      expect(comment).to_not be_inline
+    end
+  end
 end
