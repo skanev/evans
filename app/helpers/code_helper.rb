@@ -1,11 +1,8 @@
 module CodeHelper
-  def format_code(code)
-    CodeRay.scan(code, Language.language).html(
-      line_numbers: :table,
-      bold_every: false,
-      line_number_anchors: false,
-      css: :class
-    ).html_safe
+  def format_code(code_text, language=Language.language)
+    formatted_code = FormattedCode::Code.new(code_text, language, [])
+
+    render '_formatted_code/code', code: formatted_code, commentable: false
   end
 
   def code_with_comments(formatted_code, commentable, form_partial=nil, *form_partial_args)

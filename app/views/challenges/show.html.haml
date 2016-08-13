@@ -30,7 +30,7 @@
     %h2 Решения
     .solutions
       - @solutions.each do |solution|
-        %article
+        %article{class: challenge_solution_status(solution)}
           %header
             .thumbnail= link_to user_thumbnail(solution.user, :size80), solution.user
             %ul.results
@@ -39,7 +39,7 @@
               %li.passed-tests #{solution.passed_tests} успешни тест(а)
               %li.failed-tests #{solution.failed_tests} неуспешни тест(а)
           = link_to solution.user.name, solution.user
-          .code{class: challenge_solution_status(solution)}= format_code solution.code
+          = format_code solution.code
 
           - if solution.log.present? and (@challenge.checked? or admin?)
             .log
