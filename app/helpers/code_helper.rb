@@ -8,21 +8,24 @@ module CodeHelper
     ).html_safe
   end
 
-  def formatted_code_lines(code)
-    code_html = CodeRay.scan(code, Language.language).html(wrap: nil)
-
-    code_html.split("\n").map(&:html_safe)
+  def code_with_comments(formatted_code, commentable, form_partial=nil, *form_partial_args)
+    render '_formatted_code/code', code: formatted_code, commentable: commentable,
+                                   form_partial: form_partial, form_partial_args: form_partial_args
   end
 
-  def code_with_comments(revision, commentable)
-    comments_by_lines = revision.comments.group_by(&:line_number)
+  def revision_code_with_comments(revision, commentable)
+    code = revision.formatted_code
 
-    render 'solutions/code_with_comments', revision:          revision,
-                                           commentable:       commentable,
-                                           comments_by_lines: comments_by_lines
+    code_with_comments code, commentable, 'solutions/inline_comment_form', revision: revision.model
+  end
+
+  def revision_diff_with_comments(revision, commentable)
+    code = revision.formatted_diff
+
+    code_with_comments code, commentable, 'solutions/inline_comment_form', revision: revision.model
   end
 
   def inline_comment(comment)
-    render 'solutions/inline_comment', comment: InlineCommentDecorator.decorate(comment)
+    render '_formatted_code/inline_comment', comment: InlineCommentDecorator.decorate(comment)
   end
 end

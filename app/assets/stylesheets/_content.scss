@@ -13,7 +13,17 @@
   ol > li { list-style: decimal; }
 
   pre { font-family: $font-monospace; padding: 10px; font-size: $font-monospace-size; }
-  code { font-family: $font-monospace; font-size: $font-monospace-size; }
+
+  code {
+    font-family: $font-monospace;
+    font-size: $font-monospace-size;
+
+    background: rgba(white, 0.5);
+    border: 1px solid darken(white, 20%);
+    border-radius: 3px;
+    padding: 1px 2px;
+  }
+
   blockquote { font-style: italic; padding-left: 20px; }
 
   img.emoji { width: 20px; height: 20px; vertical-align: middle; }

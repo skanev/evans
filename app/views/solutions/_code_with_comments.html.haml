@@ -1,9 +1,0 @@
-.code(data-inline-comments)
-  = render 'inline_comment_form', revision: revision
-
-  - formatted_code_lines(revision.code).each_with_index do |code, line_number|
-    .line{'data-line-number' => line_number}
-      .code-line.CodeRay <span class="line-numbers" data-line-number="#{line_number + 1}"></span><span class="pre">#{code}</span>
-
-      %button.btn.primary.add-comment(data-add-comment) +
-      = render 'inline_comments', comments: comments_by_lines.fetch(line_number, []), commentable: commentable

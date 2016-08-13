@@ -45,14 +45,15 @@ describe SolutionsController do
     let(:task) { double }
     let(:solution) { double 'solution' }
     let(:solutions_with_includes) { double }
+    let(:history) { double 'history' }
 
     before do
       Task.stub find: task
-      SolutionHistory.stub :new
+      Solutions::History.stub new: history
       task.stub_chain :solutions, includes: solutions_with_includes
       solutions_with_includes.stub find: solution
       solution.stub :visible_to?
-      solution.stub :last_revision
+      history.stub :last_revision
     end
 
     it "allows access to people, who can view the solution" do
@@ -80,15 +81,15 @@ describe SolutionsController do
     end
 
     it "assigns the last revision" do
-      solution.stub last_revision: 'last revision'
+      history.stub last_revision: 'last revision'
       get :show, task_id: '42', id: '10'
       assigns(:last_revision).should eq 'last revision'
     end
 
     it "assigns the solution history" do
-      SolutionHistory.should_receive(:new).with(solution).and_return('solution history')
       get :show, task_id: '42', id: '10'
-      assigns(:history).should eq 'solution history'
+
+      assigns(:history).should eq history
     end
 
     it "eager-loads revisions, comments and their users" do

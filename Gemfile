@@ -22,6 +22,7 @@ gem 'rails_autolink', '>= 1.1.5'
 gem 'rdiscount'
 gem 'sanitize', '~> 2.0'
 gem 'coderay'
+gem 'diff-lcs'
 
 gem 'jquery-rails'
 gem 'underscore-rails'

@@ -109,6 +109,10 @@ FactoryGirl.define do
     user
     revision
     body 'Body'
+
+    factory :inline_comment do
+      line_number 0
+    end
   end
 
   factory :checked_solution, parent: :solution do

@@ -22,7 +22,9 @@ $ ->
     hideText = '▾ ' + toggleable.data 'hide-text'
     showText = '▸ ' + toggleable.data 'show-text'
 
-    link = $('<a href="#">' + hideText + '</a>')
+    toggleable.hide()
+
+    link = $('<a href="#">' + showText + '</a>')
     link.insertBefore toggleable
 
     link.click ->

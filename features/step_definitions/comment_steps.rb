@@ -79,12 +79,14 @@ end
   end
 end
 
-То 'трябва да виждам версия "$revision"' do |code|
-  page.should have_content code
+То 'трябва да виждам "$code" във версия $revision' do |code, revision|
+  within ".revision:nth-of-type(#{revision})" do
+    page.should have_content code
+  end
 end
 
-То 'трябва да виждам коментар "$comment" за "$revision"' do |comment, revision|
-  within ".revision:contains('#{revision}')" do
+То 'трябва да виждам коментар "$comment" за версия $revision' do |comment, revision|
+  within ".revision:nth-of-type(#{revision})" do
     page.should have_content comment
   end
 end

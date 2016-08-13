@@ -62,6 +62,6 @@
 }
 
 @mixin markdown {
-  code { background-color: #f8f8ff; color: #444; padding: 1px 3px; border: 1px solid #dedede; border-radius: 2px; font-size: 12px !important; }
+  code { background-color: #f8f8ff; color: #444; padding: 1px 3px; border: 1px solid #dedede; border-radius: 2px; }
   pre code { display: block; overflow-x: auto; }
 }
