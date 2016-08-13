@@ -10,7 +10,9 @@ abbr { border-bottom: 1px dotted $dark-border; }
 table.data-table { @include data-table; }
 
 .main h1 { @include heading-1; margin-bottom: 1em; }
-.action { @include action; }
+
+.action         { @include button; }
+.action.primary { @include primary-button; }
 
 .no-records,
 .requires-authentication { color: $disabled; font-style: italic; }

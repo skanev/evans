@@ -1,7 +1,7 @@
 #challenges
   %h1 Предизвикателства
   = admin_only do
-    = link_to 'Ново', new_challenge_path, class: :action
+    = link_to 'Ново', new_challenge_path, class: [:action, :primary]
 
   %ul
     - @challenges.each do |challenge|

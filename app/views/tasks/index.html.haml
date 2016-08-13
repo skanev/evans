@@ -1,7 +1,7 @@
 #tasks
   %h1 Задачи
   = admin_only do
-    = link_to 'Нова', new_task_path, class: :action
+    = link_to 'Нова', new_task_path, class: [:action, :primary]
 
   %ul
     - @tasks.each do |task|
