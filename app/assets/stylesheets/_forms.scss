@@ -47,11 +47,8 @@
   input[name*=faculty_number] { width: 80px; }
   textarea[name*=body] { width: 600px; height: 200px; }
 
-  input[type=button],
-  input[type=submit] {
-    @include button;
-    color: $dark-text;
-  }
+  input[type=button] { @include button; }
+  input[type=submit] { @include primary-button; }
 
   .contribution-preview {
     @include markdown;
