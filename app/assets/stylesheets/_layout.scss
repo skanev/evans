@@ -75,6 +75,11 @@ table.data-table { @include data-table; }
     display: block;
     clear: both;
   }
+
+  @media (max-width: $mobile-width) {
+    .site-menu { display: none; }
+    #container { width: 100%; margin: 0; padding: 0 10px; }
+  }
 }
 
 .site-footer {

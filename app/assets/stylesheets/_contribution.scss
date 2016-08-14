@@ -5,8 +5,15 @@
   &:nth-child(even) { background-color: $gray; }
   &.starred { background-color: #fffdd0; }
 
-  aside { float: right; }
-  aside img { display: block; }
+  aside {
+    float: right;
+
+    margin-left: 12px;
+    margin-bottom: 10px;
+
+    a { display: block; text-align: center; }
+    img { display: inline-block; }
+  }
 
   .body { @include content; margin-right: 200px; }
 
@@ -17,6 +24,11 @@
 
     color: #666;
     font-size: $font-small;
+  }
+
+  @media (max-width: $mobile-width) {
+    .body, .published-at { margin-right: 0; }
+    img.avatar { width: 130px; }
   }
 
   a.permalink {

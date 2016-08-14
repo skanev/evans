@@ -10,9 +10,8 @@
 
   input.string,
   input.password { border: 1px solid $dark-border; font-size: $font-large; padding: 5px; margin: 2px 0; }
-  textarea { border: 1px solid $dark-border; font-size: $font-normal; padding: 5px; margin: 2px 0; width: 600px; height: 200px; }
+  textarea { border: 1px solid $dark-border; font-size: $font-normal; padding: 5px; margin: 2px 0; width: 100%; height: 200px; }
 
-  input.string,
   input.string,
   input.password { width: 280px; }
 
@@ -45,7 +44,11 @@
   }
 
   input[name*=faculty_number] { width: 80px; }
-  textarea[name*=body] { width: 600px; height: 200px; }
+  textarea[name*=body] { width: 100%; height: 200px; }
+
+  @media (max-width: $mobile-width) {
+    input.string, input.password, input[type=submit] { width: 100%; }
+  }
 
   input[type=button] { @include button; }
   input[type=submit] { @include primary-button; }

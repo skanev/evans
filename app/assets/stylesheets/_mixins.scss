@@ -96,3 +96,5 @@
 @mixin clear-after {
   &::after { display: block; content: ' '; clear: both; }
 }
+
+@mixin transform($value) { -webkit-transform: $value; transform: $value; }

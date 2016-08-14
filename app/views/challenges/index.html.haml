@@ -6,8 +6,8 @@
   %table
     %thead
       %tr
-        %th Име
-        %th Краен срок
+        %th.name Име
+        %th.closes_at Краен срок
 
     %tbody
     - @challenges.reject(&:hidden?).each do |challenge|

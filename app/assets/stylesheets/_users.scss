@@ -6,7 +6,6 @@ ul.users {
     float: left;
 
     width: 178px;
-    height: 220px;
 
     padding: 10px;
     margin: 10px;
@@ -20,14 +19,25 @@ ul.users {
 
     img {
       display: block;
+      width: 100%;
 
       margin-bottom: 5px;
     }
+
+    .name { height: 40px; }
 
     &:hover {
       background-color: $gray;
       border-radius: 5px;
     }
+  }
+
+  @media (max-width: 440px) {
+    li { width: calc(50% - 20px); }
+  }
+
+  @media (min-width: 441px) and (max-width: $mobile-width) {
+    li { width: calc(33% - 20px); }
   }
 
   @include clear-after;

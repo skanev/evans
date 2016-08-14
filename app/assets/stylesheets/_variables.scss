@@ -11,6 +11,9 @@ $font-monospace: Inconsolata-dz, Monaco, Terminus, monospace;
 $font-monospace-size: 13px;
 $font-site-title: $font-text;
 
+$mobile-width: 700px;
+$mobile-width-min: $mobile-width + 1px;
+
 $gray: darken(white, 4%);
 $light-gray: lighten($gray, 2%);
 $red: #940600;

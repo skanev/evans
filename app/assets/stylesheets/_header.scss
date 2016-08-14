@@ -10,8 +10,10 @@
   margin-bottom: 25px;
 
   a.logo {
-    width: 103px;
-    height: 102px;
+    img {
+      width: 103px;
+      height: 102px;
+    }
 
     float: left;
     margin: 8px 40px;
@@ -33,6 +35,44 @@
   nav li:first-child { border-left: none; }
   nav li a { color: $title-color; font-size: $font-normal; }
   nav li a:hover { text-decoration: underline; }
+
+  .site-menu-button { display: none; }
+
+  @media (max-width: $mobile-width) {
+    height: 50px;
+
+    a.logo { display: none; }
+
+    h1 {
+      font-size: 18px;
+      text-align: center;
+
+      margin-top: 7px;
+    }
+
+    nav, h2 { display: none; }
+
+    > .site-menu-button {
+      display: block;
+      position: absolute;
+
+      top: 2px;
+      left: 2px;
+      width: 50px;
+      height: 46px;
+      padding: 0;
+
+      color: black;
+      font-size: 27px;
+      line-height: 46px;
+
+      border: none;
+      font-family: $font-navigation;
+      background: none;
+
+      &:hover, &:active, &:focus { outline: none; }
+    }
+  }
 }
 
 .tip-of-the-day {
