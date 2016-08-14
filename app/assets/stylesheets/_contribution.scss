@@ -1,6 +1,6 @@
 @mixin contribution {
   & { margin: 5px 0; overflow: hidden; padding: 20px; }
-  &:nth-child(even) { background-color: #f0f0f0; }
+  &:nth-child(even) { background-color: $gray; }
   &.starred { background-color: #fffdd0; }
 
   aside { float: right; }
