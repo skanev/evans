@@ -28,7 +28,8 @@
 
   @media (max-width: $mobile-width) {
     .body, .published-at { margin-right: 0; }
-    img.avatar { width: 130px; }
+    img.avatar { width: 90px; }
+    aside a { font-size: 11px; }
   }
 
   a.permalink {
