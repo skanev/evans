@@ -1,9 +1,35 @@
 #dashboard {
   @include content;
 
-  .points { border: 1px solid $light-border; float: right; width: 120px; };
-  .points h2 { display: none; }
-  .points p { text-align: center; }
-  .points p strong { color: #008833; display: block; font-size: 50px; line-height: 50px; margin-top: 5px; }
-  .points p em { display: block; margin-top: 5px; text-align: center; }
+  .points {
+    float: right;
+    width: 120px;
+
+    border: 1px solid $light-border;
+    border-radius: 5px;
+
+    margin-left: 30px;
+
+    h2 { display: none; }
+
+    p {
+      text-align: center;
+
+      strong {
+        display: block;
+        margin-top: 5px;
+
+        color: #008833;
+        font-size: 50px;
+        line-height: 50px;
+      }
+
+      em {
+        display: block;
+        margin-top: 5px;
+
+        text-align: center;
+      }
+    }
+  }
 }

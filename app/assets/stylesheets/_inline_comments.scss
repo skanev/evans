@@ -21,7 +21,7 @@
 
   &:hover button.add-comment-on-line { display: block; }
 
-  .code-comments { background-color: #f5f5f5; }
+  .code-comments { background-color: $gray; }
   .code-comments .reply-button { @include button; margin: 10px; }
 
   &:first-of-type .code-comments { border-top-width: 0; }
@@ -38,7 +38,6 @@
       font-size: 14px;
       height: auto;
       min-height: 120px;
-      width: 100%;
     }
 
     .buttons { margin-top: 10px; }
@@ -47,7 +46,7 @@
   }
 
   .inline-comment {
-    min-height: 60px;
+    min-height: 80px;
     padding: 10px;
 
     &:nth-child(2n) { background-color: white; }

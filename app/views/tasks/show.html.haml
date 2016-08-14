@@ -4,10 +4,11 @@
   %p
     = admin_only do
       = link_to 'Редактирай', edit_task_path(@task), class: :action
+
     = authenticated_only do
-      = link_to 'Предай решение', task_my_solution_path(@task), class: :action
+      = link_to 'Предай решение', task_my_solution_path(@task), class: [:action, :primary]
       - if @current_user_solution
-        = link_to 'Коментари към моето решение', @current_user_solution, class: :action
+        = link_to 'Коментари към моето решение', @current_user_solution, class: [:action, :primary]
 
   - if admin? or @task.closed?
     %p= link_to 'Предадени решения', task_solutions_path(@task)

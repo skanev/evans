@@ -3,9 +3,9 @@ class TasksController < ApplicationController
 
   def index
     @tasks = if admin?
-      Task.in_chronological_order
+      Task.in_chronological_order.decorate
     else
-      Task.visible
+      Task.visible.decorate
     end
   end
 

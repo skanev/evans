@@ -1,10 +1,36 @@
 ul.users {
-  overflow: hidden;
-  width: 700px;
+  max-width: 1000px;
+  margin: 0 auto;
 
-  li { float: left; padding: 10px; width: 150px; height: 200px; }
-  li a { display: block; }
-  li img { display: block; }
+  li {
+    float: left;
+
+    width: 178px;
+    height: 220px;
+
+    padding: 10px;
+    margin: 10px;
+
+    a {
+      display: block;
+      text-align: center;
+
+      &:hover { text-decoration: none; }
+    }
+
+    img {
+      display: block;
+
+      margin-bottom: 5px;
+    }
+
+    &:hover {
+      background-color: $gray;
+      border-radius: 5px;
+    }
+  }
+
+  @include clear-after;
 }
 
 #user-page {
@@ -20,5 +46,7 @@ ul.users {
 
 .avatar {
   border: 4px solid transparent;
+  border-radius: 10px;
+
   &.admin { border-color: #fffa83; }
 }

@@ -12,8 +12,8 @@
     - if @topics.present?
       - @topics.each do |topic|
         %tr
-          %td= link_to topic.title, topic
-          %td= topic.replies_count
+          %td.title= link_to topic.title, topic
+          %td.reply-count= topic.replies_count
           %td.last-reply
             = link_to last_reply_topic_path(topic) do
               %time{:datetime => topic.last_post_at.iso8601, :pubdate => true}= l topic.last_post_at

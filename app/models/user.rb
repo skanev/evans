@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
     end
 
     def at_page(page_number)
-      paginate page: page_number, per_page: 32
+      paginate page: page_number, per_page: 20
     end
   end
 end

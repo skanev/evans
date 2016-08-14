@@ -40,28 +40,36 @@
 @mixin heading-3 { color: $subtitle-color; font-family: $font-headings; font-size: $font-large; }
 
 @mixin data-table {
-  border: { collapse: separate; spacing: 5px; }
+  border-collapse: separate;
+  border-spacing: 1px;
+
+  > thead > tr > th:first-child { border-top-left-radius: 5px; }
+  > thead > tr > th:last-child  { border-top-right-radius: 5px; }
+  > tbody > tr:last-child > td:first-child { border-bottom-left-radius: 5px; }
+  > tbody > tr:last-child > td:last-child  { border-bottom-right-radius: 5px; }
+
   margin: 20px 0;
   width: 100%;
 
-  caption { color: #3371a3; font-size: $font-large; font-weight: bold; padding: 10px 0; text-align: left; }
-  thead th { background-color: #3371a3; color: white; font-weight: bold; text-align: left; }
+  caption { color: $main-color; font-size: $font-large; font-weight: bold; padding: 10px 0; text-align: left; }
+  thead th { background-color: $main-color; color: white; font-weight: bold; text-align: left; }
   th, td { padding: 8px 16px; vertical-align: middle; }
-  tr:nth-child(even) { background-color: #f0f0f0; }
+  tr:nth-child(even) { background-color: $light-gray; }
+  tr:hover { background-color: $gray; }
   td.no-records { text-align: center; }
+
+  tr.active  > td:first-child a { border-left: 3px solid $green;  }
+  tr.warning > td:first-child a { border-left: 3px solid $orange; }
 }
 
-@mixin action {
-  background-color: $action;
-  color: white;
-  display: inline-block;
-  padding: .35em 1em .3em;
-  border-radius: 4px;
-  font-weight: bold;
+@mixin link-table-cell($padding: 10px) {
+  padding: 0;
 
-  &:hover {
-    text-decoration: none;
-    background-color: $action-hover;
+  a {
+    display: block;
+    padding: $padding;
+
+    &:hover { text-decoration: none; }
   }
 }
 
@@ -84,3 +92,7 @@
 }
 
 @mixin no-selection { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
+@mixin clear-after {
+  &::after { display: block; content: ' '; clear: both; }
+}

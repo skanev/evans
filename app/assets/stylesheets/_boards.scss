@@ -7,8 +7,11 @@ ol.topic {
 table.topics {
   @include data-table;
 
-  time { display: block; }
+  td.title { @include link-table-cell(17px); }
+
   td.last-reply { font-size: $font-small; }
+
+  time { display: block; }
 }
 
 .new-reply { @include content; }

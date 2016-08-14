@@ -21,9 +21,9 @@
 
       @include no-selection;
 
-      background-color: #f5f5f5;
+      background-color: $gray;
       display: table-cell;
-      min-width: 30px;
+      min-width: 45px;
       padding-right: 10px;
       text-align: right;
     }

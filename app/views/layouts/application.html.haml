@@ -9,14 +9,17 @@
     = stylesheet_link_tag :application
     = javascript_include_tag :application
     = csrf_meta_tag
+
   %body
-    %header
+    %header.site-header
       = link_to image_tag("language/#{Language.language}/logo.png"), root_path, class: :logo
       = tip_of_the_day
+
       %h1= Language.course_name
       %h2
         Курс във Факултета по Математика и Информатика към
         %abbr(title="Софийски Университет") СУ
+
       %nav
         %ul
           - if user_signed_in?
@@ -25,32 +28,36 @@
           - else
             %li= link_to 'Вход', new_user_session_path
             %li= link_to 'Регистрация', new_registration_path
-    %nav
-      %ul
-        %li= link_to 'Начало', root_path
-        - if user_signed_in?
-          %li= link_to 'Табло', dashboard_path
-        %li= link_to 'Новини', announcements_path
-        %li= link_to 'Материали', lectures_path
-        %li= link_to 'Задачи', tasks_path
-        %li= link_to 'Предизвикателства', challenges_path
-        - if Tip.current
-          %li= link_to 'Хитринки', tips_path
-        %li= link_to 'Форуми', topics_path
-        %li= link_to 'Потребители', users_path
-        %li= link_to 'Класация', leaderboard_path
-        %li= link_to 'Екип', team_path
-        - if admin?
-          %li= link_to 'Активност', activities_path
-          %li= link_to 'Ваучъри', vouchers_path
-          %li= link_to 'Записани', sign_ups_path
-          %li= link_to 'Точки', points_breakdowns_path
-    #container
-      - flash.keys.each do |key|
-        %div{:class => [:flash, key]}= flash[key]
-      .main
-        = yield
-      %footer
-        = link_to 'Някои права запазени', '#'
+
+    .site-columns
+      %nav.site-menu
+        %ul
+          %li= link_to 'Начало', root_path
+          - if user_signed_in?
+            %li= link_to 'Табло', dashboard_path
+          %li= link_to 'Новини', announcements_path
+          %li= link_to 'Материали', lectures_path
+          %li= link_to 'Задачи', tasks_path
+          %li= link_to 'Предизвикателства', challenges_path
+          - if Tip.current
+            %li= link_to 'Хитринки', tips_path
+          %li= link_to 'Форуми', topics_path
+          %li= link_to 'Потребители', users_path
+          %li= link_to 'Класация', leaderboard_path
+          %li= link_to 'Екип', team_path
+          - if admin?
+            %li= link_to 'Активност', activities_path
+            %li= link_to 'Ваучъри', vouchers_path
+            %li= link_to 'Записани', sign_ups_path
+            %li= link_to 'Точки', points_breakdowns_path
+
+      #container
+        - flash.keys.each do |key|
+          %div{class: [:flash, key]}= flash[key]
+
+        .main
+          = yield
+
+    %footer.site-footer Някои права запазени
 
     = render 'common/google_analytics'

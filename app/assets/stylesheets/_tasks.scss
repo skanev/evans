@@ -9,6 +9,8 @@
 table.solutions {
   @include data-table;
 
+  td.name { @include link-table-cell(10px 15px); }
+
   .points { width: 150px; white-space: nowrap; }
   .results { width: 180px; white-space: nowrap; }
 
@@ -28,7 +30,12 @@ table.solutions {
 #tasks {
   @include content;
 
-  li.hidden { color: $disabled; }
+  > table {
+    @include data-table;
+
+    td.name { @include link-table-cell(10px 15px); }
+    td.closes_at { width: 20%; min-width: 160px; }
+  }
 }
 
 .solution {

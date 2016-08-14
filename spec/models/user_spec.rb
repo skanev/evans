@@ -46,10 +46,10 @@ describe User do
 
   describe "pagination" do
     before do
-      User.should_receive(:paginate).with(page: 'foo', per_page: 32)
+      User.should_receive(:paginate).with(page: 'foo', per_page: 20)
     end
 
-    it "delegates to paginate with 32 users per page" do
+    it "delegates to paginate with 20 users per page" do
       User.at_page('foo')
     end
 
