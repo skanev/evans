@@ -43,7 +43,7 @@ table.solutions {
 
   .results { @include test-results; }
 
-  article.revision { border: 1px dotted $light-border; padding: 2em; margin: 2em 0; }
+  article.revision { border: 1px solid $light-border; border-radius: 4px; padding: 2em; margin: 2em 0; }
   article.revision h3 { margin: 0 0 2em; }
   article.comment { @include contribution; }
   article.comment:first-of-type { margin-top: 1em; }

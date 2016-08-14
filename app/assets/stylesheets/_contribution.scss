@@ -1,4 +1,6 @@
 @mixin contribution {
+  border-radius: 5px;
+
   & { margin: 5px 0; overflow: hidden; padding: 20px; }
   &:nth-child(even) { background-color: $gray; }
   &.starred { background-color: #fffdd0; }
@@ -8,11 +10,19 @@
 
   .body { @include content; margin-right: 200px; }
 
-  .published-at { border-top: 1px dotted gray; color: #666; font-size: $font-small; margin-right: 200px; padding-top: 5px; }
+  .published-at {
+    margin-right: 200px;
+    padding-top: 5px;
+    border-top: 1px solid $light-border;
+
+    color: #666;
+    font-size: $font-small;
+  }
 
   a.permalink {
     color: #666;
     text-decoration: none;
+
     &:hover { color: $color-link; }
   }
 

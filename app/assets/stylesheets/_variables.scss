@@ -22,8 +22,8 @@ $orange: orange;
 
 $main-color: $red;
 $menu-color: $main-color;
-$light-border: #c4cccc;
-$dark-border: darken(white, 20%);
+$light-border: lighten(#c4cccc, 10%);
+$dark-border: #c4cccc;
 $button-color: $gray;
 $title-color: lighten(black, 10%);
 $subtitle-color: $main-color;
