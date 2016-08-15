@@ -6,8 +6,7 @@
 
   .CodeRay { border: none; padding: 0; white-space: normal; }
   .CodeRay .line { display: inline; float: none; width: auto; }
-
-  .CodeRay .pre { padding-left: 5px; white-space: pre-wrap; width: 100%; }
+  .CodeRay .pre { padding-left: 5px; white-space: pre-wrap; width: 100%; word-break: break-all; }
 
   .code-line.removed { background: rgba(240, 0, 0, 0.08); }
   .code-line.added   { background: rgba(0, 240, 0, 0.08); }
