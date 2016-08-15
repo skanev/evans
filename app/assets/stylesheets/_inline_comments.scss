@@ -4,10 +4,13 @@
   position: relative;
 
   button.add-comment-on-line {
-    @include primary-button;
-
+    background-color: $subtitle-color;
+    border-radius: 4px;
+    border: none;
+    color: white;
     cursor: pointer;
     display: none;
+    font-size: 13px;
     font-weight: bold;
     height: 20px;
     left: -10px;
@@ -22,7 +25,12 @@
   &:hover button.add-comment-on-line { display: block; }
 
   .code-comments { background-color: $gray; }
-  .code-comments .reply-button { @include button; margin: 10px; }
+  .code-comments .options {
+    background-color: $gray;
+    padding: 10px;
+
+    .reply-button { @include button; }
+  }
 
   &:first-of-type .code-comments { border-top-width: 0; }
   &:last-of-type  .code-comments { border-bottom-width: 0; }

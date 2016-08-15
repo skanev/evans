@@ -9,8 +9,17 @@
   font-size: 13px;
   font-weight: normal;
   padding: 8px 16px;
+  text-align: center;
 
   &:hover { background-color: $subtitle-color; color: white; text-decoration: none; }
+
+  @media (max-width: $mobile-width) {
+    display: block;
+    width: 100%;
+
+    padding: 13px 16px;
+    margin-top: 5px;
+  }
 }
 
 @mixin primary-button {
