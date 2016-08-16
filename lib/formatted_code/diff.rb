@@ -2,7 +2,7 @@ module FormattedCode
   class Diff
     def initialize(from, to, language, inline_comments)
       @diff = ::Diff::LCS.sdiff(from.split("\n"), to.split("\n"))
-      @html_lines = CodeRay.scan(to, language).html(wrap: nil).split("\n")
+      @highlighter = Highlighter.new(to, language)
 
       @inline_comments = inline_comments
     end
@@ -10,7 +10,7 @@ module FormattedCode
     def lines
       @diff.flat_map do |change|
         comments_for_line = @inline_comments.fetch(change.new_position, [])
-        new_highlighted_line = @html_lines[change.new_position]
+        new_highlighted_line = @highlighter.lines[change.new_position]
 
         case change.action
         when '-'

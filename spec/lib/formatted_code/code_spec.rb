@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe FormattedCode::Code do
+  let(:highlighter) { double }
+
   before do
-    allow(CodeRay).to receive(:scan) do |code, language|
-      code_ray = double
+    allow(FormattedCode::Highlighter).to receive(:new) do |code, language|
+      allow(highlighter).to receive(:lines).and_return code.split("\n")
 
-      allow(code_ray).to receive(:html).with(wrap: nil).and_return code
-
-      code_ray
+      highlighter
     end
   end
 
@@ -22,10 +22,11 @@ describe FormattedCode::Code do
     end
 
     it 'uses CodeRay for code highlighting' do
-      code_ray = double
+      expect(FormattedCode::Highlighter).to receive(:new)
+        .with('source', 'ruby')
+        .and_return(highlighter)
 
-      expect(CodeRay).to receive(:scan).with('source', 'ruby').and_return(code_ray)
-      expect(code_ray).to receive(:html).with(wrap: nil).and_return('highlighted')
+      expect(highlighter).to receive(:lines).and_return ['highlighted']
 
       allow(FormattedCode::CodeLine).to receive(:new).with('highlighted', 0, []).and_return 'line 1'
 

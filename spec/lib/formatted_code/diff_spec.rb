@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe FormattedCode::Diff do
+  let(:highlighter) { double }
+
   before do
-    allow(CodeRay).to receive(:scan) do |code, language|
-      code_ray = double
+    allow(FormattedCode::Highlighter).to receive(:new) do |code, language|
+      allow(highlighter).to receive(:lines).and_return code.split("\n")
 
-      allow(code_ray).to receive(:html).with(wrap: nil).and_return code
-
-      code_ray
+      highlighter
     end
   end
 
@@ -33,8 +33,11 @@ describe FormattedCode::Diff do
     it 'uses CodeRay to highlight the new code' do
       code_ray = double
 
-      expect(CodeRay).to receive(:scan).with('source', 'ruby').and_return(code_ray)
-      expect(code_ray).to receive(:html).with(wrap: nil).and_return('code')
+      expect(FormattedCode::Highlighter).to receive(:new)
+        .with('source', 'ruby')
+        .and_return(highlighter)
+
+      expect(highlighter).to receive(:lines).and_return ['code']
 
       allow(FormattedCode::DiffLine).to receive(:new).with('-', 'old', nil, []).and_return 'line 1'
       allow(FormattedCode::DiffLine).to receive(:new).with('+', 'code', 0, []).and_return 'line 2'
