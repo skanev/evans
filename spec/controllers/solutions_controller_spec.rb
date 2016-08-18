@@ -93,7 +93,7 @@ describe SolutionsController do
     end
 
     it "eager-loads revisions, comments and their users" do
-      task.solutions.should_receive(:includes).with(revisions: [comments: [:user]]).and_return(
+      task.solutions.should_receive(:includes).with(revisions: {comments: :user}).and_return(
         solutions_with_includes
       )
 
