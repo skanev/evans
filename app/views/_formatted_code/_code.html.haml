@@ -1,4 +1,4 @@
-.code(data-inline-comments)
+.code.js-code-with-comments
   = render form_partial, *form_partial_args if commentable
 
   - code.lines.each do |line|
@@ -13,4 +13,4 @@
           = inline_comment comment
 
         - if line.comments.any? and commentable and line.commentable?
-          %button.reply.btn(data-add-comment) Нов коментар
+          %button(data-add-comment data-reply-button) Нов коментар
