@@ -6,11 +6,11 @@
       .code-line.CodeRay{'class' => line.html_class} <span class="line-numbers" data-line-number="#{line.line_number}"></span><span class="pre">#{line.html}</span>
 
       - if commentable and line.commentable?
-        %button.btn.primary.add-comment(data-add-comment) +
+        %button.add-comment-on-line(data-add-comment) +
 
       .code-comments(data-code-comments)
         - line.comments.each do |comment|
           = inline_comment comment
 
         - if line.comments.any? and commentable and line.commentable?
-          %button(data-add-comment data-reply-button) Нов коментар
+          %button.reply-button(data-add-comment data-reply-button) Нов коментар

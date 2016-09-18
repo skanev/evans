@@ -1,8 +1,23 @@
 @mixin button {
   background-color: $button-color;
-  border: { style: solid; width: 1px; top-color: $light-border; right-color: $dark-border; bottom-color: $dark-border; left-color: $light-border; }
-  font: { family: $font-text; size: $font-normal; weight: bold; }
-  padding: 4px 8px;
+  border-radius: 4px;
+  border: none;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  padding: 8px 16px;
+
+  &:hover { background-color: $subtitle-color; color: white; }
+}
+
+@mixin primary-button {
+  @include button;
+
+  background-color: $subtitle-color;
+  color: white;
 }
 
 @mixin replace-with-image($img, $width, $height) {
