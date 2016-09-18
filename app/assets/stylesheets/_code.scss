@@ -1,26 +1,13 @@
 .code {
-  border: 1px solid $light-border;
   border-radius: 4px;
+  border: 1px solid $light-border;
 
   .line { float: none; }
 
-  .CodeRay {
-    border: none;
-    padding: 0;
-    white-space: normal;
-  }
+  .CodeRay { border: none; padding: 0; white-space: normal; }
+  .CodeRay .line { display: inline; float: none; width: auto; }
 
-  .CodeRay .line {
-    display: inline;
-    float: none;
-    width: auto;
-  }
-
-  .CodeRay .pre {
-    white-space: pre-wrap;
-    padding-left: 5px;
-    width: 100%;
-  }
+  .CodeRay .pre { padding-left: 5px; white-space: pre-wrap; width: 100%; }
 
   .code-line.removed { background: rgba(240, 0, 0, 0.08); }
   .code-line.added   { background: rgba(0, 240, 0, 0.08); }
@@ -32,22 +19,15 @@
       // Inserting the numbers this way prevents selecting and copying them with the code
       &::before { content: attr(data-line-number); }
 
-      display: table-cell;
-
-      text-align: right;
-      min-width: 30px;
-      padding-right: 10px;
+      @include no-selection;
 
       background-color: #f5f5f5;
-
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    .pre {
       display: table-cell;
+      min-width: 30px;
+      padding-right: 10px;
+      text-align: right;
     }
+
+    .pre { display: table-cell; }
   }
 }

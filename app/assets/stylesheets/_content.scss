@@ -15,12 +15,11 @@
   pre { font-family: $font-monospace; padding: 10px; font-size: $font-monospace-size; }
 
   code {
+    background: rgba(white, 0.5);
+    border-radius: 3px;
+    border: 1px solid darken(white, 20%);
     font-family: $font-monospace;
     font-size: $font-monospace-size;
-
-    background: rgba(white, 0.5);
-    border: 1px solid darken(white, 20%);
-    border-radius: 3px;
     padding: 1px 2px;
   }
 

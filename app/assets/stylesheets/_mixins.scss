@@ -80,3 +80,5 @@
   code { background-color: #f8f8ff; color: #444; padding: 1px 3px; border: 1px solid #dedede; border-radius: 2px; }
   pre code { display: block; overflow-x: auto; }
 }
+
+@mixin no-selection { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
