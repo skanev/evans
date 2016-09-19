@@ -40,7 +40,7 @@ class SolutionHistory
     FormattedCode::Diff.new old_code, revision.code, Language.language, inline_comments_by_line
   end
 
-  def comments_for(revision)
+  def non_inline_comments_for(revision)
     revision.comments.reject(&:inline?)
   end
 
