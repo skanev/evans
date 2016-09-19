@@ -2,10 +2,10 @@ module FormattedCode
   class CodeLine
     attr_reader :html, :comments
 
-    def initialize(html, line_number, comments)
-      @html = html
+    def initialize(html, line_number, comments_by_line)
+      @html        = html
       @line_number = line_number
-      @comments = comments
+      @comments    = comments_by_line
     end
 
     def line_number

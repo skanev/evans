@@ -1,71 +1,57 @@
 require 'spec_helper'
 
 describe FormattedCode::Diff do
-  let(:highlighter) { double }
+  include Support::CommentHistoryHelpers
 
   before do
-    allow(FormattedCode::Highlighter).to receive(:new) do |code, language|
-      allow(highlighter).to receive(:lines).and_return code.split("\n")
-
-      highlighter
+    FormattedCode::Highlighter.stub :new do |code, language|
+      double lines: code.split("\n").map { |line| "Formatted #{line}" }
     end
   end
 
-  describe '#lines' do
-    it 'creates a list of CodeLine objects with line numbers for the new code' do
-      code = FormattedCode::Diff.new("source\ncode", "destination\ncode", 'ruby', [])
+  it 'highlights the code, diffs it and splits it in lines' do
+    comments = {0 => ['one', 'two'], 1 => ['three']}
 
-      allow(FormattedCode::DiffLine).to receive(:new)
-        .with('-', 'source', nil, [])
-        .and_return 'line 1'
+    first_version = <<-END
+      Old line
+      Code
+    END
 
-      allow(FormattedCode::DiffLine).to receive(:new)
-        .with('+', 'destination', 0, [])
-        .and_return 'line 2'
+    second_version = <<-END
+      New line
+      # Comment one
+      # Comment two
+      Code
+      # Comment three
+    END
 
-      allow(FormattedCode::DiffLine).to receive(:new)
-        .with('=', 'code', 1, [])
-        .and_return 'line 3'
+    code = FormattedCode::Diff.new(
+      code_from_version(first_version),
+      code_from_version(second_version),
+      'ruby',
+      comments_from_version(second_version)
+    )
+    lines = code.lines
 
-      expect(code.lines).to eq ['line 1', 'line 2', 'line 3']
-    end
+    first_line  = lines.first
+    second_line = lines.second
+    third_line  = lines.third
 
-    it 'uses CodeRay to highlight the new code' do
-      code_ray = double
+    first_line.html.should        eq '-Old line'
+    first_line.line_number.should eq ' '
+    first_line.comments.should    be_empty
+    first_line.html_class.should  eq 'removed'
+    first_line.should_not         be_commentable
 
-      expect(FormattedCode::Highlighter).to receive(:new)
-        .with('source', 'ruby')
-        .and_return(highlighter)
+    second_line.html.should        eq '+Formatted New line'
+    second_line.line_number.should eq 1
+    second_line.comments.should    eq ['Comment one', 'Comment two']
+    second_line.html_class.should  eq 'added'
+    second_line.should             be_commentable
 
-      expect(highlighter).to receive(:lines).and_return ['code']
-
-      allow(FormattedCode::DiffLine).to receive(:new).with('-', 'old', nil, []).and_return 'line 1'
-      allow(FormattedCode::DiffLine).to receive(:new).with('+', 'code', 0, []).and_return 'line 2'
-
-      code = FormattedCode::Diff.new('old', 'source', 'ruby', [])
-
-      expect(code.lines).to eq ['line 1', 'line 2']
-    end
-
-    it 'sets the inline comments for each line of the new code' do
-      code = FormattedCode::Diff.new("source\ncode", "destination\ncode", 'ruby', {
-        0 => ['comment one', 'comment two'],
-        1 => ['comment three']
-      })
-
-      expect(FormattedCode::DiffLine).to receive(:new)
-        .with('-', 'source', nil, [])
-        .and_return 'line 1'
-
-      expect(FormattedCode::DiffLine).to receive(:new)
-        .with('+', 'destination', 0, ['comment one', 'comment two'])
-        .and_return 'line 2'
-
-      expect(FormattedCode::DiffLine).to receive(:new)
-        .with('=', 'code', 1, ['comment three'])
-        .and_return 'line 3'
-
-      expect(code.lines).to eq ['line 1', 'line 2', 'line 3']
-    end
+    third_line.html.should        eq ' Formatted Code'
+    third_line.line_number.should eq 2
+    third_line.comments.should    eq ['Comment three']
+    third_line.should             be_commentable
   end
 end
