@@ -21,7 +21,7 @@
         %li.failed-tests #{@solution.failed_tests} неуспешни тест(а)
 
   %h2 Код
-  = revision_code_with_comments @last_revision, @solution.commentable_by?(current_user)
+  = solution_code @history.formatted_code, @history.last_revision, @solution.commentable_by?(current_user)
 
   - if show_results?(@solution.task) and @solution.log.present?
     %h2 Лог от изпълнението
@@ -36,11 +36,11 @@
       %h3 #{@solution.user.first_name} обнови решението на #{l revision.created_at} (преди #{time_ago_in_words revision.created_at})
 
       %div(data-toggleable data-show-text="Покажи разликите" data-hide-text="Скрий разликите")
-        = revision_diff_with_comments revision, @solution.commentable_by?(current_user)
+        = solution_code @history.formatted_diff_for(revision), revision, @solution.commentable_by?(current_user)
 
-      - revision.comments.each do |comment|
+      - @history.comments_for(revision).each do |comment|
         = contribution comment
 
   - if @solution.commentable_by? current_user
-    = simple_form_for [@last_revision.model, Comment.new] do |form|
+    = simple_form_for [@history.last_revision, Comment.new] do |form|
       = render 'comments/form', form: form
