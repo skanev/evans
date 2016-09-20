@@ -5,7 +5,7 @@
     = admin_only do
       = link_to 'Редактирай', edit_challenge_path(@challenge), class: :action
     = authenticated_only do
-      = link_to 'Моето решение', challenge_my_solution_path(@challenge), class: [:btn, :primary]
+      = link_to 'Моето решение', challenge_my_solution_path(@challenge), class: [:action, :primary]
     = admin_only do
       - unless ChallengeCheckWorker.queued? @challenge.id
         = link_to 'Пусни тестовете', challenge_check_path(@challenge), method: :create, class: :action
