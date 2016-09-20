@@ -15,10 +15,9 @@
 
   @media (max-width: $mobile-width) {
     display: block;
-    width: 100%;
-
-    padding: 13px 16px;
     margin-top: 5px;
+    padding: 13px 16px;
+    width: 100%;
   }
 }
 
@@ -74,12 +73,8 @@
 @mixin link-table-cell($padding: 10px) {
   padding: 0;
 
-  a {
-    display: block;
-    padding: $padding;
-
-    &:hover { text-decoration: none; }
-  }
+  a { display: block; padding: $padding; }
+  a:hover { text-decoration: none; }
 }
 
 @mixin test-results {

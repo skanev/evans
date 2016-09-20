@@ -1,35 +1,20 @@
 ul.users {
-  max-width: 1000px;
   margin: 0 auto;
+  max-width: 1000px;
 
   li {
     float: left;
-
+    margin: 10px;
+    padding: 10px;
     width: 178px;
 
-    padding: 10px;
-    margin: 10px;
+    a { display: block; text-align: center; }
+    a:hover { text-decoration: none; }
 
-    a {
-      display: block;
-      text-align: center;
-
-      &:hover { text-decoration: none; }
-    }
-
-    img {
-      display: block;
-      width: 100%;
-
-      margin-bottom: 5px;
-    }
-
+    img { display: block; margin-bottom: 5px; width: 100%; }
     .name { height: 40px; }
 
-    &:hover {
-      background-color: $gray;
-      border-radius: 5px;
-    }
+    &:hover { background-color: $gray; border-radius: 5px; }
   }
 
   @media (max-width: 440px) {

@@ -3,10 +3,7 @@
 
   max-width: 550px;
 
-  img {
-    display: block;
-    border-radius: 4px;
-  }
+  img { border-radius: 4px; display: block; }
 
   .rank   { text-align: center; }
   .photo  { padding: 5px; }
@@ -18,14 +15,7 @@
   tr.silver td { background-color: #efefef; }
   tr.bronze td { background-color: #f5ebe4; }
 
-  .medal {
-    float: right;
-
-    width: 16px;
-    height: 16px;
-
-    margin: 11px;
-  }
+  .medal { float: right; height: 16px; margin: 11px; width: 16px; }
 
   .medal.gold   { background-image: image_url('icons/medal_gold_3.png');   }
   .medal.silver { background-image: image_url('icons/medal_silver_3.png'); }

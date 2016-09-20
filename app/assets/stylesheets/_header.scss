@@ -1,30 +1,20 @@
 .site-header {
-  position: relative;
-  height: 140px;
-
   background-color: $gray;
   border-bottom: 1px solid white;
   box-shadow: 0 1px $dark-border;
-
-  padding: 10px;
+  height: 140px;
   margin-bottom: 25px;
+  padding: 10px;
+  position: relative;
 
-  a.logo {
-    img {
-      width: 103px;
-      height: 102px;
-    }
-
-    float: left;
-    margin: 8px 40px;
-  }
+  a.logo { float: left; margin: 8px 40px; }
+  a.logo img { height: 102px; width: 103px; }
 
   h1 {
     font-family: $font-site-title;
     font-size: $font-huge;
     font-weight: bold;
     margin-top: 35px;
-
     text-shadow: 1px 1px white;
   }
 
@@ -43,34 +33,29 @@
 
     a.logo { display: none; }
 
-    h1 {
-      font-size: 18px;
-      text-align: center;
+    h1 { font-size: 18px; margin-top: 7px; text-align: center; }
 
-      margin-top: 7px;
-    }
-
-    nav, h2 { display: none; }
+    nav,
+    h2 { display: none; }
 
     > .site-menu-button {
-      display: block;
-      position: absolute;
-
-      top: 2px;
-      left: 2px;
-      width: 50px;
-      height: 46px;
-      padding: 0;
-
-      color: black;
-      font-size: 27px;
-      line-height: 46px;
-
-      border: none;
-      font-family: $font-navigation;
       background: none;
+      border: none;
+      color: black;
+      display: block;
+      font-family: $font-navigation;
+      font-size: 27px;
+      height: 46px;
+      left: 2px;
+      line-height: 46px;
+      padding: 0;
+      position: absolute;
+      top: 2px;
+      width: 50px;
 
-      &:hover, &:active, &:focus { outline: none; }
+      &:hover,
+      &:active,
+      &:focus { outline: none; }
     }
   }
 }

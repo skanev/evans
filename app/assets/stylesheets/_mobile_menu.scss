@@ -1,62 +1,39 @@
 .mobile-menu {
-  display: none;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
   background-color: $gray;
-
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
   z-index: 0;
 
-  .logo {
-    margin-right: 50px;
-    margin-top: 15px;
+  .logo { margin-right: 50px; margin-top: 15px; text-align: center; }
+  .logo a { display: inline-block; }
+  .logo img { height: 50px; width: 50px; }
 
-    text-align: center;
-
-    a { display: inline-block; }
-    img { width: 50px; height: 50px; }
-  }
-
-  ul {
-    margin-right: 50px;
-    padding-left: 25px;
-
-    a {
-      display: block;
-
-      color: $title-color;
-      font-size: 17px;
-      padding: 11px;
-    }
-  }
+  ul { margin-right: 50px; padding-left: 25px; }
+  ul a { color: $title-color; display: block; font-size: 17px; padding: 11px; }
 }
 
 .site-content {
-  position: relative;
-  z-index: 1;
-
   background-color: white;
+  box-shadow: 0 0 20px rgba(black, 0.2);
+  position: relative;
   transition: -webkit-transform .3s ease-in-out;
   transition: transform .3s ease-in-out;
-
-  box-shadow: 0 0 20px rgba(black, 0.2);
+  z-index: 1;
 }
 
 .site-content-overlay {
-  display: none;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   bottom: 0;
-  z-index: 1000;
-
+  display: none;
+  left: 0;
   opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1000;
 }
 
 body.mobile-menu-open {
@@ -66,24 +43,15 @@ body.mobile-menu-open {
   }
 
   .site-content { overflow: hidden; }
-
   .site-content-overlay { display: block; }
 }
 
 @media (max-width: $mobile-width) {
   html,
-  body {
-    overflow: hidden;
-    height: 100%;
-  }
+  body { height: 100%; overflow: hidden; }
 
   .mobile-menu { display: block; }
 
   .mobile-menu,
-  .site-content {
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-
-    height: 100%;
-  }
+  .site-content { height: 100%; overflow-y: scroll; -webkit-overflow-scrolling: touch; }
 }

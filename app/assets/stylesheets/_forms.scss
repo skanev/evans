@@ -47,7 +47,9 @@
   textarea[name*=body] { width: 100%; height: 200px; }
 
   @media (max-width: $mobile-width) {
-    input.string, input.password, input[type=submit] { width: 100%; }
+    input.string,
+    input.password,
+    input[type=submit] { width: 100%; }
   }
 
   input[type=button] { @include button; }
