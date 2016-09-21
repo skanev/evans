@@ -14,12 +14,8 @@
       padding-top: 10px;
       text-decoration: none;
       width: 100%;
-    }
 
-    a:hover {
-      background-color: $menu-color;
-      color: white;
-      text-decoration: none;
+      &:hover { background-color: $menu-color; color: white; text-decoration: none; }
     }
   }
 }
