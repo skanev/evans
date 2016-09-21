@@ -1,10 +1,10 @@
 %ul
-  - if mobile
+  - unless mobile
     %li= link_to 'Начало', root_path
 
-    - unless user_signed_in?
-      %li= link_to 'Вход', new_user_session_path
-      %li= link_to 'Регистрация', new_registration_path
+  - if mobile and not user_signed_in?
+    %li= link_to 'Вход', new_user_session_path
+    %li= link_to 'Регистрация', new_registration_path
 
   - if user_signed_in?
     %li= link_to 'Табло', dashboard_path
