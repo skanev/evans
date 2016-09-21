@@ -46,7 +46,7 @@
   input[name*=faculty_number] { width: 80px; }
   textarea[name*=body] { width: 100%; height: 200px; }
 
-  @media (max-width: $mobile-width) {
+  @include mobile-only {
     input.string,
     input.password,
     input[type=submit] { width: 100%; }

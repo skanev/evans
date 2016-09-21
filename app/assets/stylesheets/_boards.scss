@@ -13,7 +13,7 @@ table.topics {
 
   time { display: block; }
 
-  @media (max-width: $mobile-width) {
+  @include mobile-only {
     .reply-count { display: none; }
   }
 }

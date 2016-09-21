@@ -15,7 +15,7 @@
   .body,
   .published-at { margin-right: 200px; }
 
-  @media (max-width: $mobile-width) {
+  @include mobile-only {
     .body,
     .published-at { margin-right: 0; }
     img.avatar { width: 90px; }

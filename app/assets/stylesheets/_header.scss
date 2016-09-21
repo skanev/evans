@@ -28,7 +28,7 @@
 
   .site-menu-button { display: none; }
 
-  @media (max-width: $mobile-width) {
+  @include mobile-only {
     height: 50px;
 
     a.logo { display: none; }

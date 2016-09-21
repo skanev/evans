@@ -45,7 +45,7 @@ table.data-table { @include data-table; }
   .site-menu { float: left; width: $menu-width; }
   #container { float: right; margin-right: 30px; margin-top: 10px; width: calc(100% - #{$menu-width + $menu-margin}); }
 
-  @media (max-width: $mobile-width) {
+  @include mobile-only {
     .site-menu { display: none; }
     #container { width: 100%; margin: 0; padding: 0 10px; }
   }

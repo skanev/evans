@@ -13,7 +13,7 @@
 
   &:hover { background-color: $subtitle-color; color: white; text-decoration: none; }
 
-  @media (max-width: $mobile-width) {
+  @include mobile-only {
     display: block;
     margin-top: 5px;
     padding: 13px 16px;
@@ -102,3 +102,9 @@
 }
 
 @mixin transform($value) { -webkit-transform: $value; transform: $value; }
+
+@mixin mobile-only {
+  @media (max-width: $mobile-width) {
+    @content;
+  }
+}

@@ -46,7 +46,7 @@ body.mobile-menu-open {
   .site-content-overlay { display: block; }
 }
 
-@media (max-width: $mobile-width) {
+@include mobile-only {
   html,
   body { height: 100%; overflow: hidden; }
 
