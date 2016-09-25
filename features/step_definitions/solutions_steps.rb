@@ -104,10 +104,9 @@ end
   table.diff! [header] + rows
 end
 
-То 'трябва да видя, че метода "$method_name" е твърде дълъг' do |method_name|
+То 'трябва да видя, че метода е твърде дълъг' do
   page.should have_content('Намерихме няколко грешки. Погледнете и пробвайте пак:')
-  page.should have_content('Number of lines per method')
-  page.should have_content(method_name)
+  page.should have_content('Method has too many lines')
 end
 
 То /^решението на "([^"]*)" трябва да има (\d+) допълнителни точки$/ do |student_name, points|

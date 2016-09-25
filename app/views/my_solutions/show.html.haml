@@ -10,7 +10,7 @@
   = simple_form_for @submission, as: :submission, url: task_my_solution_path(@task), method: 'put' do |form|
     = form.error_notification
 
-    = form.input :code, as: 'text', label: 'Код'
+    = form.input :code, as: 'text', label: 'Код', error_html: {class: 'wrap-at-newlines'}
     - unless @task.closed?
       %div
         = form.submit 'Изпрати'

@@ -31,3 +31,5 @@ table.data-table { @include data-table; }
 }
 
 #home-page { @include content; }
+
+.wrap-at-newlines { white-space: pre-line; }

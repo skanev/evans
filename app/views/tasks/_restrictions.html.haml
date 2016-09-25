@@ -1,22 +1,19 @@
 %h2 Ограничения
 
-%p Тази задача има следните ограничения:
+- if explainer.descriptions.any?
+  %p Тази задача има следните ограничения:
 
-%ul
-  = list_of(restrictions) do |rule, option|
-    = SkepticExplainer.restriction_name rule, option
-
-%p
-  Ако искате да проверите дали задачата ви спазва ограниченията, качете си skeptic
-  (<code>gem install skeptic</code>) и изпълнете следния ред, в който <code>solution.rb</code>
-  е вашето решение:
+  %ul
+    - explainer.descriptions.each do |description|
+      %li= description
 
 %p
-  %code= SkepticExplainer.command_line restrictions
+  Ако искате да проверите дали задачата ви спазва ограниченията, следвайте инструкциите в
+  описанието на [хранилището за домашните](https://github.com/fmi/ruby-homework).
 
 %p
-  Няма да приемаме решения, които не спазват ограниченията. Изпълнявайте <code>skeptic</code>
-  редовно, докато пишете кода. Ако смятате, че <code>skeptic</code> греши по някакъв начин,
+  Няма да приемаме решения, които не спазват ограниченията. Изпълнявайте <code>rubocop</code>
+  редовно, докато пишете кода. Ако смятате, че <code>rubocop</code> греши по някакъв начин,
   пишете ни на #{mail_to 'fmi@ruby.bg'}, заедно с прикачен код или линк към такъв като
   <strong>private</strong> gist. Ако пуснете кода си публично (например във форумите), ще смятаме
   това за преписване.
