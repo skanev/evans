@@ -7,7 +7,7 @@ class Submission
   validates :code, presence: { message: 'не сте предали код' }
 
   validate :task_must_be_open
-  validate :code_is_parsable_and_compliant_with_skeptic_requirements
+  validate :code_is_parsable_and_compliant_with_restrictions
 
   def initialize(user, task, code)
     @user = user
@@ -31,34 +31,22 @@ class Submission
   end
 
   def violating_restrictions?
-    critic.criticism.present?
+    violations.present?
   end
 
   def violations
-    critic
-      .criticism
-      .group_by { |violation, rule| rule }
-      .map { |rule, arrays| rule + "\n" + arrays.map { |message, _| "* #{message}" }.join("\n") }
-      .join("\n\n")
+    return unless Language.can_lint?
+
+    @violations ||= Language.lint(code, @task.restrictions_hash).join("\n")
   end
 
   private
-
-  def critic
-    @critic ||= Skeptic::Critic.new.tap do |critic|
-      @task.restrictions_hash.each do |rule, option|
-        critic.send "#{rule}=", option
-      end
-
-      critic.criticize code
-    end
-  end
 
   def task_must_be_open
     errors.add :base, 'задачата е затворена' if @task.closed?
   end
 
-  def code_is_parsable_and_compliant_with_skeptic_requirements
+  def code_is_parsable_and_compliant_with_restrictions
     unless Language.parsing? code
       errors.add :code, 'имате синтактична грешка'
       return

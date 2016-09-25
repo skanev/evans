@@ -8,6 +8,7 @@ previous_instances:
     url: 2011.fmi.ruby.bg
   - name: За учебната 2010/2011 година
     url: 2010.fmi.ruby.bg
+rubocop_config_location: https://raw.githubusercontent.com/fmi/ruby-homework/master/.rubocop.yml
 
 # Optional
 # lectures_repository:

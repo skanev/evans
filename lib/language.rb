@@ -1,7 +1,7 @@
 module Language
   extend self
 
-  delegate :language, :parsing?, :run_tests, :extension, :solution_dump, to: :current_language
+  delegate :language, :parsing?, :run_tests, :extension, :solution_dump, :lint, to: :current_language
 
   def current_language
     @current_language ||= const_get Rails.application.config.language.to_s.camelize
@@ -21,5 +21,9 @@ module Language
 
   def domain
     Rails.application.config.course_domain
+  end
+
+  def can_lint?
+    current_language.respond_to? :lint
   end
 end
