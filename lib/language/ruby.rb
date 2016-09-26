@@ -9,6 +9,10 @@ module Language::Ruby
     'rb'
   end
 
+  def can_lint?
+    true
+  end
+
   def solution_dump(attributes)
     <<-END
 # #{attributes[:name]}
