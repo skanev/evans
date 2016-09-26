@@ -9,6 +9,10 @@ module Language::Clojure
     'clj'
   end
 
+  def can_lint?
+    false
+  end
+
   def solution_dump(attributes)
     <<-END
 ;;; #{attributes[:name]}
