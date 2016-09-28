@@ -10,6 +10,7 @@ gem 'will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'draper'
+gem 'http'
 
 gem 'protected_attributes', '~> 1.0.0'
 gem 'rails-observers'
