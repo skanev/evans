@@ -53,9 +53,7 @@ Log output
     end
   end
 
-  def lint(code, additional_restrictions = {})
-    base_config_location = Rails.application.config.rubocop_config_location
-
-    RubyLinter.new(2.3, base_config_location, additional_restrictions).lint(code)
+  def lint(code, base_config, additional_restrictions = {})
+    RubyLinter.new(2.3, base_config, additional_restrictions).lint(code)
   end
 end

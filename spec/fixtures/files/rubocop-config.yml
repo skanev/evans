@@ -1,2 +1,5 @@
+AllCops:
+  DisabledByDefault: true
+
 Style/Semicolon:
   Enabled: true

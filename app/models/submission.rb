@@ -37,7 +37,11 @@ class Submission
   def violations
     return unless Language.can_lint?
 
-    @violations ||= Language.lint(code, @task.restrictions_hash).join("\n")
+    @violations ||= begin
+      base_config = YAML.load(FileCache.load(Rails.application.config.rubocop_config_location))
+
+      Language.lint(code, base_config, @task.restrictions_hash).join("\n")
+    end
   end
 
   private
