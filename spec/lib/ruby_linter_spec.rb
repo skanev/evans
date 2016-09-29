@@ -1,18 +1,10 @@
 require 'spec_helper'
 
 describe RubyLinter do
-  let(:rubocop_config) do
-    YAML.load <<-YAML.strip_heredoc
-      AllCops:
-        DisabledByDefault: true
-
-      Style/Semicolon:
-        Enabled: true
-    YAML
-  end
+  let(:config_location) { Rails.root.join('spec/fixtures/files/rubocop-config.yml') }
 
   it 'lints using the provided base configuration' do
-    violations = RubyLinter.new(2.3, rubocop_config, {}).lint('foo;bar')
+    violations = RubyLinter.new(2.3, config_location, {}).lint('foo;bar')
 
     violations.should eq ['Line 1: Do not use semicolons to terminate expressions. [Style/Semicolon]']
   end
@@ -26,7 +18,7 @@ describe RubyLinter do
         Enabled: true
         Max: 5
     YAML
-    violations = RubyLinter.new(2.3, rubocop_config, overrides).lint('foo;bar')
+    violations = RubyLinter.new(2.3, config_location, overrides).lint('foo;bar')
 
     violations.should eq ['Line 1: Line is too long. [7/5] [Metrics/LineLength]']
   end
