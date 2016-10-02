@@ -67,7 +67,7 @@ describe Submission do
   end
 
   it "does not create a new revision if the user submits the same code" do
-    solution = create :solution_with_revisions, task: task, user: user, code: 'original code'
+    create :solution_with_revisions, task: task, user: user, code: 'original code'
 
     expect do
       submit user, task, 'original code'
@@ -110,16 +110,11 @@ describe Submission do
     end
   end
 
-  describe "(skeptic)" do
-    before do
-      Language.stub can_lint?: true
-    end
-
-    it "doesn't invoke the linter on code with syntax errors" do
-      Language.stub parsing?: false
-      Language.should_not_receive(:lint)
-      submit user, task, 'code'
-    end
+  it "doesn't invoke the linter on code with syntax errors" do
+    Language.stub can_lint?: true
+    Language.stub parsing?: false
+    Language.should_not_receive(:lint)
+    submit user, task, 'code'
   end
 
   def submit(user, task, code)
