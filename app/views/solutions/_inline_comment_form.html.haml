@@ -1,0 +1,8 @@
+.inline-comment-form(data-inline-comment-form)
+  = simple_form_for [revision, Comment.new], namespace: "revision_#{revision.id}" do |form|
+    = form.hidden_field :line_number, class: 'line-number-input'
+    = form.text_area :body
+
+    .buttons
+      = form.button :submit, 'Коментирай', class: 'comment-button'
+      %button.cancel-button(type="button" data-close-comment-form) Откажи

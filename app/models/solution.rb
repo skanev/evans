@@ -56,13 +56,14 @@ class Solution < ActiveRecord::Base
 
   def commentable_by?(user)
     return false if user.nil?
+
     task.closed? or user.admin? or self.user == user
   end
 
   def visible_to?(user)
-    return true if user.try(:admin?)
+    return true  if user.try(:admin?)
     return false if task.hidden?
-    return true if task.closed?
+    return true  if task.closed?
 
     self.user == user
   end

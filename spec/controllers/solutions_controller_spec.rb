@@ -42,15 +42,15 @@ describe SolutionsController do
   describe "GET show" do
     log_in_as :student
 
-    let(:task) { double }
     let(:solution) { double 'solution' }
+    let(:solutions) { double }
+    let(:history) { double 'history' }
 
     before do
-      Task.stub find: task
-      SolutionHistory.stub :new
-      task.stub_chain :solutions, find: solution
+      SolutionHistory.stub new: history
+      Solution.stub includes: solutions
+      solutions.stub find: solution
       solution.stub :visible_to?
-      solution.stub :last_revision
     end
 
     it "allows access to people, who can view the solution" do
@@ -70,23 +70,25 @@ describe SolutionsController do
     end
 
     it "assigns the solution" do
-      task.solutions.should_receive(:find).with('10').and_return(solution)
+      solutions.should_receive(:find).with('10').and_return(solution)
 
       get :show, task_id: '42', id: '10'
 
       assigns(:solution).should eq solution
     end
 
-    it "assigns the last revision" do
-      solution.stub last_revision: 'last revision'
+    it "assigns the solution history" do
       get :show, task_id: '42', id: '10'
-      assigns(:last_revision).should eq 'last revision'
+
+      assigns(:history).should eq history
     end
 
-    it "assigns the solution history" do
-      SolutionHistory.should_receive(:new).with(solution).and_return('solution history')
+    it "eager-loads revisions, comments and their users" do
+      Solution.should_receive(:includes).with(revisions: {comments: :user}).and_return(
+        solutions
+      )
+
       get :show, task_id: '42', id: '10'
-      assigns(:history).should eq 'solution history'
     end
   end
 

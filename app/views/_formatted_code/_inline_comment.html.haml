@@ -1,0 +1,11 @@
+%article.inline-comment{id: comment.dom_id}
+  %aside
+    = comment.user_avatar
+
+  .body
+    = markup comment.body
+
+  .details
+    = comment.user_name
+    = comment.permalink
+    .right= comment.edit_link

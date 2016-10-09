@@ -349,6 +349,7 @@ DEPENDENCIES
   database_cleaner
   devise
   devise-encryptable
+  diff-lcs
   draper
   email_spec
   exception_notification
