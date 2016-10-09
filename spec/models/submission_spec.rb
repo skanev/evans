@@ -6,6 +6,7 @@ describe Submission do
 
   before do
     Language.stub parsing?: true
+    Language.stub can_lint?: false
   end
 
   it "creates a new solution and revision for the given user and task" do
@@ -74,33 +75,49 @@ describe Submission do
   end
 
   describe "task with restrictions" do
-    it "adds restrictions as violations" do
+    before do
+      rubocop_config = Rails.root.join('spec/fixtures/files/rubocop-config.yml')
+
+      Rails.application.config.stub rubocop_config_location: rubocop_config
+
+      Language.stub can_lint?: true
+    end
+
+    it 'lints using the default configuration' do
       code       = 'foo;bar'
-      task       = create :open_task, restrictions_hash: {'no_semicolons' => true}
+      task       = create :open_task
       submission = Submission.new user, task, code
 
       submission.submit.should be false
       submission.should have_error_on :code
       submission.should be_violating_restrictions
-      submission.violations.should include('You have a semicolon')
+      submission.violations.should include('Do not use semicolons')
+    end
+
+    it 'lints with default and custom configuration when present' do
+      code       = "foo;bar\n! test"
+      task       = create :open_task, restrictions: <<-YAML.strip_heredoc
+        Style/SpaceAfterNot:
+          Enabled: true
+      YAML
+      submission = Submission.new user, task, code
+
+      submission.submit.should be false
+      submission.should have_error_on :code
+      submission.should be_violating_restrictions
+      submission.violations.should include('Do not use semicolons')
+      submission.violations.should include('Do not leave space between `!` and its argument')
     end
   end
 
   describe "(skeptic)" do
-    let(:critic) { double.as_null_object }
-
     before do
-      Skeptic::Critic.stub new: critic
+      Language.stub can_lint?: true
     end
 
-    it "invokes skeptic on the code" do
-      critic.should_receive(:criticize).with('code')
-      submit user, task, 'code'
-    end
-
-    it "doesn't invoke skeptic on code with syntax errors" do
+    it "doesn't invoke the linter on code with syntax errors" do
       Language.stub parsing?: false
-      critic.should_not_receive(:criticize)
+      Language.should_not_receive(:lint)
       submit user, task, 'code'
     end
   end

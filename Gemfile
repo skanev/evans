@@ -14,7 +14,7 @@ gem 'draper'
 gem 'protected_attributes', '~> 1.0.0'
 gem 'rails-observers'
 
-gem 'skeptic'
+gem 'rubocop'
 
 gem 'spork-rails'
 

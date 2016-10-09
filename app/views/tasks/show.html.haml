@@ -27,4 +27,4 @@
   = markup @task.description, auto_link: false
 
   - if @task.has_restrictions?
-    = render 'restrictions', restrictions: @task.restrictions_hash
+    = render 'restrictions', explainer: RubocopExplainer.new(@task.restrictions_hash)

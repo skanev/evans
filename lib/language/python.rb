@@ -9,6 +9,10 @@ module Language::Python
     'py'
   end
 
+  def can_lint?
+    false
+  end
+
   def solution_dump(attributes)
     <<-END
 # #{attributes[:name]}
