@@ -319,9 +319,6 @@ GEM
     timecop (0.8.0)
     timers (1.1.0)
     tins (1.6.0)
-    turbo-sprockets-rails3 (0.2.9)
-      railties (>= 3.1.0)
-      sprockets (>= 2.0.0)
     tzinfo (0.3.44)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
@@ -395,7 +392,6 @@ DEPENDENCIES
   test-unit
   therubyracer
   timecop
-  turbo-sprockets-rails3
   uglifier
   underscore-rails
   webrat
