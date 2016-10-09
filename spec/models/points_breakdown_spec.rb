@@ -126,10 +126,6 @@ describe PointsBreakdown do
     breakdown.quizzes_breakdown.should eq []
   end
 
-  it "raises an error the user does not exists" do
-    expect { PointsBreakdown.find 0 }.to raise_error 'Cannot find user with id = 0'
-  end
-
   it "can retrieve breakdowns for all users" do
     first  = create :user
     second = create :user

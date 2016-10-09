@@ -8,5 +8,5 @@
   - @team_members.each do |team_member|
     %li
       = link_to team_member do
-        = user_thumbnail team_member
+        = user_photo_for_avatar team_member
         = team_member.name

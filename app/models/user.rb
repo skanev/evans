@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   scope :admins,   -> { where(admin: true) }
   scope :students, -> { where(admin: false) }
 
+  has_one  :points_breakdown, foreign_key: :id
   has_many :solutions
   has_many :tips
   has_many :attributions
@@ -16,12 +17,12 @@ class User < ActiveRecord::Base
 
   def points
     return 0 if admin?
-    PointsBreakdown.find(id).total
+    points_breakdown.total
   end
 
   def rank
     return 0 if admin?
-    PointsBreakdown.find(id).rank
+    points_breakdown.rank
   end
 
   def first_name

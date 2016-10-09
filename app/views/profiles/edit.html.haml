@@ -10,7 +10,7 @@
       Форумите са много по-приятни, когато виждате лицата на участниците, а не всевъзможни аниме герои.
       Ако ще качвате снимка, нека да бъде <strong>истинска и да се разпознавате ясно на нея.</strong>
       Ще махаме останалите.
-    = user_thumbnail @user
+    = user_photo_for_avatar @user
     - if @user.photo.present?
       = form.input :remove_photo, as: :boolean, label: 'Изтрий снимката'
       %p Или качи друга:
