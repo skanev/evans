@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :solutions
   has_many :tips
   has_many :attributions
+  has_many :notifications
 
   attr_protected :full_name, :faculty_number, :email, :admin
 

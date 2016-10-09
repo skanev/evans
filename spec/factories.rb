@@ -36,6 +36,12 @@ FactoryGirl.define do
     user
   end
 
+  factory :notification do
+    title 'Title'
+    association :source, factory: :topic 
+    user
+  end
+
   factory :reply do
     body 'Body'
     topic

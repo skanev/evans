@@ -1,0 +1,11 @@
+%h1 Известия
+
+%p
+  Общо известия:
+  %strong= @notifications.count
+
+%table
+  %tbody
+    - @notifications.each do |notification|
+      %tr
+        %td.name.notification-name= link_to notification.title, notification

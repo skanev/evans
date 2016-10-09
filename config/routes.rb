@@ -6,6 +6,8 @@ Trane::Application.routes.draw do
 
   resources :vouchers, only: %w(index new create)
 
+  resources :notifications, only: %w(index show)
+
   resources :announcements, except: %w(destroy)
   resource :profile, only: %w(edit update)
   resource :leaderboard, only: :show
