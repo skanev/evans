@@ -1,18 +1,31 @@
 @mixin contribution {
+  border-radius: 5px;
+
   & { margin: 5px 0; overflow: hidden; padding: 20px; }
-  &:nth-child(even) { background-color: #f0f0f0; }
+  &:nth-child(even) { background-color: $gray; }
   &.starred { background-color: #fffdd0; }
 
-  aside { float: right; }
-  aside img { display: block; }
+  aside { float: right; margin-bottom: 10px; margin-left: 12px; }
+  aside a { display: block; text-align: center; }
+  aside img { display: inline-block; }
 
-  .body { @include content; margin-right: 200px; }
+  .body { @include content; }
+  .published-at { border-top: 1px solid $light-border; color: #666; font-size: $font-small; padding-top: 5px; }
 
-  .published-at { border-top: 1px dotted gray; color: #666; font-size: $font-small; margin-right: 200px; padding-top: 5px; }
+  .body,
+  .published-at { margin-right: 200px; }
+
+  @include mobile-only {
+    .body,
+    .published-at { margin-right: 0; }
+    img.avatar { width: 90px; }
+    aside a { font-size: 11px; }
+  }
 
   a.permalink {
     color: #666;
     text-decoration: none;
+
     &:hover { color: $color-link; }
   }
 
@@ -20,6 +33,6 @@
 
   a[data-toggle-star=star],
   a[data-toggle-star=unstar] { background: { position: top left; repeat: no-repeat; }; padding-left: 20px; }
-  a[data-toggle-star=star] { background-image: image-url('icons/star.png'); }
+  a[data-toggle-star=star]   { background-image: image-url('icons/star.png'); }
   a[data-toggle-star=unstar] { background-image: image-url('icons/unstar.png'); }
 }

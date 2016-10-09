@@ -9,6 +9,8 @@
 table.solutions {
   @include data-table;
 
+  td.name { @include link-table-cell(10px 15px); }
+
   .points { width: 150px; white-space: nowrap; }
   .results { width: 180px; white-space: nowrap; }
 
@@ -28,7 +30,17 @@ table.solutions {
 #tasks {
   @include content;
 
-  li.hidden { color: $disabled; }
+  > table {
+    @include data-table;
+
+    td.name { @include link-table-cell(10px 15px); }
+    td.closes_at { width: 20%; min-width: 160px; }
+  }
+
+  @include mobile-only {
+    .closes_at { display: none; }
+    th.name { border-top-right-radius: 5px; }
+  }
 }
 
 .solution {
@@ -36,7 +48,7 @@ table.solutions {
 
   .results { @include test-results; }
 
-  article.revision { border: 1px dotted $light-border; padding: 2em; margin: 2em 0; }
+  article.revision { border: 1px solid $light-border; border-radius: 4px; padding: 2em; margin: 2em 0; }
   article.revision h3 { margin: 0 0 2em; }
   article.comment { @include contribution; }
   article.comment:first-of-type { margin-top: 1em; }

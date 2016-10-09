@@ -15,6 +15,7 @@ previous_instances:
 # homework_repository:
 # homework_branch:
 # hooks_secret_key:
+# main_color: $red
 
 # Production only:
 # pepper: ''

@@ -1,12 +1,16 @@
 #challenges
   %h1 Предизвикателства
   = admin_only do
-    = link_to 'Ново', new_challenge_path, class: :action
+    = link_to 'Ново предизвикателство', new_challenge_path, class: [:action, :primary]
 
-  %ul
-    - @challenges.each do |challenge|
-      %li{class: (:hidden if challenge.hidden?)}
-        = link_to challenge.name, challenge
-        - if challenge.hidden?
-          (скрито)
-        (краен срок: #{l(challenge.closes_at)})
+  %table
+    %thead
+      %tr
+        %th.name Име
+        %th.closes_at Краен срок
+
+    %tbody
+    - @challenges.reject(&:hidden?).each do |challenge|
+      %tr{class: challenge.table_row_class}
+        %td.name= link_to challenge.name, challenge
+        %td.closes_at= l challenge.closes_at

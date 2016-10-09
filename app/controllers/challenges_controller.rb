@@ -3,9 +3,9 @@ class ChallengesController < ApplicationController
 
   def index
     @challenges = if admin?
-      Challenge.in_chronological_order
+      Challenge.in_chronological_order.decorate
     else
-      Challenge.visible
+      Challenge.visible.decorate
     end
   end
 

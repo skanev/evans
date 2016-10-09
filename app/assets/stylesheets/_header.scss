@@ -1,0 +1,88 @@
+.site-header {
+  background-color: $gray;
+  border-bottom: 1px solid white;
+  box-shadow: 0 1px $dark-border;
+  height: 140px;
+  margin-bottom: 25px;
+  padding: 10px;
+  position: relative;
+
+  a.logo { float: left; margin: 8px 40px; }
+  a.logo img { height: 102px; width: 103px; }
+
+  h1 {
+    font-family: $font-site-title;
+    font-size: $font-huge;
+    font-weight: bold;
+    margin-top: 35px;
+    text-shadow: 1px 1px white;
+  }
+
+  h2 { margin-top: 10px; }
+
+  nav { color: $dark-text; font-weight: bold; position: absolute; right: 50px; bottom: 10px; }
+  nav li { border-left: 2px solid $dark-text; display: inline; padding: 0 6px 0 10px; }
+  nav li:first-child { border-left: none; }
+  nav li a { color: $title-color; font-size: $font-normal; }
+  nav li a:hover { text-decoration: underline; }
+
+  .site-menu-button { display: none; }
+
+  @include mobile-only {
+    height: 50px;
+
+    a.logo { display: none; }
+
+    h1 { font-size: 18px; margin-top: 7px; text-align: center; }
+
+    nav,
+    h2 { display: none; }
+
+    > .site-menu-button {
+      background: none;
+      border: none;
+      color: black;
+      display: block;
+      font-family: $font-navigation;
+      font-size: 27px;
+      height: 46px;
+      left: 2px;
+      line-height: 46px;
+      padding: 0;
+      position: absolute;
+      top: 2px;
+      width: 50px;
+
+      &:hover,
+      &:active,
+      &:focus { outline: none; }
+    }
+  }
+}
+
+.tip-of-the-day {
+  a {
+    background-color: #f0f0f0;
+    border-radius: 0 0 6px 6px;
+    color: black;
+    display: block;
+    font-family: $font-navigation;
+    padding: 10px 15px 12px;
+    text-decoration: none;
+    width: 400px;
+    float: right;
+  }
+
+  a:hover { background-color: #3371a3; color: white; text-decoration: none; }
+}
+
+@mixin flash($background, $border, $icon) {
+  background: { color: $background; image: image-url("icons/#{$icon}.png"); position: 15px 15px; repeat: no-repeat; }
+  border: 1px solid $border;
+  margin-bottom: 20px;
+  padding: 15px 40px;
+}
+
+.flash.error,
+.flash.alert { @include flash(#fdd, #f55, 'error'); }
+.flash.notice { @include flash(#dfd, #5f5, 'tick'); }

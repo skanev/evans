@@ -2,20 +2,34 @@ $font-small: 13px;
 $font-normal: 15px;
 $font-large: 18px;
 $font-larger: 22px;
-$font-huge: 28px;
+$font-huge: 24px;
 
 $font-text: Arial, Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
 $font-navigation: Verdana, Geneva, "Bitstream Vera Sans", Helvetica, sans-serif;
 $font-headings: "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;
 $font-monospace: Inconsolata-dz, Monaco, Terminus, monospace;
 $font-monospace-size: 13px;
-$font-site-title: Georgia, serif;
+$font-site-title: $font-text;
 
-$light-border: #c4cccc;
-$dark-border: #6f7777;
-$button-color: #f8f7f7;
-$title-color: #234764;
-$subtitle-color: #3371a3;
+$mobile-width: 700px;
+$mobile-width-min: $mobile-width + 1px;
+
+$gray: darken(white, 4%);
+$light-gray: lighten($gray, 2%);
+$red: #940600;
+$dark-red: darken($red, 15%);
+$blue: #3371a3;
+$dark-blue: #234764;
+$green: green;
+$orange: orange;
+
+$main-color: <%= Rails.application.config.try(:main_color) || '$blue' %>;
+$menu-color: $main-color;
+$light-border: lighten(#c4cccc, 10%);
+$dark-border: #c4cccc;
+$button-color: $gray;
+$title-color: lighten(black, 10%);
+$subtitle-color: $main-color;
 $dark-text: #234;
 $background: white;
 $alert: red;
@@ -23,7 +37,5 @@ $disabled: #999;
 $quiet: #666;
 $hint: #888;
 $color-link: #1341a3;
-$action: #5f9ea0;
-$action-hover: #2f6e80;
 
 $margin: 10px;

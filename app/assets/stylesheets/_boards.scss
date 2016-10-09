@@ -7,9 +7,16 @@ ol.topic {
 table.topics {
   @include data-table;
 
-  time { display: block; }
+  td.title { @include link-table-cell(17px); }
+
   td.last-reply { font-size: $font-small; }
+
+  time { display: block; }
+
+  @include mobile-only {
+    .reply-count { display: none; }
+  }
 }
 
 .new-reply { @include content; }
-p.markdown-explanation { color: #999; font-style: italic; width: 650px; }
+p.markdown-explanation { color: #999; font-style: italic; max-width: 650px; }

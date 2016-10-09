@@ -5,7 +5,7 @@ describe ChallengesController do
     log_in_as :student
 
     before do
-      Challenge.stub :visible
+      Challenge.stub visible: double(decorate: 'visible challenges')
     end
 
     it "does not require a logged in user" do
@@ -15,14 +15,14 @@ describe ChallengesController do
     end
 
     it "assigns the visible challenges for non-admins" do
-      Challenge.stub visible: 'challenges'
+      Challenge.stub visible: double(decorate: 'challenges')
       get :index
       assigns(:challenges).should eq 'challenges'
     end
 
     it "assigns all challenges for admins" do
       current_user.stub admin?: true
-      Challenge.stub in_chronological_order: 'challenges'
+      Challenge.stub in_chronological_order: double(decorate: 'challenges')
 
       get :index
 

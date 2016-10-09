@@ -1,0 +1,32 @@
+%ul
+  - unless mobile
+    %li= link_to 'Начало', root_path
+
+  - if mobile and not user_signed_in?
+    %li= link_to 'Вход', new_user_session_path
+    %li= link_to 'Регистрация', new_registration_path
+
+  - if user_signed_in?
+    %li= link_to 'Табло', dashboard_path
+
+  %li= link_to 'Новини', announcements_path
+  %li= link_to 'Материали', lectures_path
+  %li= link_to 'Задачи', tasks_path
+  %li= link_to 'Предизвикателства', challenges_path
+
+  - if Tip.current
+    %li= link_to 'Хитринки', tips_path
+
+  %li= link_to 'Форуми', topics_path
+  %li= link_to 'Потребители', users_path
+  %li= link_to 'Класация', leaderboard_path
+  %li= link_to 'Екип', team_path
+
+  - if admin?
+    %li= link_to 'Активност', activities_path
+    %li= link_to 'Ваучъри', vouchers_path
+    %li= link_to 'Записани', sign_ups_path
+    %li= link_to 'Точки', points_breakdowns_path
+
+  - if mobile and user_signed_in?
+    %li= link_to 'Изход', destroy_user_session_path

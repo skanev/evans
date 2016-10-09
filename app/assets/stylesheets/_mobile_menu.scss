@@ -1,0 +1,57 @@
+.mobile-menu {
+  background-color: $gray;
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+
+  .logo { margin-right: 50px; margin-top: 15px; text-align: center; }
+  .logo a { display: inline-block; }
+  .logo img { height: 50px; width: 50px; }
+
+  ul { margin-right: 50px; padding-left: 25px; }
+  ul a { color: $title-color; display: block; font-size: 17px; padding: 11px; }
+}
+
+.site-content {
+  background-color: white;
+  box-shadow: 0 0 20px rgba(black, 0.2);
+  position: relative;
+  transition: -webkit-transform .3s ease-in-out;
+  transition: transform .3s ease-in-out;
+  z-index: 1;
+}
+
+.site-content-overlay {
+  bottom: 0;
+  display: none;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+body.mobile-menu-open {
+  .site-content,
+  .site-content-overlay {
+    @include transform(translateX(calc(100% - 65px)) scale(0.9));
+  }
+
+  .site-content { overflow: hidden; }
+  .site-content-overlay { display: block; }
+}
+
+@include mobile-only {
+  html,
+  body { height: 100%; overflow: hidden; }
+
+  .mobile-menu { display: block; }
+
+  .mobile-menu,
+  .site-content { height: 100%; overflow-y: scroll; -webkit-overflow-scrolling: touch; }
+}

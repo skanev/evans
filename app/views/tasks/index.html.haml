@@ -1,12 +1,16 @@
 #tasks
   %h1 Задачи
   = admin_only do
-    = link_to 'Нова', new_task_path, class: :action
+    = link_to 'Нова задача', new_task_path, class: [:action, :primary]
 
-  %ul
-    - @tasks.each do |task|
-      %li{class: (:hidden if task.hidden?)}
-        = link_to task.name, task
-        - if task.hidden?
-          (скрита)
-        (краен срок: #{l(task.closes_at)})
+  %table
+    %thead
+      %tr
+        %th.name Име
+        %th.closes_at Краен срок
+
+    %tbody
+    - @tasks.reject(&:hidden?).each do |task|
+      %tr{class: task.table_row_class}
+        %td.name= link_to task.name, task
+        %td.closes_at= l task.closes_at

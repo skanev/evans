@@ -1,1 +1,5 @@
-#lectures { @include content; }
+#lectures {
+  @include content;
+
+  table td.name { @include link-table-cell; }
+}

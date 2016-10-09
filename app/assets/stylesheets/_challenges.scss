@@ -1,7 +1,17 @@
 #challenges {
   @include content;
 
-  .hidden { color: $disabled; }
+  > table {
+    @include data-table;
+
+    td.name { @include link-table-cell(10px 15px); }
+    td.closes_at { width: 20%; min-width: 160px; }
+
+    @include mobile-only {
+      .closes_at { display: none; }
+      th.name { border-top-right-radius: 5px; }
+    }
+  }
 }
 
 .challenge {

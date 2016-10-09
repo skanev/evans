@@ -6,7 +6,7 @@ describe TasksController do
 
     it "assigns all tasks if admin" do
       current_user.stub admin?: true
-      Task.stub in_chronological_order: 'tasks'
+      Task.stub in_chronological_order: double(decorate: 'tasks')
 
       get :index
 
@@ -15,7 +15,7 @@ describe TasksController do
 
     it "assigns visible tasks if not admin" do
       current_user.stub admin?: false
-      Task.stub visible: 'tasks'
+      Task.stub visible: double(decorate: 'tasks')
 
       get :index
 

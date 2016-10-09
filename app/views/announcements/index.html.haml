@@ -2,7 +2,7 @@
   %h1 Новини
 
   - if admin?
-    = link_to 'Нова', new_announcement_path, class: :action
+    = link_to 'Нова', new_announcement_path, class: [:action, :primary]
 
   - unless @announcements.empty?
     - @announcements.each do |announcement|

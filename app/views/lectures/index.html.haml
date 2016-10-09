@@ -2,10 +2,17 @@
 
 #lectures
   - unless @lectures.nil?
-    %ol(start="0")
-      - @lectures.each do |lecture|
-        %li
-          = link_to lecture_title(lecture), lecture_url(lecture)
-          (#{lecture[:date]})
+    %table
+      %thead
+        %tr
+          %th.number #
+          %th.name Лекция
+          %th.date Дата
+
+      - @lectures.each.with_index do |lecture, index|
+        %tr
+          %td.number= index
+          %td.name= link_to lecture_title(lecture), lecture_url(lecture)
+          %td.date= lecture[:date]
   - else
     %p.missing Няма качени лекции

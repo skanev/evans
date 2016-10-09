@@ -1,4 +1,7 @@
 body { font-family: $font-text; font-size: $font-normal; line-height: 19px; }
+
+* { box-sizing: border-box; }
+
 a { color: $color-link; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
@@ -10,24 +13,49 @@ abbr { border-bottom: 1px dotted $dark-border; }
 table.data-table { @include data-table; }
 
 .main h1 { @include heading-1; margin-bottom: 1em; }
-.action { @include action; }
+
+.action         { @include button; }
+.action.primary { @include primary-button; }
 
 .no-records,
 .requires-authentication { color: $disabled; font-style: italic; }
 
 .pagination {
   margin-bottom: 1em;
-  overflow: hidden;
+  text-align: center;
 
   span,
   em,
-  a { display: block; float: left; margin: 2px; padding: 5px 10px; }
+  a { @include button; margin: 2px; }
 
-  .disabled,
-  a { border: 1px solid #ddd; }
+  .current { @include primary-button; cursor: default; }
+  .disabled { display: none; }
 
   em { color: #FF8000; font-weight: bold; font-style: normal; }
-  a:hover { background-color: #0063DC; color: white; text-decoration: none; }
 }
 
 #home-page { @include content; }
+
+.site-columns {
+  $menu-width: 220px;
+  $menu-margin: 60px;
+
+  @include clear-after;
+
+  .site-menu { float: left; width: $menu-width; }
+  #container { float: right; margin-right: 30px; margin-top: 10px; width: calc(100% - #{$menu-width + $menu-margin}); }
+
+  @include mobile-only {
+    .site-menu { display: none; }
+    #container { width: 100%; margin: 0; padding: 0 10px; }
+  }
+}
+
+.site-footer {
+  border-top: 1px solid $light-border;
+  clear: both;
+  color: #666;
+  font-size: $font-small;
+  margin-top: 30px;
+  padding: 15px;
+}

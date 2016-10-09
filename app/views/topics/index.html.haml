@@ -1,19 +1,19 @@
 %h1 Форуми
 
-%p= link_to 'Нова тема', new_topic_path, class: :action if logged_in?
+%p= link_to 'Нова тема', new_topic_path, class: [:action, :primary] if logged_in?
 
 %table.topics
   %thead
     %tr
-      %th Тема
-      %th Отговори
-      %th Последен отговор
+      %th.title Тема
+      %th.reply-count Отговори
+      %th.last-reply Последен отговор
   %tbody
     - if @topics.present?
       - @topics.each do |topic|
         %tr
-          %td= link_to topic.title, topic
-          %td= topic.replies_count
+          %td.title= link_to topic.title, topic
+          %td.reply-count= topic.replies_count
           %td.last-reply
             = link_to last_reply_topic_path(topic) do
               %time{:datetime => topic.last_post_at.iso8601, :pubdate => true}= l topic.last_post_at
