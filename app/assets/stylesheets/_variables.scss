@@ -23,7 +23,6 @@ $dark-blue: #234764;
 $green: green;
 $orange: orange;
 
-$main-color: <%= Rails.application.config.try(:main_color) || '$blue' %>;
 $menu-color: $main-color;
 $light-border: lighten(#c4cccc, 10%);
 $dark-border: #c4cccc;
