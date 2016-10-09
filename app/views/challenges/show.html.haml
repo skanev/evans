@@ -9,6 +9,13 @@
     = admin_only do
       - unless ChallengeCheckWorker.queued? @challenge.id
         = link_to 'Пусни тестовете', challenge_check_path(@challenge), method: :create, class: :action
+    = admin_only do
+      - unless @challenge.hidden?
+        = link_to 'Извести студентите по имейл',
+                  send_emails_challenge_path(@challenge),
+                  method: :create,
+                  class: :action,
+                  data: {confirm: 'Сигурен ли си, че искаш да изпратиш писма до всички за това предизвикателство?'}
 
   - if ChallengeCheckWorker.queued? @challenge.id
     %p
