@@ -97,6 +97,35 @@ describe FormattedCode::CommentHistory do
     expect_comments_to_match version_one, version_two, expected
   end
 
+  it 'correctly matches the lines when there are multiple changed lines in a row' do
+    version_one = <<-END
+      Line one
+      Line two
+      # Comment one
+      Line three
+      # Comment two
+    END
+
+    version_two = <<-END
+      Line one!
+      # Comment one!
+      Line two!
+      Line three
+      # Comment three
+    END
+
+    expected = <<-END
+      Line one!
+      # Comment one!
+      Line two!
+      Line three
+      # Comment two
+      # Comment three
+    END
+
+    expect_comments_to_match version_one, version_two, expected
+  end
+
   def expect_comments_to_match(*versions, expected)
     history = FormattedCode::CommentHistory.new
 

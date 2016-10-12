@@ -32,7 +32,7 @@ module FormattedCode
     private
 
     def diff_code(old_code, new_code)
-      ::Diff::LCS.sdiff(old_code.lines, new_code.lines)
+      Differ.new(old_code, new_code).changes
     end
 
     def select_active_comments(diff, comments_by_line)
