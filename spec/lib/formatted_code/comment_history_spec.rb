@@ -126,6 +126,60 @@ describe FormattedCode::CommentHistory do
     expect_comments_to_match version_one, version_two, expected
   end
 
+  it 'works across multiple revisions' do
+    version_one = <<-END
+      Line 1
+      Line 2
+    END
+
+    version_two = <<-END
+      Line 1+
+      # Comment on 1+
+      Line 2
+    END
+
+    version_three = <<-END
+      Line 1+
+      # Second comment on 1+
+      Line 2+
+      # Comment on 2+
+    END
+
+    expected = <<-END
+      Line 1+
+      # Comment on 1+
+      # Second comment on 1+
+      Line 2+
+      # Comment on 2+
+    END
+
+    expect_comments_to_match version_one, version_two, version_three, expected
+  end
+
+  it 'compares version pairs step by step, ignoring old comments' do
+    version_one = <<-END
+      Line one
+      # Comment 1
+    END
+
+    version_two = <<-END
+      Line one!
+      # Comment one
+    END
+
+    version_three = <<-END
+      Line one
+      # Comment one!
+    END
+
+    expected = <<-END
+      Line one
+      # Comment one!
+    END
+
+    expect_comments_to_match version_one, version_two, version_three, expected
+  end
+
   def expect_comments_to_match(*versions, expected)
     history = FormattedCode::CommentHistory.new
 

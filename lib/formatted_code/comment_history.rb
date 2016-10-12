@@ -24,6 +24,8 @@ module FormattedCode
 
         comments = select_active_comments(diff, comments)
         comments = merge_comment_hashes(comments, version.comments_by_line)
+
+        old_version = version
       end
 
       comments
