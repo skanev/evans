@@ -13,6 +13,7 @@
   ol > li { list-style: decimal; }
 
   pre { font-family: $font-monospace; padding: 10px; font-size: $font-monospace-size; }
+  pre > code { display: block; overflow-x: auto; }
 
   code {
     background: rgba(white, 0.5);
