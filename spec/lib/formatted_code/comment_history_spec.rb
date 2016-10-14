@@ -5,23 +5,26 @@ describe FormattedCode::CommentHistory do
 
   it 'only preserves comments on unchanged lines' do
     version_one = <<-END
-      Line one
-      # Comment one
-      # Comment two
-      Line two
-      # Comment three
+      def print_foo(foo)
+      # Can you change this to bar?
+      # Nope
+        p foo
+      # Use puts for regular printing
+      end
     END
 
     version_two = <<-END
-      Line one
-      Changed line
+      def print_foo(foo)
+        puts foo
+      end
     END
 
     expected = <<-END
-      Line one
-      # Comment one
-      # Comment two
-      Changed line
+      def print_foo(foo)
+      # Can you change this to bar?
+      # Nope
+        puts foo
+      end
     END
 
     expect_comments_to_match version_one, version_two, expected
@@ -29,17 +32,19 @@ describe FormattedCode::CommentHistory do
 
   it 'preserves all comments on the last version' do
     single_version = <<-END
-      Line one
-      # Comment one
-      Line two
-      # Comment two
+      def print_foo(foo)
+      # Please change this to bar
+        puts foo
+      # Also change this
+      end
     END
 
     expected = <<-END
-      Line one
-      # Comment one
-      Line two
-      # Comment two
+      def print_foo(foo)
+      # Please change this to bar
+        puts foo
+      # Also change this
+      end
     END
 
     expect_comments_to_match single_version, expected
@@ -47,24 +52,24 @@ describe FormattedCode::CommentHistory do
 
   it 'moves comments to the correct line' do
     version_one = <<-END
-      Line one
-      # Comment one
-      # Comment two
-      Line two
+      answer = 42
+      # Is this really the answer?
+      # Yes, it is
+      puts answer
     END
 
     version_two = <<-END
-      Line zero
-      Line one
-      Changed line
+      question = 'life, universe and everything'
+      answer = 42
+      puts "\#{question}: \#{answer}"
     END
 
     expected = <<-END
-      Line zero
-      Line one
-      # Comment one
-      # Comment two
-      Changed line
+      question = 'life, universe and everything'
+      answer = 42
+      # Is this really the answer?
+      # Yes, it is
+      puts "\#{question}: \#{answer}"
     END
 
     expect_comments_to_match version_one, version_two, expected
@@ -72,26 +77,26 @@ describe FormattedCode::CommentHistory do
 
   it 'combines comments on the same line' do
     version_one = <<-END
-      Line one
-      # Comment one
-      # Comment two
-      Line two
+      question = 'life, universe and everything'
+      # Should this be an array?
+      # No, I like it as string.
+      puts question
     END
 
     version_two = <<-END
-      Line zero
-      Line one
-      # Comment three
-      Changed line
+      answer = 42
+      question = 'life, universe and everything'
+      # I really think this should be an array
+      puts "\#{question}: \#{answer}"
     END
 
     expected = <<-END
-      Line zero
-      Line one
-      # Comment one
-      # Comment two
-      # Comment three
-      Changed line
+      answer = 42
+      question = 'life, universe and everything'
+      # Should this be an array?
+      # No, I like it as string.
+      # I really think this should be an array
+      puts "\#{question}: \#{answer}"
     END
 
     expect_comments_to_match version_one, version_two, expected
@@ -99,28 +104,34 @@ describe FormattedCode::CommentHistory do
 
   it 'correctly matches the lines when there are multiple changed lines in a row' do
     version_one = <<-END
-      Line one
-      Line two
-      # Comment one
-      Line three
-      # Comment two
+      [
+        :one,
+        :two,
+      # Can you change this to second?
+        :three,
+      # Can you change this to third?
+      ]
     END
 
     version_two = <<-END
-      Line one!
-      # Comment one!
-      Line two!
-      Line three
-      # Comment three
+      [
+        :first,
+      # Nice!
+        :second,
+        :three,
+      # Why didn't you change this?
+      ]
     END
 
     expected = <<-END
-      Line one!
-      # Comment one!
-      Line two!
-      Line three
-      # Comment two
-      # Comment three
+      [
+        :first,
+      # Nice!
+        :second,
+        :three,
+      # Can you change this to third?
+      # Why didn't you change this?
+      ]
     END
 
     expect_comments_to_match version_one, version_two, expected
@@ -128,29 +139,29 @@ describe FormattedCode::CommentHistory do
 
   it 'works across multiple revisions' do
     version_one = <<-END
-      Line 1
-      Line 2
+      answer = 42
+      another_answer = answer + 1
     END
 
     version_two = <<-END
-      Line 1+
-      # Comment on 1+
-      Line 2
+      answer = 43
+      # This is not the correct answer
+      another_answer = answer + 1
     END
 
     version_three = <<-END
-      Line 1+
-      # Second comment on 1+
-      Line 2+
-      # Comment on 2+
+      answer = 43
+      # I disagree
+      another_answer = answer - 1
+      # This is the correct answer
     END
 
     expected = <<-END
-      Line 1+
-      # Comment on 1+
-      # Second comment on 1+
-      Line 2+
-      # Comment on 2+
+      answer = 43
+      # This is not the correct answer
+      # I disagree
+      another_answer = answer - 1
+      # This is the correct answer
     END
 
     expect_comments_to_match version_one, version_two, version_three, expected
@@ -158,23 +169,23 @@ describe FormattedCode::CommentHistory do
 
   it 'compares version pairs step by step, ignoring old comments' do
     version_one = <<-END
-      Line one
-      # Comment 1
+      answer = 42
+      # Correct
     END
 
     version_two = <<-END
-      Line one!
-      # Comment one
+      answer = 43
+      # This is not right, change it back!
     END
 
     version_three = <<-END
-      Line one
-      # Comment one!
+      answer = 42
+      # Thank you
     END
 
     expected = <<-END
-      Line one
-      # Comment one!
+      answer = 42
+      # Thank you
     END
 
     expect_comments_to_match version_one, version_two, version_three, expected
@@ -195,6 +206,6 @@ describe FormattedCode::CommentHistory do
 
     actual = code_and_comments_to_version(final_code, final_comments)
 
-    expect(actual).to eq expected.lines.map(&:strip).join("\n")
+    expect(actual).to eq expected.lines.map(&:strip).reject(&:empty?).join("\n")
   end
 end

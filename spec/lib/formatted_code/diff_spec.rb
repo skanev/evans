@@ -5,7 +5,7 @@ describe FormattedCode::Diff do
 
   before do
     FormattedCode::Highlighter.stub :new do |code, language|
-      double lines: code.split("\n").map { |line| "Formatted #{line}" }
+      double lines: code.split("\n").map { |line| "!#{line}" }
     end
   end
 
@@ -25,10 +25,10 @@ describe FormattedCode::Diff do
 
     expect_diff old_version, new_version, <<-END
       -Old line
-      +Formatted New line
+      +!New line
       # Comment one
       # Comment two
-       Formatted Code
+       !Code
       # Comment three
     END
 
@@ -48,31 +48,29 @@ describe FormattedCode::Diff do
 
   it 'does not interleave sequences of changed lines' do
     old_version = <<-END
-      Old line 1
-      Old line 2
-      Old line 3
-      Code
+      puts one
+      puts two
+      puts three
+      puts 42
     END
 
     new_version = <<-END
-      New line 1
-      New line 2
-      New line 3
-      # Comment one
-      Code
-      # Comment two
+      puts first
+      puts second
+      puts third
+      puts 42
+      # This is much better
     END
 
     expect_diff old_version, new_version, <<-END
-      -Old line 1
-      -Old line 2
-      -Old line 3
-      +Formatted New line 1
-      +Formatted New line 2
-      +Formatted New line 3
-      # Comment one
-      Formatted Code
-      # Comment two
+      -puts one
+      -puts two
+      -puts three
+      +!puts first
+      +!puts second
+      +!puts third
+       !puts 42
+       # This is much better
     END
   end
 
