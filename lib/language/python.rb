@@ -13,6 +13,10 @@ module Language::Python
     false
   end
 
+  def test_file
+    'test'
+  end
+
   def solution_dump(attributes)
     <<-END
 # #{attributes[:name]}

@@ -8,6 +8,7 @@ module Language
            :solution_dump,
            :can_lint?,
            :lint,
+           :test_file,
            to: :current_language
 
   def current_language
