@@ -13,7 +13,7 @@ module Language::Ruby
     true
   end
 
-  def test_file
+  def test_file_pattern
     'spec'
   end
 

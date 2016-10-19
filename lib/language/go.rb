@@ -13,7 +13,7 @@ module Language::Go
     false
   end
 
-  def test_file
+  def test_file_pattern
     '*_test'
   end
 

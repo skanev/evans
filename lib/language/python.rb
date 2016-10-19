@@ -13,7 +13,7 @@ module Language::Python
     false
   end
 
-  def test_file
+  def test_file_pattern
     'test'
   end
 
