@@ -14,7 +14,7 @@ module Language::Clojure
   end
 
   def test_file_pattern
-    'test'
+    'test.clj'
   end
 
   def solution_dump(attributes)

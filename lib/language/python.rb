@@ -14,7 +14,7 @@ module Language::Python
   end
 
   def test_file_pattern
-    'test'
+    'test.py'
   end
 
   def solution_dump(attributes)

@@ -14,7 +14,7 @@ module Language::Ruby
   end
 
   def test_file_pattern
-    'spec'
+    'spec.rb'
   end
 
   def solution_dump(attributes)

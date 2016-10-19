@@ -92,7 +92,7 @@ module Sync
     end
 
     def test_file(id)
-      filename = Dir["#{id}/#{Language.test_file_pattern}.#{Language.extension}"].first
+      filename = Dir["#{id}/#{Language.test_file_pattern}"].first
       filename and File.new(filename)
     end
   end

@@ -14,7 +14,7 @@ module Language::Go
   end
 
   def test_file_pattern
-    '*_test'
+    '*_test.go'
   end
 
   def solution_dump(attributes)
