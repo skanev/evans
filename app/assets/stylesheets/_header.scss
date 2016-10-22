@@ -66,14 +66,15 @@
     border-radius: 0 0 6px 6px;
     color: black;
     display: block;
+    float: right;
     font-family: $font-navigation;
+    margin-top: -10px;
     padding: 10px 15px 12px;
     text-decoration: none;
     width: 400px;
-    float: right;
   }
 
-  a:hover { background-color: #3371a3; color: white; text-decoration: none; }
+  a:hover { background-color: $main-color; color: white; text-decoration: none; }
 }
 
 @mixin flash($background, $border, $icon) {
