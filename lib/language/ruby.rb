@@ -13,6 +13,10 @@ module Language::Ruby
     true
   end
 
+  def test_file_pattern
+    'spec.rb'
+  end
+
   def solution_dump(attributes)
     <<-END
 # #{attributes[:name]}

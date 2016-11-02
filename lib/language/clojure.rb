@@ -13,6 +13,10 @@ module Language::Clojure
     false
   end
 
+  def test_file_pattern
+    'test.clj'
+  end
+
   def solution_dump(attributes)
     <<-END
 ;;; #{attributes[:name]}

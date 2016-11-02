@@ -13,6 +13,10 @@ module Language::Go
     false
   end
 
+  def test_file_pattern
+    '*_test.go'
+  end
+
   def solution_dump(attributes)
     <<-END
 // #{attributes[:name]}
