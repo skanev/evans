@@ -2,7 +2,9 @@ class ChallengeDecorator < Draper::Decorator
   delegate_all
 
   def table_row_class
-    if challenge.closed?
+    if challenge.hidden?
+      'hidden'
+    elsif challenge.closed?
       ''
     elsif challenge.closes_at < 1.day.from_now
       'warning'

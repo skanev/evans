@@ -66,6 +66,7 @@
   tr:hover { background-color: $gray; }
   td.no-records { text-align: center; }
 
+  tr.hidden                     { opacity: 0.3; }
   tr.active  > td:first-child a { border-left: 3px solid $green;  }
   tr.warning > td:first-child a { border-left: 3px solid $orange; }
 }
