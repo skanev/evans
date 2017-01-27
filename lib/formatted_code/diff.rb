@@ -14,7 +14,7 @@ module FormattedCode
 
         case change.action
         when '-'
-          [DiffLine.new('-', change.old_element, nil, [])]
+          [DiffLine.new('-', ERB::Util.html_escape(change.old_element), nil, [])]
         when '+'
           [DiffLine.new('+', new_highlighted_line, change.new_position, comments_for_line)]
         else

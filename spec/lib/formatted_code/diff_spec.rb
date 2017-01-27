@@ -74,6 +74,19 @@ describe FormattedCode::Diff do
     END
   end
 
+  it 'escapes code lines that do not pass through the highlighter' do
+    old_version = <<-END
+      puts <div>
+    END
+
+    new_version = <<-END
+    END
+
+    expect_diff old_version, new_version, <<-END
+      -puts &lt;div&gt;
+    END
+  end
+
   def diff_lines(old_version, new_version)
     FormattedCode::Diff.new(
       code_from_version(old_version),
