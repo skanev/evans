@@ -1,5 +1,10 @@
 ol.topic {
-  > li { @include contribution; }
+  > li {
+    @include contribution;
+    .body table {
+      background-color: white;
+    }
+  }
   .body p:first-child { margin-top: 0; }
 }
 
