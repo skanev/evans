@@ -1,5 +1,5 @@
 class Challenge < ActiveRecord::Base
-  has_many :solutions, class_name: 'ChallengeSolution'
+  has_many :solutions, -> { order 'created_at ASC' }, class_name: 'ChallengeSolution'
 
   validates :name, :description, presence: true
 

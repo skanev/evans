@@ -8,6 +8,9 @@ describe Solution do
   it { should belong_to(:user) }
   it { should belong_to(:task) }
 
+  it { should have_many(:revisions).order('revisions.id ASC') }
+  it { should have_many(:comments).order('comments.created_at ASC').through(:revisions) }
+
   it "can find all the solutions for task" do
     task = create :task
     solution = create :solution, task: task
