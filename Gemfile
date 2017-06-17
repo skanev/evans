@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '~> 4.1.0'
+gem 'rake', '< 11.0'
+
 gem 'pg'
 gem 'devise'
 gem 'devise-encryptable'
