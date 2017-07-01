@@ -33,8 +33,10 @@ module Language::Rust
 
   def parsing?(code)
     TempDir.for('code.rs' => code) do |dir|
-      code_path = dir.join('code.rs')
-      system "rustc #{code_path} > /dev/null 2>&1"
+      script_path = Rails.root.join('lib/language/rust/syntax_check.rb')
+      code_path   = dir.join('code.rs')
+
+      system script_path.to_s, code_path.to_s
     end
   end
 
