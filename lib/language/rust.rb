@@ -45,13 +45,13 @@ module Language::Rust
       results = nil
 
       FileUtils.cd(dir) do
-        results = `rustc --test solution_test.rs && ./solution_test`.strip.split("\n")
+        results = `rustc --test solution_test.rs && ./solution_test`.strip
       end
 
       TestResults.new({
         log:    results,
-        passed: results.grep(/^test solution_test::[a-z_]+ ... ok$/),
-        failed: results.grep(/^test solution_test::[a-z_]+ ... FAILED$/),
+        passed: results.split("\n").grep(/^test solution_test::[a-z_]+ ... ok$/),
+        failed: results.split("\n").grep(/^test solution_test::[a-z_]+ ... FAILED$/),
       })
     end
   end
