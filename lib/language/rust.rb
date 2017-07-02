@@ -41,7 +41,9 @@ module Language::Rust
   end
 
   def run_tests(test, solution)
-    TempDir.for('solution_test.rs' => test, 'solution.rs' => solution) do |dir|
+    combined_code = solution + "\n\n" + test
+
+    TempDir.for('solution_test.rs' => combined_code) do |dir|
       results = nil
 
       FileUtils.cd(dir) do

@@ -3,8 +3,6 @@ require 'spec_helper'
 describe "Running Rust tests", rust: true do
   before(:all) do
     @test_case_code = <<END.strip
-mod solution;
-
 #[cfg(test)]
 mod solution_test {
     #[test]
