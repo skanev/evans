@@ -5,7 +5,7 @@ describe "Running Rust tests", rust: true do
     @test_case_code = <<END.strip
 #[test]
 fn test_code() {
-    assert!(return_one() == 1i32);
+    assert!(::solution::return_one() == 1i32);
 }
 
 #[test]
@@ -24,11 +24,12 @@ END
 
   def solution
     <<-EOF
-      #[allow(dead_code)]
-      fn main() {}
-
-      #[allow(dead_code)]
       pub fn return_one() -> i32 { 1i32 }
+
+      #[test]
+      fn test_ignored_when_counting_successes() {
+          assert!(return_one() == 1i32);
+      }
     EOF
   end
 
@@ -37,7 +38,7 @@ END
       Dir.chdir(dir) do
         results = Language::Rust.run_tests(@test_case_code, solution)
 
-        results.log.should include("test test_failing ... FAILED")
+        results.log.should include("test solution_test::test_failing ... FAILED")
       end
     end
   end
@@ -56,9 +57,11 @@ END
     end
 
     it "collects the execution log" do
-      @results.log.should include("test test_code ... ok")
-      @results.log.should include("test test_expected_failing ... ok")
-      @results.log.should include("test test_failing ... FAILED")
+      @results.log.should include("test solution_test::test_code ... ok")
+      @results.log.should include("test solution_test::test_expected_failing ... ok")
+      @results.log.should include("test solution_test::test_failing ... FAILED")
+
+      @results.log.should include("test solution::test_ignored_when_counting_successes ... ok")
     end
   end
 end

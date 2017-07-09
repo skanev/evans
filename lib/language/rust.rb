@@ -41,7 +41,15 @@ module Language::Rust
   end
 
   def run_tests(test, solution)
-    combined_code = "#{solution}\n\n#{test}"
+    combined_code = <<-EOF
+      mod solution {
+        #{solution}
+      }
+
+      mod solution_test {
+        #{test}
+      }
+    EOF
 
     TempDir.for('solution_test.rs' => combined_code) do |dir|
       results = nil
@@ -52,8 +60,8 @@ module Language::Rust
 
       TestResults.new({
         log:    results,
-        passed: results.split("\n").grep(/^test test_[a-z_]+ ... ok$/),
-        failed: results.split("\n").grep(/^test test_[a-z_]+ ... FAILED$/),
+        passed: results.split("\n").grep(/^test solution_test::test_[a-z_]+ ... ok$/),
+        failed: results.split("\n").grep(/^test solution_test::test_[a-z_]+ ... FAILED$/),
       })
     end
   end

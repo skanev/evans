@@ -25,8 +25,7 @@ CODE
 
   it "returns true for valid code without a main function" do
     Language::Rust.should be_parsing <<CODE
-#[allow(dead_code)]
-fn foo() {
+pub fn foo() {
 
 }
 CODE
