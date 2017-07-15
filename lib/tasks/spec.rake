@@ -3,7 +3,7 @@ begin
 
   namespace :spec do
     namespace :languages do
-      languages = %w(Python Clojure Go Ruby)
+      languages = %w(Python Clojure Go Ruby Rust)
 
       languages.each do |language|
         desc "Runs the specs that integrate with #{language}"
