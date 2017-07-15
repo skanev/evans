@@ -61,7 +61,7 @@ func main() {
 	tests := testNames(os.Args[2])
 
 	for _, test := range tests {
-		cmd := exec.Command("go", "test", "-test.run", test, "-test.timeout", "1s")
+		cmd := exec.Command("go", "test", "-test.run", "^"+test+"(/|$)", "-test.timeout", "1s")
 		out, err := cmd.CombinedOutput()
 
 		if err == nil {
