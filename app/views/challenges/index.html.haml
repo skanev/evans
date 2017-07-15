@@ -10,7 +10,7 @@
         %th.closes_at Краен срок
 
     %tbody
-    - @challenges.reject(&:hidden?).each do |challenge|
+    - @challenges.each do |challenge|
       %tr{class: challenge.table_row_class}
         %td.name= link_to challenge.name, challenge
         %td.closes_at= l challenge.closes_at
