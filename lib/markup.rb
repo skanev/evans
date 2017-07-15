@@ -14,7 +14,7 @@ module Markup
   end
 
   def emoji_url(slug)
-    "http://emoji-cheat-sheet.com/graphics/emojis/#{slug}.png"
+    "http://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/#{slug}.png"
   end
 
   private
