@@ -14,7 +14,7 @@
   %li= link_to 'Задачи', tasks_path
   %li= link_to 'Предизвикателства', challenges_path
 
-  - if Tip.current
+  - if Tip.current or admin?
     %li= link_to 'Хитринки', tips_path
 
   %li= link_to 'Форуми', topics_path
