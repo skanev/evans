@@ -9,6 +9,11 @@ fn test_code() {
 }
 
 #[test]
+fn test_code_2() {
+    assert!(::solution::return_one() != 2i32);
+}
+
+#[test]
 #[should_panic]
 fn test_expected_failing() {
     assert!(1i32 == 2i32);
@@ -18,6 +23,12 @@ fn test_expected_failing() {
 fn test_failing() {
     // Expected failure
     assert!(1i32 == 2i32);
+}
+
+#[test]
+fn test_2_failing() {
+    // Expected failure
+    assert!(1i32 == 3i32);
 }
 END
   end
@@ -49,17 +60,19 @@ END
     end
 
     it "calculates the number of passed tests" do
-      @results.passed_count.should eq 2
+      @results.passed_count.should eq 3
     end
 
     it "calculates the number of failed tests" do
-      @results.failed_count.should eq 1
+      @results.failed_count.should eq 2
     end
 
     it "collects the execution log" do
       @results.log.should include("test solution_test::test_code ... ok")
+      @results.log.should include("test solution_test::test_code_2 ... ok")
       @results.log.should include("test solution_test::test_expected_failing ... ok")
       @results.log.should include("test solution_test::test_failing ... FAILED")
+      @results.log.should include("test solution_test::test_2_failing ... FAILED")
 
       @results.log.should include("test solution::test_ignored_when_counting_successes ... ok")
     end
