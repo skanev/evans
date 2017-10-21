@@ -14,7 +14,7 @@ module Language::Rust
   end
 
   def test_file_pattern
-    '*_test.rs'
+    'test_*.rs'
   end
 
   def solution_dump(attributes)
@@ -41,21 +41,30 @@ module Language::Rust
   end
 
   def run_tests(test, solution)
-    combined_code = <<-EOF
-      mod solution {
-        #{solution}
-      }
+    cargo_toml = <<~EOF
+      [package]
+      name = "solution"
+      version = "0.1.0"
+      authors = ["Rust Course <fmi@rust-lang.bg>"]
 
+      [dependencies]
+    EOF
+
+    test = <<~EOF
       mod solution_test {
         #{test}
       }
     EOF
 
-    TempDir.for('solution_test.rs' => combined_code) do |dir|
+    TempDir.for({
+      'solution/src/lib.rs'             => solution,
+      'solution/tests/solution_test.rs' => test,
+      'solution/Cargo.toml'             => cargo_toml,
+    }) do |dir|
       results = nil
 
-      FileUtils.cd(dir) do
-        results = `rustc --test solution_test.rs && ./solution_test`.strip
+      FileUtils.cd(dir.join('solution')) do
+        results = `cargo test`.strip
       end
 
       TestResults.new({
