@@ -3,14 +3,16 @@ require 'spec_helper'
 describe "Running Rust tests", rust: true do
   before(:all) do
     @test_case_code = <<END.strip
+extern crate solution;
+
 #[test]
 fn test_code() {
-    assert!(::solution::return_one() == 1i32);
+    assert!(solution::return_one() == 1i32);
 }
 
 #[test]
 fn test_code_2() {
-    assert!(::solution::return_one() != 2i32);
+    assert!(solution::return_one() != 2i32);
 }
 
 #[test]
@@ -36,11 +38,6 @@ END
   def solution
     <<-EOF
       pub fn return_one() -> i32 { 1i32 }
-
-      #[test]
-      fn test_ignored_when_counting_successes() {
-          assert!(return_one() == 1i32);
-      }
     EOF
   end
 
@@ -73,8 +70,6 @@ END
       @results.log.should include("test solution_test::test_expected_failing ... ok")
       @results.log.should include("test solution_test::test_failing ... FAILED")
       @results.log.should include("test solution_test::test_2_failing ... FAILED")
-
-      @results.log.should include("test solution::test_ignored_when_counting_successes ... ok")
     end
   end
 end
