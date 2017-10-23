@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Parsing Rust code", rust: true do
   it "returns false for invalid code" do
     Language::Rust.should_not be_parsing <<CODE
-    fn main(
+    fn some_function(
 CODE
   end
 
@@ -16,14 +16,6 @@ CODE
   end
 
   it "returns true for valid code" do
-    Language::Rust.should be_parsing <<CODE
-fn main() {
-
-}
-CODE
-  end
-
-  it "returns true for valid code without a main function" do
     Language::Rust.should be_parsing <<CODE
 pub fn foo() {
 

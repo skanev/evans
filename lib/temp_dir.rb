@@ -7,6 +7,7 @@ module TempDir
 
       files.each do |name, contents|
         file_path = dir_path.join(name)
+        FileUtils.mkdir_p(file_path.dirname)
         open(file_path, 'w') { |file| file.write contents.encode('utf-8') }
       end
 
