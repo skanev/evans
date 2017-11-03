@@ -3,7 +3,7 @@
 
   - code.lines.each do |line|
     .line{'data-line-number' => line.line_number}
-      .code-line.CodeRay{'class' => line.html_class} <span class="line-numbers" data-line-number="#{line.line_number}"></span><span class="pre">#{line.html}</span>
+      .code-line.highlighter{'class' => line.html_class} <span class="line-numbers" data-line-number="#{line.line_number}"></span><span class="pre highlight">#{line.html}</span>
 
       - if commentable and line.commentable?
         %button.add-comment-on-line(data-add-comment) +
