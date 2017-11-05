@@ -8,12 +8,13 @@
   .highlighter .line { display: inline; float: none; width: auto; }
   .highlighter .pre { padding-left: 5px; width: 100%; }
 
-  .highlight {
+  .highlight,
+  .line-numbers {
     font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
     font-size: 13px;
-    white-space: pre-wrap;
-    word-break: break-all;
   }
+
+  .highlight { white-space: pre-wrap; word-break: break-all; }
 
   .code-line.removed { background: rgba(240, 0, 0, 0.08); }
   .code-line.added   { background: rgba(0, 240, 0, 0.08); }
