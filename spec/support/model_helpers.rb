@@ -4,7 +4,7 @@ module Support
       mail = double("#{mailer.name}.#{method}'s mail")
 
       mailer.should_receive(method).with(*args).and_return(mail)
-      mail.should_receive(:deliver)
+      mail.should_receive(:deliver_now)
     end
   end
 end

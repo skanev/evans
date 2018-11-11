@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 4.2.0'
 gem 'rake', '< 11.0'
 
 gem 'pg'
@@ -47,7 +47,7 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.14'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
 end

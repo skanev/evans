@@ -55,7 +55,7 @@ class Activation
 
     @sign_up.destroy
 
-    RegistrationMailer.activation(@user).deliver
+    RegistrationMailer.activation(@user).deliver_now
   end
 
   def attributes=(attributes)
