@@ -1,0 +1,63 @@
+#!/usr/bin/env ruby
+
+user_id = ARGV.first.to_i
+
+unless user_id > 0
+  STDERR.puts "Usage: #{__FILE__} user-id-to-anonymize-data-of"
+  exit 1
+end
+
+puts 'Booting the app...'
+require File.expand_path('../../config/environment',  __FILE__)
+
+u = User.find user_id
+
+puts "Anonymizing user ID #{u.id} (#{u.full_name}, #{u.email})"
+
+u.attributions.each do |r|
+  r.update! reason: 'Изтрит профил', link: 'http://example.com'
+  puts "Attribution #{r.id}"
+end
+
+ChallengeSolution.where(user_id: u.id).each do |r|
+  r.update! code: '# Изтрит профил', log: 'Изтрит профил'
+  puts "Challenge solution #{r.id}"
+end
+
+Comment.where(user_id: u.id).each do |r|
+  r.update! body: '_Изтрит профил._'
+  puts "Comment #{r.id}"
+end
+
+Post.where(user_id: u.id).each do |r|
+  r.update! body: '_Изтрит профил._', title: (r.title.present? ? '(Изтрито)' : nil)
+  puts "Post #{r.id}"
+end
+
+PollAnswer.where(user_id: u.id).each do |r|
+  r.update! answers_yaml: '{}'
+  puts "Poll answer #{r.id}"
+end
+
+if u.photo.present?
+  puts "Deleting profile picture #{u.photo}..."
+  u.remove_photo!
+end
+
+u.update_columns(
+  faculty_number: SignUp.next_fake_faculty_number,
+  full_name: 'Изтрит профил',
+  name: 'Изтрит профил',
+  email: "fmi+deleted-profile-#{u.id}@ruby.bg",
+  current_sign_in_ip: nil,
+  last_sign_in_ip: nil,
+  twitter: nil,
+  github: nil,
+  skype: nil,
+  phone: nil,
+  site: nil,
+  about: nil,
+)
+
+# TODO: Solution logs, revisions and comments?
+# TODO: Tip?
