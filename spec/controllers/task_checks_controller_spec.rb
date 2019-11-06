@@ -5,12 +5,12 @@ describe TaskChecksController do
     log_in_as :admin
 
     before do
-      TaskCheckWorker.stub :perform_async
-      TaskCheckWorker.stub queued?: false
+      allow(TaskCheckWorker).to receive(:perform_async)
+      allow(TaskCheckWorker).to receive(:queued?).and_return(false)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       post :create, task_id: '1'
       expect(response).to deny_access
     end
@@ -26,8 +26,8 @@ describe TaskChecksController do
     end
 
     it "does not schedule the task if it is already running" do
-      TaskCheckWorker.stub queued?: true
-      TaskCheckWorker.should_not_receive(:perform_async)
+      allow(TaskCheckWorker).to receive(:queued?).and_return(true)
+      expect(TaskCheckWorker).not_to receive(:perform_async)
       post :create, task_id: '1'
     end
 

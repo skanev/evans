@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Attribution do
-  it { should validate_presence_of :reason }
-  it { should validate_presence_of :link }
-  it { should allow_value('http://example.com/').for(:link) }
-  it { should_not allow_value('non-url').for(:link) }
+  it "only allows urls for its link" do
+    expect(build(:attribution, link: 'non-url')).not_to be_valid
+    expect(build(:attribution, link: 'http://example.com/')).to be_valid
+  end
 end

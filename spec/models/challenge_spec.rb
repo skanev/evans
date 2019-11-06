@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Challenge do
-  it { should validate_presence_of :name }
-  it { should validate_presence_of :description }
-
   it "challenge can tell if it is open" do
     expect(create(:challenge, closes_at: 1.day.from_now)).to_not be_closed
     expect(create(:challenge, closes_at: 1.day.ago)).to be_closed

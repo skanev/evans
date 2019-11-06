@@ -13,13 +13,13 @@ describe AnnouncementsController do
     log_in_as :admin
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :new
       expect(response).to deny_access
     end
 
     it "assigns a new announcement to @announcement" do
-      Announcement.stub new: 'announcement'
+      allow(Announcement).to receive(:new).and_return('announcement')
       get :new
       expect(assigns(:announcement)).to eq 'announcement'
     end
@@ -31,12 +31,12 @@ describe AnnouncementsController do
     let(:announcement) { mock_model Announcement }
 
     before do
-      Announcement.stub new: announcement
-      announcement.stub :save
+      allow(Announcement).to receive(:new).and_return(announcement)
+      allow(announcement).to receive(:save)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       post :create
       expect(response).to deny_access
     end
@@ -57,13 +57,13 @@ describe AnnouncementsController do
     end
 
     it "redirects to the show page of the created announcement on success" do
-      announcement.stub save: true
+      allow(announcement).to receive(:save).and_return(true)
       post :create
       expect(response).to redirect_to(announcement)
     end
 
     it "redisplays the form on an error" do
-      announcement.stub save: false
+      allow(announcement).to receive(:save).and_return(false)
       post :create
       expect(response).to render_template(:new)
     end
@@ -73,7 +73,7 @@ describe AnnouncementsController do
     let(:announcement) { double }
 
     before do
-      Announcement.stub find: announcement
+      allow(Announcement).to receive(:find).and_return(announcement)
     end
 
     it "assigns the announcement to @announcement" do
@@ -87,7 +87,7 @@ describe AnnouncementsController do
     log_in_as :admin
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :edit, id: '42'
       expect(response).to deny_access
     end
@@ -105,12 +105,12 @@ describe AnnouncementsController do
     let(:announcement) { mock_model Announcement }
 
     before do
-      Announcement.stub find: announcement
-      announcement.stub :update_attributes
+      allow(Announcement).to receive(:find).and_return(announcement)
+      allow(announcement).to receive(:update_attributes)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       put :update, id: '42'
       expect(response).to deny_access
     end
@@ -131,13 +131,13 @@ describe AnnouncementsController do
     end
 
     it "redirects to the announcement show page on success" do
-      announcement.stub update_attributes: true
+      allow(announcement).to receive(:update_attributes).and_return(true)
       put :update, id: '42'
       expect(response).to redirect_to(announcement)
     end
 
     it "redisplays the form on failure" do
-      announcement.stub update_attributes: false
+      allow(announcement).to receive(:update_attributes).and_return(false)
       put :update, id: '42'
       expect(response).to render_template(:edit)
     end

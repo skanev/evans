@@ -7,19 +7,19 @@ describe SolutionsController do
     let(:task) { double has_visible_solutions?: true }
 
     before do
-      Task.stub find: task
-      Solution.stub :for_task
+      allow(Task).to receive(:find).and_return(task)
+      allow(Solution).to receive(:for_task)
     end
 
     it "denies access to students if the task is still open" do
-      task.stub has_visible_solutions?: false
+      allow(task).to receive(:has_visible_solutions?).and_return(false)
       get :index, task_id: '42'
       expect(response).to deny_access
     end
 
     it "allows admins to see solutions for open tasks" do
-      current_user.stub admin?: true
-      task.stub has_visible_solutions?: false
+      allow(current_user).to receive(:admin?).and_return(true)
+      allow(task).to receive(:has_visible_solutions?).and_return(false)
 
       get :index, task_id: '42'
 
@@ -47,10 +47,10 @@ describe SolutionsController do
     let(:history) { double 'history' }
 
     before do
-      SolutionHistory.stub new: history
-      Solution.stub includes: solutions
-      solutions.stub find: solution
-      solution.stub :visible_to?
+      allow(SolutionHistory).to receive(:new).and_return(history)
+      allow(Solution).to receive(:includes).and_return(solutions)
+      allow(solutions).to receive(:find).and_return(solution)
+      allow(solution).to receive(:visible_to?)
     end
 
     it "allows access to people, who can view the solution" do
@@ -62,7 +62,7 @@ describe SolutionsController do
     end
 
     it "denies access to people, who cannot view the solution" do
-      solution.stub visible_to?: false
+      allow(solution).to receive(:visible_to?).and_return(false)
 
       get :show, task_id: '42', id: '42'
 
@@ -98,13 +98,13 @@ describe SolutionsController do
     let(:solution) { build_stubbed :solution }
 
     before do
-      Solution.stub find: solution
-      solution.stub :update_score
-      solution.stub :manually_scored?
+      allow(Solution).to receive(:find).and_return(solution)
+      allow(solution).to receive(:update_score)
+      allow(solution).to receive(:manually_scored?)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       put :update, task_id: '1', id: '2'
       expect(response).to deny_access
     end
@@ -121,7 +121,7 @@ describe SolutionsController do
 
     context "on automatically scored solutions" do
       before do
-        solution.stub manually_scored?: false
+        allow(solution).to receive(:manually_scored?).and_return(false)
       end
 
       it "redirects to the solution" do
@@ -132,7 +132,7 @@ describe SolutionsController do
 
     context "on manually scored solutions" do
       before do
-        solution.stub manually_scored?: true
+        allow(solution).to receive(:manually_scored?).and_return(true)
       end
 
       it "redirects to the next unscored solution" do
@@ -152,7 +152,7 @@ describe SolutionsController do
       let(:solution) { build_stubbed :solution }
 
       before do
-        Task.stub next_unscored_solution: solution
+        allow(Task).to receive(:next_unscored_solution).and_return(solution)
       end
 
       it "redirects to the next solution" do
@@ -163,7 +163,7 @@ describe SolutionsController do
 
     context "when there are no more unscored solutions" do
       before do
-        Task.stub next_unscored_solution: nil
+        allow(Task).to receive(:next_unscored_solution).and_return(nil)
       end
 
       it "redirects to the solutions index" do

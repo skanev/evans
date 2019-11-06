@@ -5,13 +5,13 @@ describe TipsController do
     log_in_as :admin
 
     it "assigns all the tips" do
-      Tip.stub in_reverse_chronological_order: 'tips'
+      allow(Tip).to receive(:in_reverse_chronological_order).and_return('tips')
       get :index
       expect(assigns(:tips)).to eq 'tips'
     end
 
     it "assings only published tips" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       Tip.stub_chain :in_reverse_chronological_order, published: 'tips'
       get :index
       expect(assigns(:tips)).to eq 'tips'
@@ -24,7 +24,7 @@ describe TipsController do
     let(:tip) { double }
 
     before do
-      Tip.stub new: tip
+      allow(Tip).to receive(:new).and_return(tip)
     end
 
     it "assigns a new tip" do
@@ -40,8 +40,8 @@ describe TipsController do
     let(:tip) { double }
 
     before do
-      Tip.stub new: tip
-      tip.stub :save
+      allow(Tip).to receive(:new).and_return(tip)
+      allow(tip).to receive(:save)
     end
 
     it "builds a new tip with the given attributes" do
@@ -63,14 +63,14 @@ describe TipsController do
     end
 
     it "redirects to the tips on success" do
-      tip.stub save: true
+      allow(tip).to receive(:save).and_return(true)
       expect(tip).to receive(:user=).with(current_user)
       post :create
       expect(controller).to redirect_to tips_path
     end
 
     it "rerenders the form on failure" do
-      tip.stub save: false
+      allow(tip).to receive(:save).and_return(false)
       expect(tip).to receive(:user=).with(current_user)
       post :create
       expect(controller).to render_template :new
@@ -89,7 +89,7 @@ describe TipsController do
     log_in_as :admin
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :edit, id: '1'
       expect(response).to deny_access
     end
@@ -107,12 +107,12 @@ describe TipsController do
     let(:tip) { double }
 
     before do
-      Tip.stub find: tip
-      tip.stub :update_attributes
+      allow(Tip).to receive(:find).and_return(tip)
+      allow(tip).to receive(:update_attributes)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       put :update, id: '42'
       expect(response).to deny_access
     end
@@ -133,13 +133,13 @@ describe TipsController do
     end
 
     it "redirects to the tip on success" do
-      tip.stub update_attributes: true
+      allow(tip).to receive(:update_attributes).and_return(true)
       put :update, id: '42'
       expect(response).to redirect_to(tip_path)
     end
 
     it "redisplays the form on failure" do
-      tip.stub update_attributes: false
+      allow(tip).to receive(:update_attributes).and_return(false)
       put :update, id: '42'
       expect(response).to render_template(:edit)
     end

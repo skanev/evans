@@ -6,25 +6,25 @@ describe AdminConstraint do
   let(:user) { double }
 
   before do
-    warden.stub :authenticate?
-    warden.stub user: user
-    user.stub :admin?
+    allow(warden).to receive(:authenticate?)
+    allow(warden).to receive(:user).and_return(user)
+    allow(user).to receive(:admin?)
   end
 
   it "does not match unauthenticated users" do
-    warden.stub authenticate?: false
+    allow(warden).to receive(:authenticate?).and_return(false)
     expect(AdminConstraint.new.matches?(request)).to be false
   end
 
   it "does not match non-admins" do
-    warden.stub authenticate?: true
-    user.stub admin?: false
+    allow(warden).to receive(:authenticate?).and_return(true)
+    allow(user).to receive(:admin?).and_return(false)
     expect(AdminConstraint.new.matches?(request)).to be false
   end
 
   it "matches admins" do
-    warden.stub authenticate?: true
-    user.stub admin?: true
+    allow(warden).to receive(:authenticate?).and_return(true)
+    allow(user).to receive(:admin?).and_return(true)
     expect(AdminConstraint.new.matches?(request)).to be true
   end
 end

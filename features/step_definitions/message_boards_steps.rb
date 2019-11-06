@@ -64,7 +64,7 @@ end
 end
 
 То 'трябва да няма "$code" в кода на документа' do |code|
-  body.should_not include(code)
+  expect(body).not_to include(code)
 end
 
 То 'трябва да съществуват следните теми:' do |table|

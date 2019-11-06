@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PollsController do
   describe "GET index" do
     it "assigns all the polls" do
-      Poll.stub all: 'polls'
+      allow(Poll).to receive(:all).and_return('polls')
       get :index
       expect(assigns(:polls)).to eq 'polls'
     end
@@ -15,11 +15,11 @@ describe PollsController do
     let(:poll) { double }
 
     before do
-      Poll.stub new: poll
+      allow(Poll).to receive(:new).and_return(poll)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :new
       expect(response).to deny_access
     end
@@ -36,8 +36,8 @@ describe PollsController do
     let(:poll) { double }
 
     before do
-      Poll.stub new: poll
-      poll.stub :save
+      allow(Poll).to receive(:new).and_return(poll)
+      allow(poll).to receive(:save)
     end
 
     it "constructs a new poll with the passed parameters" do
@@ -51,7 +51,7 @@ describe PollsController do
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :create
       expect(response).to deny_access
     end
@@ -62,13 +62,13 @@ describe PollsController do
     end
 
     it "redirects to the index on success" do
-      poll.stub save: true
+      allow(poll).to receive(:save).and_return(true)
       post :create
       expect(controller).to redirect_to polls_path
     end
 
     it "rerenders the form on failure" do
-      poll.stub save: false
+      allow(poll).to receive(:save).and_return(false)
       post :create
       expect(controller).to render_template :new
     end
@@ -80,11 +80,11 @@ describe PollsController do
     let(:poll) { double }
 
     before do
-      Poll.stub find: poll
+      allow(Poll).to receive(:find).and_return(poll)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :edit, id: '1'
       expect(response).to deny_access
     end
@@ -106,12 +106,12 @@ describe PollsController do
     let(:poll) { double }
 
     before do
-      Poll.stub find: poll
-      poll.stub :update_attributes
+      allow(Poll).to receive(:find).and_return(poll)
+      allow(poll).to receive(:update_attributes)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       put :update, id: '1'
       expect(response).to deny_access
     end
@@ -132,13 +132,13 @@ describe PollsController do
     end
 
     it "redirects to the polls on success" do
-      poll.stub update_attributes: true
+      allow(poll).to receive(:update_attributes).and_return(true)
       put :update, id: '1'
       expect(controller).to redirect_to polls_path
     end
 
     it "rerenders the form on failure" do
-      poll.stub update_attributes: false
+      allow(poll).to receive(:update_attributes).and_return(false)
       put :update, id: '1'
       expect(controller).to render_template :edit
     end

@@ -7,12 +7,12 @@ describe StarsController do
     let(:a_post) { mock_model(Post) }
 
     before do
-      Post.stub find: a_post
-      a_post.stub :star
+      allow(Post).to receive(:find).and_return(a_post)
+      allow(a_post).to receive(:star)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       post :create, post_id: '42'
       expect(response).to deny_access
     end
@@ -37,12 +37,12 @@ describe StarsController do
     let(:a_post) { mock_model(Post) }
 
     before do
-      Post.stub find: a_post
-      a_post.stub :unstar
+      allow(Post).to receive(:find).and_return(a_post)
+      allow(a_post).to receive(:unstar)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       delete :destroy, post_id: '42'
       expect(response).to deny_access
     end

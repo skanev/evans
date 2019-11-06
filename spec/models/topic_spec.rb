@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Topic do
-  it { should have_many(:replies) }
-  it { should validate_presence_of(:title) }
-
   it "does not allow mass reassignment of user_id" do
     original, modified = create(:user), create(:user)
     topic = create :topic, user: original
@@ -21,7 +18,7 @@ describe Topic do
     second = create_topic_with_last_reply_at.call 2.days.ago
     first  = create_topic_with_last_reply_at.call 1.day.ago
 
-    Topic.stub per_page: 1
+    allow(Topic).to receive(:per_page).and_return(1)
 
     expect(Topic.boards_page(1)).to eq [first]
     expect(Topic.boards_page(2)).to eq [second]
@@ -32,7 +29,7 @@ describe Topic do
     first  = create :reply, topic: topic, created_at: 2.days.ago
     second = create :reply, topic: topic, created_at: 1.day.ago
 
-    Reply.stub per_page: 1
+    allow(Reply).to receive(:per_page).and_return(1)
 
     expect(topic.replies_on_page(1)).to eq [first]
     expect(topic.replies_on_page(2)).to eq [second]
@@ -55,7 +52,7 @@ describe Topic do
       topic.reload
     end
 
-    Reply.stub per_page: 2
+    allow(Reply).to receive(:per_page).and_return(2)
 
     expect(topic_with_replies[0].pages_of_replies).to eq 1
     expect(topic_with_replies[2].pages_of_replies).to eq 1

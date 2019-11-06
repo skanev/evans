@@ -6,15 +6,15 @@ describe ChallengesHelper do
     let(:solution) { double challenge: challenge }
 
     before do
-      helper.stub :admin?
-      challenge.stub :checked?
-      solution.stub log: ''
-      solution.stub correct?: ''
+      allow(helper).to receive(:admin?)
+      allow(challenge).to receive(:checked?)
+      allow(solution).to receive(:log).and_return('')
+      allow(solution).to receive(:correct?).and_return('')
     end
 
     context "when unchecked" do
       before do
-        challenge.stub checked?: false
+        allow(challenge).to receive(:checked?).and_return(false)
       end
 
       it "shows it as unchecked to students" do
@@ -22,31 +22,31 @@ describe ChallengesHelper do
       end
 
       it "shows it as unchecked to admins if tests have not been run" do
-        helper.stub admin?: true
-        solution.stub log: ''
+        allow(helper).to receive(:admin?).and_return(true)
+        allow(solution).to receive(:log).and_return('')
         expect(helper.challenge_solution_status(solution)).to eq :unchecked
       end
 
       it "shows it as is to admins if tests have been run" do
-        helper.stub admin?: true
-        solution.stub log: 'foo'
-        solution.stub correct?: true
+        allow(helper).to receive(:admin?).and_return(true)
+        allow(solution).to receive(:log).and_return('foo')
+        allow(solution).to receive(:correct?).and_return(true)
         expect(helper.challenge_solution_status(solution)).to eq :correct
       end
     end
 
     context "when checked" do
       before do
-        challenge.stub checked?: true
+        allow(challenge).to receive(:checked?).and_return(true)
       end
 
       it "shows if it is correct" do
-        solution.stub correct?: true
+        allow(solution).to receive(:correct?).and_return(true)
         expect(helper.challenge_solution_status(solution)).to eq :correct
       end
 
       it "shows if it is incorrect" do
-        solution.stub correct?: false
+        allow(solution).to receive(:correct?).and_return(false)
         expect(helper.challenge_solution_status(solution)).to eq :incorrect
       end
     end
@@ -54,7 +54,7 @@ describe ChallengesHelper do
 
   describe "#challenge_solution_status_text" do
      it "translates the status of the solution" do
-       helper.stub challenge_solution_status: :correct
+       allow(helper).to receive(:challenge_solution_status).and_return(:correct)
        expect(helper.challenge_solution_status_text(double)).to eq 'Коректно'
      end
   end

@@ -5,12 +5,12 @@ describe ChallengeChecksController do
     log_in_as :admin
 
     before do
-      ChallengeCheckWorker.stub :perform_async
-      ChallengeCheckWorker.stub queued?: false
+      allow(ChallengeCheckWorker).to receive(:perform_async)
+      allow(ChallengeCheckWorker).to receive(:queued?).and_return(false)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       post :create, challenge_id: '1'
       expect(response).to deny_access
     end
@@ -26,8 +26,8 @@ describe ChallengeChecksController do
     end
 
     it "does not schedule the challenge if it is already running" do
-      ChallengeCheckWorker.stub queued?: true
-      ChallengeCheckWorker.should_not_receive(:perform_async)
+      allow(ChallengeCheckWorker).to receive(:queued?).and_return(true)
+      expect(ChallengeCheckWorker).not_to receive(:perform_async)
       post :create, challenge_id: '1'
     end
 

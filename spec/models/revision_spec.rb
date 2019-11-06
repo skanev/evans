@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Revision do
-  it { should validate_presence_of :code }
-
   it "orders the comments chronologically" do
     revision = create :revision
 

@@ -9,7 +9,7 @@ describe ActivationsController do
     end
 
     it "displays an error message if the activation token is invalid" do
-      Activation.stub for: nil
+      allow(Activation).to receive(:for).and_return(nil)
       get :show, id: 'token'
       expect(response).to redirect_to(root_path)
     end
@@ -19,7 +19,7 @@ describe ActivationsController do
     let(:activation) { double }
 
     before do
-      Activation.stub for: activation
+      allow(Activation).to receive(:for).and_return(activation)
     end
 
     it "submits the activation" do
@@ -29,9 +29,9 @@ describe ActivationsController do
 
     context "when successful" do
       before do
-        controller.stub :sign_in
-        activation.stub submit: true
-        activation.stub :user_created
+        allow(controller).to receive(:sign_in)
+        allow(activation).to receive(:submit).and_return(true)
+        allow(activation).to receive(:user_created)
       end
 
       it "redirects to the home page" do
@@ -40,7 +40,7 @@ describe ActivationsController do
       end
 
       it "automatically logs in the user" do
-        activation.stub user_created: 'user-created'
+        allow(activation).to receive(:user_created).and_return('user-created')
         expect(controller).to receive(:sign_in).with('user-created')
         put :update, id: 'token'
       end
@@ -48,7 +48,7 @@ describe ActivationsController do
 
     context "when unsuccessful" do
       it "redisplays the form" do
-        activation.stub submit: false
+        allow(activation).to receive(:submit).and_return(false)
         put :update, id: 'token', activation: 'parameters'
         expect(response).to render_template(:show)
       end

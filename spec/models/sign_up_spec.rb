@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe SignUp do
-  it { should validate_presence_of :full_name }
-  it { should validate_presence_of :faculty_number }
-  it { expect(create(:sign_up)).to validate_uniqueness_of :faculty_number }
-
   it "validates faculty number isn't taken by an existing user" do
     create :user, faculty_number: 'taken'
     sign_up = SignUp.new faculty_number: 'taken'

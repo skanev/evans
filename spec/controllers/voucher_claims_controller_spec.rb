@@ -12,7 +12,7 @@ describe VoucherClaimsController do
 
   describe "POST create" do
     it "restricts access to authenticated users" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       post :create
       expect(response).to deny_access
     end
@@ -23,13 +23,13 @@ describe VoucherClaimsController do
     end
 
     it "redirects to the dashboard if successful" do
-      Voucher.stub claim: true
+      allow(Voucher).to receive(:claim).and_return(true)
       post :create
       expect(response).to redirect_to(dashboard_path)
     end
 
     it "shows redisplays the page with an error message on failure" do
-      Voucher.stub claim: false
+      allow(Voucher).to receive(:claim).and_return(false)
       post :create
       expect(response).to redirect_to(new_voucher_claim_path)
     end

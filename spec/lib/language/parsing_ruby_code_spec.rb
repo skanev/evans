@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Parsing Ruby code", ruby: true do
   it "returns false for invalid code" do
-    Language::Ruby.should_not be_parsing <<CODE
+    expect(Language::Ruby).not_to be_parsing <<CODE
 def answer()
   42
 CODE

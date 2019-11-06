@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe User do
-  it { should have_many(:solutions) }
-  it { should_not allow_mass_assignment_of(:faculty_number) }
-  it { should_not allow_mass_assignment_of(:full_name) }
-  it { should_not allow_mass_assignment_of(:email) }
-  it { should_not allow_mass_assignment_of(:admin) }
-
   it "can shorten the name of a user" do
     expect(User.shorten_name('Петър Иванов')).to eq 'Петър Иванов'
     expect(User.shorten_name('Петър Петров Иванов')).to eq 'Петър Иванов'

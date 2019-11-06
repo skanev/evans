@@ -1,13 +1,6 @@
 require 'spec_helper'
 
 describe Task do
-  it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:description) }
-  it { should validate_presence_of(:max_points) }
-  it { should validate_numericality_of(:max_points) }
-
-  it { should have_many(:solutions) }
-
   it "can tell whether it is closed" do
     expect(create(:open_task)).to_not be_closed
     expect(create(:closed_task)).to be_closed
@@ -40,15 +33,15 @@ describe Task do
 
   describe "(solutions visiblity)" do
     it "does not have visible solutions if open" do
-      build(:open_task).should_not have_visible_solutions
+      expect(build(:open_task)).not_to have_visible_solutions
     end
 
     it "does not have visible solutions if hidden" do
-      build(:hidden_task).should_not have_visible_solutions
+      expect(build(:hidden_task)).not_to have_visible_solutions
     end
 
     it "does not have visible solutions if closed, but hidden" do
-      build(:closed_task, hidden: true).should_not have_visible_solutions
+      expect(build(:closed_task, hidden: true)).not_to have_visible_solutions
     end
 
     it "has visible solutions if closed and not hidden" do

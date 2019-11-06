@@ -11,7 +11,7 @@ describe SignUpsController do
     end
 
     it "denies access unless admin" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :index
       expect(response).to deny_access
     end
@@ -21,8 +21,8 @@ describe SignUpsController do
     let(:sign_up) { double }
 
     before do
-      SignUp.stub new: sign_up
-      sign_up.stub :save
+      allow(SignUp).to receive(:new).and_return(sign_up)
+      allow(sign_up).to receive(:save)
     end
 
     it "creates a new sign up with the given parameters" do
@@ -33,19 +33,19 @@ describe SignUpsController do
     end
 
     it "redirects to all sign ups if successful" do
-      sign_up.stub save: true
+      allow(sign_up).to receive(:save).and_return(true)
       post :create, sign_up: 'sign up parameters'
       expect(response).to redirect_to(sign_ups_path)
     end
 
     it "redisplays the form if unsuccessful" do
-      sign_up.stub save: false
+      allow(sign_up).to receive(:save).and_return(false)
       post :create, sign_up: 'sign up parameters'
       expect(response).to render_template(:index)
     end
 
     it "denies access unless admin" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       post :create, sign_up: 'sign up parameters'
       expect(response).to deny_access
     end

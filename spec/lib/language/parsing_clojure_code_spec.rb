@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Parsing Clojure code", clojure: true do
   it "returns false for invalid code" do
-    Language::Clojure.should_not be_parsing <<CODE
+    expect(Language::Clojure).not_to be_parsing <<CODE
 (defn abs [x] (if (pos? x) x (- x)
 CODE
   end

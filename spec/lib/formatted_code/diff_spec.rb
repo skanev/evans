@@ -4,7 +4,7 @@ describe FormattedCode::Diff do
   include Support::CommentHistoryHelpers
 
   before do
-    FormattedCode::Highlighter.stub :new do |code, language|
+    allow(FormattedCode::Highlighter).to receive(:new) do |code, language|
       double lines: code.split("\n").map { |line| "!#{line}" }
     end
   end

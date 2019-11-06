@@ -66,7 +66,7 @@ end
 То 'други хора не трябва да виждат моето решение' do
   log_in_as_another_user
   visit challenge_path(challenge)
-  page.should_not have_content submitted_code
+  expect(page).not_to have_content submitted_code
 end
 
 То 'трябва да видя, че не мога да предавам решения на предизвикателства след крайния срок' do

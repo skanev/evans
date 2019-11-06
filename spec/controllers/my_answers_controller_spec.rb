@@ -8,12 +8,12 @@ describe MyAnswersController do
     let(:submission) { double 'submission' }
 
     before do
-      Poll.stub find: poll
-      Polls::Submission.stub for: submission
+      allow(Poll).to receive(:find).and_return(poll)
+      allow(Polls::Submission).to receive(:for).and_return(submission)
     end
 
     it "requires a logged in user" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       get :show, poll_id: '1'
       expect(response).to deny_access
     end
@@ -44,13 +44,13 @@ describe MyAnswersController do
     let(:submission) { double 'submission' }
 
     before do
-      Poll.stub find: poll
-      Polls::Submission.stub for: submission
-      submission.stub :update
+      allow(Poll).to receive(:find).and_return(poll)
+      allow(Polls::Submission).to receive(:for).and_return(submission)
+      allow(submission).to receive(:update)
     end
 
     it "requires a logged in user" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       put :update, poll_id: '1'
       expect(response).to deny_access
     end
@@ -81,13 +81,13 @@ describe MyAnswersController do
     end
 
     it "redirects to the dashboard on success" do
-      submission.stub update: true
+      allow(submission).to receive(:update).and_return(true)
       put :update, poll_id: '1'
       expect(controller).to redirect_to dashboard_path
     end
 
     it "rerenders the form on failure" do
-      submission.stub update: false
+      allow(submission).to receive(:update).and_return(false)
       put :update, poll_id: '1'
       expect(controller).to render_template :show
     end

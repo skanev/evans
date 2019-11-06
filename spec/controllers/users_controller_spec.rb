@@ -19,10 +19,10 @@ describe UsersController do
     let(:user) { double }
 
     before do
-      User.stub find: user
-      Topic.stub where: user
-      Reply.stub where: user
-      user.stub :group_by
+      allow(User).to receive(:find).and_return(user)
+      allow(Topic).to receive(:where).and_return(user)
+      allow(Reply).to receive(:where).and_return(user)
+      allow(user).to receive(:group_by)
     end
 
     it "looks up the user by id" do

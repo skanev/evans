@@ -8,12 +8,12 @@ describe MyChallengeSolutionsController do
     let(:submission) { double 'submission' }
 
     before do
-      Challenge.stub find: challenge
-      ChallengeSubmission.stub for: submission
+      allow(Challenge).to receive(:find).and_return(challenge)
+      allow(ChallengeSubmission).to receive(:for).and_return(submission)
     end
 
     it "denies access when user is not logged in" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       get :show, challenge_id: '1'
       expect(response).to deny_access
     end
@@ -46,13 +46,13 @@ describe MyChallengeSolutionsController do
     let(:submission) { double 'submission' }
 
     before do
-      Challenge.stub find: challenge
-      ChallengeSubmission.stub for: submission
-      submission.stub :update
+      allow(Challenge).to receive(:find).and_return(challenge)
+      allow(ChallengeSubmission).to receive(:for).and_return(submission)
+      allow(submission).to receive(:update)
     end
 
     it "denies access when user is not logged in" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       put :update, challenge_id: '1'
       expect(response).to deny_access
     end
@@ -83,13 +83,13 @@ describe MyChallengeSolutionsController do
     end
 
     it "redirects to the challenge if the submission is successful" do
-      submission.stub update: true
+      allow(submission).to receive(:update).and_return(true)
       put :update, challenge_id: '1'
       expect(controller).to redirect_to challenge
     end
 
     it "rerenders the form if the submission fails" do
-      submission.stub update: false
+      allow(submission).to receive(:update).and_return(false)
       put :update, challenge_id: '1'
       expect(controller).to render_template :show
     end

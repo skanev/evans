@@ -11,7 +11,7 @@ describe CommentObserver do
     revision = create :revision
     comment  = build :comment, revision: revision, user: revision.solution.user
 
-    SolutionMailer.should_not_receive(:new_comment)
+    expect(SolutionMailer).not_to receive(:new_comment)
 
     comment.save!
   end
@@ -21,7 +21,7 @@ describe CommentObserver do
     solution = create :solution_with_revisions, user: user
     comment  = build :comment, revision: solution.revisions.first
 
-    SolutionMailer.should_not_receive(:new_comment)
+    expect(SolutionMailer).not_to receive(:new_comment)
 
     comment.save!
   end

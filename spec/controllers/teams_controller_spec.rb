@@ -15,7 +15,8 @@ describe TeamsController do
     end
 
     it "sets the course name and email in @course_name and @course_email" do
-      Rails.configuration.stub course_name: 'cool course', course_email: 'course@example.org'
+      allow(Rails.configuration).to receive(:course_name).and_return('cool course')
+      allow(Rails.configuration).to receive(:course_email).and_return('course@example.org')
 
       get :show
 

@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe "Parsing Rust code", rust: true do
   it "returns false for invalid code" do
-    Language::Rust.should_not be_parsing <<CODE
+    expect(Language::Rust).not_to be_parsing <<CODE
     fn some_function(
 CODE
   end
 
   it "returns false for build errors" do
-    Language::Rust.should_not be_parsing <<CODE
+    expect(Language::Rust).not_to be_parsing <<CODE
 fn foo() {
   // unused
 }

@@ -5,8 +5,8 @@ describe Submission do
   let(:task) { create :open_task }
 
   before do
-    Language.stub parsing?: true
-    Language.stub can_lint?: false
+    allow(Language).to receive(:parsing?).and_return(true)
+    allow(Language).to receive(:can_lint?).and_return(false)
   end
 
   it "creates a new solution and revision for the given user and task" do
@@ -49,7 +49,7 @@ describe Submission do
   end
 
   it "indicates if the submission is unsuccessful due to invalid code" do
-    Language.stub parsing?: false
+    allow(Language).to receive(:parsing?).and_return(false)
 
     submission = Submission.new(user, task, 'unparsable code')
     expect(submission.submit).to be false
@@ -78,9 +78,9 @@ describe Submission do
     before do
       rubocop_config = Rails.root.join('spec/fixtures/files/rubocop-config.yml')
 
-      Rails.application.config.stub rubocop_config_location: rubocop_config
+      allow(Rails.application.config).to receive(:rubocop_config_location).and_return(rubocop_config)
 
-      Language.stub can_lint?: true
+      allow(Language).to receive(:can_lint?).and_return(true)
     end
 
     it 'lints using the default configuration' do
@@ -112,12 +112,12 @@ describe Submission do
 
   describe "(skeptic)" do
     before do
-      Language.stub can_lint?: true
+      allow(Language).to receive(:can_lint?).and_return(true)
     end
 
     it "doesn't invoke the linter on code with syntax errors" do
-      Language.stub parsing?: false
-      Language.should_not_receive(:lint)
+      allow(Language).to receive(:parsing?).and_return(false)
+      expect(Language).not_to receive(:lint)
       submit user, task, 'code'
     end
   end

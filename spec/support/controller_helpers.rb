@@ -11,7 +11,7 @@ module Support
         let(:current_user) { double(attributes) }
 
         before do
-          controller.stub current_user: current_user
+          allow(controller).to receive(:current_user).and_return(current_user)
         end
       end
     end

@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe Reply do
-  it { should belong_to(:topic) }
-  it { should validate_presence_of(:body) }
-  it { should validate_presence_of :topic_id }
-
   it "can be edited by its owner or by an admin" do
     reply = create :reply
 
@@ -21,7 +17,7 @@ describe Reply do
     second = create :reply, topic: topic
     third  = create :reply, topic: topic
 
-    Reply.stub per_page: 2
+    allow(Reply).to receive(:per_page).and_return(2)
 
     expect(first.page_in_topic).to eq 1
     expect(second.page_in_topic).to eq 1

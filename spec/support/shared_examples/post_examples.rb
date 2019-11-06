@@ -1,9 +1,4 @@
 shared_examples_for 'Post' do
-  it { should belong_to(:user) }
-
-  it { should validate_presence_of(:body) }
-  it { should validate_presence_of(:user_id) }
-
   def post
     raise 'Example groups need to define a method #post that returns the record'
   end

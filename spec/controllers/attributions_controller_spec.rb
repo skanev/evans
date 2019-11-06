@@ -8,8 +8,8 @@ describe AttributionsController do
     let(:attribution) { double }
 
     before do
-      User.stub find: user
-      Attribution.stub new: attribution
+      allow(User).to receive(:find).and_return(user)
+      allow(Attribution).to receive(:new).and_return(attribution)
     end
 
     it "assigns the user" do
@@ -33,8 +33,8 @@ describe AttributionsController do
     let(:attribution) { double user: user }
 
     before do
-      User.stub find: user
-      Attribution.stub find: attribution
+      allow(User).to receive(:find).and_return(user)
+      allow(Attribution).to receive(:find).and_return(attribution)
     end
 
     it "looks up the attribution by id" do
@@ -58,14 +58,14 @@ describe AttributionsController do
     let(:attribution) { double }
 
     before do
-      User.stub find: user
-      Attribution.stub new: attribution
-      attribution.stub :save
-      attribution.stub :user=
+      allow(User).to receive(:find).and_return(user)
+      allow(Attribution).to receive(:new).and_return(attribution)
+      allow(attribution).to receive(:save)
+      allow(attribution).to receive(:user=)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       post :create, user_id: '1'
       expect(response).to deny_access
     end
@@ -96,13 +96,13 @@ describe AttributionsController do
     end
 
     it "redirects to the user on success" do
-      attribution.stub save: true
+      allow(attribution).to receive(:save).and_return(true)
       post :create, user_id: '1'
       expect(controller).to redirect_to user
     end
 
     it "rerenders the form on failure" do
-      attribution.stub save: false
+      allow(attribution).to receive(:save).and_return(false)
       post :create, user_id: '1'
       expect(controller).to render_template :new
     end
@@ -113,12 +113,12 @@ describe AttributionsController do
     let(:attribution) { double user: user }
 
     before do
-      Attribution.stub find: attribution
-      attribution.stub :update_attributes
+      allow(Attribution).to receive(:find).and_return(attribution)
+      allow(attribution).to receive(:update_attributes)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       put :update, user_id: '1', id: '2'
       expect(response).to deny_access
     end
@@ -144,13 +144,13 @@ describe AttributionsController do
     end
 
     it "redirects to the user on success" do
-      attribution.stub update_attributes: true
+      allow(attribution).to receive(:update_attributes).and_return(true)
       put :update, user_id: '1', id: '2'
       expect(controller).to redirect_to user
     end
 
     it "rerenders the form on failure" do
-      attribution.stub update_attributes: false
+      allow(attribution).to receive(:update_attributes).and_return(false)
       put :update, user_id: '1', id: '2'
       expect(controller).to render_template :edit
     end

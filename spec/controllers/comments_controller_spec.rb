@@ -8,15 +8,15 @@ describe CommentsController do
     let(:comment) { build_stubbed(:comment) }
 
     before do
-      Revision.stub find: revision
+      allow(Revision).to receive(:find).and_return(revision)
       revision.stub_chain :comments, build: comment
-      revision.stub commentable_by?: true
-      comment.stub :user=
-      comment.stub :save
+      allow(revision).to receive(:commentable_by?).and_return(true)
+      allow(comment).to receive(:user=)
+      allow(comment).to receive(:save)
     end
 
     it "denies access if not authenticated" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       post :create, revision_id: '1'
       expect(response).to deny_access
     end
@@ -58,14 +58,14 @@ describe CommentsController do
     end
 
     it "redirects to the solution on success" do
-      comment.stub save: true
+      allow(comment).to receive(:save).and_return(true)
       post :create, revision_id: '1'
 
       expect(controller).to redirect_to(comment)
     end
 
     it "redisplays the comment for editing on failure" do
-      comment.stub save: false
+      allow(comment).to receive(:save).and_return(false)
       post :create, revision_id: '1'
       expect(controller).to render_template(:new)
     end
@@ -77,8 +77,8 @@ describe CommentsController do
     let(:comment) { double 'comment' }
 
     before do
-      Comment.stub find: comment
-      comment.stub editable_by?: true
+      allow(Comment).to receive(:find).and_return(comment)
+      allow(comment).to receive(:editable_by?).and_return(true)
     end
 
     it "denies access to users who cannot edit the comment" do
@@ -104,9 +104,9 @@ describe CommentsController do
     let(:comment) { build_stubbed :comment }
 
     before do
-      Comment.stub find: comment
-      comment.stub :update_attributes
-      comment.stub editable_by?: true
+      allow(Comment).to receive(:find).and_return(comment)
+      allow(comment).to receive(:update_attributes)
+      allow(comment).to receive(:editable_by?).and_return(true)
     end
 
     it "assigns the comment to @comment" do
@@ -131,13 +131,13 @@ describe CommentsController do
     end
 
     it "redirects to the comment on success" do
-      comment.stub update_attributes: true
+      allow(comment).to receive(:update_attributes).and_return(true)
       put :update, revision_id: '1', id: '2'
       expect(controller).to redirect_to comment
     end
 
     it "redisplays the form on failure" do
-      comment.stub update_attributes: false
+      allow(comment).to receive(:update_attributes).and_return(false)
       put :update, revision_id: '1', id: '2'
       expect(controller).to render_template :edit
     end

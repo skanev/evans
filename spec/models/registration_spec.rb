@@ -25,7 +25,7 @@ describe Registration do
 
   describe "creating" do
     before do
-      RegistrationMailer.stub confirmation: double.as_null_object
+      allow(RegistrationMailer).to receive(:confirmation).and_return(double.as_null_object)
     end
 
     context "when valid" do
@@ -53,7 +53,7 @@ describe Registration do
 
       it "does not send email" do
         registration('', '', '').create
-        RegistrationMailer.should_not_receive(:deliver_confirmation)
+        expect(RegistrationMailer).not_to receive(:deliver_confirmation)
       end
     end
   end

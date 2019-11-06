@@ -7,12 +7,12 @@ describe MySolutionsController do
     let(:task) { build_stubbed :task }
 
     before do
-      Task.stub find: task
-      Solution.stub :code_for
+      allow(Task).to receive(:find).and_return(task)
+      allow(Solution).to receive(:code_for)
     end
 
     it "denies access if user not logged in" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       get :show, task_id: '42'
       expect(response).to deny_access
     end
@@ -39,13 +39,13 @@ describe MySolutionsController do
     let(:submission) { double 'submission' }
 
     before do
-      Task.stub find: task
-      Submission.stub new: submission
-      submission.stub submit: true
+      allow(Task).to receive(:find).and_return(task)
+      allow(Submission).to receive(:new).and_return(submission)
+      allow(submission).to receive(:submit).and_return(true)
     end
 
     it "denies access if user not logged in" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       put :update, task_id: '42', submission: {}
       expect(response).to deny_access
     end
@@ -77,13 +77,13 @@ describe MySolutionsController do
     end
 
     it "redirects to the task on success" do
-      submission.stub submit: true
+      allow(submission).to receive(:submit).and_return(true)
       put :update, task_id: '42', submission: {}
       expect(response).to redirect_to(task)
     end
 
     it "redisplays the form on error" do
-      submission.stub submit: false
+      allow(submission).to receive(:submit).and_return(false)
       put :update, task_id: '42', submission: {}
       expect(response).to render_template(:show)
     end

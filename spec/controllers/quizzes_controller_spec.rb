@@ -5,8 +5,8 @@ describe QuizzesController do
     let(:quiz) { double }
 
     before do
-      Quiz.stub find: quiz
-      quiz.stub :results
+      allow(Quiz).to receive(:find).and_return(quiz)
+      allow(quiz).to receive(:results)
     end
 
     it "assigns the quiz to @quiz" do
@@ -16,7 +16,7 @@ describe QuizzesController do
     end
 
     it "assigns the results to @results" do
-      quiz.stub results: 'results'
+      allow(quiz).to receive(:results).and_return('results')
       get :show, id: '42'
       expect(assigns(:results)).to eq 'results'
     end

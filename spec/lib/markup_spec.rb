@@ -23,7 +23,7 @@ describe Markup do
   it "removes script tags" do
     input = '<script type="text/javascript">maliciousCode()</script>'
 
-    format(input).should_not include('<script')
+    expect(format(input)).not_to include('<script')
   end
 
   it "generates an html safe string" do
@@ -48,7 +48,7 @@ describe Markup do
     end
 
     it "does not convert emoji within <code> blocks" do
-      format('<code>:hammer:</code>').should_not include image_tag(:hammer)
+      expect(format('<code>:hammer:</code>')).not_to include image_tag(:hammer)
     end
 
     it "converts emoji betweeen two code tags" do
@@ -57,7 +57,7 @@ describe Markup do
     end
 
     it "does not convert emoji in multiline code blocs" do
-      format(<<-END).should_not include image_tag(:hammer)
+      expect(format(<<-END)).not_to include image_tag(:hammer)
         ```
           :hammer:
         ```

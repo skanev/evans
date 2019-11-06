@@ -5,13 +5,13 @@ describe VouchersController do
 
   describe "GET index" do
     it "is accessible only by admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :index
       expect(response).to deny_access
     end
 
     it "assigns all voucher codes to @vouchers" do
-      Voucher.stub all: 'vouchers'
+      allow(Voucher).to receive(:all).and_return('vouchers')
       get :index
       expect(assigns(:vouchers)).to eq 'vouchers'
     end
@@ -26,11 +26,11 @@ describe VouchersController do
 
   describe "POST create" do
     before do
-      Voucher.stub :create_codes
+      allow(Voucher).to receive(:create_codes)
     end
 
     it "is accessible only by admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       post :create
       expect(response).to deny_access
     end

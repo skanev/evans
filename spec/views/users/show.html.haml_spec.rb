@@ -4,41 +4,41 @@ describe "users/show.html.haml" do
   let(:user) { build_stubbed :user, about: 'I am a platypus.' }
 
   before do
-    view.stub admin?: false
+    allow(view).to receive(:admin?).and_return(false)
     assign :user, user
   end
 
   context 'when a visitor is viewing a user profile' do
     before do
-      view.stub logged_in?: false
-      view.stub current_user: nil
+      allow(view).to receive(:logged_in?).and_return(false)
+      allow(view).to receive(:current_user).and_return(nil)
     end
 
     it "does not show a link to the edit profile page" do
       render
-      rendered.should_not have_link_to edit_profile_path
+      expect(rendered).not_to have_link_to edit_profile_path
     end
 
     it "does not show the faculty number" do
       render
-      rendered.should_not have_content user.faculty_number
+      expect(rendered).not_to have_content user.faculty_number
     end
 
     it "does not show the email" do
       render
-      rendered.should_not have_content user.email
+      expect(rendered).not_to have_content user.email
     end
 
     it "does not show the about info" do
       render
-      rendered.should_not have_content user.about
+      expect(rendered).not_to have_content user.about
     end
   end
 
   context 'when a user is viewing their own profile' do
     before do
-      view.stub logged_in?: true
-      view.stub current_user: user
+      allow(view).to receive(:logged_in?).and_return(true)
+      allow(view).to receive(:current_user).and_return(user)
     end
 
     it "shows a link to the edit profile page" do
@@ -53,7 +53,7 @@ describe "users/show.html.haml" do
 
     it "does not show the email" do
       render
-      rendered.should_not have_content user.email
+      expect(rendered).not_to have_content user.email
     end
 
     it "shows the about info" do
@@ -64,23 +64,23 @@ describe "users/show.html.haml" do
 
   context "when a user is viewing somebody else's profile" do
     before do
-      view.stub logged_in?: true
-      view.stub current_user: build_stubbed(:user)
+      allow(view).to receive(:logged_in?).and_return(true)
+      allow(view).to receive(:current_user).and_return(build_stubbed(:user))
     end
 
     it "does not show a link to the edit profile page" do
       render
-      rendered.should_not have_link_to edit_profile_path
+      expect(rendered).not_to have_link_to edit_profile_path
     end
 
     it "does not show the faculty number" do
       render
-      rendered.should_not have_content user.faculty_number
+      expect(rendered).not_to have_content user.faculty_number
     end
 
     it "does not show the email" do
       render
-      rendered.should_not have_content user.email
+      expect(rendered).not_to have_content user.email
     end
 
     it "shows the about info" do
@@ -91,9 +91,9 @@ describe "users/show.html.haml" do
 
   context 'when an admin is viewing a profile' do
     before do
-      view.stub logged_in?: true
-      view.stub admin?: true
-      view.stub current_user: build_stubbed(:admin)
+      allow(view).to receive(:logged_in?).and_return(true)
+      allow(view).to receive(:admin?).and_return(true)
+      allow(view).to receive(:current_user).and_return(build_stubbed(:admin))
     end
 
     it "shows the faculty number" do

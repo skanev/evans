@@ -1,12 +1,17 @@
 require 'spec_helper'
 
 describe Solution do
-  it { should validate_presence_of :user_id }
-  it { should validate_presence_of :task_id }
-  it { expect(create(:solution)).to validate_uniqueness_of(:user_id).scoped_to(:task_id) }
+  it "ensures user ids are unique per task id" do
+    solution = create :solution
+    other_task = create :task
+    other_user = create :task
 
-  it { should belong_to(:user) }
-  it { should belong_to(:task) }
+    expect(build(:solution, user_id: solution.user_id, task_id: solution.task_id)).not_to be_valid
+
+    expect(build(:solution, user_id: solution.user_id, task_id: other_task.id)).to be_valid
+    expect(build(:solution, user_id: solution.user_id, task_id: other_task.id)).to be_valid
+    expect(build(:solution, user_id: other_user.id, task_id: solution.task_id)).to be_valid
+  end
 
   it "can find all the solutions for task" do
     task = create :task
@@ -80,15 +85,15 @@ describe Solution do
       let(:task) { create :hidden_task }
 
       it "is not visible to unauthenticated users" do
-        solution.should_not be_visible_to nil
+        expect(solution).not_to be_visible_to nil
       end
 
       it "is not visible to students" do
-        solution.should_not be_visible_to a_student
+        expect(solution).not_to be_visible_to a_student
       end
 
       it "is not visible to its owner" do
-        solution.should_not be_visible_to author
+        expect(solution).not_to be_visible_to author
       end
 
       it "is visible to admins" do
@@ -100,11 +105,11 @@ describe Solution do
       let(:task) { create :open_task }
 
       it "is not visible to unauthenticated users" do
-        solution.should_not be_visible_to nil
+        expect(solution).not_to be_visible_to nil
       end
 
       it "is not visible to students" do
-        solution.should_not be_visible_to a_student
+        expect(solution).not_to be_visible_to a_student
       end
 
       it "is visible to its author" do
@@ -140,15 +145,15 @@ describe Solution do
       let(:task) { create :closed_task, hidden: true }
 
       it "is not visible to unauthenticated users" do
-        solution.should_not be_visible_to nil
+        expect(solution).not_to be_visible_to nil
       end
 
       it "is not visible to students" do
-        solution.should_not be_visible_to a_student
+        expect(solution).not_to be_visible_to a_student
       end
 
       it "is not visible to its author" do
-        solution.should_not be_visible_to author
+        expect(solution).not_to be_visible_to author
       end
 
       it "is visible to admins" do
@@ -170,11 +175,11 @@ describe Solution do
       end
 
       it "is not available to other users" do
-        solution.should_not be_commentable_by build(:user)
+        expect(solution).not_to be_commentable_by build(:user)
       end
 
       it "is not available to unauthenticated people" do
-        solution.should_not be_commentable_by nil
+        expect(solution).not_to be_commentable_by nil
       end
     end
 
@@ -188,7 +193,7 @@ describe Solution do
       end
 
       it "is not available to unauthenticated people" do
-        solution.should_not be_commentable_by nil
+        expect(solution).not_to be_commentable_by nil
       end
     end
   end
@@ -223,7 +228,7 @@ describe Solution do
 
       it "disallows setting points directly" do
         solution.update_score points: 5
-        solution.points.should_not eq 5
+        expect(solution.points).not_to eq 5
       end
     end
 

@@ -8,14 +8,14 @@ describe RepliesController do
     let(:reply) { build_stubbed :reply }
 
     before do
-      Topic.stub find: topic
+      allow(Topic).to receive(:find).and_return(topic)
       topic.stub_chain :replies, build: reply
-      reply.stub :user=
-      reply.stub :save
+      allow(reply).to receive(:user=)
+      allow(reply).to receive(:save)
     end
 
     it "requires an authenticated user" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       post :create, topic_id: '42'
       expect(response).to deny_access
     end
@@ -42,7 +42,7 @@ describe RepliesController do
 
     context "when successful" do
       it "redirects to the reply" do
-        reply.stub save: true
+        allow(reply).to receive(:save).and_return(true)
         post :create, topic_id: '42', reply: attributes_for(:reply)
         expect(response).to redirect_to(topic_reply_path(topic, reply))
       end
@@ -50,7 +50,7 @@ describe RepliesController do
 
     context "when unsuccessful" do
       it "redisplays the form" do
-        reply.stub save: false
+        allow(reply).to receive(:save).and_return(false)
         post :create, topic_id: '42', reply: attributes_for(:reply)
         expect(response).to render_template(:new)
       end
@@ -61,10 +61,10 @@ describe RepliesController do
     let(:reply) { double }
 
     it "redirects to the page of the topic where the reply is" do
-      Reply.stub find: reply
-      reply.stub topic_id: 10
-      reply.stub page_in_topic: 3
-      reply.stub id: '20'
+      allow(Reply).to receive(:find).and_return(reply)
+      allow(reply).to receive(:topic_id).and_return(10)
+      allow(reply).to receive(:page_in_topic).and_return(3)
+      allow(reply).to receive(:id).and_return('20')
 
       get :show, topic_id: 10, id: '20'
 
@@ -76,8 +76,8 @@ describe RepliesController do
     let(:reply) { double }
 
     before do
-      Reply.stub find: reply
-      controller.stub can_edit?: true
+      allow(Reply).to receive(:find).and_return(reply)
+      allow(controller).to receive(:can_edit?).and_return(true)
     end
 
     it "assigns the reply to @reply" do
@@ -87,7 +87,7 @@ describe RepliesController do
     end
 
     it "denies access if the user cannot edit the reply" do
-      controller.stub can_edit?: false
+      allow(controller).to receive(:can_edit?).and_return(false)
       get :edit, topic_id: 10, id: '20'
       expect(response).to deny_access
     end
@@ -98,15 +98,15 @@ describe RepliesController do
     let(:topic) { build_stubbed :topic }
 
     before do
-      Reply.stub find: reply
-      reply.stub :update_attributes
-      reply.stub topic: topic
-      reply.stub :save
-      controller.stub can_edit?: true
+      allow(Reply).to receive(:find).and_return(reply)
+      allow(reply).to receive(:update_attributes)
+      allow(reply).to receive(:topic).and_return(topic)
+      allow(reply).to receive(:save)
+      allow(controller).to receive(:can_edit?).and_return(true)
     end
 
     it "denies access if the user cannot edit the reply" do
-      controller.stub can_edit?: false
+      allow(controller).to receive(:can_edit?).and_return(false)
       put :update, topic_id: 10, id: '20', reply: attributes_for(:reply)
 
       expect(response).to deny_access
@@ -124,14 +124,14 @@ describe RepliesController do
     end
 
     it "redirects to the topic if successful" do
-      reply.stub update: true
+      allow(reply).to receive(:update).and_return(true)
       put :update, topic_id: 10, id: '20', reply: attributes_for(:reply)
 
       expect(response).to redirect_to(topic_reply_path(topic, reply))
     end
 
     it "redisplays the form if unsuccessful" do
-      reply.stub update_attributes: false
+      allow(reply).to receive(:update_attributes).and_return(false)
       put :update, topic_id: 10, id: '20', reply: attributes_for(:reply)
 
       expect(response).to render_template(:edit)
