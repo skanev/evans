@@ -47,7 +47,7 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'factory_girl_rails'
   gem 'faker'
 end
@@ -79,5 +79,5 @@ group :test do
 end
 
 group :tasks do
-  gem 'rspec'
+  gem 'rspec', '3.1'
 end
