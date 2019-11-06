@@ -59,7 +59,7 @@ class Feed
         when :kind      then value.to_sym
         when :user_name then value.sub(/^(\S+) .* (\S+)$/, '\1 \2')
         when /_id$/     then value.to_i
-        when /_at$/     then Time.zone.parse(value)
+        when /_at$/     then DateTime.parse(value)
         else value
       end
 

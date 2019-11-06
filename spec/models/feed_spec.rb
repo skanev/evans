@@ -7,6 +7,8 @@ describe Feed do
     solution  = comment.solution
     task      = solution.task
 
+    puts Feed.new.enum_for(:each_activity).to_a.inspect
+
     item = last_activity
 
     item.user_id.should          eq commenter.id
@@ -16,9 +18,7 @@ describe Feed do
     item.subject.should          eq task.name
     item.kind.should             eq :comment
 
-    skip "Timestamps have the wrong timezone" do
-      item.happened_at.to_s.should eq comment.created_at.to_s
-    end
+    item.happened_at.to_s(:db).should eq comment.created_at.to_s(:db)
   end
 
   it "aggregates submitted solutions" do
@@ -35,9 +35,7 @@ describe Feed do
     item.subject.should          eq task.name
     item.kind.should             eq :solution
 
-    skip "Timestamps have the wrong timezone" do
-      item.happened_at.to_s.should eq solution.updated_at.to_s
-    end
+    item.happened_at.to_s(:db).should eq solution.updated_at.to_s(:db)
   end
 
   def last_activity
