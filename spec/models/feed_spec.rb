@@ -7,8 +7,6 @@ describe Feed do
     solution  = comment.solution
     task      = solution.task
 
-    puts Feed.new.enum_for(:each_activity).to_a.inspect
-
     item = last_activity
 
     item.user_id.should          eq commenter.id
