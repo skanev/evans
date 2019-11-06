@@ -8,12 +8,12 @@ CODE
   end
 
   it "returns true for valid code" do
-    Language::Clojure.should be_parsing <<CODE
+    expect(Language::Clojure).to be_parsing <<CODE
 (defn abs [x] (if (pos? x) x (- x)))
 CODE
   end
 
   it "returns true for no code" do
-    Language::Clojure.should be_parsing ""
+    expect(Language::Clojure).to be_parsing ""
   end
 end

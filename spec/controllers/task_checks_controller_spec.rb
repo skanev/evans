@@ -12,16 +12,16 @@ describe TaskChecksController do
     it "denies access to non-admins" do
       current_user.stub admin?: false
       post :create, task_id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "checks if the task is already running" do
-      TaskCheckWorker.should_receive(:queued?).with('42')
+      expect(TaskCheckWorker).to receive(:queued?).with('42')
       post :create, task_id: '42'
     end
 
     it "schedules a check of the task" do
-      TaskCheckWorker.should_receive(:perform_async).with('42')
+      expect(TaskCheckWorker).to receive(:perform_async).with('42')
       post :create, task_id: '42'
     end
 
@@ -33,7 +33,7 @@ describe TaskChecksController do
 
     it "redirects to the task solutions" do
       post :create, task_id: '1'
-      controller.should redirect_to task_solutions_path('1')
+      expect(controller).to redirect_to task_solutions_path('1')
     end
   end
 end

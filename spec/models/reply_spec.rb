@@ -8,11 +8,11 @@ describe Reply do
   it "can be edited by its owner or by an admin" do
     reply = create :reply
 
-    reply.should be_editable_by reply.user
-    reply.should be_editable_by create(:admin)
+    expect(reply).to be_editable_by reply.user
+    expect(reply).to be_editable_by create(:admin)
 
-    reply.should_not be_editable_by nil
-    reply.should_not be_editable_by create(:user)
+    expect(reply).to_not be_editable_by nil
+    expect(reply).to_not be_editable_by create(:user)
   end
 
   it "can tell on which page of the topic it is" do
@@ -23,16 +23,16 @@ describe Reply do
 
     Reply.stub per_page: 2
 
-    first.page_in_topic.should eq 1
-    second.page_in_topic.should eq 1
-    third.page_in_topic.should eq 2
+    expect(first.page_in_topic).to eq 1
+    expect(second.page_in_topic).to eq 1
+    expect(third.page_in_topic).to eq 2
   end
 
   it "gives the title of its topic when asked for the containing topic's title" do
     topic = create :topic, title: 'Topic title'
     reply = create :reply, topic: topic
 
-    reply.topic_title.should eq 'Topic title'
+    expect(reply.topic_title).to eq 'Topic title'
   end
 
   it_behaves_like 'Post' do

@@ -10,7 +10,7 @@ describe Topic do
 
     topic.update_attributes! user_id: modified.id
 
-    topic.reload.user.should eq original
+    expect(topic.reload.user).to eq original
   end
 
   it "supports paging, ordering in reverse chronological order of the last post" do
@@ -23,8 +23,8 @@ describe Topic do
 
     Topic.stub per_page: 1
 
-    Topic.boards_page(1).should eq [first]
-    Topic.boards_page(2).should eq [second]
+    expect(Topic.boards_page(1)).to eq [first]
+    expect(Topic.boards_page(2)).to eq [second]
   end
 
   it "can paginate its replies" do
@@ -34,18 +34,18 @@ describe Topic do
 
     Reply.stub per_page: 1
 
-    topic.replies_on_page(1).should eq [first]
-    topic.replies_on_page(2).should eq [second]
+    expect(topic.replies_on_page(1)).to eq [first]
+    expect(topic.replies_on_page(2)).to eq [second]
   end
 
   it "can be edited by its owner or by an admin" do
     topic = create :topic
 
-    topic.should be_editable_by topic.user
-    topic.should be_editable_by create(:admin)
+    expect(topic).to be_editable_by topic.user
+    expect(topic).to be_editable_by create(:admin)
 
-    topic.should_not be_editable_by create(:user)
-    topic.should_not be_editable_by nil
+    expect(topic).to_not be_editable_by create(:user)
+    expect(topic).to_not be_editable_by nil
   end
 
   it "can tell how many pages of replies it has" do
@@ -57,13 +57,13 @@ describe Topic do
 
     Reply.stub per_page: 2
 
-    topic_with_replies[0].pages_of_replies.should eq 1
-    topic_with_replies[2].pages_of_replies.should eq 1
-    topic_with_replies[3].pages_of_replies.should eq 2
+    expect(topic_with_replies[0].pages_of_replies).to eq 1
+    expect(topic_with_replies[2].pages_of_replies).to eq 1
+    expect(topic_with_replies[3].pages_of_replies).to eq 2
   end
 
   it "gives its own title when asked for the containing topic's title" do
-    Topic.new(title: 'Title').topic_title.should eq 'Title'
+    expect(Topic.new(title: 'Title').topic_title).to eq 'Title'
   end
 
   describe "last reply id" do
@@ -73,11 +73,11 @@ describe Topic do
       one = create :reply, topic: topic
       two = create :reply, topic: topic
 
-      topic.last_reply_id.should eq two.id
+      expect(topic.last_reply_id).to eq two.id
     end
 
     it "is nil if there were no replies" do
-      topic.last_reply_id.should be_nil
+      expect(topic.last_reply_id).to be_nil
     end
   end
 
@@ -88,8 +88,8 @@ describe Topic do
       Timecop.freeze(Time.now) do
         topic = create :topic
 
-        topic_with_last_post.last_poster.should eq topic.user
-        topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
+        expect(topic_with_last_post.last_poster).to eq topic.user
+        expect(topic_with_last_post.last_post_at).to be_within(1.second).of(Time.zone.now)
       end
     end
 
@@ -103,8 +103,8 @@ describe Topic do
       Timecop.freeze(1.hour.ago) do
         reply = create :reply, topic: topic
 
-        topic_with_last_post.last_post_at.should be_within(1.second).of(Time.zone.now)
-        topic_with_last_post.last_poster.should eq reply.user
+        expect(topic_with_last_post.last_post_at).to be_within(1.second).of(Time.zone.now)
+        expect(topic_with_last_post.last_poster).to eq reply.user
       end
     end
   end

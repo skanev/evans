@@ -9,7 +9,7 @@ CODE
   end
 
   it "returns true for valid code" do
-    Language::Ruby.should be_parsing <<CODE
+    expect(Language::Ruby).to be_parsing <<CODE
 def answer()
   42
 end
@@ -17,6 +17,6 @@ CODE
   end
 
   it "returns true for no code" do
-    Language::Ruby.should be_parsing ""
+    expect(Language::Ruby).to be_parsing ""
   end
 end

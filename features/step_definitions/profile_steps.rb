@@ -5,5 +5,5 @@
 end
 
 То 'трябва да имам снимка в профила си' do
-  current_user.reload.photo.url.should be_present
+  expect(current_user.reload.photo.url).to be_present
 end

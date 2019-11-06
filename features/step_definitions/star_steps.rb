@@ -32,12 +32,12 @@ end
 
 То /^"(.*?)" трябва да има "(\d+)" точк(?:а|и)$/ do |name, points|
   user = User.find_by_name! name
-  user.points.should eq points.to_i
+  expect(user.points).to eq points.to_i
 end
 
 То 'темата "$topic" трябва да има звездичка' do |topic_title|
   topic = Topic.find_by_title! topic_title
-  topic.should be_starred
+  expect(topic).to be_starred
 end
 
 Дадено 'че студент "$user" има звездичка за отговор на тема "$topic"' do |user_name, topic_title|

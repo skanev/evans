@@ -1,5 +1,5 @@
 То 'трябва да виждам "$text"' do |text|
-  page.should have_content(text)
+  expect(page).to have_content(text)
 end
 
 То 'не трябва да виждам "$text"' do |text|

@@ -50,17 +50,17 @@ end
 То 'студентите трябва да могат да предават решения на "$name"' do |name|
   log_in_as_student
   visit challenge_my_solution_path find_challenge(name)
-  page.should have_field 'Код'
+  expect(page).to have_field 'Код'
 end
 
 То 'трябва да мога да редактирам решението си' do
   visit_my_challenge_solution challenge
-  page.should have_field 'Код', with: submitted_code
+  expect(page).to have_field 'Код', with: submitted_code
 end
 
 То 'решението ми трябва да съдържа новия код' do
   visit_my_challenge_solution challenge
-  page.should have_field 'Код', with: submitted_code
+  expect(page).to have_field 'Код', with: submitted_code
 end
 
 То 'други хора не трябва да виждат моето решение' do
@@ -70,9 +70,9 @@ end
 end
 
 То 'трябва да видя, че не мога да предавам решения на предизвикателства след крайния срок' do
-  page.should have_content 'Крайният срок е отминал. Вече не можете да предавате решения.'
-  page.should have_css 'textarea[disabled]'
-  page.should_not have_css 'input[type=submit]'
+  expect(page).to have_content 'Крайният срок е отминал. Вече не можете да предавате решения.'
+  expect(page).to have_css 'textarea[disabled]'
+  expect(page).to_not have_css 'input[type=submit]'
 end
 
 То 'трябва да виждам решението на предизвикателството, изпратено от "$name"' do |name|
@@ -81,10 +81,10 @@ end
 
   visit challenge_path(challenge)
 
-  page.should have_content solution.code
+  expect(page).to have_content solution.code
 end
 
 То 'трябва да има предизвикателство "$name"' do |name|
   visit challenges_path
-  page.should have_content name
+  expect(page).to have_content name
 end

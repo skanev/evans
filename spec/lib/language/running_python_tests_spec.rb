@@ -37,7 +37,7 @@ print("This prints something")
       Dir.chdir(dir) do
         results = Language::Python.run_tests(@test_case_code, solution)
 
-        results.log.should include("Ran 6 tests")
+        expect(results.log).to include("Ran 6 tests")
       end
     end
   end
@@ -46,8 +46,8 @@ print("This prints something")
     solution = 'import intertools'
     results = Language::Python.run_tests(@test_case_code, solution)
 
-    results.passed_count.should eq 0
-    results.failed_count.should eq 0
+    expect(results.passed_count).to eq 0
+    expect(results.failed_count).to eq 0
   end
 
   describe "on successful run" do
@@ -60,16 +60,16 @@ print("This prints something")
     end
 
     it "calculates the number of passed tests" do
-      @results.passed_count.should eq 3
+      expect(@results.passed_count).to eq 3
     end
 
     it "calculates the number of failed tests" do
-      @results.failed_count.should eq 3
+      expect(@results.failed_count).to eq 3
     end
 
     it "collects the execution log" do
-      @results.log.should include("Ran 6 tests")
-      @results.log.should include("FAILED (failures=2, errors=1)")
+      expect(@results.log).to include("Ran 6 tests")
+      expect(@results.log).to include("FAILED (failures=2, errors=1)")
     end
   end
 end

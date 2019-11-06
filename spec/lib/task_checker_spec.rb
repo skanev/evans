@@ -6,14 +6,14 @@ describe TaskChecker do
     solution     = create :solution_with_revisions, task: task, code: 'solution code'
     test_results = double passed_count: 2, failed_count: 1, log: 'log'
 
-    Language.should_receive(:run_tests).with('test case', 'solution code').and_return(test_results)
-    Solution.should_receive(:calculate_points).with(2, 1, 6).and_return(3)
+    expect(Language).to receive(:run_tests).with('test case', 'solution code').and_return(test_results)
+    expect(Solution).to receive(:calculate_points).with(2, 1, 6).and_return(3)
     TaskChecker.new(task).run
 
     solution.reload
-    solution.passed_tests.should eq 2
-    solution.failed_tests.should eq 1
-    solution.points.should eq 3
-    solution.log.should eq 'log'
+    expect(solution.passed_tests).to eq 2
+    expect(solution.failed_tests).to eq 1
+    expect(solution.points).to eq 3
+    expect(solution.log).to eq 'log'
   end
 end

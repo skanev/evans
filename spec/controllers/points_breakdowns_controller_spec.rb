@@ -7,13 +7,13 @@ describe PointsBreakdownsController do
     it "denies access to non-admins" do
       current_user.stub admin?: false
       get :index
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "assigns all breakdowns" do
       PointsBreakdown.stub all: 'breakdowns'
       get :index
-      assigns(:points_breakdowns).should eq 'breakdowns'
+      expect(assigns(:points_breakdowns)).to eq 'breakdowns'
     end
   end
 end

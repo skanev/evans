@@ -8,23 +8,23 @@ describe User do
   it { should_not allow_mass_assignment_of(:admin) }
 
   it "can shorten the name of a user" do
-    User.shorten_name('Петър Иванов').should eq 'Петър Иванов'
-    User.shorten_name('Петър Петров Иванов').should eq 'Петър Иванов'
-    User.shorten_name('Петър Петров Петров Иванов').should eq 'Петър Иванов'
+    expect(User.shorten_name('Петър Иванов')).to eq 'Петър Иванов'
+    expect(User.shorten_name('Петър Петров Иванов')).to eq 'Петър Иванов'
+    expect(User.shorten_name('Петър Петров Петров Иванов')).to eq 'Петър Иванов'
   end
 
   it "can tell the first name of the user" do
-    build(:user, name: 'Петър').first_name.should eq 'Петър'
-    build(:user, name: 'Петър Петров').first_name.should eq 'Петър'
-    build(:user, name: 'Петър Петров Иванов').first_name.should eq 'Петър'
+    expect(build(:user, name: 'Петър').first_name).to eq 'Петър'
+    expect(build(:user, name: 'Петър Петров').first_name).to eq 'Петър'
+    expect(build(:user, name: 'Петър Петров Иванов').first_name).to eq 'Петър'
   end
 
   it "has 0 points if admin" do
-    create(:admin).points.should eq 0
+    expect(create(:admin).points).to eq 0
   end
 
   it "has rank 0 if admin" do
-    create(:admin).rank.should eq 0
+    expect(create(:admin).rank).to eq 0
   end
 
   describe "sorting" do
@@ -33,20 +33,20 @@ describe User do
       third  = create :user, created_at: 1.day.ago
       first  = create :user, created_at: 3.days.ago
 
-      User.sorted.should eq [first, second, third]
+      expect(User.sorted).to eq [first, second, third]
     end
 
     it "puts users with photos before users without photos" do
       second = create :user
       first  = create :user_with_photo
 
-      User.sorted.should eq [first, second]
+      expect(User.sorted).to eq [first, second]
     end
   end
 
   describe "pagination" do
     before do
-      User.should_receive(:paginate).with(page: 'foo', per_page: 20)
+      expect(User).to receive(:paginate).with(page: 'foo', per_page: 20)
     end
 
     it "delegates to paginate with 20 users per page" do

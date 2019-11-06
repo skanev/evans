@@ -9,6 +9,6 @@ describe Revision do
     second = create :comment, revision: revision, created_at: 1.day.ago
     first  = create :comment, revision: revision, created_at: 2.days.ago
 
-    revision.comments.should eq [first, second]
+    expect(revision.comments).to eq [first, second]
   end
 end

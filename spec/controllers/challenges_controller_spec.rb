@@ -17,7 +17,7 @@ describe ChallengesController do
     it "assigns the visible challenges for non-admins" do
       Challenge.stub visible: double(decorate: 'challenges')
       get :index
-      assigns(:challenges).should eq 'challenges'
+      expect(assigns(:challenges)).to eq 'challenges'
     end
 
     it "assigns all challenges for admins" do
@@ -26,7 +26,7 @@ describe ChallengesController do
 
       get :index
 
-      assigns(:challenges).should eq 'challenges'
+      expect(assigns(:challenges)).to eq 'challenges'
     end
   end
 
@@ -36,13 +36,13 @@ describe ChallengesController do
     it "requires admin access" do
       current_user.stub admin?: false
       get :new
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "assigns a new challenge" do
       Challenge.stub new: 'challenge'
       get :new
-      assigns(:challenge).should eq 'challenge'
+      expect(assigns(:challenge)).to eq 'challenge'
     end
   end
 
@@ -59,34 +59,34 @@ describe ChallengesController do
     it "requires admin access" do
       current_user.stub admin?: false
       post :create
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "initializes a new challenge with params[:challenge]" do
-      Challenge.should_receive(:new).with('challenge attributes')
+      expect(Challenge).to receive(:new).with('challenge attributes')
       post :create, challenge: 'challenge attributes'
     end
 
     it "assigns the new challenge" do
       post :create
-      assigns(:challenge).should eq challenge
+      expect(assigns(:challenge)).to eq challenge
     end
 
     it "attempts to save the challenge" do
-      challenge.should_receive(:save)
+      expect(challenge).to receive(:save)
       post :create
     end
 
     it "redirects to the challenge on success" do
       challenge.stub save: true
       post :create
-      controller.should redirect_to challenge
+      expect(controller).to redirect_to challenge
     end
 
     it "rerenders the page on error" do
       challenge.stub save: false
       post :create
-      controller.should render_template :new
+      expect(controller).to render_template :new
     end
   end
 
@@ -109,18 +109,18 @@ describe ChallengesController do
     end
 
     it "looks up the challenge by id" do
-      Challenge.should_receive(:find).with('42')
+      expect(Challenge).to receive(:find).with('42')
       get :show, id: '42'
     end
 
     it "assigns the challenge" do
       get :show, id: '1'
-      assigns(:challenge).should eq challenge
+      expect(assigns(:challenge)).to eq challenge
     end
 
     it "does not assign the solutions" do
       get :show, id: '1'
-      assigns(:solutions).should be_nil
+      expect(assigns(:solutions)).to be_nil
     end
 
     context "when closed" do
@@ -132,7 +132,7 @@ describe ChallengesController do
 
       it "assigns the solutions" do
         get :show, id: '1'
-        assigns(:solutions).should eq solutions
+        expect(assigns(:solutions)).to eq solutions
       end
     end
 
@@ -141,7 +141,7 @@ describe ChallengesController do
 
       it "assigns the solutions" do
         get :show, id: '1'
-        assigns(:solutions).should eq solutions
+        expect(assigns(:solutions)).to eq solutions
       end
     end
 
@@ -154,13 +154,13 @@ describe ChallengesController do
 
       it "denies access to non-admins" do
         get :show, id: '1'
-        response.should deny_access
+        expect(response).to deny_access
       end
 
       it "allows admins to see the challenge" do
         current_user.stub admin?: true
         get :show, id: '1'
-        response.should be_success
+        expect(response).to be_success
       end
     end
   end
@@ -171,13 +171,13 @@ describe ChallengesController do
     it "requires admin access" do
       current_user.stub admin?: false
       get :edit, id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "finds the challenge by id and assigns it" do
-      Challenge.should_receive(:find).with('42').and_return('challenge')
+      expect(Challenge).to receive(:find).with('42').and_return('challenge')
       get :edit, id: '42'
-      assigns(:challenge).should eq 'challenge'
+      expect(assigns(:challenge)).to eq 'challenge'
     end
   end
 
@@ -194,34 +194,34 @@ describe ChallengesController do
     it "requires admin access" do
       current_user.stub admin?: false
       put :update, id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "looks up the challenge by id" do
-      Challenge.should_receive(:find).with('42')
+      expect(Challenge).to receive(:find).with('42')
       put :update, id: '42'
     end
 
     it "assigns the challenge" do
       put :update, id: '1'
-      assigns(:challenge).should eq challenge
+      expect(assigns(:challenge)).to eq challenge
     end
 
     it "attempts to update the challenge" do
-      challenge.should_receive(:update_attributes).with('challenge attributes')
+      expect(challenge).to receive(:update_attributes).with('challenge attributes')
       put :update, id: '1', challenge: 'challenge attributes'
     end
 
     it "redirects to the challenge on success" do
       challenge.stub update_attributes: true
       put :update, id: '1'
-      controller.should redirect_to challenge
+      expect(controller).to redirect_to challenge
     end
 
     it "rerenders the form on failure" do
       challenge.stub update_attributes: false
       put :update, id: '1'
-      controller.should render_template :edit
+      expect(controller).to render_template :edit
     end
   end
 end

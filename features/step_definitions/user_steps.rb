@@ -32,6 +32,6 @@ end
   fill_in 'Парола', with: password
   click_on 'Влез'
 
-  page.should have_content user.name
-  page.should have_content 'Изход'
+  expect(page).to have_content user.name
+  expect(page).to have_content 'Изход'
 end

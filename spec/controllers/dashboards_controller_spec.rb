@@ -13,13 +13,13 @@ describe DashboardsController do
     it "requires an authenticated user" do
       controller.stub current_user: nil
       get :show
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "assigns the number of points the current user has to @points" do
       current_user.stub points: 2
       get :show
-      assigns(:points).should eq 2
+      expect(assigns(:points)).to eq 2
     end
   end
 end

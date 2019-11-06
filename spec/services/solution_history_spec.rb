@@ -8,25 +8,25 @@ describe SolutionHistory do
   it 'knows the solution revisions' do
     solution.stub revisions: :revisions
 
-    history.revisions.should eq :revisions
+    expect(history.revisions).to eq :revisions
   end
 
   it 'knows which is the last revision' do
     solution.stub revisions: [:a, :b]
 
-    history.last_revision.should eq :b
+    expect(history.last_revision).to eq :b
   end
 
   it 'knows the revision count' do
     solution.stub revisions: [:a, :b, :c]
 
-    history.revisions_count.should eq 3
+    expect(history.revisions_count).to eq 3
   end
 
   it 'knows the comment count' do
     solution.stub comments: [:a, :b]
 
-    history.comments_count.should eq 2
+    expect(history.comments_count).to eq 2
   end
 
   context 'with revisions and comments' do
@@ -47,39 +47,39 @@ describe SolutionHistory do
 
       FormattedCode::CommentHistory.stub new: comment_history
 
-      comment_history.should_receive(:add_version).with('first',  {0 => [@first_comment]})
-      comment_history.should_receive(:add_version).with('second', {0 => [@second_comment]})
+      expect(comment_history).to receive(:add_version).with('first',  {0 => [@first_comment]})
+      expect(comment_history).to receive(:add_version).with('second', {0 => [@second_comment]})
 
-      history.combined_comments.should eq :combined_comments
+      expect(history.combined_comments).to eq :combined_comments
     end
 
     it 'can create formatted code instances for the solution' do
       history.stub combined_comments: 'comments'
 
-      FormattedCode::Code.should_receive(:new).with('second', 'ruby', 'comments').and_return(:code)
+      expect(FormattedCode::Code).to receive(:new).with('second', 'ruby', 'comments').and_return(:code)
 
-      history.formatted_code.should eq :code
+      expect(history.formatted_code).to eq :code
     end
 
     it 'can create formatted diffs for the first revision' do
-      FormattedCode::Diff.should_receive(:new)
+      expect(FormattedCode::Diff).to receive(:new)
         .with('', 'first', 'ruby', {0 => [@first_comment]})
         .and_return(:diff)
 
-      history.formatted_diff_for(@first_revision).should eq :diff
+      expect(history.formatted_diff_for(@first_revision)).to eq :diff
     end
 
     it 'can create formatted diffs for revisions' do
-      FormattedCode::Diff.should_receive(:new)
+      expect(FormattedCode::Diff).to receive(:new)
         .with('first', 'second', 'ruby', {0 => [@second_comment]})
         .and_return(:diff)
 
-      history.formatted_diff_for(@second_revision).should eq :diff
+      expect(history.formatted_diff_for(@second_revision)).to eq :diff
     end
 
     it 'can return non-inline comments for revision' do
-      history.non_inline_comments_for(@first_revision).should  eq [@non_inline_comment]
-      history.non_inline_comments_for(@second_revision).should eq []
+      expect(history.non_inline_comments_for(@first_revision)).to  eq [@non_inline_comment]
+      expect(history.non_inline_comments_for(@second_revision)).to eq []
     end
   end
 end

@@ -8,19 +8,19 @@ describe Registration do
   it "requires a signup with the same full name and faculty number" do
     create :sign_up, full_name: 'Peter', faculty_number: '11111'
 
-    registration('Peter', '11111').should be_valid
+    expect(registration('Peter', '11111')).to be_valid
 
-    registration('George', '11111').should_not be_valid
-    registration('Peter', '22222').should_not be_valid
+    expect(registration('George', '11111')).to_not be_valid
+    expect(registration('Peter', '22222')).to_not be_valid
   end
 
   it "requires an unused email" do
     create :user, email: 'used_by_user@example.org'
     create :sign_up, email: 'used_by_sign_up@example.org'
 
-    Registration.new(email: 'unused@example.org').should have(:no).errors_on(:email)
-    Registration.new(email: 'used_by_user@example.org').should have(1).error_on(:email)
-    Registration.new(email: 'used_by_sign_up@example.org').should have(1).error_on(:email)
+    expect(Registration.new(email: 'unused@example.org')).to have(:no).errors_on(:email)
+    expect(Registration.new(email: 'used_by_user@example.org')).to have(1).error_on(:email)
+    expect(Registration.new(email: 'used_by_sign_up@example.org')).to have(1).error_on(:email)
   end
 
   describe "creating" do
@@ -34,7 +34,7 @@ describe Registration do
 
         registration('Peter', '11111', 'peter@example.org').create
 
-        sign_up.reload.email.should eq 'peter@example.org'
+        expect(sign_up.reload.email).to eq 'peter@example.org'
       end
 
       it "sends a confirmation email" do
@@ -48,7 +48,7 @@ describe Registration do
 
     context "when invalid" do
       it "returns false if the record is not valid" do
-        registration('', '', '').create.should be false
+        expect(registration('', '', '').create).to be false
       end
 
       it "does not send email" do

@@ -36,7 +36,7 @@ END
       Dir.chdir(dir) do
         results = Language::Go.run_tests(@test_case_code, solution)
 
-        results.log.should include("FAIL: TestTwo")
+        expect(results.log).to include("FAIL: TestTwo")
       end
     end
   end
@@ -50,16 +50,16 @@ package main
     end
 
     it "calculates the number of passed tests" do
-      @results.passed_count.should eq 2
+      expect(@results.passed_count).to eq 2
     end
 
     it "calculates the number of failed tests" do
-      @results.failed_count.should eq 1
+      expect(@results.failed_count).to eq 1
     end
 
     it "collects the execution log" do
-      @results.log.should include("FAIL: TestTwo")
-      @results.log.should include("PASS")
+      expect(@results.log).to include("FAIL: TestTwo")
+      expect(@results.log).to include("PASS")
     end
   end
 end

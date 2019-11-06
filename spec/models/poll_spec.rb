@@ -6,11 +6,11 @@ describe Poll do
     poll = build :poll
 
     poll.blueprint = hash
-    poll.blueprint_yaml.should eq hash.to_yaml
+    expect(poll.blueprint_yaml).to eq hash.to_yaml
     poll.save!
 
     poll.reload
-    poll.blueprint.should eq hash
-    poll.blueprint_yaml.should eq hash.to_yaml
+    expect(poll.blueprint).to eq hash
+    expect(poll.blueprint_yaml).to eq hash.to_yaml
   end
 end

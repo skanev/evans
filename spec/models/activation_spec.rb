@@ -4,8 +4,8 @@ describe Activation do
   it "can be constructed with a SignUp token" do
     create :sign_up, token: 'token'
 
-    Activation.for('token').should be_present
-    Activation.for('unexisting').should be_nil
+    expect(Activation.for('token')).to be_present
+    expect(Activation.for('unexisting')).to be_nil
   end
 
   it "validates the password's confirmation" do
@@ -14,8 +14,8 @@ describe Activation do
     activation.password = 'right'
     activation.password_confirmation = 'wrong'
 
-    activation.should_not be_valid
-    activation.errors[:password_confirmation].should be_present
+    expect(activation).to_not be_valid
+    expect(activation.errors[:password_confirmation]).to be_present
   end
 
   describe "on submission" do
@@ -38,22 +38,22 @@ describe Activation do
     it "destroys the SignUp" do
       activation.submit valid_attributes
 
-      SignUp.exists?(id: sign_up.id).should be false
+      expect(SignUp.exists?(id: sign_up.id)).to be false
     end
 
     it "can indicate which user it created" do
       activation.submit valid_attributes
-      activation.user_created.should be_persisted
+      expect(activation.user_created).to be_persisted
     end
 
     it "shortens the user name" do
-      User.should_receive(:shorten_name).with(sign_up.full_name).and_return('Short Name')
+      expect(User).to receive(:shorten_name).with(sign_up.full_name).and_return('Short Name')
       activation.submit valid_attributes
-      activation.user_created.name.should eq 'Short Name'
+      expect(activation.user_created.name).to eq 'Short Name'
     end
 
     it "returns false when the activation is invalid" do
-      activation.submit.should be false
+      expect(activation.submit).to be false
     end
   end
 end

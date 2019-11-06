@@ -43,12 +43,12 @@ describe "users/show.html.haml" do
 
     it "shows a link to the edit profile page" do
       render
-      rendered.should have_link_to edit_profile_path
+      expect(rendered).to have_link_to edit_profile_path
     end
 
     it "shows their faculty number" do
       render
-      rendered.should have_content user.faculty_number
+      expect(rendered).to have_content user.faculty_number
     end
 
     it "does not show the email" do
@@ -58,7 +58,7 @@ describe "users/show.html.haml" do
 
     it "shows the about info" do
       render
-      rendered.should have_content user.about
+      expect(rendered).to have_content user.about
     end
   end
 
@@ -85,7 +85,7 @@ describe "users/show.html.haml" do
 
     it "shows the about info" do
       render
-      rendered.should have_content user.about
+      expect(rendered).to have_content user.about
     end
   end
 
@@ -98,17 +98,17 @@ describe "users/show.html.haml" do
 
     it "shows the faculty number" do
       render
-      rendered.should have_content user.faculty_number
+      expect(rendered).to have_content user.faculty_number
     end
 
     it "shows the email" do
       render
-      rendered.should have_content user.email
+      expect(rendered).to have_content user.email
     end
 
     it "shows the about info" do
       render
-      rendered.should have_content user.about
+      expect(rendered).to have_content user.about
     end
   end
 end

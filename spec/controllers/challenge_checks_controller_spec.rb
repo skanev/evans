@@ -12,16 +12,16 @@ describe ChallengeChecksController do
     it "denies access to non-admins" do
       current_user.stub admin?: false
       post :create, challenge_id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "checks if the challenge is already running" do
-      ChallengeCheckWorker.should_receive(:queued?).with('42')
+      expect(ChallengeCheckWorker).to receive(:queued?).with('42')
       post :create, challenge_id: '42'
     end
 
     it "schedules a check of the challenge" do
-      ChallengeCheckWorker.should_receive(:perform_async).with('42')
+      expect(ChallengeCheckWorker).to receive(:perform_async).with('42')
       post :create, challenge_id: '42'
     end
 
@@ -33,7 +33,7 @@ describe ChallengeChecksController do
 
     it "redirects to the challenge solutions" do
       post :create, challenge_id: '1'
-      controller.should redirect_to challenge_path('1')
+      expect(controller).to redirect_to challenge_path('1')
     end
   end
 end

@@ -15,27 +15,27 @@ describe MyAnswersController do
     it "requires a logged in user" do
       controller.stub current_user: nil
       get :show, poll_id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "finds the poll by id" do
-      Poll.should_receive(:find).with('42')
+      expect(Poll).to receive(:find).with('42')
       get :show, poll_id: '42'
     end
 
     it "assigns the poll" do
       get :show, poll_id: '1'
-      assigns(:poll).should eq poll
+      expect(assigns(:poll)).to eq poll
     end
 
     it "fetches a submission for the poll and the current user" do
-      Polls::Submission.should_receive(:for).with(poll, current_user)
+      expect(Polls::Submission).to receive(:for).with(poll, current_user)
       get :show, poll_id: '1'
     end
 
     it "assigns the submission" do
       get :show, poll_id: '1'
-      assigns(:submission).should eq submission
+      expect(assigns(:submission)).to eq submission
     end
   end
 
@@ -52,44 +52,44 @@ describe MyAnswersController do
     it "requires a logged in user" do
       controller.stub current_user: nil
       put :update, poll_id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "finds the poll by id" do
-      Poll.should_receive(:find).with('42')
+      expect(Poll).to receive(:find).with('42')
       put :update, poll_id: '42'
     end
 
     it "assigns the poll" do
       put :update, poll_id: '1'
-      assigns(:poll).should eq poll
+      expect(assigns(:poll)).to eq poll
     end
 
     it "fetches a submission for the poll and the current user" do
-      Polls::Submission.should_receive(:for).with(poll, current_user)
+      expect(Polls::Submission).to receive(:for).with(poll, current_user)
       put :update, poll_id: '1'
     end
 
     it "assigns the submission" do
       put :update, poll_id: '1'
-      assigns(:submission).should eq submission
+      expect(assigns(:submission)).to eq submission
     end
 
     it "updates the submission" do
-      submission.should_receive(:update).with('submission-attributes')
+      expect(submission).to receive(:update).with('submission-attributes')
       put :update, poll_id: '1', submission: 'submission-attributes'
     end
 
     it "redirects to the dashboard on success" do
       submission.stub update: true
       put :update, poll_id: '1'
-      controller.should redirect_to dashboard_path
+      expect(controller).to redirect_to dashboard_path
     end
 
     it "rerenders the form on failure" do
       submission.stub update: false
       put :update, poll_id: '1'
-      controller.should render_template :show
+      expect(controller).to render_template :show
     end
   end
 end

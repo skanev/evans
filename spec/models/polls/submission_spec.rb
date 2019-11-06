@@ -9,10 +9,10 @@ module Polls
     it "constructs the questions from the poll's blueprint" do
       submission = build_submission([{type: 'single-line', name: 'age', text: 'How old are you?'}])
 
-      submission.should have(1).question
+      expect(submission).to have(1).question
       question = submission.questions.first
-      question.should be_a Question::SingleLine
-      question.name.should eq 'age'
+      expect(question).to be_a Question::SingleLine
+      expect(question.name).to eq 'age'
     end
 
     it "raises an error if the question type does not exists" do
@@ -27,8 +27,8 @@ module Polls
         {'age' => '42'}
       )
 
-      submission.should respond_to :age
-      submission.age.should eq '42'
+      expect(submission).to respond_to :age
+      expect(submission.age).to eq '42'
     end
 
     it "overrides #method_missing correctly" do
@@ -42,7 +42,7 @@ module Polls
 
       submission = Submission.for poll, user
 
-      submission.age.should eq '33'
+      expect(submission.age).to eq '33'
     end
 
     describe "updating" do
@@ -54,23 +54,23 @@ module Polls
         submission = Submission.new poll, user
 
         expect do
-          submission.update('age' => '10').should be true
+          expect(submission.update('age' => '10')).to be true
         end.to change(PollAnswer, :count).by(1)
 
         answer = PollAnswer.last
-        answer.answers.should eq 'age' => '10'
-        answer.user.should eq user
-        answer.poll.should eq poll
+        expect(answer.answers).to eq 'age' => '10'
+        expect(answer.user).to eq user
+        expect(answer.poll).to eq poll
       end
 
       it "validates the presence of the required fields" do
         submission = Submission.new poll, user
 
         expect do
-          submission.update('age' => '').should be false
+          expect(submission.update('age' => '')).to be false
         end.not_to change(PollAnswer, :count)
 
-        submission.should have_error_on(:age)
+        expect(submission).to have_error_on(:age)
       end
 
       it "updates an existing PollAnswer if present" do
@@ -79,7 +79,7 @@ module Polls
 
         submission.update 'age' => '33'
 
-        poll_answer.reload.answers.should eq 'age' => '33'
+        expect(poll_answer.reload.answers).to eq 'age' => '33'
       end
     end
   end

@@ -4,11 +4,11 @@ describe "Running Ruby tests", ruby: true do
   before :all do
     @test_case_code = <<END.strip
 describe "Homework" do
-  it("succeeds once")   { true.should be true }
+  expect(it("succeeds once")   { true).to be true }
   it("succeeds thrice") { puts "Just to mess with you" }
-  it("fails once")      { true.should be false }
-  it("succeeds twice")  { Homework.answer.should eq 42 }
-  it("fails twice")     { 1.should eq 2 }
+  expect(it("fails once")      { true).to be false }
+  expect(it("succeeds twice")  { Homework.answer).to eq 42 }
+  expect(it("fails twice")     { 1).to eq 2 }
   it("errors once")     { raise RuntimeError }
 end
 END
@@ -18,8 +18,8 @@ END
     solution = 'require "intertools"'
     results = Language::Ruby.run_tests(@test_case_code, solution)
 
-    results.passed_count.should eq 0
-    results.failed_count.should eq 0
+    expect(results.passed_count).to eq 0
+    expect(results.failed_count).to eq 0
   end
 
   it "does not depend on the CWD" do
@@ -33,7 +33,7 @@ END
       Dir.chdir(dir) do
         results = Language::Ruby.run_tests(@test_case_code, solution)
 
-        results.log.should include("6 examples, 3 failures")
+        expect(results.log).to include("6 examples, 3 failures")
       end
     end
   end
@@ -50,15 +50,15 @@ END
     end
 
     it "calculates the number of passed tests" do
-      @results.passed_count.should eq 3
+      expect(@results.passed_count).to eq 3
     end
 
     it "calculates the number of failed tests" do
-      @results.failed_count.should eq 3
+      expect(@results.failed_count).to eq 3
     end
 
     it "collects the execution log" do
-      @results.log.should include("6 examples, 3 failures")
+      expect(@results.log).to include("6 examples, 3 failures")
     end
   end
 
@@ -81,8 +81,8 @@ END
       RUBY
 
       results = Language::Ruby.run_tests(test_case, solution)
-      results.failed_count.should eq 1
-      results.passed_count.should eq 0
+      expect(results.failed_count).to eq 1
+      expect(results.passed_count).to eq 0
     end
 
     it "can be configured per example" do
@@ -93,8 +93,8 @@ END
       RUBY
 
       results = Language::Ruby.run_tests(test_case, solution)
-      results.failed_count.should eq 0
-      results.passed_count.should eq 1
+      expect(results.failed_count).to eq 0
+      expect(results.passed_count).to eq 1
     end
   end
 end

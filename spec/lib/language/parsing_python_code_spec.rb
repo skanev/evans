@@ -9,13 +9,13 @@ CODE
   end
 
   it "returns true for valid code" do
-    Language::Python.should be_parsing <<CODE
+    expect(Language::Python).to be_parsing <<CODE
 def answer():
   return 42
 CODE
   end
 
   it "returns true for no code" do
-    Language::Python.should be_parsing ""
+    expect(Language::Python).to be_parsing ""
   end
 end

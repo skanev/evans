@@ -22,5 +22,5 @@ end
 
 То 'трябва да съм успешно влязъл в системата' do
   visit root_path
-  page.should have_content('Здрасти, Петър Петров')
+  expect(page).to have_content('Здрасти, Петър Петров')
 end

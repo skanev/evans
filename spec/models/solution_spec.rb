@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Solution do
   it { should validate_presence_of :user_id }
   it { should validate_presence_of :task_id }
-  it { create(:solution).should validate_uniqueness_of(:user_id).scoped_to(:task_id) }
+  it { expect(create(:solution)).to validate_uniqueness_of(:user_id).scoped_to(:task_id) }
 
   it { should belong_to(:user) }
   it { should belong_to(:task) }
@@ -12,31 +12,31 @@ describe Solution do
     task = create :task
     solution = create :solution, task: task
 
-    Solution.for_task(task.id).should eq [solution]
+    expect(Solution.for_task(task.id)).to eq [solution]
   end
 
   it "can find the number of rows in the code" do
-    create(:solution_with_revisions, code: 'print("baba")').rows.should eq 1
-    create(:solution_with_revisions, code: "1\n2").rows.should eq 2
-    create(:solution_with_revisions, code: "1\n2\n3").rows.should eq 3
+    expect(create(:solution_with_revisions, code: 'print("baba")').rows).to eq 1
+    expect(create(:solution_with_revisions, code: "1\n2").rows).to eq 2
+    expect(create(:solution_with_revisions, code: "1\n2\n3").rows).to eq 3
   end
 
   it "delegates max_points to task" do
     solution = build(:solution, passed_tests: 10, failed_tests: 0)
 
-    solution.max_points.should eq solution.task.max_points
+    expect(solution.max_points).to eq solution.task.max_points
   end
 
   it "can tell whether it is manually scored" do
     solution = build :solution, task: build(:manually_scored_task)
-    solution.should be_manually_scored
+    expect(solution).to be_manually_scored
   end
 
   it "can calculate the total points for a task" do
-    build(:solution, points: nil, adjustment: 0).total_points.should eq 0
-    build(:solution, points: 6, adjustment: 3).total_points.should eq 9
-    build(:solution, points: 6, adjustment: -2).total_points.should eq 4
-    build(:solution, points: 1, adjustment: -2).total_points.should eq 0
+    expect(build(:solution, points: nil, adjustment: 0).total_points).to eq 0
+    expect(build(:solution, points: 6, adjustment: 3).total_points).to eq 9
+    expect(build(:solution, points: 6, adjustment: -2).total_points).to eq 4
+    expect(build(:solution, points: 1, adjustment: -2).total_points).to eq 0
   end
 
   it "can tell the latest revision" do
@@ -44,7 +44,7 @@ describe Solution do
     first    = create :revision, solution: solution
     second   = create :revision, solution: solution
 
-    solution.last_revision.should eq second
+    expect(solution.last_revision).to eq second
   end
 
   it "can tell the code of the lastest revision" do
@@ -52,7 +52,7 @@ describe Solution do
     create :revision, solution: solution, code: 'first revision'
     create :revision, solution: solution, code: 'second revision'
 
-    solution.code.should eq 'second revision'
+    expect(solution.code).to eq 'second revision'
   end
 
   describe "looking up the code of an existing solution" do
@@ -61,11 +61,11 @@ describe Solution do
 
     it "retuns the code as a string" do
       create :solution_with_revisions, code: 'code', user: user, task: task
-      Solution.code_for(user, task).should eq 'code'
+      expect(Solution.code_for(user, task)).to eq 'code'
     end
 
     it "returns nil if the no solution submitted by this user" do
-      Solution.code_for(user, task).should be_nil
+      expect(Solution.code_for(user, task)).to be_nil
     end
   end
 
@@ -92,7 +92,7 @@ describe Solution do
       end
 
       it "is visible to admins" do
-        solution.should be_visible_to admin
+        expect(solution).to be_visible_to admin
       end
     end
 
@@ -108,11 +108,11 @@ describe Solution do
       end
 
       it "is visible to its author" do
-        solution.should be_visible_to author
+        expect(solution).to be_visible_to author
       end
 
       it "is visible to admins" do
-        solution.should be_visible_to admin
+        expect(solution).to be_visible_to admin
       end
     end
 
@@ -120,19 +120,19 @@ describe Solution do
       let(:task) { create :closed_task }
 
       it "is visible to unauthenticated users" do
-        solution.should be_visible_to nil
+        expect(solution).to be_visible_to nil
       end
 
       it "is visible to students" do
-        solution.should be_visible_to a_student
+        expect(solution).to be_visible_to a_student
       end
 
       it "is visible to its author" do
-        solution.should be_visible_to author
+        expect(solution).to be_visible_to author
       end
 
       it "is visible to admins" do
-        solution.should be_visible_to admin
+        expect(solution).to be_visible_to admin
       end
     end
 
@@ -152,7 +152,7 @@ describe Solution do
       end
 
       it "is visible to admins" do
-        solution.should be_visible_to admin
+        expect(solution).to be_visible_to admin
       end
     end
   end
@@ -162,11 +162,11 @@ describe Solution do
       let(:solution) { build :solution, task: build(:open_task) }
 
       it "is available to its author" do
-        solution.should be_commentable_by solution.user
+        expect(solution).to be_commentable_by solution.user
       end
 
       it "is available to admins" do
-        solution.should be_commentable_by build(:admin)
+        expect(solution).to be_commentable_by build(:admin)
       end
 
       it "is not available to other users" do
@@ -182,9 +182,9 @@ describe Solution do
       let(:solution) { build :solution, task: build(:closed_task) }
 
       it "is available to all users" do
-        solution.should be_commentable_by solution.user
-        solution.should be_commentable_by build(:admin)
-        solution.should be_commentable_by build(:user)
+        expect(solution).to be_commentable_by solution.user
+        expect(solution).to be_commentable_by build(:admin)
+        expect(solution).to be_commentable_by build(:user)
       end
 
       it "is not available to unauthenticated people" do
@@ -202,12 +202,12 @@ describe Solution do
       [10, 0, 8, 8],
     ].each do |passed, failed, max_points, points|
       it "assigns #{points} points for #{passed} passed and #{failed} failed tests in a task that ammounts to #{max_points} points" do
-        Solution.calculate_points(passed, failed, max_points).should eq points
+        expect(Solution.calculate_points(passed, failed, max_points)).to eq points
       end
     end
 
     it "assigns 0 points if the solution is not checked" do
-      Solution.calculate_points(0, 0, 6).should eq 0
+      expect(Solution.calculate_points(0, 0, 6)).to eq 0
     end
   end
 
@@ -218,7 +218,7 @@ describe Solution do
 
       it "allows setting an adjustment" do
         solution.update_score adjustment: 2
-        solution.adjustment.should eq 2
+        expect(solution.adjustment).to eq 2
       end
 
       it "disallows setting points directly" do
@@ -232,12 +232,12 @@ describe Solution do
 
       it "allows setting an adjustment" do
         solution.update_score adjustment: 2
-        solution.adjustment.should eq 2
+        expect(solution.adjustment).to eq 2
       end
 
       it "allows setting points directly" do
         solution.update_score points: 5
-        solution.points.should eq 5
+        expect(solution.points).to eq 5
       end
     end
   end

@@ -16,7 +16,7 @@ CODE
   end
 
   it "returns true for valid code" do
-    Language::Rust.should be_parsing <<CODE
+    expect(Language::Rust).to be_parsing <<CODE
 pub fn foo() {
 
 }
@@ -24,6 +24,6 @@ CODE
   end
 
   it "returns true for no code" do
-    Language::Rust.should be_parsing ""
+    expect(Language::Rust).to be_parsing ""
   end
 end

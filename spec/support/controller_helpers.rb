@@ -21,7 +21,7 @@ module Support
         response.request.flash[:alert].present? and response.redirect_url == 'http://test.host/'
       end
 
-      failure_message_for_should { |response| "expected action to deny access" }
+      failure_message { |response| "expected action to deny access" }
     end
 
     def self.included(example_group)

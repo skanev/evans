@@ -6,7 +6,7 @@ describe RubyLinter do
   it 'lints using the provided base configuration' do
     violations = RubyLinter.new(2.3, config_location, {}).lint('foo;bar')
 
-    violations.should eq ['Line 1: Do not use semicolons to terminate expressions. [Style/Semicolon]']
+    expect(violations).to eq ['Line 1: Do not use semicolons to terminate expressions. [Style/Semicolon]']
   end
 
   it 'considers the configuration overrides' do
@@ -20,6 +20,6 @@ describe RubyLinter do
     YAML
     violations = RubyLinter.new(2.3, config_location, overrides).lint('foo;bar')
 
-    violations.should eq ['Line 1: Line is too long. [7/5] [Metrics/LineLength]']
+    expect(violations).to eq ['Line 1: Line is too long. [7/5] [Metrics/LineLength]']
   end
 end

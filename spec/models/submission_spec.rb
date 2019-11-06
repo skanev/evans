@@ -13,9 +13,9 @@ describe Submission do
     submit user, task, 'code'
 
     solution = Solution.where(user_id: user.id, task_id: task.id).first
-    solution.should be_present
-    solution.should have(1).revisions
-    solution.revisions.first.code.should eq 'code'
+    expect(solution).to be_present
+    expect(solution).to have(1).revisions
+    expect(solution.revisions.first.code).to eq 'code'
   end
 
   it "updates the current solution and creates a new revision if already submitted" do
@@ -24,36 +24,36 @@ describe Submission do
     submit user, task, 'new code'
 
     solution.reload
-    solution.code.should eq 'new code'
-    solution.should have(2).revisions
-    solution.revisions.last.code.should eq 'new code'
+    expect(solution.code).to eq 'new code'
+    expect(solution).to have(2).revisions
+    expect(solution.revisions.last.code).to eq 'new code'
   end
 
   it "indicates if the submission is successful" do
     submission = Submission.new(user, task, 'new code')
-    submission.submit.should be true
+    expect(submission.submit).to be true
   end
 
   it "indicates if the submission is unsuccessful due to closed task" do
     task = create :closed_task
 
     submission = Submission.new(user, task, 'code')
-    submission.submit.should be false
-    submission.should have_error_on :base
+    expect(submission.submit).to be false
+    expect(submission).to have_error_on :base
   end
 
   it "indicates if the submission is unsuccessful due to no code" do
     submission = Submission.new(user, task, '')
-    submission.submit.should be false
-    submission.should have_error_on :code
+    expect(submission.submit).to be false
+    expect(submission).to have_error_on :code
   end
 
   it "indicates if the submission is unsuccessful due to invalid code" do
     Language.stub parsing?: false
 
     submission = Submission.new(user, task, 'unparsable code')
-    submission.submit.should be false
-    submission.should have_error_on :code
+    expect(submission.submit).to be false
+    expect(submission).to have_error_on :code
   end
 
   it "does not update the solution after the task is closed" do
@@ -63,7 +63,7 @@ describe Submission do
     submit user, task, 'new code'
 
     solution.reload
-    solution.code.should eq 'old code'
+    expect(solution.code).to eq 'old code'
   end
 
   it "does not create a new revision if the user submits the same code" do
@@ -88,10 +88,10 @@ describe Submission do
       task       = create :open_task
       submission = Submission.new user, task, code
 
-      submission.submit.should be false
-      submission.should have_error_on :code
-      submission.should be_violating_restrictions
-      submission.violations.should include('Do not use semicolons')
+      expect(submission.submit).to be false
+      expect(submission).to have_error_on :code
+      expect(submission).to be_violating_restrictions
+      expect(submission.violations).to include('Do not use semicolons')
     end
 
     it 'lints with default and custom configuration when present' do
@@ -102,11 +102,11 @@ describe Submission do
       YAML
       submission = Submission.new user, task, code
 
-      submission.submit.should be false
-      submission.should have_error_on :code
-      submission.should be_violating_restrictions
-      submission.violations.should include('Do not use semicolons')
-      submission.violations.should include('Do not leave space between `!` and its argument')
+      expect(submission.submit).to be false
+      expect(submission).to have_error_on :code
+      expect(submission).to be_violating_restrictions
+      expect(submission.violations).to include('Do not use semicolons')
+      expect(submission.violations).to include('Do not leave space between `!` and its argument')
     end
   end
 

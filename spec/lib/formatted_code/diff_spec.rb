@@ -34,16 +34,16 @@ describe FormattedCode::Diff do
 
     first_line, second_line, third_line = diff_lines(old_version, new_version)
 
-    first_line.line_number.should eq ' '
-    first_line.html_class.should eq 'removed'
-    first_line.should_not be_commentable
+    expect(first_line.line_number).to eq ' '
+    expect(first_line.html_class).to eq 'removed'
+    expect(first_line).to_not be_commentable
 
-    second_line.line_number.should eq 1
-    second_line.html_class.should eq 'added'
-    second_line.should be_commentable
+    expect(second_line.line_number).to eq 1
+    expect(second_line.html_class).to eq 'added'
+    expect(second_line).to be_commentable
 
-    third_line.line_number.should eq 2
-    third_line.should be_commentable
+    expect(third_line.line_number).to eq 2
+    expect(third_line).to be_commentable
   end
 
   it 'does not interleave sequences of changed lines' do

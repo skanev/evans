@@ -10,15 +10,15 @@ describe QuizzesController do
     end
 
     it "assigns the quiz to @quiz" do
-      Quiz.should_receive(:find).with('42')
+      expect(Quiz).to receive(:find).with('42')
       get :show, id: '42'
-      assigns(:quiz).should eq quiz
+      expect(assigns(:quiz)).to eq quiz
     end
 
     it "assigns the results to @results" do
       quiz.stub results: 'results'
       get :show, id: '42'
-      assigns(:results).should eq 'results'
+      expect(assigns(:results)).to eq 'results'
     end
   end
 end

@@ -10,11 +10,11 @@ describe Comment do
     let(:comment) { build :comment }
 
     it "is editable by its author" do
-      comment.should be_editable_by comment.user
+      expect(comment).to be_editable_by comment.user
     end
 
     it "is editable by admins" do
-      comment.should be_editable_by build(:admin)
+      expect(comment).to be_editable_by build(:admin)
     end
 
     it "is not editable by other users" do

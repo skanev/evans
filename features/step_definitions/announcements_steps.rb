@@ -20,5 +20,5 @@ end
 То 'трябва да съществува новина "$title"' do |title|
   visit announcements_path
 
-  page.should have_content title
+  expect(page).to have_content title
 end
