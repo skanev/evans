@@ -4,11 +4,11 @@ describe "Running Ruby tests", ruby: true do
   before :all do
     @test_case_code = <<END.strip
 describe "Homework" do
-  expect(it("succeeds once")   { true).to be true }
+  it("succeeds once")   { expect(true).to be true }
   it("succeeds thrice") { puts "Just to mess with you" }
-  expect(it("fails once")      { true).to be false }
-  expect(it("succeeds twice")  { Homework.answer).to eq 42 }
-  expect(it("fails twice")     { 1).to eq 2 }
+  it("fails once")      { expect(true).to be false }
+  it("succeeds twice")  { expect(Homework.answer).to eq 42 }
+  it("fails twice")     { expect(1).to eq 2 }
   it("errors once")     { raise RuntimeError }
 end
 END
@@ -40,7 +40,7 @@ END
 
   describe "on successful run" do
     before(:all) do
-      solution = <<-EOF
+      solution = <<~EOF
         module Homework
           def self.answer; 42; end
           puts "Another puts"

@@ -1,4 +1,4 @@
-import imp
+import importlib
 import io
 import json
 import os
@@ -111,7 +111,7 @@ def main(test_module):
 
     with StdBuffer(buffer):
         try:
-            loaded_test = imp.load_source('test', test_module)
+            loaded_test = importlib.import_module('test', test_module)
             result = unittest.main(
                 module=loaded_test,
                 buffer=buffer,
