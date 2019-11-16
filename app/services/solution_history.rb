@@ -33,9 +33,9 @@ class SolutionHistory
     FormattedCode::Code.new last_revision.code, Language.language, combined_comments
   end
 
-  def formatted_diff_for(revision)
+  def formatted_diff_for(previous_revision, revision)
     inline_comments_by_line = inline_comments_for(revision)
-    old_code = previous_revision_of(revision).try!(:code) || ''
+    old_code = previous_revision.try(:code) || ''
 
     FormattedCode::Diff.new old_code, revision.code, Language.language, inline_comments_by_line
   end
@@ -44,8 +44,6 @@ class SolutionHistory
     revision.comments.reject(&:inline?)
   end
 
-  private
-
   def previous_revision_of(revision)
     revision_index = @solution.revisions.find_index(revision)
 
@@ -53,6 +51,8 @@ class SolutionHistory
 
     @solution.revisions[revision_index - 1]
   end
+
+  private
 
   def inline_comments_for(revision)
     revision.comments.select(&:inline?).group_by(&:line_number)

@@ -32,11 +32,16 @@
 
   %h2 История (#{pluralize @history.revisions_count, 'версия', 'версии'} и #{pluralize @history.comments_count, 'коментар', 'коментара'})
   - @history.revisions.each do |revision|
-    %article.revision
-      %h3 #{@solution.user.first_name} обнови решението на #{l revision.created_at} (преди #{time_ago_in_words revision.created_at})
+    - previous_revision = @history.previous_revision_of(revision)
 
-      %div(data-toggleable data-show-text="Покажи разликите" data-hide-text="Скрий разликите")
-        = solution_code @history.formatted_diff_for(revision), revision, @solution.commentable_by?(current_user)
+    %article.revision
+      %h3 #{@solution.user.first_name} качи #{"първо" if previous_revision.blank?} решение на #{l revision.created_at} (преди #{time_ago_in_words revision.created_at})
+
+      - if previous_revision
+        %div(data-toggleable data-show-text="Покажи разликите" data-hide-text="Скрий разликите")
+          = solution_code @history.formatted_diff_for(previous_revision, revision), revision, @solution.commentable_by?(current_user)
+      - else
+        -# Това е първото решение, diff-а няма да е полезен
 
       - @history.non_inline_comments_for(revision).each do |comment|
         = contribution comment

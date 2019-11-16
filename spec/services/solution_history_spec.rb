@@ -66,7 +66,7 @@ describe SolutionHistory do
         .with('', 'first', 'ruby', {0 => [@first_comment]})
         .and_return(:diff)
 
-      history.formatted_diff_for(@first_revision).should eq :diff
+      history.formatted_diff_for(nil, @first_revision).should eq :diff
     end
 
     it 'can create formatted diffs for revisions' do
@@ -74,7 +74,7 @@ describe SolutionHistory do
         .with('first', 'second', 'ruby', {0 => [@second_comment]})
         .and_return(:diff)
 
-      history.formatted_diff_for(@second_revision).should eq :diff
+      history.formatted_diff_for(@first_revision, @second_revision).should eq :diff
     end
 
     it 'can return non-inline comments for revision' do
