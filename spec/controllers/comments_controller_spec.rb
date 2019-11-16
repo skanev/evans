@@ -9,7 +9,7 @@ describe CommentsController do
 
     before do
       allow(Revision).to receive(:find).and_return(revision)
-      revision.stub_chain :comments, build: comment
+      allow(revision).to receive_message_chain(:comments, build: comment)
       allow(revision).to receive(:commentable_by?).and_return(true)
       allow(comment).to receive(:user=)
       allow(comment).to receive(:save)

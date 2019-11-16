@@ -9,7 +9,7 @@ describe RepliesController do
 
     before do
       allow(Topic).to receive(:find).and_return(topic)
-      topic.stub_chain :replies, build: reply
+      allow(topic).to receive_message_chain :replies, build: reply
       allow(reply).to receive(:user=)
       allow(reply).to receive(:save)
     end

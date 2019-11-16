@@ -10,7 +10,7 @@ describe SolutionMailer do
     before do
       allow(comment).to receive(:solution).and_return(solution)
       allow(comment).to receive(:task_name).and_return('Task name')
-      comment.stub_chain :solution, :user, email: 'solution.author@example.org'
+      allow(comment).to receive_message_chain :solution, :user, email: 'solution.author@example.org'
       allow(comment).to receive(:body).and_return('Comment body')
       allow(comment).to receive(:user_name).and_return('Comment author')
     end

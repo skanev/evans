@@ -12,7 +12,7 @@ describe TipsController do
 
     it "assings only published tips" do
       allow(current_user).to receive(:admin?).and_return(false)
-      Tip.stub_chain :in_reverse_chronological_order, published: 'tips'
+      allow(Tip).to receive_message_chain :in_reverse_chronological_order, published: 'tips'
       get :index
       expect(assigns(:tips)).to eq 'tips'
     end
