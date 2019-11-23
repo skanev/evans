@@ -6,10 +6,13 @@ module FormattedCode
     end
 
     def lines
-      tokens = lexer.lex(@source)
-      formatter = Rouge::Formatters::HTML.new
+      @lines ||=
+        begin
+          tokens = lexer.lex(@source)
+          formatter = Rouge::Formatters::HTML.new
 
-      HTMLLineFormatter.new(formatter).lines_for(tokens).to_a
+          HTMLLineFormatter.new(formatter).lines_for(tokens).to_a
+        end
     end
 
     private
