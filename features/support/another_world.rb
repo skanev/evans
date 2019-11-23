@@ -48,7 +48,7 @@ module AnotherWorld
   end
 
   def visit_link_in_last_email
-    link = last_sent_email[%r{http://trane.example.org(/[^ \n"']+)}, 1]
+    link = last_sent_email[%r{http://trane.example.org(/[^ \n\r"']+)}, 1]
     fail "Expected last sent email to contain a link" if link.blank?
     visit link
   end
