@@ -1,16 +1,27 @@
 require 'spec_helper'
 
 describe FormattedCode::Highlighter do
-  describe '#lines' do
-    it 'uses CodeRay to highlight the code and splits it in lines' do
-      code_ray = double
+  it 'highlights the code and split it in lines' do
+    highlighter = FormattedCode::Highlighter.new("42\n1.abs", 'ruby')
 
-      CodeRay.should_receive(:scan).with('code', 'ruby').and_return(code_ray)
-      code_ray.should_receive(:html).with(wrap: nil).and_return("highlighted\ncode")
+    highlighter.lines.should eq [
+      '<span class="mi">42</span>',
+      '<span class="mi">1</span><span class="p">.</span><span class="nf">abs</span>'
+    ]
+  end
 
-      highlighter = FormattedCode::Highlighter.new('code', 'ruby')
+  it 'does not break when the language is not supported' do
+    highlighter = FormattedCode::Highlighter.new("42\n1.abs", 'undefined')
 
-      highlighter.lines.should eq ['highlighted', 'code']
-    end
+    highlighter.lines.should eq [
+      '42',
+      '1.abs'
+    ]
+  end
+
+  it 'escapes html entities' do
+    highlighter = FormattedCode::Highlighter.new("<3", 'undefined')
+
+    highlighter.lines.should eq ['&lt;3']
   end
 end

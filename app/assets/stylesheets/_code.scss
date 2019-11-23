@@ -4,9 +4,17 @@
 
   .line { float: none; }
 
-  .CodeRay { border: none; padding: 0; white-space: normal; }
-  .CodeRay .line { display: inline; float: none; width: auto; }
-  .CodeRay .pre { padding-left: 5px; white-space: pre-wrap; width: 100%; word-break: break-all; }
+  .highlighter { border: none; padding: 0; white-space: normal; }
+  .highlighter .line { display: inline; float: none; width: auto; }
+  .highlighter .pre { padding-left: 5px; width: 100%; }
+
+  .highlight,
+  .line-numbers {
+    font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+    font-size: 13px;
+  }
+
+  .highlight { white-space: pre-wrap; word-break: break-all; }
 
   .code-line.removed { background: rgba(240, 0, 0, 0.08); }
   .code-line.added   { background: rgba(0, 240, 0, 0.08); }
@@ -21,6 +29,7 @@
       @include no-selection;
 
       background-color: $gray;
+      color: #aaa;
       display: table-cell;
       min-width: 45px;
       padding-right: 10px;

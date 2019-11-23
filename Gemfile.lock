@@ -233,6 +233,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rouge (3.0.0)
     rspec (2.99.0)
       rspec-core (~> 2.99.0)
       rspec-expectations (~> 2.99.0)
@@ -350,7 +351,6 @@ DEPENDENCIES
   capistrano (~> 2.8)
   capybara
   carrierwave
-  coderay
   coffee-rails
   coveralls
   cucumber (~> 1.2)
@@ -380,6 +380,7 @@ DEPENDENCIES
   rails_autolink (>= 1.1.5)
   rake (< 11.0)
   rdiscount
+  rouge
   rspec
   rspec-activemodel-mocks
   rspec-collection_matchers
@@ -404,4 +405,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.15.3
+   1.16.0

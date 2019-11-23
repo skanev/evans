@@ -1,7 +1,6 @@
 language: ruby
 rvm:
-  - 2.0.0
-  - 2.1.2
+  - 2.3.1
 script:
   - RAILS_ENV=test bundle exec rake --trace db:create db:migrate db:test:prepare spec cucumber
 before_install:
@@ -10,6 +9,7 @@ before_install:
   - curl -sSf https://static.rust-lang.org/rustup.sh | sh
 before_script:
   - cp config/database.yml.travis config/database.yml
-bundler_args: -j4 --without development production --quiet
+bundler_args: -j4 --without development production
 services:
+  - postgresql
   - redis-server
