@@ -21,8 +21,13 @@ task fake: :environment do
   1.times   { FactoryGirl.create(:fake_quiz) }
   15.times  { FactoryGirl.create(:fake_quiz_result) }
 
+  FactoryGirl.create(:fake_user, email: 'user@example.org', password: 'test', password_confirmation: 'test')
   FactoryGirl.create(:fake_admin, email: 'admin@example.org', password: 'test', password_confirmation: 'test')
   puts 'Log in with:'
-  puts '  user: admin@example.org'
-  puts '  pass: test'
+  puts '* user:'
+  puts '    user: user@example.org'
+  puts '    pass: test'
+  puts '* admin:'
+  puts '    user: admin@example.org'
+  puts '    pass: test'
 end

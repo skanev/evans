@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  include Starrable
+
   belongs_to :user
   belongs_to :revision
 

@@ -7,6 +7,7 @@ module MessageBoardsHelper
   end
 
   def toggle_post_star_link(post)
-    render 'topics/toggle_post_star', post: post
+    render 'common/toggle_contribution_star', star_path: star_post_path(post),
+                                              unstar_path: unstar_post_path(post)
   end
 end

@@ -1,6 +1,9 @@
 class CommentsController < ApplicationController
+  include AwardsContributions
+
   before_action :require_user
   before_action :require_editable_comment, only: %w(edit update)
+  before_action :require_admin, only: %w(star unstar)
 
   def create
     @revision = Revision.find params[:revision_id]
@@ -32,6 +35,18 @@ class CommentsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def star
+    comment = Comment.find params[:id]
+
+    star_contribution comment, and_redirect_to: comment_path(comment)
+  end
+
+  def unstar
+    comment = Comment.find params[:id]
+
+    unstar_contribution comment, and_redirect_to: comment_path(comment)
   end
 
   private

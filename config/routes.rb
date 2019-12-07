@@ -29,7 +29,12 @@ Trane::Application.routes.draw do
   end
 
   resources :revisions, only: [] do
-    resources :comments, only: %w(create edit update)
+    resources :comments, only: %w(create edit update) do
+      member do
+        post :star
+        delete :unstar
+      end
+    end
   end
 
   resources :topics, except: :destroy do
@@ -38,7 +43,10 @@ Trane::Application.routes.draw do
   end
 
   resources :posts, only: :show do
-    resource :star, only: %w(create destroy)
+    member do
+      post :star
+      delete :unstar
+    end
   end
 
   resources :polls, except: %w(show destroy) do

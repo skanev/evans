@@ -1,26 +1,25 @@
 $ ->
   $('[data-starred]')
     .bind 'updateStarStatus', ->
-      post = $ this
-      postLi = post.closest 'li'
+      contribution = $ this
 
-      post.find('[data-toggle-star]').hide()
+      contribution.find('[data-toggle-star]').hide()
 
-      if post.data 'starred'
-        postLi.addClass 'starred'
-        post.find('[data-toggle-star=unstar]').show()
+      if contribution.data 'starred'
+        contribution.addClass 'starred'
+        contribution.find('[data-toggle-star=unstar]').show()
       else
-        postLi.removeClass 'starred'
-        post.find('[data-toggle-star=star]').show()
+        contribution.removeClass 'starred'
+        contribution.find('[data-toggle-star=star]').show()
 
     .trigger 'updateStarStatus'
 
 
   $('[data-toggle-star]').on 'ajax:success', (e, data) ->
     link = $ this
-    post = link.closest '[data-starred]'
+    contribution = link.closest '[data-starred]'
 
-    post
+    contribution
       .data('starred', data.starred)
       .trigger 'updateStarStatus'
 
