@@ -50,6 +50,10 @@ class Solution < ActiveRecord::Base
     code.split("\n").count
   end
 
+  def max_punishment
+    -(self.points or 0)
+  end
+
   def total_points
     [(points || 0) + adjustment, 0].max
   end
