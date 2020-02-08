@@ -81,26 +81,26 @@ end
 
 То 'трябва да виждам "$code" във версия $revision' do |code, revision|
   within ".revision:nth-of-type(#{revision})" do
-    page.should have_content code
+    expect(page).to have_content code
   end
 end
 
 То 'трябва да виждам коментар "$comment" за версия $revision' do |comment, revision|
   within ".revision:nth-of-type(#{revision})" do
-    page.should have_content comment
+    expect(page).to have_content comment
   end
 end
 
 То /^трябва да виждам коментар "([^"]*?)"$/ do |comment|
   within '.comment' do
-    page.should have_content(comment)
+    expect(page).to have_content(comment)
   end
 end
 
 То 'трябва да видя, че не мога да публикувам празни коментари' do
-  page.should have_content('Намерихме няколко грешки. Погледнете и пробвайте пак:')
+  expect(page).to have_content('Намерихме няколко грешки. Погледнете и пробвайте пак:')
 end
 
 То 'трябва да получа писмо, че има нов коментар на решението ми' do
-  last_sent_email.should include 'нов коментар на решението ви'
+  expect(last_sent_email).to include 'нов коментар на решението ви'
 end

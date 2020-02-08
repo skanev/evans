@@ -6,18 +6,18 @@ describe RegistrationsController do
       let(:registration) { double }
 
       before do
-        Registration.stub new: registration
-        registration.stub create: true
+        allow(Registration).to receive(:new).and_return(registration)
+        allow(registration).to receive(:create).and_return(true)
       end
 
       it "sends a confirmation to the user" do
-        registration.should_receive(:create)
+        expect(registration).to receive(:create)
         post :create
       end
 
       it "redirects to the root path" do
         post :create
-        controller.should redirect_to(root_path)
+        expect(controller).to redirect_to(root_path)
       end
     end
 
@@ -25,13 +25,13 @@ describe RegistrationsController do
       let(:registration) { double }
 
       before do
-        Registration.stub new: registration
-        registration.stub create: false
+        allow(Registration).to receive(:new).and_return(registration)
+        allow(registration).to receive(:create).and_return(false)
       end
 
       it "renders the original form" do
         post :create
-        controller.should render_template(:new)
+        expect(controller).to render_template(:new)
       end
     end
   end

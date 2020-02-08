@@ -3,6 +3,6 @@ class CommentObserver < ActiveRecord::Observer
     return if comment.user == comment.solution.user
     return unless comment.solution.user.comment_notification?
 
-    SolutionMailer.new_comment(comment).deliver
+    SolutionMailer.new_comment(comment).deliver_now
   end
 end

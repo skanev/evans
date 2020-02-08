@@ -23,5 +23,5 @@ end
 end
 
 То /^трябва да имам "(\d+)" точк(?:а|и) от ваучери$/ do |count|
-  Voucher.where(user_id: @current_user.id).count.should eq count.to_i
+  expect(Voucher.where(user_id: @current_user.id).count).to eq count.to_i
 end

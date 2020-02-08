@@ -8,66 +8,66 @@ describe CommentsController do
     let(:comment) { build_stubbed(:comment) }
 
     before do
-      Revision.stub find: revision
-      revision.stub_chain :comments, build: comment
-      revision.stub commentable_by?: true
-      comment.stub :user=
-      comment.stub :save
+      allow(Revision).to receive(:find).and_return(revision)
+      allow(revision).to receive_message_chain(:comments, build: comment)
+      allow(revision).to receive(:commentable_by?).and_return(true)
+      allow(comment).to receive(:user=)
+      allow(comment).to receive(:save)
     end
 
     it "denies access if not authenticated" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       post :create, revision_id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "denies access if the current user cannot comment on the solution" do
-      revision.should_receive(:commentable_by?).with(current_user).and_return(false)
+      expect(revision).to receive(:commentable_by?).with(current_user).and_return(false)
       post :create, revision_id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "looks up the solution by id" do
-      Revision.should_receive(:find).with('42')
+      expect(Revision).to receive(:find).with('42')
       post :create, revision_id: '42'
     end
 
     it "assigns the solution to @solution" do
       post :create, revision_id: '1'
-      assigns(:revision).should eq revision
+      expect(assigns(:revision)).to eq revision
     end
 
     it "assigns the comment to @comment" do
       post :create, revision_id: '1'
-      assigns(:comment).should eq comment
+      expect(assigns(:comment)).to eq comment
     end
 
     it "creates a new comment with the given attributes" do
-      revision.comments.should_receive(:build).with('comment-attributes')
+      expect(revision.comments).to receive(:build).with('comment-attributes')
       post :create, revision_id: '1', comment: 'comment-attributes'
     end
 
     it "creates a new comment on the solution on behalf of the user" do
-      comment.should_receive(:user=).with(current_user)
+      expect(comment).to receive(:user=).with(current_user)
       post :create, revision_id: '1'
     end
 
     it "attempts to save the comment" do
-      comment.should_receive :save
+      expect(comment).to receive :save
       post :create, revision_id: '1'
     end
 
     it "redirects to the solution on success" do
-      comment.stub save: true
+      allow(comment).to receive(:save).and_return(true)
       post :create, revision_id: '1'
 
-      controller.should redirect_to(comment)
+      expect(controller).to redirect_to(comment)
     end
 
     it "redisplays the comment for editing on failure" do
-      comment.stub save: false
+      allow(comment).to receive(:save).and_return(false)
       post :create, revision_id: '1'
-      controller.should render_template(:new)
+      expect(controller).to render_template(:new)
     end
   end
 
@@ -77,23 +77,23 @@ describe CommentsController do
     let(:comment) { double 'comment' }
 
     before do
-      Comment.stub find: comment
-      comment.stub editable_by?: true
+      allow(Comment).to receive(:find).and_return(comment)
+      allow(comment).to receive(:editable_by?).and_return(true)
     end
 
     it "denies access to users who cannot edit the comment" do
-      comment.should_receive(:editable_by?).with(current_user).and_return(false)
+      expect(comment).to receive(:editable_by?).with(current_user).and_return(false)
       get :edit, revision_id: '1', id: '2'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "assigns the comment to @comment" do
       get :edit, revision_id: '1', id: '2'
-      assigns(:comment).should eq comment
+      expect(assigns(:comment)).to eq comment
     end
 
     it "looks up the comment by id" do
-      Comment.should_receive(:find).with('42')
+      expect(Comment).to receive(:find).with('42')
       get :edit, revision_id: '1', id: '42'
     end
   end
@@ -104,42 +104,42 @@ describe CommentsController do
     let(:comment) { build_stubbed :comment }
 
     before do
-      Comment.stub find: comment
-      comment.stub :update_attributes
-      comment.stub editable_by?: true
+      allow(Comment).to receive(:find).and_return(comment)
+      allow(comment).to receive(:update_attributes)
+      allow(comment).to receive(:editable_by?).and_return(true)
     end
 
     it "assigns the comment to @comment" do
       put :update, revision_id: '1', id: '2'
-      assigns(:comment).should eq comment
+      expect(assigns(:comment)).to eq comment
     end
 
     it "denies access to users who cannot edit the comment" do
-      comment.should_receive(:editable_by?).with(current_user).and_return(false)
+      expect(comment).to receive(:editable_by?).with(current_user).and_return(false)
       put :update, revision_id: '1', id: '2'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "looks up the comment by id" do
-      Comment.should_receive(:find).with('42')
+      expect(Comment).to receive(:find).with('42')
       put :update, revision_id: '1', id: '42'
     end
 
     it "attempts to update the comment with params[:comment]" do
-      comment.should_receive(:update_attributes).with('comment-attributes')
+      expect(comment).to receive(:update_attributes).with('comment-attributes')
       put :update, revision_id: '1', id: '2', comment: 'comment-attributes'
     end
 
     it "redirects to the comment on success" do
-      comment.stub update_attributes: true
+      allow(comment).to receive(:update_attributes).and_return(true)
       put :update, revision_id: '1', id: '2'
-      controller.should redirect_to comment
+      expect(controller).to redirect_to comment
     end
 
     it "redisplays the form on failure" do
-      comment.stub update_attributes: false
+      allow(comment).to receive(:update_attributes).and_return(false)
       put :update, revision_id: '1', id: '2'
-      controller.should render_template :edit
+      expect(controller).to render_template :edit
     end
   end
 end

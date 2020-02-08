@@ -5,21 +5,21 @@ describe TasksController do
     log_in_as :student
 
     it "assigns all tasks if admin" do
-      current_user.stub admin?: true
-      Task.stub in_chronological_order: double(decorate: 'tasks')
+      allow(current_user).to receive(:admin?).and_return(true)
+      allow(Task).to receive(:in_chronological_order).and_return(double(decorate: 'tasks'))
 
       get :index
 
-      assigns(:tasks).should eq 'tasks'
+      expect(assigns(:tasks)).to eq 'tasks'
     end
 
     it "assigns visible tasks if not admin" do
-      current_user.stub admin?: false
-      Task.stub visible: double(decorate: 'tasks')
+      allow(current_user).to receive(:admin?).and_return(false)
+      allow(Task).to receive(:visible).and_return(double(decorate: 'tasks'))
 
       get :index
 
-      assigns(:tasks).should eq 'tasks'
+      expect(assigns(:tasks)).to eq 'tasks'
     end
   end
 
@@ -27,15 +27,15 @@ describe TasksController do
     log_in_as :admin
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :new
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "assigns a new task to @task" do
-      Task.stub new: 'task'
+      allow(Task).to receive(:new).and_return('task')
       get :new
-      assigns(:task).should eq 'task'
+      expect(assigns(:task)).to eq 'task'
     end
   end
 
@@ -45,41 +45,41 @@ describe TasksController do
     let(:task) { build_stubbed :task }
 
     before do
-      Task.stub new: task
-      task.stub :save
+      allow(Task).to receive(:new).and_return(task)
+      allow(task).to receive(:save)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       post :create
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "builds a new task from params[:task]" do
-      Task.should_receive(:new).with('attributes')
+      expect(Task).to receive(:new).with('attributes')
       post :create, task: 'attributes'
     end
 
     it "assigns the new task to @task" do
       post :create
-      assigns(:task).should eq task
+      expect(assigns(:task)).to eq task
     end
 
     it "attempts to save the task" do
-      task.should_receive(:save)
+      expect(task).to receive(:save)
       post :create
     end
 
     it "redirects to the task on success" do
-      task.stub save: true
+      allow(task).to receive(:save).and_return(true)
       post :create
-      response.should redirect_to(task)
+      expect(response).to redirect_to(task)
     end
 
     it "redisplays the form on failure" do
-      task.stub save: false
+      allow(task).to receive(:save).and_return(false)
       post :create
-      response.should render_template(:new)
+      expect(response).to render_template(:new)
     end
   end
 
@@ -88,32 +88,32 @@ describe TasksController do
     let(:solution) { double }
 
     before do
-      controller.stub current_user: nil
-      Task.stub find: task
-      Solution.stub for: solution
-      task.stub hidden?: false
+      allow(controller).to receive(:current_user).and_return(nil)
+      allow(Task).to receive(:find).and_return(task)
+      allow(Solution).to receive(:for).and_return(solution)
+      allow(task).to receive(:hidden?).and_return(false)
     end
 
     it "assigns the task to @task" do
-      Task.should_receive(:find).with('42')
+      expect(Task).to receive(:find).with('42')
       get :show, id: '42'
-      assigns(:task).should eq task
+      expect(assigns(:task)).to eq task
     end
 
     context "when task is hidden" do
       log_in_as :student
 
       it "denies access to non-admins" do
-        task.stub hidden?: true
+        allow(task).to receive(:hidden?).and_return(true)
         get :show, id: '42'
-        response.should deny_access
+        expect(response).to deny_access
       end
 
       it "allows non-admins to see the task" do
-        task.stub hidden?: true
-        current_user.stub admin?: true
+        allow(task).to receive(:hidden?).and_return(true)
+        allow(current_user).to receive(:admin?).and_return(true)
         get :show, id: '42'
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
@@ -121,19 +121,19 @@ describe TasksController do
       log_in_as :student
 
       it "looks up the current user's solution" do
-        Solution.should_receive(:for).with(current_user, task)
+        expect(Solution).to receive(:for).with(current_user, task)
         get :show, id: '1'
       end
 
       it "assigns the solution to @current_user_solution" do
         get :show, id: '1'
-        assigns(:current_user_solution).should eq solution
+        expect(assigns(:current_user_solution)).to eq solution
       end
     end
 
     context "when nobody is logged in" do
       it "does not attempt to find the solution" do
-        Solution.should_not_receive(:for)
+        expect(Solution).not_to receive(:for)
         get :show, id: '1'
       end
     end
@@ -143,15 +143,15 @@ describe TasksController do
     log_in_as :admin
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       get :edit, id: '42'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "assigns the task to @task" do
-      Task.should_receive(:find).with('42').and_return('task')
+      expect(Task).to receive(:find).with('42').and_return('task')
       get :edit, id: '42'
-      assigns(:task).should eq 'task'
+      expect(assigns(:task)).to eq 'task'
     end
   end
 
@@ -161,49 +161,49 @@ describe TasksController do
     log_in_as :admin
 
     before do
-      Task.stub find: task
-      task.stub :update_attributes
+      allow(Task).to receive(:find).and_return(task)
+      allow(task).to receive(:update_attributes)
     end
 
     it "denies access to non-admins" do
-      current_user.stub admin?: false
+      allow(current_user).to receive(:admin?).and_return(false)
       put :update, id: '42'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "looks up the task by id" do
-      Task.should_receive(:find).with('42')
+      expect(Task).to receive(:find).with('42')
       put :update, id: '42'
     end
 
     it "assigns the task to @task" do
       put :update, id: '42'
-      assigns(:task).should eq task
+      expect(assigns(:task)).to eq task
     end
 
     it "attempts to update the task with params[:task]" do
-      task.should_receive(:update_attributes).with('attributes')
+      expect(task).to receive(:update_attributes).with('attributes')
       put :update, id: '42', task: 'attributes'
     end
 
     it "redirects to the task on success" do
-      task.stub update_attributes: true
+      allow(task).to receive(:update_attributes).and_return(true)
       put :update, id: '42'
-      response.should redirect_to(task)
+      expect(response).to redirect_to(task)
     end
 
     it "redisplays the forn on error" do
-      task.stub update_attributes: false
+      allow(task).to receive(:update_attributes).and_return(false)
       put :update, id: '42'
-      response.should render_template(:edit)
+      expect(response).to render_template(:edit)
     end
   end
 
   describe "GET guide" do
     it "renders the guide for the current language" do
-      Language.stub language: 'clojure'
+      allow(Language).to receive(:language).and_return('clojure')
       get :guide
-      response.should render_template 'tasks/guides/clojure'
+      expect(response).to render_template 'tasks/guides/clojure'
     end
   end
 end

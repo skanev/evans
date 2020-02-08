@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   include CustomPaths
   helper  CustomPaths
 
-  before_action :set_time_zone
-
   helper_method :can_edit?, :logged_in?, :admin?
 
   protect_from_forgery
@@ -36,9 +34,5 @@ class ApplicationController < ActionController::Base
 
   def require_admin
     deny_access unless current_user.try(:admin?)
-  end
-
-  def set_time_zone
-    Time.zone = 'Sofia'
   end
 end

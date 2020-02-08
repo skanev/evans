@@ -64,7 +64,7 @@ end
 end
 
 То 'трябва да няма "$code" в кода на документа' do |code|
-  body.should_not include(code)
+  expect(body).not_to include(code)
 end
 
 То 'трябва да съществуват следните теми:' do |table|
@@ -72,11 +72,11 @@ end
 
   table.hashes.each do |row|
     title, replies, last_reply_author = row.values_at 'Тема', 'Отговори', 'Последен отговор от'
-    page.should have_xpath("//tr[//*[. = '#{title}']][//*[. = '#{replies}']][//*[contains(., '#{last_reply_author}')]]")
+    expect(page).to have_xpath("//tr[//*[. = '#{title}']][//*[. = '#{replies}']][//*[contains(., '#{last_reply_author}')]]")
   end
 end
 
 То 'трябва да съм на темата "$title"' do |title|
   topic = Topic.find_by_title! title
-  current_path.should eq topic_path(topic)
+  expect(current_path).to eq topic_path(topic)
 end

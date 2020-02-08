@@ -7,15 +7,15 @@ describe ChallengeSolution do
     another_user = create :user
     solution     = create :challenge_solution, challenge: challenge, user: user
 
-    ChallengeSolution.for(challenge, user).should eq solution
-    ChallengeSolution.for(challenge, another_user).should be_nil
+    expect(ChallengeSolution.for(challenge, user)).to eq solution
+    expect(ChallengeSolution.for(challenge, another_user)).to be_nil
   end
 
   it "can retrieve solutions in chronological order" do
     second = create :challenge_solution, created_at: 1.day.ago
     first  = create :challenge_solution, created_at: 2.days.ago
 
-    ChallengeSolution.in_chronological_order.should eq [first, second]
+    expect(ChallengeSolution.in_chronological_order).to eq [first, second]
   end
 
   describe '#for_challenge_with_users' do
@@ -28,19 +28,19 @@ describe ChallengeSolution do
     subject(:solutions) { ChallengeSolution.for_challenge_with_users(1) }
 
     it "retrieves all solutions by challenge id" do
-      solutions.should match_array [@first_solution, @second_solution]
+      expect(solutions).to match_array [@first_solution, @second_solution]
     end
 
     it "retrieves solutions chronologically" do
-      solutions.should eq [@first_solution, @second_solution]
+      expect(solutions).to eq [@first_solution, @second_solution]
     end
   end
 
   it "classifies a solution as correct only if it has run and all tests pass" do
-    ChallengeSolution.correct?(1, 0).should be true
+    expect(ChallengeSolution.correct?(1, 0)).to be true
 
-    ChallengeSolution.correct?(1, 1).should be false
-    ChallengeSolution.correct?(0, 1).should be false
-    ChallengeSolution.correct?(0, 0).should be false
+    expect(ChallengeSolution.correct?(1, 1)).to be false
+    expect(ChallengeSolution.correct?(0, 1)).to be false
+    expect(ChallengeSolution.correct?(0, 0)).to be false
   end
 end

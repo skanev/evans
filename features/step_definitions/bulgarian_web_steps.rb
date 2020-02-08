@@ -1,9 +1,9 @@
 То 'трябва да виждам "$text"' do |text|
-  page.should have_content(text)
+  expect(page).to have_content(text)
 end
 
 То 'не трябва да виждам "$text"' do |text|
-  page.should_not have_content(text)
+  expect(page).not_to have_content(text)
 end
 
 И 'кво?' do

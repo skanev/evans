@@ -8,7 +8,7 @@ describe ChallengeSubmission do
 
       submission = ChallengeSubmission.for challenge, user
 
-      submission.code.should be_blank
+      expect(submission.code).to be_blank
     end
 
     it "contains the code when the user has already submitted a solution" do
@@ -19,7 +19,7 @@ describe ChallengeSubmission do
 
       submission = ChallengeSubmission.for challenge, user
 
-      submission.code.should eq 'solution code'
+      expect(submission.code).to eq 'solution code'
     end
   end
 
@@ -29,41 +29,41 @@ describe ChallengeSubmission do
     let(:submission) { ChallengeSubmission.for challenge, user }
 
     before do
-      Language.stub parsing?: true
+      allow(Language).to receive(:parsing?).and_return(true)
     end
 
     it "verifies that the challenge is open" do
       challenge  = create :closed_challenge
       submission = ChallengeSubmission.for challenge, user
 
-      submission.update(code: 'code').should be false
-      submission.should have_error_on :base
+      expect(submission.update(code: 'code')).to be false
+      expect(submission).to have_error_on :base
     end
 
     it "verifies that the code submitted is parsable" do
-      Language.stub parsing?: false
+      allow(Language).to receive(:parsing?).and_return(false)
 
-      submission.update(code: 'unparsable code').should be false
-      submission.should have_error_on :code
+      expect(submission.update(code: 'unparsable code')).to be false
+      expect(submission).to have_error_on :code
     end
 
     it "creates a solution if one is not present" do
       expect do
-        submission.update(code: 'ruby code').should be true
+        expect(submission.update(code: 'ruby code')).to be true
       end.to change(ChallengeSolution, :count).by(1)
 
       solution = ChallengeSolution.first
-      solution.user.should eq user
-      solution.challenge.should eq challenge
-      solution.code.should eq 'ruby code'
+      expect(solution.user).to eq user
+      expect(solution.challenge).to eq challenge
+      expect(solution.code).to eq 'ruby code'
     end
 
     it "updates the existing solution if one is present" do
       solution = create :challenge_solution, challenge: challenge, user: user, code: 'old code'
 
-      submission.update(code: 'new code').should be true
+      expect(submission.update(code: 'new code')).to be true
 
-      solution.reload.code.should eq 'new code'
+      expect(solution.reload.code).to eq 'new code'
     end
   end
 end

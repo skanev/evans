@@ -24,7 +24,7 @@ class Registration
     return false unless valid?
 
     sign_up.assign_to email
-    RegistrationMailer.confirmation(sign_up).deliver
+    RegistrationMailer.confirmation(sign_up).deliver_now
     true
   end
 

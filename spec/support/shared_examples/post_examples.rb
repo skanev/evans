@@ -1,9 +1,4 @@
 shared_examples_for 'Post' do
-  it { should belong_to(:user) }
-
-  it { should validate_presence_of(:body) }
-  it { should validate_presence_of(:user_id) }
-
   def post
     raise 'Example groups need to define a method #post that returns the record'
   end
@@ -23,14 +18,14 @@ shared_examples_for 'Post' do
   end
 
   it "can be edited by its owner or by an admin" do
-    post.should be_editable_by post.user
-    post.should be_editable_by create(:admin)
+    expect(post).to be_editable_by post.user
+    expect(post).to be_editable_by create(:admin)
 
-    post.should_not be_editable_by create(:user)
-    post.should_not be_editable_by nil
+    expect(post).to_not be_editable_by create(:user)
+    expect(post).to_not be_editable_by nil
   end
 
   it "can return a title for the containing topic" do
-    post.should respond_to(:topic_title)
+    expect(post).to respond_to(:topic_title)
   end
 end

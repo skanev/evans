@@ -92,8 +92,8 @@ end
 То 'да имам решение на "$name" с код:' do |name, code|
   task = Task.find_by_name!(name)
   solution = Solution.find_by_user_id_and_task_id(@current_user.id, task.id)
-  solution.should be_present
-  solution.code.should eq code
+  expect(solution).to be_present
+  expect(solution.code).to eq code
 end
 
 То 'трябва да виждам следните решения:' do |table|
@@ -105,8 +105,8 @@ end
 end
 
 То 'трябва да видя, че метода е твърде дълъг' do
-  page.should have_content('Намерихме няколко грешки. Погледнете и пробвайте пак:')
-  page.should have_content('Method has too many lines')
+  expect(page).to have_content('Намерихме няколко грешки. Погледнете и пробвайте пак:')
+  expect(page).to have_content('Method has too many lines')
 end
 
 То /^решението на "([^"]*)" трябва да има (\d+) допълнителни точки$/ do |student_name, points|
@@ -114,5 +114,5 @@ end
   solution = Solution.find_by_user_id! user.id
 
   visit solution_path(solution)
-  page.should have_content "#{points} бонус точки"
+  expect(page).to have_content "#{points} бонус точки"
 end

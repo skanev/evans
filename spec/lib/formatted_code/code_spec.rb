@@ -4,7 +4,7 @@ describe FormattedCode::Code do
   include Support::CommentHistoryHelpers
 
   before do
-    FormattedCode::Highlighter.stub :new do |code, language|
+    allow(FormattedCode::Highlighter).to receive(:new) do |code, language|
       double lines: code.split("\n").map { |line| "Formatted #{line}" }
     end
   end
@@ -24,14 +24,14 @@ describe FormattedCode::Code do
     first_line  = lines.first
     second_line = lines.second
 
-    first_line.html.should eq 'Formatted First line'
-    first_line.line_number.should eq 1
-    first_line.comments.should eq ['Comment one', 'Comment two']
-    first_line.should be_commentable
+    expect(first_line.html).to eq 'Formatted First line'
+    expect(first_line.line_number).to eq 1
+    expect(first_line.comments).to eq ['Comment one', 'Comment two']
+    expect(first_line).to be_commentable
 
-    second_line.html.should eq 'Formatted Second line'
-    second_line.line_number.should eq 2
-    second_line.comments.should eq ['Comment three']
-    second_line.should be_commentable
+    expect(second_line.html).to eq 'Formatted Second line'
+    expect(second_line.line_number).to eq 2
+    expect(second_line.comments).to eq ['Comment three']
+    expect(second_line).to be_commentable
   end
 end

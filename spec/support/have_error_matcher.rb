@@ -8,14 +8,14 @@ module ModelMatchers
       record.invalid? and message.present? and matches_message?(message, expected_message)
     end
 
-    failure_message_for_should do |record|
+    failure_message do |record|
       explanation =    "expected to have error on: #{field}"
       explanation += "\n             with message: #{expected_message}"
       explanation += "\n           but had errors: #{record.errors.enum_for(:each).to_a.inspect}"
       explanation
     end
 
-    failure_message_for_should_not do |record|
+    failure_message_when_negated do |record|
       explanation =    "expected to not have error on: #{field}"
       explanation += "\n               but had errors: #{record.errors.enum_for(:each).to_a.inspect}"
       explanation

@@ -1,6 +1,4 @@
-begin
-  require 'rspec-rails'
-
+if defined?(RSpec::Core)
   namespace :spec do
     namespace :languages do
       languages = %w(Python Clojure Go Ruby Rust)
@@ -21,7 +19,7 @@ begin
     desc 'Runs the specs for all languages'
     task languages: 'languages:all'
   end
-rescue LoadError
+else
   desc 'spec rake tasks not available in this environment'
   task :spec do
     abort "The spec tasks are not available in the #{Rails.env} environment."

@@ -9,13 +9,14 @@ describe Feed do
 
     item = last_activity
 
-    item.user_id.should      eq commenter.id
-    item.user_name.should    eq commenter.name
-    item.target_id.should    eq solution.id
-    item.secondary_id.should eq task.id
-    item.subject.should      eq task.name
-    item.kind.should         eq :comment
-    item.happened_at.should  be_within(1.second).of(comment.created_at)
+    expect(item.user_id).to      eq commenter.id
+    expect(item.user_name).to    eq commenter.name
+    expect(item.target_id).to    eq solution.id
+    expect(item.secondary_id).to eq task.id
+    expect(item.subject).to      eq task.name
+    expect(item.kind).to         eq :comment
+
+    expect(item.happened_at.to_s(:db)).to eq comment.created_at.to_s(:db)
   end
 
   it "aggregates submitted solutions" do
@@ -25,13 +26,14 @@ describe Feed do
 
     item = last_activity
 
-    item.user_id.should      eq user.id
-    item.user_name.should    eq user.name
-    item.target_id.should    eq solution.id
-    item.secondary_id.should eq task.id
-    item.subject.should      eq task.name
-    item.kind.should         eq :solution
-    item.happened_at.should  be_within(1.second).of(solution.updated_at)
+    expect(item.user_id).to      eq user.id
+    expect(item.user_name).to    eq user.name
+    expect(item.target_id).to    eq solution.id
+    expect(item.secondary_id).to eq task.id
+    expect(item.subject).to      eq task.name
+    expect(item.kind).to         eq :solution
+
+    expect(item.happened_at.to_s(:db)).to eq solution.updated_at.to_s(:db)
   end
 
   def last_activity

@@ -55,5 +55,5 @@ end
 
 То 'трябва да съм на задачата "$name"' do |name|
   task = Task.find_by_name! name
-  current_path.should eq task_path(task)
+  expect(current_path).to eq task_path(task)
 end

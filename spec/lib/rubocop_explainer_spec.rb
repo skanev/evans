@@ -28,7 +28,7 @@ describe RubocopExplainer do
         Max: 7
     YAML
 
-    RubocopExplainer.new(configuration).descriptions.should match_array [
+    expect(RubocopExplainer.new(configuration).descriptions).to match_array [
       'Най-много 2 реда на метод',
       'Най-много 3 символа на ред',
       'Най-много 4 нива на влагане',
@@ -45,7 +45,7 @@ describe RubocopExplainer do
         Max: 10
     YAML
 
-    RubocopExplainer.new(configuration).descriptions.should eq [
+    expect(RubocopExplainer.new(configuration).descriptions).to eq [
       'Най-много 10 реда на метод'
     ]
   end
@@ -63,7 +63,7 @@ describe RubocopExplainer do
         Max: 7
     YAML
 
-    RubocopExplainer.new(configuration).descriptions.should eq []
+    expect(RubocopExplainer.new(configuration).descriptions).to eq []
   end
 
   it 'uses the explicit descriptions if present' do
@@ -77,7 +77,7 @@ describe RubocopExplainer do
         Description: Методите трябва да са малки
     YAML
 
-    RubocopExplainer.new(configuration).descriptions.should eq [
+    expect(RubocopExplainer.new(configuration).descriptions).to eq [
       'Трябва да се използва `freeze` на всички константи',
       'Методите трябва да са малки'
     ]

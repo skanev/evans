@@ -37,7 +37,7 @@
           %ul
             - if user_signed_in?
               %li Здрасти, #{link_to current_user.name, edit_profile_path}
-              %li= link_to 'Изход', destroy_user_session_path
+              %li= link_to 'Изход', destroy_user_session_path, data: {method: :delete}
             - else
               %li= link_to 'Вход', new_user_session_path
               %li= link_to 'Регистрация', new_registration_path

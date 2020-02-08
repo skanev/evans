@@ -46,10 +46,10 @@ end
   answers     = YAML.load yaml
   poll_answer = PollAnswer.where(poll_id: @poll.id, user_id: current_user.id).first
 
-  poll_answer.answers.should eq answers
+  expect(poll_answer.answers).to eq answers
 end
 
 То 'трябва да съществува анкета "$name"' do |name|
   poll = Poll.find_by_name name
-  poll.should be, "Expected a poll named '#{name}' to exist"
+  expect(poll).to be, "Expected a poll named '#{name}' to exist"
 end

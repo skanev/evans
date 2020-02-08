@@ -6,12 +6,12 @@ describe UsersController do
       students        = double
       sorted_students = double
 
-      User.should_receive(:students).and_return(students)
-      students.should_receive(:sorted).and_return(sorted_students)
-      sorted_students.should_receive(:at_page).with('3').and_return('users')
+      expect(User).to receive(:students).and_return(students)
+      expect(students).to receive(:sorted).and_return(sorted_students)
+      expect(sorted_students).to receive(:at_page).with('3').and_return('users')
 
       get :index, page: '3'
-      assigns(:users).should eq 'users'
+      expect(assigns(:users)).to eq 'users'
     end
   end
 
@@ -19,20 +19,20 @@ describe UsersController do
     let(:user) { double }
 
     before do
-      User.stub find: user
-      Topic.stub where: user
-      Reply.stub where: user
-      user.stub :group_by
+      allow(User).to receive(:find).and_return(user)
+      allow(Topic).to receive(:where).and_return(user)
+      allow(Reply).to receive(:where).and_return(user)
+      allow(user).to receive(:group_by)
     end
 
     it "looks up the user by id" do
-      User.should_receive(:find).with('42').and_return(user)
+      expect(User).to receive(:find).with('42').and_return(user)
       get :show, id: '42'
     end
 
     it "assigns the user to @user" do
       get :show, id: '42'
-      assigns(:user).should eq user
+      expect(assigns(:user)).to eq user
     end
   end
 end

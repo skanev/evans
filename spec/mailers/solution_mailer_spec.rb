@@ -8,11 +8,11 @@ describe SolutionMailer do
     let(:solution) { build_stubbed :solution }
 
     before do
-      comment.stub solution: solution
-      comment.stub task_name: 'Task name'
-      comment.stub_chain :solution, :user, email: 'solution.author@example.org'
-      comment.stub body: 'Comment body'
-      comment.stub user_name: 'Comment author'
+      allow(comment).to receive(:solution).and_return(solution)
+      allow(comment).to receive(:task_name).and_return('Task name')
+      allow(comment).to receive_message_chain :solution, :user, email: 'solution.author@example.org'
+      allow(comment).to receive(:body).and_return('Comment body')
+      allow(comment).to receive(:user_name).and_return('Comment author')
     end
 
     it { should have_subject 'Нов коментар на Task name' }

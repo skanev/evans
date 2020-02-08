@@ -5,17 +5,17 @@ describe Submission do
   let(:task) { create :open_task }
 
   before do
-    Language.stub parsing?: true
-    Language.stub can_lint?: false
+    allow(Language).to receive(:parsing?).and_return(true)
+    allow(Language).to receive(:can_lint?).and_return(false)
   end
 
   it "creates a new solution and revision for the given user and task" do
     submit user, task, 'code'
 
     solution = Solution.where(user_id: user.id, task_id: task.id).first
-    solution.should be_present
-    solution.should have(1).revisions
-    solution.revisions.first.code.should eq 'code'
+    expect(solution).to be_present
+    expect(solution).to have(1).revisions
+    expect(solution.revisions.first.code).to eq 'code'
   end
 
   it "updates the current solution and creates a new revision if already submitted" do
@@ -24,36 +24,36 @@ describe Submission do
     submit user, task, 'new code'
 
     solution.reload
-    solution.code.should eq 'new code'
-    solution.should have(2).revisions
-    solution.revisions.last.code.should eq 'new code'
+    expect(solution.code).to eq 'new code'
+    expect(solution).to have(2).revisions
+    expect(solution.revisions.last.code).to eq 'new code'
   end
 
   it "indicates if the submission is successful" do
     submission = Submission.new(user, task, 'new code')
-    submission.submit.should be true
+    expect(submission.submit).to be true
   end
 
   it "indicates if the submission is unsuccessful due to closed task" do
     task = create :closed_task
 
     submission = Submission.new(user, task, 'code')
-    submission.submit.should be false
-    submission.should have_error_on :base
+    expect(submission.submit).to be false
+    expect(submission).to have_error_on :base
   end
 
   it "indicates if the submission is unsuccessful due to no code" do
     submission = Submission.new(user, task, '')
-    submission.submit.should be false
-    submission.should have_error_on :code
+    expect(submission.submit).to be false
+    expect(submission).to have_error_on :code
   end
 
   it "indicates if the submission is unsuccessful due to invalid code" do
-    Language.stub parsing?: false
+    allow(Language).to receive(:parsing?).and_return(false)
 
     submission = Submission.new(user, task, 'unparsable code')
-    submission.submit.should be false
-    submission.should have_error_on :code
+    expect(submission.submit).to be false
+    expect(submission).to have_error_on :code
   end
 
   it "does not update the solution after the task is closed" do
@@ -63,7 +63,7 @@ describe Submission do
     submit user, task, 'new code'
 
     solution.reload
-    solution.code.should eq 'old code'
+    expect(solution.code).to eq 'old code'
   end
 
   it "does not create a new revision if the user submits the same code" do
@@ -78,9 +78,9 @@ describe Submission do
     before do
       rubocop_config = Rails.root.join('spec/fixtures/files/rubocop-config.yml')
 
-      Rails.application.config.stub rubocop_config_location: rubocop_config
+      allow(Rails.application.config).to receive(:rubocop_config_location).and_return(rubocop_config)
 
-      Language.stub can_lint?: true
+      allow(Language).to receive(:can_lint?).and_return(true)
     end
 
     it 'lints using the default configuration' do
@@ -88,10 +88,10 @@ describe Submission do
       task       = create :open_task
       submission = Submission.new user, task, code
 
-      submission.submit.should be false
-      submission.should have_error_on :code
-      submission.should be_violating_restrictions
-      submission.violations.should include('Do not use semicolons')
+      expect(submission.submit).to be false
+      expect(submission).to have_error_on :code
+      expect(submission).to be_violating_restrictions
+      expect(submission.violations).to include('Do not use semicolons')
     end
 
     it 'lints with default and custom configuration when present' do
@@ -102,22 +102,22 @@ describe Submission do
       YAML
       submission = Submission.new user, task, code
 
-      submission.submit.should be false
-      submission.should have_error_on :code
-      submission.should be_violating_restrictions
-      submission.violations.should include('Do not use semicolons')
-      submission.violations.should include('Do not leave space between `!` and its argument')
+      expect(submission.submit).to be false
+      expect(submission).to have_error_on :code
+      expect(submission).to be_violating_restrictions
+      expect(submission.violations).to include('Do not use semicolons')
+      expect(submission.violations).to include('Do not leave space between `!` and its argument')
     end
   end
 
   describe "(skeptic)" do
     before do
-      Language.stub can_lint?: true
+      allow(Language).to receive(:can_lint?).and_return(true)
     end
 
     it "doesn't invoke the linter on code with syntax errors" do
-      Language.stub parsing?: false
-      Language.should_not_receive(:lint)
+      allow(Language).to receive(:parsing?).and_return(false)
+      expect(Language).not_to receive(:lint)
       submit user, task, 'code'
     end
   end

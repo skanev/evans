@@ -46,7 +46,7 @@ END
       Dir.chdir(dir) do
         results = Language::Rust.run_tests(@test_case_code, solution)
 
-        results.log.should include("test solution_test::test_failing ... FAILED")
+        expect(results.log).to include("test solution_test::test_failing ... FAILED")
       end
     end
   end
@@ -57,19 +57,19 @@ END
     end
 
     it "calculates the number of passed tests" do
-      @results.passed_count.should eq 3
+      expect(@results.passed_count).to eq 3
     end
 
     it "calculates the number of failed tests" do
-      @results.failed_count.should eq 2
+      expect(@results.failed_count).to eq 2
     end
 
     it "collects the execution log" do
-      @results.log.should include("test solution_test::test_code ... ok")
-      @results.log.should include("test solution_test::test_code_2 ... ok")
-      @results.log.should include("test solution_test::test_expected_failing ... ok")
-      @results.log.should include("test solution_test::test_failing ... FAILED")
-      @results.log.should include("test solution_test::test_2_failing ... FAILED")
+      expect(@results.log).to include("test solution_test::test_code ... ok")
+      expect(@results.log).to include("test solution_test::test_code_2 ... ok")
+      expect(@results.log).to include("test solution_test::test_expected_failing ... ok")
+      expect(@results.log).to include("test solution_test::test_failing ... FAILED")
+      expect(@results.log).to include("test solution_test::test_2_failing ... FAILED")
     end
   end
 end

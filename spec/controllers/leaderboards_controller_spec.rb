@@ -3,9 +3,9 @@ require 'spec_helper'
 describe LeaderboardsController do
   describe "GET show" do
     it "assigns all points breakdowns" do
-      PointsBreakdown.stub all: 'breakdowns'
+      allow(PointsBreakdown).to receive(:all).and_return('breakdowns')
       get :show
-      assigns(:points_breakdowns).should eq 'breakdowns'
+      expect(assigns(:points_breakdowns)).to eq 'breakdowns'
     end
   end
 end

@@ -6,36 +6,36 @@ describe Markup do
   end
 
   it "makes *this_string* emphasized" do
-    format('*this_string*').should include('<p><em>this_string</em></p>')
+    expect(format('*this_string*')).to include('<p><em>this_string</em></p>')
   end
 
   it "converts `backticked strings` to code blocks" do
-    format('`foo()`').should include('<code>foo()</code>')
+    expect(format('`foo()`')).to include('<code>foo()</code>')
   end
 
   it "removes adds nofollow to hyperlinks" do
     input = '<a href="#" onclick="maliciousCode()">link</a>'
     output = '<a href="#">link</a>'
 
-    format(input).should include(output)
+    expect(format(input)).to include(output)
   end
 
   it "removes script tags" do
     input = '<script type="text/javascript">maliciousCode()</script>'
 
-    format(input).should_not include('<script')
+    expect(format(input)).not_to include('<script')
   end
 
   it "generates an html safe string" do
-    Markup.format('').should be_html_safe
+    expect(Markup.format('')).to be_html_safe
   end
 
   it "preserves embedded LaTeX" do
-    Markup.format("$$ _foo_ \n _bar_ $$").should eq "<p>$$ _foo_ \n _bar_ $$</p>\n"
+    expect(Markup.format("$$ _foo_ \n _bar_ $$")).to eq "<p>$$ _foo_ \n _bar_ $$</p>\n"
   end
 
   it "allows setting class on <pre>" do
-    format('<pre class="baba"></pre>').should include('<pre class="baba"></pre>')
+    expect(format('<pre class="baba"></pre>')).to include('<pre class="baba"></pre>')
   end
 
   describe "(emoji)" do
@@ -44,20 +44,20 @@ describe Markup do
     end
 
     it "converts emoji emoticons" do
-      format(':hammer:').should include image_tag(:hammer)
+      expect(format(':hammer:')).to include image_tag(:hammer)
     end
 
     it "does not convert emoji within <code> blocks" do
-      format('<code>:hammer:</code>').should_not include image_tag(:hammer)
+      expect(format('<code>:hammer:</code>')).not_to include image_tag(:hammer)
     end
 
     it "converts emoji betweeen two code tags" do
-      format('<code>:smile:</code>:hammer:<code>:smile:</code>').should include image_tag(:hammer)
-      format('<code>:smile:</code>:hammer:<code>:smile:</code>').should_not include image_tag(:smile)
+      expect(format('<code>:smile:</code>:hammer:<code>:smile:</code>')).to include image_tag(:hammer)
+      expect(format('<code>:smile:</code>:hammer:<code>:smile:</code>')).to_not include image_tag(:smile)
     end
 
     it "does not convert emoji in multiline code blocs" do
-      format(<<-END).should_not include image_tag(:hammer)
+      expect(format(<<-END)).not_to include image_tag(:hammer)
         ```
           :hammer:
         ```

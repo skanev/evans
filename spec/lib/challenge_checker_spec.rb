@@ -6,14 +6,14 @@ describe ChallengeChecker do
     solution     = create :challenge_solution, challenge: challenge, code: 'solution code'
     test_results = double passed_count: 2, failed_count: 1, log: 'log'
 
-    Language.should_receive(:run_tests).with('test case', 'solution code').and_return(test_results)
-    ChallengeSolution.should_receive(:correct?).with(2, 1).and_return(true)
+    expect(Language).to receive(:run_tests).with('test case', 'solution code').and_return(test_results)
+    expect(ChallengeSolution).to receive(:correct?).with(2, 1).and_return(true)
     ChallengeChecker.new(challenge).run
 
     solution.reload
-    solution.passed_tests.should eq 2
-    solution.failed_tests.should eq 1
-    solution.correct.should be true
-    solution.log.should eq 'log'
+    expect(solution.passed_tests).to eq 2
+    expect(solution.failed_tests).to eq 1
+    expect(solution.correct).to be true
+    expect(solution.log).to eq 'log'
   end
 end

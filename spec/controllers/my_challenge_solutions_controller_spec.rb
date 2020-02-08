@@ -8,34 +8,34 @@ describe MyChallengeSolutionsController do
     let(:submission) { double 'submission' }
 
     before do
-      Challenge.stub find: challenge
-      ChallengeSubmission.stub for: submission
+      allow(Challenge).to receive(:find).and_return(challenge)
+      allow(ChallengeSubmission).to receive(:for).and_return(submission)
     end
 
     it "denies access when user is not logged in" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       get :show, challenge_id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "looks up the challenge by id" do
-      Challenge.should_receive(:find).with('42')
+      expect(Challenge).to receive(:find).with('42')
       get :show, challenge_id: '42'
     end
 
     it "looks up the submission by challenge and user" do
-      ChallengeSubmission.should_receive(:for).with(challenge, current_user)
+      expect(ChallengeSubmission).to receive(:for).with(challenge, current_user)
       get :show, challenge_id: '42'
     end
 
     it "assigns the submission" do
       get :show, challenge_id: '42'
-      assigns(:submission).should eq submission
+      expect(assigns(:submission)).to eq submission
     end
 
     it "assigns the challenge" do
       get :show, challenge_id: '1'
-      assigns(:challenge).should eq challenge
+      expect(assigns(:challenge)).to eq challenge
     end
   end
 
@@ -46,52 +46,52 @@ describe MyChallengeSolutionsController do
     let(:submission) { double 'submission' }
 
     before do
-      Challenge.stub find: challenge
-      ChallengeSubmission.stub for: submission
-      submission.stub :update
+      allow(Challenge).to receive(:find).and_return(challenge)
+      allow(ChallengeSubmission).to receive(:for).and_return(submission)
+      allow(submission).to receive(:update)
     end
 
     it "denies access when user is not logged in" do
-      controller.stub current_user: nil
+      allow(controller).to receive(:current_user).and_return(nil)
       put :update, challenge_id: '1'
-      response.should deny_access
+      expect(response).to deny_access
     end
 
     it "looks up the challenge by id" do
-      Challenge.should_receive(:find).with('42')
+      expect(Challenge).to receive(:find).with('42')
       put :update, challenge_id: '42'
     end
 
     it "looks up the submission by challenge and user" do
-      ChallengeSubmission.should_receive(:for).with(challenge, current_user)
+      expect(ChallengeSubmission).to receive(:for).with(challenge, current_user)
       put :update, challenge_id: '42'
     end
 
     it "assigns the submission" do
       put :update, challenge_id: '42'
-      assigns(:submission).should eq submission
+      expect(assigns(:submission)).to eq submission
     end
 
     it "assigns the challenge" do
       put :update, challenge_id: '1'
-      assigns(:challenge).should eq challenge
+      expect(assigns(:challenge)).to eq challenge
     end
 
     it "attempts to save the submission" do
-      submission.should_receive(:update).with('submission attributes')
+      expect(submission).to receive(:update).with('submission attributes')
       put :update, challenge_id: '1', submission: 'submission attributes'
     end
 
     it "redirects to the challenge if the submission is successful" do
-      submission.stub update: true
+      allow(submission).to receive(:update).and_return(true)
       put :update, challenge_id: '1'
-      controller.should redirect_to challenge
+      expect(controller).to redirect_to challenge
     end
 
     it "rerenders the form if the submission fails" do
-      submission.stub update: false
+      allow(submission).to receive(:update).and_return(false)
       put :update, challenge_id: '1'
-      controller.should render_template :show
+      expect(controller).to render_template :show
     end
   end
 end

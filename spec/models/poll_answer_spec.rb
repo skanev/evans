@@ -6,11 +6,11 @@ describe PollAnswer do
     poll_answer = create :poll_answer
 
     poll_answer.answers = answers
-    poll_answer.answers_yaml.should eq answers.to_yaml
+    expect(poll_answer.answers_yaml).to eq answers.to_yaml
     poll_answer.save!
 
     poll_answer.reload
-    poll_answer.answers.should eq answers
-    poll_answer.answers_yaml.should eq answers.to_yaml
+    expect(poll_answer.answers).to eq answers
+    expect(poll_answer.answers_yaml).to eq answers.to_yaml
   end
 end

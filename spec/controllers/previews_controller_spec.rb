@@ -5,9 +5,9 @@ describe PreviewsController do
     it "renders a preview of the markup" do
       post :create, body: 'some markup'
 
-      assigns(:body).should eq 'some markup'
-      response.should render_template(:create)
-      response.should render_template(layout: false)
+      expect(assigns(:body)).to eq 'some markup'
+      expect(response).to render_template(:create)
+      expect(response).to render_template(layout: false)
     end
   end
 end

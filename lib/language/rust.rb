@@ -70,7 +70,7 @@ module Language::Rust
       TestResults.new({
         log:    results,
         passed: results.split("\n").grep(/^test solution_test::test_[a-z0-9_]+ ... ok$/),
-        failed: results.split("\n").grep(/^test solution_test::test_[a-z0-9_]+ ... FAILED$/),
+        failed: results.split("\n").grep(/^test solution_test::test_[a-z0-9_]+ ... [^o][^k]/),
       })
     end
   end

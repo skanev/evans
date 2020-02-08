@@ -12,5 +12,5 @@ end
 То 'трябва да съществува хитринка "$name"' do |name|
   visit tips_path
 
-  page.should have_content "#{name}"
+  expect(page).to have_content "#{name}"
 end
