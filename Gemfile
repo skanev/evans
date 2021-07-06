@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.11'
+gem 'rails', '4.2.11.3'
 gem 'rake', '< 11.0'
 
-gem 'pg'
+gem 'pg', '~> 0.15'
 gem 'devise'
 gem 'devise-encryptable'
 gem 'simple_form'
@@ -34,6 +34,10 @@ gem 'sidekiq', '< 3'
 gem 'slim'
 gem 'sinatra', require: false
 
+# Backwards-compatibility for Ruby 2.5 and old Rails 4.x
+# See https://stackoverflow.com/a/60491254/75715
+gem 'bigdecimal', '1.3.5'
+
 group :production do
   gem 'exception_notification'
 end
@@ -43,7 +47,6 @@ group :assets do
   gem 'sass', '~> 3.2.0'
   gem 'coffee-rails'
   gem 'uglifier'
-  gem 'therubyracer'
 end
 
 group :development, :test do
