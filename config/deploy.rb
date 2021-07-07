@@ -17,6 +17,10 @@ namespace :deploy do
     run "touch #{current_path}/tmp/restart.txt"
   end
 
+  task :check_environment do
+    run "env; which ruby; ruby -v; rbenv version"
+  end
+
   task :symlink_shared, :roles => :app do
     run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/site.yml     #{release_path}/config/site.yml"
@@ -36,6 +40,7 @@ namespace :deploy do
   end
 end
 
+before 'deploy:update_code', 'deploy:check_environment'
 after 'deploy:setup',       'deploy:setup_shared'
 after 'deploy:update_code', 'deploy:symlink_shared'
 after 'deploy:update_code', 'deploy:assets:precompile'
