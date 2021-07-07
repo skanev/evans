@@ -1,4 +1,4 @@
-set :deploy_to, '/data/rails/pyfmi-2015'
+set :deploy_to, '/data/rails/pyfmi-2016'
 set :database_name, 'pyfmi_2015'
 
 role :web,     '2016.fmi.py-bg.net'
