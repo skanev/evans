@@ -22,7 +22,7 @@ gem 'spork-rails'
 
 gem 'rails_autolink', '>= 1.1.5'
 gem 'rdiscount'
-gem 'sanitize', '~> 2.0'
+gem 'sanitize', '~> 5.2'
 gem 'rouge'
 gem 'diff-lcs'
 
