@@ -93,9 +93,13 @@ describe PointsBreakdown do
   end
 
   it "assigns points for all correct challenges" do
-    challenge = create :challenge, checked: true
-    create :challenge_solution, challenge: challenge, user: user, correct: true
-    expect(breakdown.challenges).to eq 1
+    first_challenge = create :challenge, checked: true
+    create :challenge_solution, challenge: first_challenge, user: user, correct: true
+
+    second_challenge = create :challenge, checked: true, points: 5
+    create :challenge_solution, challenge: second_challenge, user: user, correct: true
+
+    expect(breakdown.challenges).to eq 6
   end
 
   it "does not assign points to incorrect challenge solutions" do
