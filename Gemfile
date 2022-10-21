@@ -30,7 +30,7 @@ gem 'jquery-rails'
 gem 'underscore-rails'
 
 # Sidekiq and its dependencies
-gem 'sidekiq', '< 3'
+gem 'sidekiq', '< 6'
 gem 'slim'
 gem 'sinatra', require: false
 
