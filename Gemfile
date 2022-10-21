@@ -38,10 +38,6 @@ gem 'sinatra', require: false
 # See https://stackoverflow.com/a/60491254/75715
 gem 'bigdecimal', '1.3.5'
 
-group :production do
-  gem 'exception_notification'
-end
-
 group :assets do
   gem 'sass-rails', '~> 4.0'
   gem 'sass', '~> 3.2.0'
