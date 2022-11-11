@@ -13,6 +13,7 @@
         за повече информация.
   - else
     = link_to 'Пусни тестовете', task_check_path(@task), method: :create, class: :action
+  = link_to 'Свали като архив', task_download_path(@task), method: :post, class: :action
 
 %p
   %strong= @solutions.count
