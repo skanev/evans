@@ -3,7 +3,7 @@ require 'capistrano/ext/multistage'
 
 set :application,   'Trane Revisited'
 set :scm,           :git
-set :repository,    'git://github.com/skanev/evans.git'
+set :repository,    'https://github.com/joankaradimov/evans.git'
 set :branch,        'master'
 set :user,          'pyfmi'
 set :user_and_host, 'pyfmi@deedee.hno3.org'
