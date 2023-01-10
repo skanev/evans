@@ -21,6 +21,7 @@ Trane::Application.routes.draw do
     end
     resource :my_solution, only: %w(show update)
     resource :check, controller: :task_checks, only: :create
+    resource :download, controller: :task_download, only: :create
   end
 
   resources :challenges, except: :destroy do
