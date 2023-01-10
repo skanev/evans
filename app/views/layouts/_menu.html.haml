@@ -29,4 +29,4 @@
     %li= link_to 'Точки', points_breakdowns_path
 
   - if mobile and user_signed_in?
-    %li= link_to 'Изход', destroy_user_session_path
+    %li= link_to 'Изход', destroy_user_session_path, data: {method: :delete}
